@@ -1,18 +1,19 @@
+/*****/
 $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
   e.preventDefault();
 
-  var ruta = $('#form-buscar-alumno #dni').val();
-  var dni_alumno = "";
+  var ruta = $('#form-buscar-alumno #nro_documento').val();
+  var documento_alumno = "";
   var nombres_alumno = "";
   var apellidos_alumno = "";
 
   $.get(ruta, function (response, state) {
-    dni_alumno = response[0].dni;
+    documento_alumno = response[0].nro_documento;
     nombres_alumno = response[0].nombres;
     apellidos_alumno = response[0].apellidos;
 
     $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-    $('#form-matricular #dni').val(dni_alumno);
+    $('#form-matricular #nro_documento').val(documento_alumno);
 
     $('.js-toggle').slideDown('fast');
   });
@@ -38,11 +39,13 @@ $('#form-matricular #id_institucion').change(function (event) {
 
 $('#form-matricular #btn-matricular').click(function (e) {
   e.preventDefault();
-  $(this).append(' <img src="img/ajax-loader.gif" alt="Cargando..." />')
+  $(this).html('Cargando...');
 
-  var ruta = '../alumnos/' + $('#form-matricular #dni').val();
+  var ruta = '../alumnos/' + $('#form-matricular #nro_documento').val();
   var $token = $('#form-matricular #token').val();
-  var $id_detalle_institucion = $('#form-matricular #id_detalle_institucion').val();
+  var $detalle_institucion = $('#form-matricular #id_detalle_institucion').val();
+  var $grado = $('#form-matricular #id_grado').val();
+  var $matricula = $('#form-matricular #id_tipo_matricula').val();
 
   $.ajax({
     url: ruta,
@@ -50,28 +53,57 @@ $('#form-matricular #btn-matricular').click(function (e) {
     type : 'PUT',
     dataType : 'json',
     data : {
-      estado : '1',
-      id_detalle_institucion : $id_detalle_institucion
+      id_detalle_institucion : $detalle_institucion,
+      id_grado : $grado,
+      id_matricula : $matricula,
+    },
+    success : function (data) {
+      swal({
+          title: "Éxito",
+          text: "Alumno matriculado. Además fueron agregados sus pagos.",
+          type: "success",
+          closeOnConfirm: false
+      }, function(){
+          document.location.reload();
+      });
+    },
+    fail : function (data) {
+      swal({
+          title: "ERROR",
+          text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
+          type: "error",
+          closeOnConfirm: false
+      }, function(){
+          document.location.reload();
+      });
     }
   })
-  .done(function (data) {
-    swal({
-        title: "Éxito",
-        text: "Alumno matriculado. Además fueron agregados sus pagos.",
-        type: "success",
-        closeOnConfirm: false
-    }, function(){
-        document.location.reload();
-    });
-  })
-  .fail(function (data) {
-    swal({
-        title: "ERROR",
-        text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
-        type: "error",
-        closeOnConfirm: false
-    }, function(){
-        document.location.reload();
-    });
+});
+
+$('#form-matricular #id_detalle_institucion').change(function (event) {
+  var $detalle_grado = $('#form-matricular #id_grado');
+  $detalle_grado.empty();
+
+  var route = 'grados/' + $(this).val() + "";
+
+  $.get(route, function (response, state) {
+    for (var i = 0; i < response.length; i++) {
+        var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre_grado + "</option>"
+        $detalle_grado.append(opcion);
+    };
+    $detalle_grado.selectpicker('refresh');
+  });
+
+  var $matricula = $('#form-matricular #id_tipo_matricula');
+  $matricula.empty();
+
+  var route = 'matriculas/' + $(this).val() + "";
+
+  $.get(route, function (response, state) {
+    for (var i = 0; i < response.length; i++) {
+        var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre + "</option>"
+        $matricula.append(opcion);
+    };
+    $matricula.selectpicker('refresh');
   });
 });

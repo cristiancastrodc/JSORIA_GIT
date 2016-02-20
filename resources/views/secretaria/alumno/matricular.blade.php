@@ -66,12 +66,15 @@
               </div>
             </div>
             <div class="form-group">
+              <div class="col-sm-9 col-sm-offset-3">
+                <select class="selectpicker" name="id_grado" id="id_grado" title='Elegir...'>
+                </select>
+              </div>
+            </div>            
+            <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Tipo Matricula</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="id_tipo_matricula" id="id_tipo_matricula" title='Elegir...'>
-                  <option >Normal</option>
-                  <option >Becado</option>
-                  <option >Convenio</option>
+                <select class="selectpicker" name="id_tipo_matricula" id="id_tipo_matricula" title='Elegir...'>                  
                 </select>
               </div>
             </div>            
