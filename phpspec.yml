@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: JSoria
+        psr4_prefix: JSoria
+        src_path: app
