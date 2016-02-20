@@ -94,4 +94,20 @@ class InstitucionDetalleController extends Controller
             return response()->json($divisiones);
         }
     }
+
+    public function gradosDetalle(Request $request, $id_detalle_institucion)
+    {
+        if ($request->ajax()) {
+            $grados = InstitucionDetalle::grados_detalle($id_detalle_institucion);
+            return response()->json($grados);
+        }
+    }
+    public function matriculas(Request $request, $id_detalle_institucion)
+    {
+        if ($request->ajax()) {
+            $matricula = InstitucionDetalle::matricula($id_detalle_institucion);
+            return response()->json($matricula);
+        }
+    }
+
 }

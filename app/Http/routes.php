@@ -52,6 +52,8 @@ Route::get('secretaria/alumno/deudas/cancelar','AlumnosController@cancelarDeudaA
 Route::get('secretaria/alumno/deudas/amortizacion','AlumnosController@amortizacion');
 Route::resource('secretaria/ciclo/cerrar','CicloController');
 Route::get('secretaria/alumno/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
+Route::get('secretaria/alumno/grados/{id_detalle_institucion}', 'InstitucionDetalleController@gradosDetalle');
+Route::get('secretaria/alumno/matriculas/{id_detalle_institucion}', 'InstitucionDetalleController@matriculas');
 
 /**/
 Route::get('secretaria/reporte', 'PdfController@invoice');

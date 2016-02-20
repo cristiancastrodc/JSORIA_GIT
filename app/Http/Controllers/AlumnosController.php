@@ -5,6 +5,7 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
+use JSoria\Http\Requests\AlumnoCreateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Alumno;
@@ -42,7 +43,7 @@ class AlumnosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AlumnoCreateRequest $request)
     {
         $nro_documento = $request['nro_documento'];
         $tipo_documento = $request['tipo_documento'];
@@ -51,7 +52,7 @@ class AlumnosController extends Controller
             'tipo_documento' =>$tipo_documento,
             'nro_documento' => $nro_documento,
             'nombres' => $request['nombres'],
-            'apellidos' => $request['apellidos']
+            'apellidos' => $request['apellidos'],
             ]);
 
         Session::flash('message', 'Alumno creado exitosamente. Ahora, si desea puede crear su cuenta.');
@@ -84,19 +85,28 @@ class AlumnosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $dni)
+    public function update(Request $request, $nro_documento)
     {
         if ($request->ajax()) {
-            $alumno = Alumno::find($dni);
+            $alumno = Alumno::find($nro_documento);
 
+            $id_grado = $request['id_grado'];
+            $id_matricula = $request['id_matricula'];
             $id_detalle_institucion = $request['id_detalle_institucion'];
 
-            $alumno->estado = $request['estado'];
-            $alumno->id_detalle_institucion = $id_detalle_institucion;
+            $alumno->estado = '1';
+            $alumno->id_grado = $id_grado;
 
             $alumno->save();
 
             /*** Agregar las deudas del alumno ***/
+            $matricula = Categoria::find($id_matricula);
+            Deuda_Ingreso::create([
+                'saldo' => $matricula->monto,
+                'id_categoria' => $matricula->id,
+                'id_alumno' => $nro_documento,
+            ]);
+            /*
             $matriculas = Categoria::where('tipo', '=', 'matricula')
                                    ->where('estado', '=', 1)
                                    ->where('id_detalle_institucion', '=', $id_detalle_institucion)
@@ -106,9 +116,10 @@ class AlumnosController extends Controller
                 Deuda_Ingreso::create([
                     'saldo' => $matricula->monto,
                     'id_categoria' => $matricula->id,
-                    'id_alumno' => $dni,
+                    'id_alumno' => $nro_documento,
                 ]);
             }
+            */
 
             $hoy = date('Y-m-d');
             $pensiones = Categoria::where('tipo', '=', 'pension')
@@ -121,7 +132,7 @@ class AlumnosController extends Controller
                 Deuda_Ingreso::create([
                     'saldo' => $pension->monto,
                     'id_categoria' => $pension->id,
-                    'id_alumno' => $dni,
+                    'id_alumno' => $nro_documento,
                 ]);
             }
 
@@ -186,6 +197,7 @@ class AlumnosController extends Controller
 
     public function datosAlumno(Request $request, $dni)
     {
+        //return response()->json(['mensaje' => 'ok']);
         if ($request->ajax()) {
             $alumno = Alumno::datos_alumno($dni);
             return response()->json($alumno);
