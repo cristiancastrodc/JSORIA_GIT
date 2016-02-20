@@ -1,0 +1,40 @@
+.inline-form {
+  display: inline;
+}
+body.login-content::before {
+  background: url(../img/logo-soria-mini.png) right top no-repeat,
+              url(../img/ulp-logo-mini.png) left top no-repeat,
+              url(../img/front.jpg) center 60% / cover no-repeat;
+}
+.profile-menu > a {
+  background: url(../img/ulp-logo-mini.png) center center / contain no-repeat;
+  position: relative;
+}
+.profile-menu > a .profile-info {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.main-menu > li > a,
+.sub-menu > a::before, .sub-menu > a::after,
+.sub-menu ul > li > a {
+  color: #FFF;
+}
+.bgm-blue-soria {
+  background: rgb(9, 27, 67);
+}
+form p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
+  padding-top: 0 !important;
+  margin-top: 10px;
+}
+.js-toggle {
+  display: none;
+}
+.sub-menu ul > li > a.active, .sub-menu ul > li > a:hover {
+  background-color: #FFF;
+}
