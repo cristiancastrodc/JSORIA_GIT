@@ -133,7 +133,7 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
     if (response['mensaje']) {
       swal({
             title: "Error",
-            text: "Sucedió algo inesperado. El Alumno NO esta matricula.",
+            text: "El Alumno NO esta matricula.",
             type: "warning"
         }, function () {
           document.location.reload();
