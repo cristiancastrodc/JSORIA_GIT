@@ -234,7 +234,8 @@ $('#btn-crear-matricula').click(function (e) {
 
   if (nroFilas > 1) {
 
-    $(this).html('Cargando...');
+    $boton = $(this);
+    $boton.html('Cargando...');
 
     var $nombre = $('#nombre').val();
     var $fecha_inicio = $('#fecha_inicio').val();
@@ -245,58 +246,76 @@ $('#btn-crear-matricula').click(function (e) {
 
     var XHRs = [];
     var errors = [];
-    var resultado = "true";
+    var resultado = true;
+    var errors = false;
 
-    $('#tabla-crear-matricula tr').each(function (index, el) {
-      var $id_detalle_institucion = $(this).find('.id-division').html();
-      var $monto = $(this).find('.monto-matricula').val();
-
-      if (index != 0) {
-        XHRs.push($.ajax({
-          url : ruta,
-          headers : {'X-CSRF-TOKEN': $token},
-          type : 'POST',
-          dataType : 'json',
-          data : {
-            nombre : $nombre,
-            monto : $monto,
-            tipo : 'matricula',
-            estado : '1',
-            fecha_inicio : $fecha_inicio,
-            fecha_fin : $fecha_fin,
-            destino : '0',
-            id_detalle_institucion : $id_detalle_institucion
-          },
-          fail : function () {
-            resultado = "false";
-          },
-          error : function (msg) {
-            resultado = "error";
-          }
-        }));
+    $('#tabla-crear-matricula .monto-matricula').each(function (index, el) {
+      if ($(this).val() == "") {
+        errors = true;
       };
     });
 
-    $.when.apply(null, XHRs).then(function () {
-      if (resultado == "true") {
-        swal({
-            title: "Éxito!",
-            text: "Se crearon los conceptos de matrícula correctamente.",
-            type: "success"
-        }, function () {
-          document.location.reload();
-        });
-      } else if () {
-        swal({
-            title: "Error",
-            text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
-            type: "warning"
-        }, function () {
-          document.location.reload();
-        });
-      }
-    });
+    if (!errors && $nombre != "" && $fecha_inicio != "" && $fecha_fin != "") {
+      $('#tabla-crear-matricula tr').each(function (index, el) {
+        var $id_detalle_institucion = $(this).find('.id-division').html();
+        var $monto = $(this).find('.monto-matricula').val();
 
+        if (index != 0) {
+          XHRs.push($.ajax({
+            url : ruta,
+            headers : {'X-CSRF-TOKEN': $token},
+            type : 'POST',
+            dataType : 'json',
+            data : {
+              nombre : $nombre,
+              monto : $monto,
+              tipo : 'matricula',
+              estado : '1',
+              fecha_inicio : $fecha_inicio,
+              fecha_fin : $fecha_fin,
+              destino : '0',
+              id_detalle_institucion : $id_detalle_institucion
+            },
+            fail : function () {
+              resultado = false;
+            },
+            error : function (msg) {
+              errors++;
+              $boton.html('Guardar');
+            }
+          }));
+        };
+      });
+
+      $.when.apply(null, XHRs).then(function () {
+        if (resultado) {
+          swal({
+              title: "Éxito!",
+              text: "Se crearon los conceptos de matrícula correctamente.",
+              type: "success"
+          }, function () {
+            document.location.reload();
+          });
+        } else {
+          swal({
+              title: "Error",
+              text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+              type: "warning"
+          }, function () {
+            document.location.reload();
+          });
+        }
+      }, function (data, textStatus, jqXHR) {
+        console.log(textStatus);
+      });
+    } else{
+      swal({
+        title: "¡Atención!",
+        text: "Falta alguno de los siguientes datos: Concepto, Fecha Inicio, Fecha Fin o algún monto.",
+        type: "warning"
+      });
+      $boton.html('Guardar');
+    };
   } else {
     swal({
         title: "¡Atención!",
@@ -392,6 +411,16 @@ $('#modal-editar-matricula #modal-guardar').click(function () {
       }, function(){
           console.log('fail');
       });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
     }
   });
 });
@@ -421,7 +450,7 @@ function reloadTablaMatriculas (modal_matricula) {
       }
     });
 
-    modal_matricula.modal('hide');
+    if (typeof modal_matricula !== "undefined") { modal_matricula.modal('hide'); }
   } else {
     document.location.reload;
   }
@@ -434,53 +463,65 @@ $('#btn-deshabilitar-matriculas').click(function (e) {
 
   var $filasTabla = $('#tabla-lista-matriculas tr');
 
-  $(this).html('Cargando...');
+  var $boton = $(this);
+  $boton.html('Cargando...');
 
-  $filasTabla.each(function (index, el) {
-    var $seleccionado = $(this).find('[type=checkbox]').is(':checked');
+  nro_seleccionados = $('#tabla-lista-matriculas [type=checkbox]:checked').length;
 
-    if (index != 0 && $seleccionado) {
-      var $id = $(this).find('.matricula-id').html();
-      var $token = $('#token-deshabilitar').val();
+  if (nro_seleccionados > 0) {
+    $filasTabla.each(function (index, el) {
+      var $seleccionado = $(this).find('[type=checkbox]').is(':checked');
 
-      var ruta = '/admin/matriculas/' + $id;
+      if (index != 0 && $seleccionado) {
+        var $id = $(this).find('.matricula-id').html();
+        var $token = $('#token-deshabilitar').val();
 
-      XHRs.push($.ajax({
-        url: ruta,
-        headers : { 'X-CSRF-TOKEN' : $token },
-        type : 'PUT',
-        dataType : 'json',
-        data : {
-          estado : '0',
-          operacion : 'estado'
-        },
-        fail : function () {
-          resultado = false;
-        }
-      }));
-    };
-  });
+        var ruta = '/admin/matriculas/' + $id;
 
-  $.when.apply(null, XHRs).then(function () {
-    if (resultado) {
-      swal({
-        title: "Éxito!",
-        text: "Los cambios fueron realizados.",
-        type: "success",
-        closeOnConfirm: false
-      }, function () {
-        document.location.reload();
-      });
-    } else {
-      swal({
-          title: "Error",
-          text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
-          type: "warning"
-      }, function () {
-        document.location.reload();
-      });
-    }
-  });
+        XHRs.push($.ajax({
+          url: ruta,
+          headers : { 'X-CSRF-TOKEN' : $token },
+          type : 'PUT',
+          dataType : 'json',
+          data : {
+            estado : '0',
+            operacion : 'estado'
+          },
+          fail : function () {
+            resultado = false;
+          }
+        }));
+      };
+    });
+
+    $.when.apply(null, XHRs).then(function () {
+      if (resultado) {
+        swal({
+          title: "Éxito!",
+          text: "Los cambios fueron realizados.",
+          type: "success",
+        }, function () {
+          reloadTablaMatriculas();
+          $boton.html('<i class="zmdi zmdi-block"></i> deshabilitar seleccionadas');
+        });
+      } else {
+        swal({
+            title: "Error",
+            text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+            type: "warning"
+        }, function () {
+          document.location.reload();
+        });
+      }
+    });
+  } else{
+    swal({
+      title: "ERROR!",
+      text: "Debe seleccionar por lo menos una matrícula para deshabilitar.",
+      type: "warning",
+    });
+    $boton.html('<i class="zmdi zmdi-block"></i> deshabilitar seleccionadas');
+  };
 });
 /*** Fin Matriculas ***/
 

@@ -24,9 +24,10 @@ class MatriculaUpdateRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required|string',
-            'monto' => 'required|numeric',
-            'operacion' => 'required|in:actualizar,estado'
+            'nombre' => 'required_unless:operacion,estado|string',
+            'monto' => 'required_unless:operacion,estado|numeric',
+            'operacion' => 'required|in:actualizar,estado',
+            'estado' => 'required_if:operacion,estado'
         ];
     }
 }
