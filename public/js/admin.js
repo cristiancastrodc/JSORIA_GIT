@@ -17,7 +17,9 @@ $('#form-crear-actividad #id_institucion').change(function (e) {
 
 $('#form-crear-actividad #btn-crear-actividad').click(function (e) {
   e.preventDefault();
-  $(this).html('Cargando...');
+
+  $boton = $(this);
+  $boton.html('Cargando...');
 
   var $form = $('#form-crear-actividad');
   var $id_detalle_institucion = $form.find('#id_detalle_institucion').val();
@@ -39,12 +41,28 @@ $('#form-crear-actividad #btn-crear-actividad').click(function (e) {
       monto : $monto,
       id_detalle_institucion : $id_detalle_institucion,
     },
-    success : function (data) {
-      console.log(data);
-    },
-    fail : function () {
+    fail : function (data) {
       resultado = false;
-      console.log(resultado);
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $.growl({
+        title : 'ERROR: ',
+        message: err_list,
+      }, {
+        type : 'danger',
+        placement: {
+          from: 'top',
+          align: 'center'
+        },
+      });
+
+      $boton.html('Guardar');
     }
   }));
 
@@ -171,6 +189,16 @@ $('#modal-editar-actividad #modal-guardar').click(function () {
       }, function(){
         console.log('fail');
       });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
     }
   });
 });
@@ -915,3 +943,35 @@ function reloadTablaCobroOrdinario (modal_cobro) {
   }
 };
 /*** Fin Cobros Ordinarios ***/
+
+/*** Funciones adicionales ***/
+function notify(message, from, align, type, animIn, animOut){
+  $.growl({
+      title : 'ERROR: ',
+      message: message,
+  },{
+    element: 'body',
+    type: type,
+    allow_dismiss: true,
+    placement: {
+      from: from,
+      align: align
+    },
+    offset: {
+      x: 20,
+      y: 85
+    },
+    spacing: 10,
+    z_index: 1031,
+    delay: 2500,
+    timer: 1000,
+    url_target: '_blank',
+    mouse_over: false,
+    animate: {
+      enter: animIn,
+      exit: animOut
+    },
+    icon_type: 'class',
+    template: '<div data-growl="container" class="alert" role="alert">' + '<button type="button" class="close" data-growl="dismiss">' + '<span aria-hidden="true">&times;</span>' + '<span class="sr-only">Close</span>' + '</button>' + '<span data-growl="icon"></span>' + '<span data-growl="title"></span>' + '<span data-growl="message"></span>' + '<a href="#" data-growl="url"></a>' + '</div>'
+  });
+};

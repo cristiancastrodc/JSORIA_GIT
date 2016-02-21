@@ -5,6 +5,8 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
+use JSoria\Http\Requests\ActividadesCreateRequest;
+use JSoria\Http\Requests\ActividadesUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Categoria;
@@ -40,7 +42,7 @@ class ActividadesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ActividadesCreateRequest $request)
     {
         if ($request->ajax()) {
             $nombre = $request['nombre'];
@@ -130,7 +132,7 @@ class ActividadesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ActividadesUpdateRequest $request, $id)
     {
         $categoria = Categoria::find($id);
 
