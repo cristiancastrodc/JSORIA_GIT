@@ -13,7 +13,7 @@ class CobroOrdinarioUpdateRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class CobroOrdinarioUpdateRequest extends Request
     public function rules()
     {
         return [
-            //
+            'nombre' => 'required|string',
+            'monto' => 'required|numeric',
+            'unitario' => 'required|in:true,false',
+            'estado' => 'required|in:true,false',
         ];
     }
 }
