@@ -5,6 +5,8 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
+use JSoria\Http\Requests\PensionesCreateRequest ;
+use JSoria\Http\Requests\PensionesUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Categoria;
@@ -38,7 +40,7 @@ class PensionesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PensionesCreateRequest $request)
     {
         if ($request->ajax()) {
             Categoria::create($request->all());
@@ -77,7 +79,7 @@ class PensionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PensionesUpdateRequest $request, $id)
     {
         $categoria = Categoria::find($id);
 
