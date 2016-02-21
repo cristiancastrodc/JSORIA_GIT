@@ -7,14 +7,25 @@ $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
   var apellidos_alumno = "";
 
   $.get(ruta, function (response, state) {
-    documento_alumno = response[0].nro_documento;
-    nombres_alumno = response[0].nombres;
-    apellidos_alumno = response[0].apellidos;
 
-    $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-    $('#form-matricular #nro_documento').val(documento_alumno);
+    if (response['mensaje']) {
+      swal({
+            title: "Error",
+            text: "Sucedió algo inesperado. El Alumno ya esta matricula en otra institucion.",
+            type: "warning"
+        }, function () {
+          document.location.reload();
+        });
+    }else{
+      documento_alumno = response.nro_documento;
+      nombres_alumno = response.nombres;
+      apellidos_alumno = response.apellidos;
 
-    $('.js-toggle').slideDown('fast');
+      $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+      $('#form-matricular #nro_documento').val(documento_alumno);
+
+      $('.js-toggle').slideDown('fast');
+    }    
   });
 });
 
