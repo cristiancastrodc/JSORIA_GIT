@@ -26,7 +26,7 @@ class OtrosCobrosCreateRequest extends Request
         return [
             'id_institucion' => 'required|numeric',
             'nombre' => 'required|string',
-            'monto' => 'required|numeric',
+            'monto' => 'required|numeric',           
         ];
     }
 }
