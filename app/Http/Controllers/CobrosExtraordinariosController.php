@@ -4,6 +4,7 @@ namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use JSoria\Http\Requests\CobroExtCreateRequest;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
@@ -41,7 +42,7 @@ class CobrosExtraordinariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CobroExtCreateRequest $request)
     {
         $id_institucion = $request['id_institucion'];
         $descripcion_extr = $request['descripcion_extr'];
