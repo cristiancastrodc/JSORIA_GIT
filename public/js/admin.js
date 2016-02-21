@@ -791,7 +791,7 @@ $('#form-lista-c-ordinarios #btn-lista-c-ordinarios').click(function (e) {
               fila += "<td>Deshabilitado</td>";
             }
             fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn bgm-amber m-r-20' ";
-            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "' data-destino='" + data[i].destino + "'><i class='zmdi zmdi-edit'></i></a></td>";
+            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
             fila += "</tr>";
             $('#tabla-lista-c-ordinarios tbody').append(fila);
         };
@@ -807,4 +807,111 @@ $('#form-lista-c-ordinarios #btn-lista-c-ordinarios').click(function (e) {
     });
   }
 });
+
+$('#modal-editar-c-ordinario').on('shown.bs.modal', function (e) {
+  var $boton = $(e.relatedTarget);
+  var id = $boton.data('id');
+  var nombre = $boton.data('nombre');
+  var monto = $boton.data('monto');
+  var tipo = $boton.data('tipo');
+  var estado = $boton.data('estado');
+
+  var $modal = $(this);
+  $modal.find('#modal-id').val(id);
+  $modal.find('#modal-nombre').val(nombre);
+  $modal.find('#modal-monto').val(monto);
+  if (tipo == 'con_factor') {
+    console.log('con_factor');
+    $('#modal-unitario').prop( "checked", true );
+  } else if (tipo == 'sin_factor') {
+    console.log('sin_factor');
+    $('#modal-unitario').prop( "checked", false );
+  }
+  if (estado == '0') {
+    $('#modal-estado').prop( "checked", false );
+  } else if (estado == '1') {
+    $('#modal-estado').prop( "checked", true );
+  }
+});
+
+$('#modal-editar-c-ordinario #modal-guardar').click(function () {
+  var $modal = $('#modal-editar-c-ordinario');
+  var $id = $('#modal-id').val();
+  var $nombre = $('#modal-nombre').val();
+  var $monto = $('#modal-monto').val();
+  var $unitario = $('#modal-unitario').is(':checked');
+  var $estado = $('#modal-estado').is(':checked');
+  var $token = $('#modal-token').val();
+
+  var ruta = '/admin/cobros/ordinarios/' + $id;
+
+  $.ajax({
+    url: ruta,
+    headers : { 'X-CSRF-TOKEN' : $token },
+    type : 'PUT',
+    dataType : 'json',
+    data : {
+      nombre : $nombre,
+      monto : $monto,
+      unitario : $unitario,
+      estado : $estado,
+    },
+    success : function (data) {
+      console.log(data);
+      swal({
+          title: "Éxito",
+          text: "Se actualizó la pensión.",
+          type: "success",
+          closeOnConfirm: true
+      }, function(){
+          reloadTablaCobroOrdinario($modal);
+      });
+    },
+    fail : function (data) {
+      swal({
+          title: "ERROR",
+          text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
+          type: "error",
+          closeOnConfirm: true
+      }, function(){
+          console.log('fail');
+      });
+    }
+  });
+});
+
+function reloadTablaCobroOrdinario (modal_cobro) {
+  $id_institucion = $('#form-lista-c-ordinarios #id_institucion').val();
+
+  if ($id_institucion != "" ) {
+    var ruta = 'ordinarios/listar/' + $id_institucion;
+    $('#tabla-lista-c-ordinarios tbody').empty();
+
+    $.get(ruta, function (data) {
+      if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var fila = "<tr>";
+            fila += "<td class='hidden'>" + data[i].id + "</td>";
+            fila += "<td>" + data[i].nombre + "</td>";
+            fila += "<td>" + data[i].monto + "</td>";
+            if (data[i].estado == 1) {
+              fila += "<td>Habilitado</td>";
+            } else {
+              fila += "<td>Deshabilitado</td>";
+            }
+            fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
+            fila += "</tr>";
+            $('#tabla-lista-c-ordinarios tbody').append(fila);
+        };
+      } else {
+        $('#tabla-lista-c-ordinarios tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+      }
+    });
+
+    modal_cobro.modal('hide');
+  } else {
+    document.location.reload;
+  }
+};
 /*** Fin Cobros Ordinarios ***/

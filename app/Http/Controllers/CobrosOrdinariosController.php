@@ -73,6 +73,7 @@ class CobrosOrdinariosController extends Controller
             'estado' => $estado,
             ]);
 
+
         Session::flash('message', 'Cobro Ordinario creado correctamente.');
         return Redirect::to('/admin/cobros/ordinarios');
     }
@@ -108,7 +109,18 @@ class CobrosOrdinariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $nombre = $request['nombre'];
+            $monto = $request['monto'];
+            $tipo = $request['unitario'] == "true" ? 'con_factor' : 'sin_factor';
+            $estado = $request['estado'] == "true" ? 1 : 0;
+
+            Categoria::find($id)->update(['nombre' => $nombre, 'monto' => $monto, 'tipo' => $tipo, 'estado' => $estado]);
+
+            return response()->json(['mensaje' => 'Actualizado']);
+        } else {
+            return response()->json(['mensaje' => 'Request not AJAX.']);
+        }
     }
 
     /**
