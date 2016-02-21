@@ -9,10 +9,41 @@
                     <input type="hidden" value="{{ csrf_token() }}" name="_token" id="modal-token">
                     <input type="hidden" id="modal-id">
                     <div class="form-group">
-                        <label for="monto" class="control-label col-sm-3">Monto:</label>
+                        <label for="modal-nombre" class="col-sm-3 control-label">Concepto</label>
                         <div class="col-sm-9">
                             <div class="fg-line">
-                                <input type="text" id="modal-monto" name="modal-monto" class="form-control">
+                                <input type="text" class="form-control input-sm" id="modal-nombre" name="modal-nombre" placeholder="Concepto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-monto" class="col-sm-3 control-label">Monto</label>
+                        <div class="col-sm-9">
+                            <div class="fg-line">
+                                <input type="text" class="form-control input-sm" id="modal-monto" name="modal-monto" placeholder="Monto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-unitario" class="col-sm-3 control-label">Monto Unitario</label>
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="modal-unitario" id="modal-unitario">
+                                    <i class="input-helper"></i>
+                                    Convertir en Monto Unitario
+                                    <p><small> El monto Unitario permite agregar la cantidad a multiplicar para obtener el monto total</small></p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-estado" class="col-sm-3 control-label">¿Habilitar?</label>
+                        <div class="col-sm-9">
+                            <div class="toggle-switch">
+                                <label for="modal-estado" class="ts-label"></label>
+                                <input id="modal-estado" name="modal-estado" type="checkbox" hidden="hidden">
+                                <label for="modal-estado" class="ts-helper"></label>
                             </div>
                         </div>
                     </div>
