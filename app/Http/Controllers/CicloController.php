@@ -48,7 +48,10 @@ class CicloController extends Controller
         foreach ($detalles_institucion as $detalle ) {
             $id_detalle_institucion = $detalle->id;
 
-            $Alumnos=Alumno::where('id_detalle_institucion', '=', $id_detalle_institucion)->update(['estado'=>0]);
+            //$Alumnos=Alumno::where('id_detalle_institucion', '=', $id_detalle_institucion)->update(['estado'=>0]);
+            $Alumnos=Alumno::join('grado', 'alumno.id_grado', '=', 'grado.id' )
+           ->where('grado.id_detalle','=', $id_detalle_institucion)
+           ->update(['estado'=>0]);
         }
         Session::flash('message','Se cerro el ciclo.');
         return Redirect::to('/secretaria/ciclo/cerrar');
