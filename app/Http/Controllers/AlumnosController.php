@@ -13,6 +13,8 @@ use JSoria\Alumno;
 use JSoria\Permiso;
 use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
+use JSoria\Grado;
+use JSoria\InstitucionDetalle;
 use Redirect;
 use Session;
 use Auth;
@@ -202,6 +204,38 @@ class AlumnosController extends Controller
         if ($request->ajax()) {
             $alumno = Alumno::datos_alumno($dni);
             return response()->json($alumno);
+        }
+    }
+    public function categoriasAlumno(Request $request, $documento)
+    {
+        if ($request->ajax()) {
+
+            $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+                            ->where('alumno.nro_documento','=',$documento)
+                            ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
+                            ->first();
+
+            $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
+
+            $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
+                                                     ->where('nombre_division', '=', 'Todo')
+                                                     ->first()->id;
+
+            if ($alumno->estado == 1) {
+                
+                $categorias = Categoria::where('tipo', '=', 'con_factor')
+                                       ->where('estado', '=', 1)
+                                       ->where('id_detalle_institucion','=', $detalle_institucion)
+                                       ->get();
+
+                $response = array($alumno, $categorias);
+                return response()->json($response);
+
+            } else {
+                return response()->json([
+                    'mensaje' => 'El alumno no esta matriculado.'
+                ]);
+            }
         }
     }
 }

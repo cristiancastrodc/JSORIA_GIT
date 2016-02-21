@@ -46,6 +46,7 @@ Route::resource('cajera/retiros','RetirosController');
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
 Route::get('secretaria/alumno/{dni}', 'AlumnosController@datosAlumno');
+Route::get('secretaria/alumno/categorias/{dni}', 'AlumnosController@categoriasAlumno');
 Route::get('secretaria/alumno/deudas/agregar','AlumnosController@agregarDeuda');
 Route::get('secretaria/alumno/deudas/listar','AlumnosController@deudas');
 Route::get('secretaria/alumno/deudas/cancelar','AlumnosController@cancelarDeudaActividad');

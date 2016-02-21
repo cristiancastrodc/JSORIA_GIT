@@ -106,3 +106,47 @@ $('#form-matricular #id_detalle_institucion').change(function (event) {
     $matricula.selectpicker('refresh');
   });
 });
+
+/*** Agregar deudas de alumno ***/
+$('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
+  e.preventDefault();
+
+  var ruta = '../categorias/' + $('#form-categorias-alumno #nro_documento').val();
+  var documento_alumno = "";
+  var nombres_alumno = "";
+  var apellidos_alumno = "";
+
+  $('#tabla-categorias-alumno tbody').empty();
+
+  $.get(ruta, function (response, state) {
+    console.log(response);
+
+    documento_alumno = response[0].nro_documento;
+    nombres_alumno = response[0].nombres;
+    apellidos_alumno = response[0].apellidos;
+
+    $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+    $('#form-categorias-alumno #nro_documento').val(documento_alumno);
+
+    for (var i = 0; i < response[1].length; i++) {
+      var $id = response[1][i].id;
+      var $monto = response[1][i].monto;
+      var $nombre = response[1][i].nombre;
+
+      var fila = "<tr>";
+      fila += "<td class='hidden'>" + $id + "</td>";
+      fila += "<td>" + $nombre + "</td>";
+      fila += "<td class='text-right'>" + $monto + "</td>";
+      fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right' placeholder='Factor'></div></td>";
+      fila += "<td><p class='text-right total'></p></td>"
+      fila += "</tr>";
+
+      $('#tabla-categorias-alumno tbody').append(fila);
+    }
+
+    $('.js-toggle').slideDown('fast');
+  });
+});
+
+
+/**/
