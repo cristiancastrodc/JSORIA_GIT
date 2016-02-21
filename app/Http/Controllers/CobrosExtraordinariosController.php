@@ -4,8 +4,15 @@ namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use JSoria\Http\Requests\CobroExtCreateRequest;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
+
+use JSoria\Deuda_Ingreso;
+use JSoria\Categoria;
+use JSoria\InstitucionDetalle;
+use Redirect;
+use Session;
 
 class CobrosExtraordinariosController extends Controller
 {
@@ -35,9 +42,39 @@ class CobrosExtraordinariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CobroExtCreateRequest $request)
     {
-        //
+        $id_institucion = $request['id_institucion'];
+        $descripcion_extr = $request['descripcion_extr'];
+        $monto = $request['monto'];
+        $cliente_extr = $request['cliente_extr'];
+
+        if ($request['exterior']) {
+            $destino = 1;
+        } else {
+            $destino = 0;
+        }
+
+        $id_detalle_institucion = InstitucionDetalle::where('nombre_division', '=', 'Todo')
+                                                    ->where('id_institucion', '=', $id_institucion)
+                                                    ->first()->id;
+
+        $id_categoria = Categoria::where('tipo', '=', 'cobro_extraordinario')
+                                 ->where('destino', '=', $destino)
+                                 ->where('id_detalle_institucion', '=', $id_detalle_institucion)
+                                 ->first()->id;
+
+        $id_deuda = Deuda_Ingreso::create([
+            'saldo' => $monto,
+            'cliente_extr' => $cliente_extr,
+            'descripcion_extr' => $descripcion_extr,
+            'id_categoria' => $id_categoria,
+        ])->id;
+
+        $mensaje = 'El cobro fue creado exitosamente. El código de pago es: ' . $id_deuda;
+
+        Session::flash('message', $mensaje);
+        return Redirect::to('/admin/cobros/extraordinarios');
     }
 
     /**
