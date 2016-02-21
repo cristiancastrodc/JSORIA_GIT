@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\AlumnoCreateRequest;
+use JSoria\Http\Requests\AlumnoUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Alumno;
@@ -85,7 +86,7 @@ class AlumnosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nro_documento)
+    public function update(AlumnoUpdateRequest $request, $nro_documento)
     {
         if ($request->ajax()) {
             $alumno = Alumno::find($nro_documento);
