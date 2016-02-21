@@ -244,7 +244,8 @@ $('#btn-crear-matricula').click(function (e) {
     var ruta = '/admin/matriculas';
 
     var XHRs = [];
-    var resultado = true;
+    var errors = [];
+    var resultado = "true";
 
     $('#tabla-crear-matricula tr').each(function (index, el) {
       var $id_detalle_institucion = $(this).find('.id-division').html();
@@ -267,14 +268,17 @@ $('#btn-crear-matricula').click(function (e) {
             id_detalle_institucion : $id_detalle_institucion
           },
           fail : function () {
-            resultado = false;
+            resultado = "false";
+          },
+          error : function (msg) {
+            resultado = "error";
           }
         }));
       };
     });
 
     $.when.apply(null, XHRs).then(function () {
-      if (resultado) {
+      if (resultado == "true") {
         swal({
             title: "Éxito!",
             text: "Se crearon los conceptos de matrícula correctamente.",
@@ -282,7 +286,7 @@ $('#btn-crear-matricula').click(function (e) {
         }, function () {
           document.location.reload();
         });
-      } else {
+      } else if () {
         swal({
             title: "Error",
             text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
