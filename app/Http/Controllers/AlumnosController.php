@@ -48,18 +48,23 @@ class AlumnosController extends Controller
      */
     public function store(AlumnoCreateRequest $request)
     {
-        $nro_documento = $request['nro_documento'];
-        $tipo_documento = $request['tipo_documento'];
+        try {
+            $nro_documento = $request['nro_documento'];
+            $tipo_documento = $request['tipo_documento'];
 
-        Alumno::create([
-            'tipo_documento' =>$tipo_documento,
-            'nro_documento' => $nro_documento,
-            'nombres' => $request['nombres'],
-            'apellidos' => $request['apellidos'],
-            ]);
+            Alumno::create([
+                'tipo_documento' =>$tipo_documento,
+                'nro_documento' => $nro_documento,
+                'nombres' => $request['nombres'],
+                'apellidos' => $request['apellidos'],
+                ]);
 
-        Session::flash('message', 'Alumno creado exitosamente. Ahora, si desea puede crear su cuenta.');
-        return redirect('/secretaria/alumno/matricular')->with('nro_documento', $nro_documento);
+            Session::flash('message', 'Alumno creado exitosamente. Ahora, si desea puede crear su cuenta.');
+            return redirect('/secretaria/alumno/matricular')->with('nro_documento', $nro_documento);            
+        } catch (\Illuminate\Database\QueryException $e) {
+            Session::flash('message', 'El número de documento ingresado ya existe.');
+            return redirect('/secretaria/alumnos/create');            
+        }
     }
 
     /**
