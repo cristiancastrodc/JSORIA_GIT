@@ -222,19 +222,19 @@ class AlumnosController extends Controller
     {
         if ($request->ajax()) {
 
-            $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
-                            ->where('alumno.nro_documento','=',$documento)
-                            ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
-                            ->first();
+            $estado = Alumno:: where('nro_documento','=',$documento)->first();
+            if ($estado->estado == 1) {
 
-            $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
+                $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+                                ->where('alumno.nro_documento','=',$documento)
+                                ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
+                                ->first();
 
-            $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
-                                                     ->where('nombre_division', '=', 'Todo')
-                                                     ->first()->id;
+                $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
 
-            if ($alumno->estado == 1) {
-                
+                $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
+                                                         ->where('nombre_division', '=', 'Todo')
+                                                         ->first()->id;
                 $categorias = Categoria::where('tipo', '=', 'con_factor')
                                        ->where('estado', '=', 1)
                                        ->where('id_detalle_institucion','=', $detalle_institucion)
