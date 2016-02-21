@@ -5,11 +5,14 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
+use JSoria\Http\Requests\CierreCicloCreateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Alumno;
 use JSoria\InstitucionDetalle;
 
+use Auth;
+use JSoria\Permiso;
 use Session;
 use Redirect;
 
@@ -22,7 +25,13 @@ class CicloController extends Controller
      */
     public function index()
     {
-        return view('secretaria.ciclo.index');
+        $id_usuario = Auth::user()->id;
+
+        $permisos = Permiso::join('institucion', 'permisos.id_institucion', '=', 'institucion.id')
+                           ->where('permisos.id_usuario', '=', $id_usuario)
+                           ->select('institucion.id', 'institucion.nombre')->get();
+    
+        return view('secretaria.ciclo.index', compact('permisos'));
     }
 
     /**
@@ -41,7 +50,7 @@ class CicloController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CierreCicloCreateRequest $request)
     {
         $id_institucion = $request['id_institucion'];
         $detalles_institucion = InstitucionDetalle::divisiones_institucion($id_institucion);
@@ -101,4 +110,5 @@ class CicloController extends Controller
     {
         //
     }
+   
 }
