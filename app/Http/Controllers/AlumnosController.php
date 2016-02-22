@@ -250,4 +250,24 @@ class AlumnosController extends Controller
             }
         }
     }
+
+    public function listaDeudasAlumno(Request $request, $documento)
+    {
+        if ($request->ajax()) {
+
+            $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
+                                   ->where('deuda_ingreso.id_alumno','=',$documento)
+                                   ->where('deuda_ingreso.estado_pago','=',0)
+                                   ->where('deuda_ingreso.estado_descuento','=',0)
+                                   ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
+                                   ->get();
+
+            $alumno = Alumno::where('alumno.nro_documento','=',$documento)
+                            ->select('nombres', 'apellidos','nro_documento')
+                            ->first();
+
+            $response = array($alumno, $deudas);
+            return response()->json($response);           
+        }
+    }
 }
