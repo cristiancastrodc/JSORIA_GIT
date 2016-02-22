@@ -38,3 +38,7 @@ form p {
 .sub-menu ul > li > a.active, .sub-menu ul > li > a:hover {
   background-color: #FFF;
 }
+
+#btn-toggle-compras {
+  cursor: pointer;
+}

@@ -186,6 +186,11 @@
   </div>
 
   @yield('modals')
+  @if (Auth::user()->tipo == "Cajera")
+    @if(Request::is('escritorio'))
+      @include('cajera.dashboard.modal')
+    @endif
+  @endif
 
   <!-- Javascript Libraries -->
   {!!Html::script('vendors/bower_components/jquery/dist/jquery.min.js')!!}

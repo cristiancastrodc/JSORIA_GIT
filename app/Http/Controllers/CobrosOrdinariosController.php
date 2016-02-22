@@ -13,6 +13,9 @@ use JSoria\InstitucionDetalle;
 use Redirect;
 use Session;
 
+use Escpos
+use WindowsPrintConnector;
+
 class CobrosOrdinariosController extends Controller
 {
     /**
@@ -130,5 +133,26 @@ class CobrosOrdinariosController extends Controller
             $cobros_ordinarios = Categoria::cobrosOrdinariosInstitucion($id_institucion);
             return response()->json($cobros_ordinarios);
         }
+    }
+
+    public function imprimir()
+    {
+        try {
+            // Enter the share name for your USB printer here
+            //$connector = "Ticketera";
+            $connector = new WindowsPrintConnector("Tickets");
+
+            /* Print a "Hello world" receipt" */
+            $printer = new Escpos($connector);
+            $printer -> text("Hello World!\n");
+            $printer -> cut();
+
+            /* Close printer */
+            $printer -> close();
+            echo "esperar";
+        } catch(Exception $e) {
+            echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+        }
+
     }
 }
