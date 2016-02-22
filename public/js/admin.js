@@ -900,7 +900,7 @@ function reloadTablaCobroOrdinario (modal_cobro) {
               fila += "<td>Deshabilitado</td>";
             }
             fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn bgm-amber m-r-20' ";
-            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
+            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
             fila += "</tr>";
             $('#tabla-lista-c-ordinarios tbody').append(fila);
         };
@@ -915,3 +915,150 @@ function reloadTablaCobroOrdinario (modal_cobro) {
   }
 };
 /*** Fin Cobros Ordinarios ***/
+
+/*** Otros Cobros ***/
+$('#form-listar-c-otros #btn-listar-c-otros').click(function (e) {
+
+  e.preventDefault();
+
+  $id_institucion = $('#form-listar-c-otros #id_institucion').val();
+
+  if ($id_institucion != "") {
+    var ruta = 'otros/listar/' + $id_institucion;
+    $('#tabla-listar-c-otros tbody').empty();
+
+    $.get(ruta, function (data) {
+      if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var fila = "<tr>";
+            fila += "<td class='hidden'>" + data[i].id + "</td>";
+            fila += "<td>" + data[i].nombre + "</td>";
+            fila += "<td>" + data[i].monto + "</td>";
+            if (data[i].estado == 1) {
+              fila += "<td>Habilitado</td>";
+            } else {
+              fila += "<td>Deshabilitado</td>";
+            }
+            fila += "<td><a href='#modal-editar-c-otro' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
+            fila += "</tr>";
+            $('#tabla-listar-c-otros tbody').append(fila);
+        };
+      } else {
+        $('#tabla-listar-c-otros tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+      }
+    });
+  } else {
+    swal({
+      title : '¡Atención!',
+      text : 'Debe seleccionar la institución.',
+      type : 'warning'
+    });
+  }
+});
+
+$('#modal-editar-c-otro').on('shown.bs.modal', function (e) {
+  var $boton = $(e.relatedTarget);
+  var id = $boton.data('id');
+  var nombre = $boton.data('nombre');
+  var monto = $boton.data('monto');
+  var estado = $boton.data('estado');
+
+  var $modal = $(this);
+  $modal.find('#modal-id').val(id);
+  $modal.find('#modal-nombre').val(nombre);
+  $modal.find('#modal-monto').val(monto);
+  if (estado == '0') {
+    $('#modal-estado').prop( "checked", false );
+  } else if (estado == '1') {
+    $('#modal-estado').prop( "checked", true );
+  }
+});
+
+$('#modal-editar-c-otro #modal-guardar').click(function () {
+  var $modal = $('#modal-editar-c-otro');
+  var $id = $('#modal-id').val();
+  var $nombre = $('#modal-nombre').val();
+  var $monto = $('#modal-monto').val();
+  var $estado = $('#modal-estado').is(':checked');
+  var $token = $('#modal-token').val();
+
+  var ruta = '/admin/cobros/otros/' + $id;
+
+  $.ajax({
+    url: ruta,
+    headers : { 'X-CSRF-TOKEN' : $token },
+    type : 'PUT',
+    dataType : 'json',
+    data : {
+      nombre : $nombre,
+      monto : $monto,
+      estado : $estado,
+    },
+    success : function (data) {
+      swal({
+          title: "Éxito",
+          text: "Se actualizó la pensión.",
+          type: "success",
+          closeOnConfirm: true
+      }, function(){
+          reloadTablaOtrosCobros($modal);
+      });
+    },
+    fail : function (data) {
+      swal({
+          title: "ERROR",
+          text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
+          type: "error",
+          closeOnConfirm: true
+      }, function(){
+          console.log('fail');
+      });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
+    }
+  });
+});
+
+function reloadTablaOtrosCobros (modal_cobro) {
+  $id_institucion = $('#form-listar-c-otros #id_institucion').val();
+
+  if ($id_institucion != "") {
+    var ruta = 'otros/listar/' + $id_institucion;
+    $('#tabla-listar-c-otros tbody').empty();
+
+    $.get(ruta, function (data) {
+      if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var fila = "<tr>";
+            fila += "<td class='hidden'>" + data[i].id + "</td>";
+            fila += "<td>" + data[i].nombre + "</td>";
+            fila += "<td>" + data[i].monto + "</td>";
+            if (data[i].estado == 1) {
+              fila += "<td>Habilitado</td>";
+            } else {
+              fila += "<td>Deshabilitado</td>";
+            }
+            fila += "<td><a href='#modal-editar-c-otro' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
+            fila += "</tr>";
+            $('#tabla-listar-c-otros tbody').append(fila);
+        };
+      } else {
+        $('#tabla-listar-c-otros tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+      }
+    });
+    modal_cobro.modal('hide');
+  } else {
+    document.location.reload;
+  }
+};
+/*** Fin Otros Cobros ***/
