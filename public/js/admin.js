@@ -587,6 +587,96 @@ $('#btn-crear-pensiones').click(function (e) {
 
     var $mes_inicio = $('#mes_inicio').val();
     var $mes_fin = $('#mes_fin').val();
+<<<<<<< HEAD
+=======
+    var nro_mes_inicio = parseInt($mes_inicio.split('/')[0], 10);
+    var anio_inicio = parseInt($mes_inicio.split('/')[1], 10);
+    var nro_mes_fin = parseInt($mes_fin.split('/')[0], 10);
+    var anio_fin = parseInt($mes_fin.split('/')[1], 10);
+    var $token = $('#form-crear-pensiones #token').val();
+    var XHRs = [];
+    var ruta = '/admin/pensiones';
+    var resultado = true;
+    var meses = [0,'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+    if (anio_inicio == anio_fin) {
+      for (var nro_mes = nro_mes_inicio; nro_mes <= nro_mes_fin; nro_mes++) {
+        var nombre = 'Pension ' + meses[nro_mes] + ' ' + anio_inicio;
+        var fecha_inicio = anio_inicio + '/' + nro_mes + '/01';
+        /*var fecha_fin = anio_inicio + '/' + nro_mes + '/28';*/
+        var fecha_fin = new Date(anio_inicio, nro_mes + 1, 0);
+
+        $('#tabla-crear-pensiones tr').each(function (index, el) {
+          var $id_detalle_institucion = $(this).find('.id-division').html();
+          var $monto = $(this).find('.monto-matricula').val();
+
+          if (index != 0) {
+            XHRs.push($.ajax({
+              url : ruta,
+              headers : {'X-CSRF-TOKEN': $token},
+              type : 'POST',
+              dataType : 'json',
+              data : {
+                nombre : nombre,
+                monto : $monto,
+                tipo : 'pension',
+                estado : '1',
+                fecha_inicio : fecha_inicio,
+                fecha_fin : fecha_fin,
+                destino : '0',
+                id_detalle_institucion : $id_detalle_institucion
+              },
+              fail : function () {
+                resultado = false;
+              }
+            }));
+          };
+        });
+      };
+    } else if (anio_inicio < anio_fin) {
+
+      var kfecha_inicio = anio_inicio + "/" + nro_mes_inicio + "/01";
+      var kfecha_fin = anio_fin + "/" + nro_mes_fin + "/01";
+
+      var dfi = new Date(kfecha_inicio);
+      var dff = new Date(kfecha_fin);
+
+      while (dfi <= dff) {
+
+        var nombre = 'Pension ' + meses[dfi.getMonth() + 1] + ' ' + dfi.getFullYear();
+        var fecha_mes = dfi.getMonth() + 1;
+        var fecha_ini = dfi.getFullYear() + '/' + fecha_mes + '/01';
+        //var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
+        var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
+
+        $('#tabla-crear-pensiones tr').each(function (index, el) {
+          var $id_detalle_institucion = $(this).find('.id-division').html();
+          var $monto = $(this).find('.monto-matricula').val();
+
+
+          if (index != 0) {
+            XHRs.push($.ajax({
+              url : ruta,
+              headers : {'X-CSRF-TOKEN': $token},
+              type : 'POST',
+              dataType : 'json',
+              data : {
+                nombre : nombre,
+                monto : $monto,
+                tipo : 'pension',
+                estado : '1',
+                fecha_inicio : fecha_ini,
+                fecha_fin : fecha_fin,
+                destino : '0',
+                id_detalle_institucion : $id_detalle_institucion
+              },
+              fail : function () {
+                resultado = false;
+              }
+            }));
+          };
+        });
+>>>>>>> origin/cajera
 
     if ($mes_inicio != "" && $mes_fin != "") {
       var nro_mes_inicio = parseInt($mes_inicio.split('/')[0], 10);
