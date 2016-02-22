@@ -13,6 +13,8 @@ use JSoria\Alumno;
 use JSoria\Permiso;
 use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
+use JSoria\Grado;
+use JSoria\InstitucionDetalle;
 use Redirect;
 use Session;
 use Auth;
@@ -46,18 +48,23 @@ class AlumnosController extends Controller
      */
     public function store(AlumnoCreateRequest $request)
     {
-        $nro_documento = $request['nro_documento'];
-        $tipo_documento = $request['tipo_documento'];
+        try {
+            $nro_documento = $request['nro_documento'];
+            $tipo_documento = $request['tipo_documento'];
 
-        Alumno::create([
-            'tipo_documento' =>$tipo_documento,
-            'nro_documento' => $nro_documento,
-            'nombres' => $request['nombres'],
-            'apellidos' => $request['apellidos'],
-            ]);
+            Alumno::create([
+                'tipo_documento' =>$tipo_documento,
+                'nro_documento' => $nro_documento,
+                'nombres' => $request['nombres'],
+                'apellidos' => $request['apellidos'],
+                ]);
 
-        Session::flash('message', 'Alumno creado exitosamente. Ahora, si desea puede crear su cuenta.');
-        return redirect('/secretaria/alumno/matricular')->with('nro_documento', $nro_documento);
+            Session::flash('message', 'Alumno creado exitosamente. Ahora, si desea puede crear su cuenta.');
+            return redirect('/secretaria/alumno/matricular')->with('nro_documento', $nro_documento);            
+        } catch (\Illuminate\Database\QueryException $e) {
+            Session::flash('message', 'El número de documento ingresado ya existe.');
+            return redirect('/secretaria/alumnos/create');            
+        }
     }
 
     /**
@@ -201,7 +208,85 @@ class AlumnosController extends Controller
         //return response()->json(['mensaje' => 'ok']);
         if ($request->ajax()) {
             $alumno = Alumno::datos_alumno($dni);
-            return response()->json($alumno);
+            if ($alumno) {
+                if ($alumno->estado == 0) {
+                    return response()->json($alumno);
+                } else {
+                    return response()->json([
+                        'mensaje' => 'CUIDADO!. El alumno ya esta matriculado.'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                        'mensaje' => 'EL ALUMNO NO ESTA REGISTRADO.'
+                    ]);
+            }
+        }
+    }
+    public function categoriasAlumno(Request $request, $documento)
+    {
+        if ($request->ajax()) {
+
+            $estado = Alumno::where('nro_documento','=',$documento)->first();
+            $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+                                ->where('alumno.nro_documento','=',$documento)
+                                ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
+                                ->first();
+
+                
+            if ($estado) {  
+                if ($estado->estado == 1) {                
+                $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
+
+                $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
+                                                         ->where('nombre_division', '=', 'Todo')
+                                                         ->first()->id;
+                $categorias = Categoria::where('tipo', '=', 'con_factor')
+                                       ->where('estado', '=', 1)
+                                       ->where('id_detalle_institucion','=', $detalle_institucion)
+                                       ->get();
+                    $response = array($alumno, $categorias);
+                    return response()->json($response);
+
+                } else {
+                    return response()->json([
+                        'mensaje' => 'El alumno no esta matriculado.'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'mensajeno' => 'El alumno no existe.'
+                ]);
+            }
+        }
+    }
+
+    public function listaDeudasAlumno(Request $request, $documento)
+    {
+        if ($request->ajax()) {
+
+            $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
+                                   ->where('deuda_ingreso.id_alumno','=',$documento)
+                                   ->where('deuda_ingreso.estado_pago','=',0)
+                                   ->where('deuda_ingreso.estado_descuento','=',0)
+                                   ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
+                                   ->get();
+
+            $alumno = Alumno::where('alumno.nro_documento','=',$documento)
+                            ->select('nombres', 'apellidos','nro_documento')
+                            ->first();
+
+            if ($alumno) {
+                $response = array($alumno, $deudas);
+                return response()->json($response);           
+            } else {
+                return response()->json([
+                    'mensaje' => 'El alumno no existe.'
+                ]);
+            }
+            
+
+            
         }
     }
 }
