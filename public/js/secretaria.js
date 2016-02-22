@@ -130,40 +130,50 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
   $.get(ruta, function (response, state) {
     console.log(response);
 
-    if (response['mensaje']) {
+    if (response['mensajeno']) {
       swal({
             title: "Error",
-            text: "El Alumno NO esta matricula.",
+            text: "El Alumno NO EXISTE. Crear y matricular al alumno.",
             type: "warning"
         }, function () {
           document.location.reload();
         });
     } else {
-        documento_alumno = response[0].nro_documento;
-        nombres_alumno = response[0].nombres;
-        apellidos_alumno = response[0].apellidos;
+      if (response['mensaje']) {
+        swal({
+              title: "Error",
+              text: "El Alumno NO esta matricula.",
+              type: "warning"
+          }, function () {
+            document.location.reload();
+          });
+      } else {
+          documento_alumno = response[0].nro_documento;
+          nombres_alumno = response[0].nombres;
+          apellidos_alumno = response[0].apellidos;
 
-        $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-        $('#form-categorias-alumno #nro_documento').val(documento_alumno);
+          $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+          $('#form-categorias-alumno #nro_documento').val(documento_alumno);
 
-        for (var i = 0; i < response[1].length; i++) {
-          var $id = response[1][i].id;
-          var $monto = response[1][i].monto;
-          var $nombre = response[1][i].nombre;
+          for (var i = 0; i < response[1].length; i++) {
+            var $id = response[1][i].id;
+            var $monto = response[1][i].monto;
+            var $nombre = response[1][i].nombre;
 
-          var fila = "<tr>";
-          fila += "<td class='hidden'>" + $id + "</td>";
-          fila += "<td>" + $nombre + "</td>";
-          fila += "<td class='text-right'>" + $monto + "</td>";
-          fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right' placeholder='Factor'></div></td>";
-          fila += "<td><p class='text-right total'></p></td>"
-          fila += "</tr>";
+            var fila = "<tr>";
+            fila += "<td class='hidden'>" + $id + "</td>";
+            fila += "<td>" + $nombre + "</td>";
+            fila += "<td class='text-right'>" + $monto + "</td>";
+            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right' placeholder='Factor'></div></td>";
+            fila += "<td><p class='text-right total'></p></td>"
+            fila += "</tr>";
 
-          $('#tabla-categorias-alumno tbody').append(fila);
+            $('#tabla-categorias-alumno tbody').append(fila);
+          }
+
+          $('.js-toggle').slideDown('fast');
         }
-
-        $('.js-toggle').slideDown('fast');
-      }
+    }
     });    
 });
 
@@ -178,31 +188,41 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
 
   $('#tabla-deudas-alumno tbody').empty();
   $.get(ruta, function (response, state) {
+    if (response['mensaje']) {
+      swal({
+            title: "Error",
+            text: "El Alumno NO EXISTE. Crear y matricular al alumno.",
+            type: "warning"
+        }, function () {
+          document.location.reload();
+        });
+    } else {
   
-    documento_alumno = response[0].nro_documento;
-    nombres_alumno = response[0].nombres;
-    apellidos_alumno = response[0].apellidos;
+      documento_alumno = response[0].nro_documento;
+      nombres_alumno = response[0].nombres;
+      apellidos_alumno = response[0].apellidos;
 
-    $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-    $('#form-deudas-alumno #nro_documento').val(documento_alumno);
+      $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+      $('#form-deudas-alumno #nro_documento').val(documento_alumno);
 
-    for (var i = 0; i < response[1].length; i++) {
-    
-      var $id = response[1][i].id;
-      var $monto = response[1][i].saldo;
-      var $deuda = response[1][i].nombre;
-
-      var fila = "<tr>";
-      fila += "<td class='hidden'>" + $id + "</td>";
-      fila += "<td>" + $deuda + "</td>";
-      fila += "<td class='text-right'>" + $monto + "</td>";
-      fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right' placeholder='Descuento'></div></td>";
-      fila += "<td><div class='toggle-switch'><input id='ts1' type='checkbox' hidden='hidden'><label for='ts1' class='ts-helper'></label></div></td>";
+      for (var i = 0; i < response[1].length; i++) {
       
-      $('#tabla-deudas-alumno tbody').append(fila);
-    }
+        var $id = response[1][i].id;
+        var $monto = response[1][i].saldo;
+        var $deuda = response[1][i].nombre;
 
-    $('.js-toggle').slideDown('fast');
+        var fila = "<tr>";
+        fila += "<td class='hidden'>" + $id + "</td>";
+        fila += "<td>" + $deuda + "</td>";
+        fila += "<td class='text-right'>" + $monto + "</td>";
+        fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right' placeholder='Descuento'></div></td>";
+        fila += "<td><div class='toggle-switch'><input id='ts1' type='checkbox' hidden='hidden'><label for='ts1' class='ts-helper'></label></div></td>";
+        
+        $('#tabla-deudas-alumno tbody').append(fila);
+      }
+
+      $('.js-toggle').slideDown('fast');
+    }
   
   });
 });

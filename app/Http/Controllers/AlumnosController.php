@@ -222,14 +222,15 @@ class AlumnosController extends Controller
     {
         if ($request->ajax()) {
 
-            $estado = Alumno:: where('nro_documento','=',$documento)->first();
-            if ($estado->estado == 1) {
-
-                $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+            $estado = Alumno::where('nro_documento','=',$documento)->first();
+            $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
                                 ->where('alumno.nro_documento','=',$documento)
                                 ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
                                 ->first();
 
+                
+            if ($estado) {  
+                if ($estado->estado == 1) {                
                 $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
 
                 $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
@@ -239,13 +240,17 @@ class AlumnosController extends Controller
                                        ->where('estado', '=', 1)
                                        ->where('id_detalle_institucion','=', $detalle_institucion)
                                        ->get();
+                    $response = array($alumno, $categorias);
+                    return response()->json($response);
 
-                $response = array($alumno, $categorias);
-                return response()->json($response);
-
+                } else {
+                    return response()->json([
+                        'mensaje' => 'El alumno no esta matriculado.'
+                    ]);
+                }
             } else {
                 return response()->json([
-                    'mensaje' => 'El alumno no esta matriculado.'
+                    'mensajeno' => 'El alumno no existe.'
                 ]);
             }
         }
@@ -266,8 +271,17 @@ class AlumnosController extends Controller
                             ->select('nombres', 'apellidos','nro_documento')
                             ->first();
 
-            $response = array($alumno, $deudas);
-            return response()->json($response);           
+            if ($alumno) {
+                $response = array($alumno, $deudas);
+                return response()->json($response);           
+            } else {
+                return response()->json([
+                    'mensaje' => 'El alumno no existe.'
+                ]);
+            }
+            
+
+            
         }
     }
 }
