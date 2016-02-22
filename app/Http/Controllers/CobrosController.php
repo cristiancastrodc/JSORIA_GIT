@@ -13,6 +13,9 @@ use JSoria\Deuda_Ingreso;
 use JSoria\Institucion;
 use JSoria\InstitucionDetalle;
 
+use Escpos;
+use WindowsPrintConnector;
+
 class CobrosController extends Controller
 {
     /**
@@ -152,6 +155,20 @@ class CobrosController extends Controller
 
     public function imprimir()
     {
-        # code...
+        try {
+            // Enter the share name for your USB printer here
+            //$connector = "Ticketera";
+            $connector = new WindowsPrintConnector("Tickets");
+
+            /* Print a "Hello world" receipt" */
+            $printer = new Escpos($connector);
+            $printer -> text("Corporacion JSoria!\n");
+            $printer -> cut();
+
+            /* Close printer */
+            $printer -> close();
+        } catch(Exception $e) {
+            echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+        }
     }
 }
