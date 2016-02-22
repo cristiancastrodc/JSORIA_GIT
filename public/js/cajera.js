@@ -15,9 +15,12 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
       });
     } else{
       var nombre_alumno = response[0].nombres + ' ' + response[0].apellidos;
+      var nro_documento = response[0].nro_documento;
+      $('#nro_documento').val(nro_documento);
       $('#nombre-alumno').html(nombre_alumno);
       var nombre_institucion = response[1].nombre;
       var id_institucion = response[1].id;
+      $('#id_institucion').val(id_institucion);
       $('#nombre-institucion').html(nombre_institucion);
 
       $('#tabla-pagos-pendientes tbody').empty();
@@ -76,6 +79,8 @@ $('#btn-finalizar-pago').click(function (e) {
   var fila_resumen = "";
   var total = 0;
   var destino_externo = false;
+  var id_pagos = [];
+  var id_compras = [];
 
   var $filas_pagos = $("#tabla-pagos-pendientes tr");
   var nro_pagos_sel = 0;
@@ -87,8 +92,10 @@ $('#btn-finalizar-pago').click(function (e) {
       fila_resumen += "<tr><td class='hidden id'>" + $(this).find('.id').html() + "</td><td class='nombre'>" + $(this).find('.nombre').html() + "</td><td class='monto text-right'>" + monto_pago + "</td></tr>"
       nro_pagos_sel++;
       total += monto_pago;
+      id_pagos.push($(this).find('.id').html());
     };
   });
+  $('#id_pagos').val(id_pagos);
 
   var $filas_compras = $("#tabla-categorias-compras tr");
   var nro_compras = 0;
@@ -100,8 +107,10 @@ $('#btn-finalizar-pago').click(function (e) {
       fila_resumen += "<tr><td class='hidden id'>" + $(this).find('.id').html() + "</td><td class='nombre'>" + $(this).find('.nombre').html() + "</td><td class='monto text-right'>" + monto_compra + "</td></tr>"
       nro_compras++;
       total += monto_compra;
+      id_compras.push([$(this).find('.id').html(), monto_compra]);
     };
   });
+  $('#id_compras').val(id_compras);
 
   $modal = $('#modal-resumen-pago');
   $modal.find('#tabla-resumen tbody').empty();
@@ -127,16 +136,42 @@ $('#btn-finalizar-pago').click(function (e) {
 function enlazarBotones () {
   $('#btn-comprobante').click(function(e) {
     e.preventDefault();
-    console.log('compr');
+    $('.modal-factura-datos.js-toggle').slideUp();
+
+    var $id_institucion = $('#id_institucion').val();
+    var $nro_documento = $('#nro_documento').val();
+    var $token = $('#_token').val();
+    var $id_pagos = $("#id_pagos").val();
+    var $id_compras = $("#id_compras").val();
+
+    $.ajax({
+      url: 'cajera/cobro/guardar',
+      headers: {'X-CSRF-TOKEN' : $token},
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        id_institucion: $id_institucion,
+        nro_documento : $nro_documento,
+        id_pagos : $id_pagos,
+        id_compras : $id_compras,
+      },
+    })
+    .done(function(data) {
+      console.log(data);
+    })
+    .fail(function(data) {
+      console.log(data);
+    });
   });
 
   $('#btn-boleta').click(function(e) {
     e.preventDefault();
-    console.log('bolet');
+    $('.modal-factura-datos.js-toggle').slideUp();
   });
 
   $('#btn-factura').click(function(e) {
     e.preventDefault();
-    console.log('fact');
+
+    $('.modal-factura-datos.js-toggle').slideDown();
   });
 }

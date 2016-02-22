@@ -43,7 +43,7 @@ Route::resource('tesorera/ingresos','IngresosController');
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');
 Route::get('cajera/buscar/deudas/{codigo}', 'CobrosController@buscarDeudas');
-Route::get('cajera/imprimir', 'CobrosController@imprimir');
+Route::post('cajera/cobro/guardar', 'CobrosController@guardarCobro');
 /*** Rutas para secretaria ***/
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');

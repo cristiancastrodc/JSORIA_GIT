@@ -171,4 +171,20 @@ class CobrosController extends Controller
             echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
         }
     }
+
+    public function guardarCobro(Request $request)
+    {
+        if ($request->ajax()) {
+            $deudas = $request['id_pagos'];
+            $deudas = explode(',', $deudas);
+
+            $conta = "";
+            foreach ($deudas as $deuda) {
+                $pago = Deuda_Ingreso::find($deuda);
+                $pago->estado_pago = 1;
+                $pago->save();
+            }
+            return $conta;
+        }
+    }
 }

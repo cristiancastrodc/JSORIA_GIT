@@ -32,6 +32,11 @@
         <div class="card-header">
           <h3><span id="nombre-alumno" class="text-uppercase"></span></h3>
           <h4><span id="nombre-institucion"></span></h4>
+          <input type="hidden" id="id_institucion">
+          <input type="hidden" id="nro_documento">
+          <input type="hidden" id="id_pagos">
+          <input type="hidden" id="id_compras">
+          <input type="hidden" id="_token" value="{{ csrf_token() }}">
         </div>
         <div class="card-body card-padding">
           <h4>Pagos Pendientes</h4>

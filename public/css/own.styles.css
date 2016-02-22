@@ -42,3 +42,6 @@ form p {
 #btn-toggle-compras {
   cursor: pointer;
 }
+.modal-factura-datos {
+  padding: 15px;
+}
