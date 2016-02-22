@@ -1037,7 +1037,6 @@ function reloadTablaCobroOrdinario (modal_cobro) {
 };
 /*** Fin Cobros Ordinarios ***/
 
-<<<<<<< HEAD
 /*** Otros Cobros ***/
 $('#form-listar-c-otros #btn-listar-c-otros').click(function (e) {
 
@@ -1184,7 +1183,7 @@ function reloadTablaOtrosCobros (modal_cobro) {
   }
 };
 /*** Fin Otros Cobros ***/
-=======
+
 /*** Funciones adicionales ***/
 function notify(message, from, align, type, animIn, animOut){
   $.growl({
@@ -1216,4 +1215,3 @@ function notify(message, from, align, type, animIn, animOut){
     template: '<div data-growl="container" class="alert" role="alert">' + '<button type="button" class="close" data-growl="dismiss">' + '<span aria-hidden="true">&times;</span>' + '<span class="sr-only">Close</span>' + '</button>' + '<span data-growl="icon"></span>' + '<span data-growl="title"></span>' + '<span data-growl="message"></span>' + '<a href="#" data-growl="url"></a>' + '</div>'
   });
 };
->>>>>>> admin
