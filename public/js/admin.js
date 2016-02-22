@@ -17,7 +17,9 @@ $('#form-crear-actividad #id_institucion').change(function (e) {
 
 $('#form-crear-actividad #btn-crear-actividad').click(function (e) {
   e.preventDefault();
-  $(this).html('Cargando...');
+
+  $boton = $(this);
+  $boton.html('Cargando...');
 
   var $form = $('#form-crear-actividad');
   var $id_detalle_institucion = $form.find('#id_detalle_institucion').val();
@@ -39,12 +41,28 @@ $('#form-crear-actividad #btn-crear-actividad').click(function (e) {
       monto : $monto,
       id_detalle_institucion : $id_detalle_institucion,
     },
-    success : function (data) {
-      console.log(data);
-    },
-    fail : function () {
+    fail : function (data) {
       resultado = false;
-      console.log(resultado);
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $.growl({
+        title : 'ERROR: ',
+        message: err_list,
+      }, {
+        type : 'danger',
+        placement: {
+          from: 'top',
+          align: 'center'
+        },
+      });
+
+      $boton.html('Guardar');
     }
   }));
 
@@ -171,6 +189,16 @@ $('#modal-editar-actividad #modal-guardar').click(function () {
       }, function(){
         console.log('fail');
       });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
     }
   });
 });
@@ -234,7 +262,8 @@ $('#btn-crear-matricula').click(function (e) {
 
   if (nroFilas > 1) {
 
-    $(this).html('Cargando...');
+    $boton = $(this);
+    $boton.html('Cargando...');
 
     var $nombre = $('#nombre').val();
     var $fecha_inicio = $('#fecha_inicio').val();
@@ -244,55 +273,77 @@ $('#btn-crear-matricula').click(function (e) {
     var ruta = '/admin/matriculas';
 
     var XHRs = [];
+    var errors = [];
     var resultado = true;
+    var errors = false;
 
-    $('#tabla-crear-matricula tr').each(function (index, el) {
-      var $id_detalle_institucion = $(this).find('.id-division').html();
-      var $monto = $(this).find('.monto-matricula').val();
-
-      if (index != 0) {
-        XHRs.push($.ajax({
-          url : ruta,
-          headers : {'X-CSRF-TOKEN': $token},
-          type : 'POST',
-          dataType : 'json',
-          data : {
-            nombre : $nombre,
-            monto : $monto,
-            tipo : 'matricula',
-            estado : '1',
-            fecha_inicio : $fecha_inicio,
-            fecha_fin : $fecha_fin,
-            destino : '0',
-            id_detalle_institucion : $id_detalle_institucion
-          },
-          fail : function () {
-            resultado = false;
-          }
-        }));
+    $('#tabla-crear-matricula .monto-matricula').each(function (index, el) {
+      if ($(this).val() == "") {
+        errors = true;
       };
     });
 
-    $.when.apply(null, XHRs).then(function () {
-      if (resultado) {
-        swal({
-            title: "Éxito!",
-            text: "Se crearon los conceptos de matrícula correctamente.",
-            type: "success"
-        }, function () {
-          document.location.reload();
-        });
-      } else {
-        swal({
-            title: "Error",
-            text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
-            type: "warning"
-        }, function () {
-          document.location.reload();
-        });
-      }
-    });
+    if (!errors && $nombre != "" && $fecha_inicio != "" && $fecha_fin != "") {
+      $('#tabla-crear-matricula tr').each(function (index, el) {
+        var $id_detalle_institucion = $(this).find('.id-division').html();
+        var $monto = $(this).find('.monto-matricula').val();
 
+        if (index != 0) {
+          XHRs.push($.ajax({
+            url : ruta,
+            headers : {'X-CSRF-TOKEN': $token},
+            type : 'POST',
+            dataType : 'json',
+            data : {
+              nombre : $nombre,
+              monto : $monto,
+              tipo : 'matricula',
+              estado : '1',
+              fecha_inicio : $fecha_inicio,
+              fecha_fin : $fecha_fin,
+              destino : '0',
+              id_detalle_institucion : $id_detalle_institucion
+            },
+            fail : function () {
+              resultado = false;
+            },
+            error : function (msg) {
+              errors++;
+              $boton.html('Guardar');
+            }
+          }));
+        };
+      });
+
+      $.when.apply(null, XHRs).then(function () {
+        if (resultado) {
+          swal({
+              title: "Éxito!",
+              text: "Se crearon los conceptos de matrícula correctamente.",
+              type: "success"
+          }, function () {
+            document.location.reload();
+          });
+        } else {
+          swal({
+              title: "Error",
+              text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+              type: "warning"
+          }, function () {
+            document.location.reload();
+          });
+        }
+      }, function (data, textStatus, jqXHR) {
+        console.log(textStatus);
+      });
+    } else{
+      swal({
+        title: "¡Atención!",
+        text: "Falta alguno de los siguientes datos: Concepto, Fecha Inicio, Fecha Fin o algún monto.",
+        type: "warning"
+      });
+      $boton.html('Guardar');
+    };
   } else {
     swal({
         title: "¡Atención!",
@@ -388,6 +439,16 @@ $('#modal-editar-matricula #modal-guardar').click(function () {
       }, function(){
           console.log('fail');
       });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
     }
   });
 });
@@ -417,7 +478,7 @@ function reloadTablaMatriculas (modal_matricula) {
       }
     });
 
-    modal_matricula.modal('hide');
+    if (typeof modal_matricula !== "undefined") { modal_matricula.modal('hide'); }
   } else {
     document.location.reload;
   }
@@ -430,53 +491,65 @@ $('#btn-deshabilitar-matriculas').click(function (e) {
 
   var $filasTabla = $('#tabla-lista-matriculas tr');
 
-  $(this).html('Cargando...');
+  var $boton = $(this);
+  $boton.html('Cargando...');
 
-  $filasTabla.each(function (index, el) {
-    var $seleccionado = $(this).find('[type=checkbox]').is(':checked');
+  nro_seleccionados = $('#tabla-lista-matriculas [type=checkbox]:checked').length;
 
-    if (index != 0 && $seleccionado) {
-      var $id = $(this).find('.matricula-id').html();
-      var $token = $('#token-deshabilitar').val();
+  if (nro_seleccionados > 0) {
+    $filasTabla.each(function (index, el) {
+      var $seleccionado = $(this).find('[type=checkbox]').is(':checked');
 
-      var ruta = '/admin/matriculas/' + $id;
+      if (index != 0 && $seleccionado) {
+        var $id = $(this).find('.matricula-id').html();
+        var $token = $('#token-deshabilitar').val();
 
-      XHRs.push($.ajax({
-        url: ruta,
-        headers : { 'X-CSRF-TOKEN' : $token },
-        type : 'PUT',
-        dataType : 'json',
-        data : {
-          estado : '0',
-          operacion : 'estado'
-        },
-        fail : function () {
-          resultado = false;
-        }
-      }));
-    };
-  });
+        var ruta = '/admin/matriculas/' + $id;
 
-  $.when.apply(null, XHRs).then(function () {
-    if (resultado) {
-      swal({
-        title: "Éxito!",
-        text: "Los cambios fueron realizados.",
-        type: "success",
-        closeOnConfirm: false
-      }, function () {
-        document.location.reload();
-      });
-    } else {
-      swal({
-          title: "Error",
-          text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
-          type: "warning"
-      }, function () {
-        document.location.reload();
-      });
-    }
-  });
+        XHRs.push($.ajax({
+          url: ruta,
+          headers : { 'X-CSRF-TOKEN' : $token },
+          type : 'PUT',
+          dataType : 'json',
+          data : {
+            estado : '0',
+            operacion : 'estado'
+          },
+          fail : function () {
+            resultado = false;
+          }
+        }));
+      };
+    });
+
+    $.when.apply(null, XHRs).then(function () {
+      if (resultado) {
+        swal({
+          title: "Éxito!",
+          text: "Los cambios fueron realizados.",
+          type: "success",
+        }, function () {
+          reloadTablaMatriculas();
+          $boton.html('<i class="zmdi zmdi-block"></i> deshabilitar seleccionadas');
+        });
+      } else {
+        swal({
+            title: "Error",
+            text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+            type: "warning"
+        }, function () {
+          document.location.reload();
+        });
+      }
+    });
+  } else{
+    swal({
+      title: "ERROR!",
+      text: "Debe seleccionar por lo menos una matrícula para deshabilitar.",
+      type: "warning",
+    });
+    $boton.html('<i class="zmdi zmdi-block"></i> deshabilitar seleccionadas');
+  };
 });
 /*** Fin Matriculas ***/
 
@@ -493,7 +566,7 @@ $('#form-crear-pensiones #id_institucion').change(function (e) {
         var fila = "<tr>";
         fila += "<td class='hidden id-division'>" + response[i].id + "</td>";
         fila += "<td>" + response[i].nombre_division + "</td>";
-        fila += "<td><div class='col-sm-12'><div class='fg-line'><input type='text' class='form-control input-sm monto-matricula' placeholder='Monto...'></div></div></td>";
+        fila += "<td><div class='col-sm-12'><div class='fg-line'><input type='text' class='form-control input-sm monto-pension' placeholder='Monto...'></div></div></td>";
         fila += "</tr>";
         $('#tabla-crear-pensiones tbody').append(fila);
       }
@@ -509,126 +582,154 @@ $('#btn-crear-pensiones').click(function (e) {
 
   if (nroFilas > 1) {
 
-    $(this).html('Cargando...');
+    $boton = $(this);
+    $boton.html('Cargando...');
 
     var $mes_inicio = $('#mes_inicio').val();
     var $mes_fin = $('#mes_fin').val();
-    var nro_mes_inicio = parseInt($mes_inicio.split('/')[0], 10);
-    var anio_inicio = parseInt($mes_inicio.split('/')[1], 10);
-    var nro_mes_fin = parseInt($mes_fin.split('/')[0], 10);
-    var anio_fin = parseInt($mes_fin.split('/')[1], 10);
-    var $token = $('#form-crear-pensiones #token').val();
-    var XHRs = [];
-    var ruta = '/admin/pensiones';
-    var resultado = true;
-    var meses = [0,'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 
-    if (anio_inicio == anio_fin) {
-      for (var nro_mes = nro_mes_inicio; nro_mes <= nro_mes_fin; nro_mes++) {
-        var nombre = 'Pension ' + meses[nro_mes] + ' ' + anio_inicio;
-        var fecha_inicio = anio_inicio + '/' + nro_mes + '/01';
-        var fecha_fin = anio_inicio + '/' + nro_mes + '/28';
+    if ($mes_inicio != "" && $mes_fin != "") {
+      var nro_mes_inicio = parseInt($mes_inicio.split('/')[0], 10);
+      var anio_inicio = parseInt($mes_inicio.split('/')[1], 10);
+      var nro_mes_fin = parseInt($mes_fin.split('/')[0], 10);
+      var anio_fin = parseInt($mes_fin.split('/')[1], 10);
+      var $token = $('#form-crear-pensiones #token').val();
+      var XHRs = [];
+      var ruta = '/admin/pensiones';
+      var resultado = true;
+      var meses = [0,'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+      var errors = false;
 
-        $('#tabla-crear-pensiones tr').each(function (index, el) {
-          var $id_detalle_institucion = $(this).find('.id-division').html();
-          var $monto = $(this).find('.monto-matricula').val();
+      $('#tabla-crear-pensiones .monto-pension').each(function (index, el) {
+        if ($(this).val() == "") {
+          errors = true;
+        };
+      });
+
+      if (!errors) {
+        if (anio_inicio == anio_fin) {
+          for (var nro_mes = nro_mes_inicio; nro_mes <= nro_mes_fin; nro_mes++) {
+            var nombre = 'Pension ' + meses[nro_mes] + ' ' + anio_inicio;
+            var fecha_inicio = anio_inicio + '/' + nro_mes + '/01';
+            var fecha_fin = anio_inicio + '/' + nro_mes + '/28';
+
+            $('#tabla-crear-pensiones tr').each(function (index, el) {
+              var $id_detalle_institucion = $(this).find('.id-division').html();
+              var $monto = $(this).find('.monto-pension').val();
 
 
-          if (index != 0) {
-            XHRs.push($.ajax({
-              url : ruta,
-              headers : {'X-CSRF-TOKEN': $token},
-              type : 'POST',
-              dataType : 'json',
-              data : {
-                nombre : nombre,
-                monto : $monto,
-                tipo : 'pension',
-                estado : '1',
-                fecha_inicio : fecha_inicio,
-                fecha_fin : fecha_fin,
-                destino : '0',
-                id_detalle_institucion : $id_detalle_institucion
-              },
-              fail : function () {
-                resultado = false;
-              }
-            }));
+              if (index != 0) {
+                XHRs.push($.ajax({
+                  url : ruta,
+                  headers : {'X-CSRF-TOKEN': $token},
+                  type : 'POST',
+                  dataType : 'json',
+                  data : {
+                    nombre : nombre,
+                    monto : $monto,
+                    tipo : 'pension',
+                    estado : '1',
+                    fecha_inicio : fecha_inicio,
+                    fecha_fin : fecha_fin,
+                    destino : '0',
+                    id_detalle_institucion : $id_detalle_institucion
+                  },
+                  fail : function () {
+                    resultado = false;
+                  }
+                }));
+              };
+            });
           };
-        });
-      };
-    } else if (anio_inicio < anio_fin) {
+        } else if (anio_inicio < anio_fin) {
 
-      var kfecha_inicio = anio_inicio + "/" + nro_mes_inicio + "/01";
-      var kfecha_fin = anio_fin + "/" + nro_mes_fin + "/01";
+          var kfecha_inicio = anio_inicio + "/" + nro_mes_inicio + "/01";
+          var kfecha_fin = anio_fin + "/" + nro_mes_fin + "/01";
 
-      var dfi = new Date(kfecha_inicio);
-      var dff = new Date(kfecha_fin);
+          var dfi = new Date(kfecha_inicio);
+          var dff = new Date(kfecha_fin);
 
-      while (dfi <= dff) {
+          while (dfi <= dff) {
 
-        var nombre = 'Pension ' + meses[dfi.getMonth() + 1] + ' ' + dfi.getFullYear();
-        var fecha_mes = dfi.getMonth() + 1;
-        var fecha_ini = dfi.getFullYear() + '/' + fecha_mes + '/01';
-        var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
+            var nombre = 'Pension ' + meses[dfi.getMonth() + 1] + ' ' + dfi.getFullYear();
+            var fecha_mes = dfi.getMonth() + 1;
+            var fecha_ini = dfi.getFullYear() + '/' + fecha_mes + '/01';
+            var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
 
-        $('#tabla-crear-pensiones tr').each(function (index, el) {
-          var $id_detalle_institucion = $(this).find('.id-division').html();
-          var $monto = $(this).find('.monto-matricula').val();
+            $('#tabla-crear-pensiones tr').each(function (index, el) {
+              var $id_detalle_institucion = $(this).find('.id-division').html();
+              var $monto = $(this).find('.monto-pension').val();
 
 
-          if (index != 0) {
-            XHRs.push($.ajax({
-              url : ruta,
-              headers : {'X-CSRF-TOKEN': $token},
-              type : 'POST',
-              dataType : 'json',
-              data : {
-                nombre : nombre,
-                monto : $monto,
-                tipo : 'pension',
-                estado : '1',
-                fecha_inicio : fecha_ini,
-                fecha_fin : fecha_fin,
-                destino : '0',
-                id_detalle_institucion : $id_detalle_institucion
-              },
-              fail : function () {
-                resultado = false;
-              }
-            }));
-          };
-        });
+              if (index != 0) {
+                XHRs.push($.ajax({
+                  url : ruta,
+                  headers : {'X-CSRF-TOKEN': $token},
+                  type : 'POST',
+                  dataType : 'json',
+                  data : {
+                    nombre : nombre,
+                    monto : $monto,
+                    tipo : 'pension',
+                    estado : '1',
+                    fecha_inicio : fecha_ini,
+                    fecha_fin : fecha_fin,
+                    destino : '0',
+                    id_detalle_institucion : $id_detalle_institucion
+                  },
+                  fail : function () {
+                    resultado = false;
+                  }
+                }));
+              };
+            });
 
-        dfi.setMonth(dfi.getMonth() + 1);
-      }
-    }
+            dfi.setMonth(dfi.getMonth() + 1);
+          }
+        }
 
-    $.when.apply(null, XHRs).then(function () {
-      if (resultado) {
-        swal({
-            title: "Éxito!",
-            text: "Se crearon las pensiones correctamente.",
-            type: "success"
-        }, function () {
-          document.location.reload();
+        $.when.apply(null, XHRs).then(function () {
+          if (resultado) {
+            swal({
+                title: "Éxito!",
+                text: "Se crearon las pensiones correctamente.",
+                type: "success"
+            }, function () {
+              document.location.reload();
+            });
+          } else {
+            swal({
+                title: "Error",
+                text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+                type: "warning"
+            }, function () {
+              document.location.reload();
+            });
+          }
         });
       } else {
         swal({
-            title: "Error",
-            text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+            title: "¡Atención!",
+            text: "Debe ingresar todos los montos.",
             type: "warning"
-        }, function () {
-          document.location.reload();
         });
-      }
-    });
+        $boton.html('Guardar');
+      };
+    } else {
+      swal({
+          title: "¡Atención!",
+          text: "Debe seleccionar los meses de inicio y fin.",
+          type: "warning"
+      });
+      $boton.html('Guardar');
+    };
   } else {
     swal({
         title: "¡Atención!",
         text: "Debe seleccionar una institución primero.",
         type: "warning"
     });
+    $boton.html('Guardar');
   }
 });
 
@@ -668,7 +769,7 @@ $('#form-listar-pensiones #btn-listar-pensiones').click(function (e) {
             fila += "<td class='hidden pension-id'>" + data[i].id + "</td>";
             fila += "<td>" + data[i].nombre + "</td>";
             fila += "<td>" + data[i].monto + "</td>";
-            fila += "<td><a href='#modal-editar-pension' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
+            fila += "<td><a href='#modal-editar-pension' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
             fila += "</tr>";
             $('#tabla-listar-pensiones tbody').append(fila);
         };
@@ -731,6 +832,16 @@ $('#modal-editar-pension #modal-guardar').click(function () {
       }, function(){
           console.log('fail');
       });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
     }
   });
 });
@@ -860,7 +971,7 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
       console.log(data);
       swal({
           title: "Éxito",
-          text: "Se actualizó la pensión.",
+          text: "Se actualizó el concepto.",
           type: "success",
           closeOnConfirm: true
       }, function(){
@@ -876,6 +987,16 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
       }, function(){
           console.log('fail');
       });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
     }
   });
 });
@@ -916,6 +1037,7 @@ function reloadTablaCobroOrdinario (modal_cobro) {
 };
 /*** Fin Cobros Ordinarios ***/
 
+<<<<<<< HEAD
 /*** Otros Cobros ***/
 $('#form-listar-c-otros #btn-listar-c-otros').click(function (e) {
 
@@ -1062,3 +1184,36 @@ function reloadTablaOtrosCobros (modal_cobro) {
   }
 };
 /*** Fin Otros Cobros ***/
+=======
+/*** Funciones adicionales ***/
+function notify(message, from, align, type, animIn, animOut){
+  $.growl({
+      title : 'ERROR: ',
+      message: message,
+  },{
+    element: 'body',
+    type: type,
+    allow_dismiss: true,
+    placement: {
+      from: from,
+      align: align
+    },
+    offset: {
+      x: 20,
+      y: 85
+    },
+    spacing: 10,
+    z_index: 1031,
+    delay: 2500,
+    timer: 1000,
+    url_target: '_blank',
+    mouse_over: false,
+    animate: {
+      enter: animIn,
+      exit: animOut
+    },
+    icon_type: 'class',
+    template: '<div data-growl="container" class="alert" role="alert">' + '<button type="button" class="close" data-growl="dismiss">' + '<span aria-hidden="true">&times;</span>' + '<span class="sr-only">Close</span>' + '</button>' + '<span data-growl="icon"></span>' + '<span data-growl="title"></span>' + '<span data-growl="message"></span>' + '<a href="#" data-growl="url"></a>' + '</div>'
+  });
+};
+>>>>>>> admin

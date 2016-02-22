@@ -1,4 +1,3 @@
-/*****/
 $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
   e.preventDefault();
 
