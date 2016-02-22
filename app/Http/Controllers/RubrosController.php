@@ -5,6 +5,7 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
+use JSoria\Http\Requests\RubroCreateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Rubro;
@@ -40,7 +41,7 @@ class RubrosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RubroCreateRequest $request)
     {
         $nombre = $request['nombre'];
         Rubro::create([
@@ -80,7 +81,7 @@ class RubrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RubroUpdateRequest $request, $id)
     {
         //
     }
