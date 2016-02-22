@@ -17,18 +17,18 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal'])!!}
+          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
+            <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir...'>
-                  <option value="1">I.E. J. Soria</option>
-                  <option value="2">CEBA Konrad Adenahuer</option>
-                  <option value="3">I.S.T. Urusayhua</option>
-                  <option value="4">ULP</option>
+                  @foreach($permisos as $permiso)
+                    <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -36,13 +36,13 @@
               <label for="tipo_comprobante" class="col-sm-3 control-label">Tipo de comprobante</label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="tipo_comprobante" id="tipo_comprobante" title='Elegir...'>
-                  <option>Boleta</option>
-                  <option>Factura</option>
-                  <option>Comprobante de Pago</option>
+                  <option value="1">Boleta</option>
+                  <option value="2">Factura</option>
+                  <option value="3">Comprobante de Pago</option>
                 </select>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="form-group-nro-comprobante">
               <label for="numero_comprobante" class="col-sm-3 control-label">Número</label>
               <div class="col-sm-9">
                   <div class="fg-line">
@@ -70,8 +70,9 @@
               <div class="col-sm-3">
                 <div class="fg-line">
                   <select name="rubro_egreso" id="rubro_egreso" class="selectpicker" data-live-search="true" placeholder="Egreso" title="Rubro">
-                    <option value="1">Movilidad</option>
-                    <option value="2">Muebles</option>
+                    @foreach($rubros as $rubro)
+                      <option value="{{ $rubro->id }}">{{ $rubro->nombre }}</option>
+                    @endforeach
                   </select>
                 </div>
               </div>
@@ -96,18 +97,16 @@
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapseOne" class="collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
-                              {!!Form::open(['class' => 'form-inline row'])!!}
                                 <div class="col-sm-7">
                                   <div class="fg-line">
-                                    <input type="text" class="form-control input-sm" id="nuevo_rubro" name="nuevo_rubro" placeholder="Nombre">
+                                    <input type="text" class="form-control input-sm" id="nombre" name="nombre" placeholder="Nombre">
                                   </div>
                                 </div>
                                 <div class="col-sm-5">
                                   <button class="btn btn-primary waves-effect" id="btn_nuevo_rubro">Agregar</button>
                                 </div>
-                              {!!Form::close()!!}
                             </div>
                         </div>
                     </div>
@@ -146,4 +145,8 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('js/tesorera.js') }}"></script>
 @endsection

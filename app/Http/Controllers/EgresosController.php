@@ -8,6 +8,9 @@ use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Egreso;
+use JSoria\Permiso;
+use JSoria\Rubro;
+use Auth;
 
 class EgresosController extends Controller
 {
@@ -29,7 +32,15 @@ class EgresosController extends Controller
      */
     public function create()
     {
-        return view('tesorera.egreso.create');
+        $id_usuario = Auth::user()->id;
+
+        $permisos = Permiso::join('institucion', 'permisos.id_institucion', '=', 'institucion.id')
+                           ->where('permisos.id_usuario', '=', $id_usuario)
+                           ->select('institucion.id', 'institucion.nombre')->get();
+
+        $rubros = Rubro::All();
+
+        return view('tesorera.egreso.create', compact('permisos', 'rubros'));
     }
 
     /**
