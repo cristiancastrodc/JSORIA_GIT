@@ -35,6 +35,7 @@ Route::get('admin/matriculas/{id_institucion}/{anio}', 'MatriculasController@lis
 Route::get('admin/pensiones/{id_detalle_institucion}/{anio}', 'PensionesController@listaPensiones');
 Route::get('admin/actividades/listar/{id_detalle_institucion}', 'ActividadesController@listaActividades');
 Route::get('admin/cobros/ordinarios/listar/{id_institucion}', 'CobrosOrdinariosController@listaCobros');
+Route::get('admin/cobros/otros/listar/{id_institucion}', 'OtrosCobrosController@listaCobros');
 /*** Rutas para tesorera ***/
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');

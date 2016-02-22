@@ -1,15 +1,15 @@
-<div class="modal fade" id="modal-editar-c-ordinario" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-editar-c-otro" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Editar Cobro Ordinario</h4>
+                <h4 class="modal-title">Editar Cobro</h4>
             </div>
             <div class="modal-body">
                 <div id="modal-error" style="display:none">
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <div id="message"></div>
-                    </div>
+                  <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div id="message"></div>
+                  </div>
                 </div>
                 <form class="form-horizontal">
                     <input type="hidden" value="{{ csrf_token() }}" name="_token" id="modal-token">
@@ -27,19 +27,6 @@
                         <div class="col-sm-9">
                             <div class="fg-line">
                                 <input type="text" class="form-control input-sm" id="modal-monto" name="modal-monto" placeholder="Monto">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="modal-unitario" class="col-sm-3 control-label">Monto Unitario</label>
-                        <div class="col-sm-9">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="modal-unitario" id="modal-unitario">
-                                    <i class="input-helper"></i>
-                                    Convertir en Monto Unitario
-                                    <p><small> El monto Unitario permite agregar la cantidad a multiplicar para obtener el monto total</small></p>
-                                </label>
                             </div>
                         </div>
                     </div>

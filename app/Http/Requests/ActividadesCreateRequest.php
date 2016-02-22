@@ -4,7 +4,7 @@ namespace JSoria\Http\Requests;
 
 use JSoria\Http\Requests\Request;
 
-class MatriculaUpdateRequest extends Request
+class ActividadesCreateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,9 @@ class MatriculaUpdateRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required_unless:operacion,estado|string',
-            'monto' => 'required_unless:operacion,estado|numeric',
-            'operacion' => 'required|in:actualizar,estado',
-            'estado' => 'required_if:operacion,estado'
+            'id_detalle_institucion' => 'required|numeric',
+            'nombre' => 'required',
+            'monto' => 'required|numeric',
         ];
     }
 }

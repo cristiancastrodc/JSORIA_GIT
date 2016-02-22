@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\CobroOrdinarioCreateRequest;
+use JSoria\Http\Requests\CobroOrdinarioUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Categoria;
@@ -73,6 +74,7 @@ class CobrosOrdinariosController extends Controller
             'estado' => $estado,
             ]);
 
+
         Session::flash('message', 'Cobro Ordinario creado correctamente.');
         return Redirect::to('/admin/cobros/ordinarios');
     }
@@ -106,9 +108,20 @@ class CobrosOrdinariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CobroOrdinarioUpdateRequest $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $nombre = $request['nombre'];
+            $monto = $request['monto'];
+            $tipo = $request['unitario'] == "true" ? 'con_factor' : 'sin_factor';
+            $estado = $request['estado'] == "true" ? 1 : 0;
+
+            Categoria::find($id)->update(['nombre' => $nombre, 'monto' => $monto, 'tipo' => $tipo, 'estado' => $estado]);
+
+            return response()->json(['mensaje' => 'Actualizado']);
+        } else {
+            return response()->json(['mensaje' => 'Request not AJAX.']);
+        }
     }
 
     /**

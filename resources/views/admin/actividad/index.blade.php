@@ -121,5 +121,6 @@
 @endsection
 
 @section('scripts')
+  <script src="{{ asset('vendors/bootstrap-growl/bootstrap-growl.min.js') }}"></script>
   <script src="{{ asset('js/admin.js') }}"></script>
 @endsection
