@@ -5,6 +5,12 @@
                 <h4 class="modal-title">Editar Monto de Pensión</h4>
             </div>
             <div class="modal-body">
+                <div id="modal-error" style="display:none">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div id="message"></div>
+                    </div>
+                </div>
                 <form class="form-horizontal">
                     <input type="hidden" value="{{ csrf_token() }}" name="_token" id="modal-token">
                     <input type="hidden" id="modal-id">
