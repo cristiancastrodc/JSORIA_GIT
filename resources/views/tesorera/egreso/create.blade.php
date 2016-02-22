@@ -21,6 +21,7 @@
       <div class="card">
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
+            <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -98,16 +99,14 @@
                         </div>
                         <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
-                              {!!Form::open(['class' => 'form-inline row'])!!}
                                 <div class="col-sm-7">
                                   <div class="fg-line">
-                                    <input type="text" class="form-control input-sm" id="nuevo_rubro" name="nuevo_rubro" placeholder="Nombre">
+                                    <input type="text" class="form-control input-sm" id="nombre" name="nombre" placeholder="Nombre">
                                   </div>
                                 </div>
                                 <div class="col-sm-5">
                                   <button class="btn btn-primary waves-effect" id="btn_nuevo_rubro">Agregar</button>
                                 </div>
-                              {!!Form::close()!!}
                             </div>
                         </div>
                     </div>

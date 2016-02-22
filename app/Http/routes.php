@@ -39,6 +39,7 @@ Route::get('admin/cobros/ordinarios/listar/{id_institucion}', 'CobrosOrdinariosC
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
 Route::resource('tesorera/ingresos','IngresosController');
+Route::post('tesorera/egresos/rubroNuevo', 'RubrosController@crearconajax');
 /*** Rutas para tesorera ***/
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');

@@ -95,4 +95,13 @@ class RubrosController extends Controller
     {
         //
     }
+
+    public function crearconajax(Request $request)
+    {
+        $nombre = $request['nombre'];
+        Rubro::create([
+            'nombre' => $nombre
+        ]);
+        return response()->json(['mensaje' => 'Rubro creado']);
+    }
 }

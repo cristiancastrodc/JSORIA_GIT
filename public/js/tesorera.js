@@ -10,3 +10,29 @@ $('#form-registrar-egreso-tesorera #tipo_comprobante').change(function (event){
 	}
 });
 
+
+$('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
+  e.preventDefault();
+
+  var ruta ='../egresos/rubroNuevo/';
+  var dato = $('#nombre').val();
+  var token =$('#token').val();
+
+  $.ajax({
+  	url: ruta,
+  	headers: {'X-CSRF-TOKEN': token},
+  	type: 'POST',
+  	dataType: 'json',
+  	data:{nombre: dato},
+  	success : function (response) {
+  		swal({
+          title: "Éxito",
+          text: "Rubro creado.",
+          type: "success",
+      });
+  		$('#nombre').val("");
+
+  	}
+  });
+});
+
