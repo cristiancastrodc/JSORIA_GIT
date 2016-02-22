@@ -284,9 +284,35 @@ class AlumnosController extends Controller
                     'mensaje' => 'El alumno no existe.'
                 ]);
             }
-            
+        }
+    }
 
-            
+    public function listaDeudasActividadesAlumno(Request $request, $documento)
+    {
+        if ($request->ajax()) {
+
+            $alumno = Alumno::where('nro_documento','=',$documento)->first();
+            $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
+                                   ->where('deuda_ingreso.id_alumno','=',$documento)
+                                   ->where('deuda_ingreso.estado_pago','=',0)
+                                   ->where('categoria.tipo','=','actividad')
+                                   ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
+                                   ->get();               
+            if ($alumno) {  
+                if ($alumno->estado == 1) {                
+                    $response = array($alumno, $deudas);
+                    return response()->json($response);
+
+                } else {
+                    return response()->json([
+                        'mensaje' => 'El alumno no esta matriculado.'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'mensaje' => 'El alumno no existe.'
+                ]);
+            }
         }
     }
 }
