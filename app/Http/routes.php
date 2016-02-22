@@ -44,6 +44,8 @@ Route::post('tesorera/egresos/rubroNuevo', 'RubrosController@crearconajax');
 /*** Rutas para tesorera ***/
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');
+Route::get('cajera/buscar/deudas/{codigo}', 'CobrosController@buscarDeudas');
+Route::post('cajera/cobro/guardar', 'CobrosController@guardarCobro');
 /*** Rutas para secretaria ***/
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
