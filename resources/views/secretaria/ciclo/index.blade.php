@@ -25,10 +25,9 @@
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir...'>
-                  <option value="1">I.E. J. Soria</option>
-                  <option value="2">CEBA Konrad Adenahuer</option>
-                  <option value="3">I.S.T. Urusayhua</option>
-                  <option value="4">ULP</option>
+                  @foreach($permisos as $permiso)
+                    <option value="{{ $permiso->id }}">{{$permiso->nombre}}</option>
+                  @endforeach
                 </select>
               </div>
             </div>

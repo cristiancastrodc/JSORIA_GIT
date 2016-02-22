@@ -35,7 +35,7 @@ class Alumno extends Model
 
   public static function datos_alumno($nro_documento)
   {
-    return Alumno::where('nro_documento', '=', $nro_documento)->get();
+    return Alumno::where('nro_documento', '=', $nro_documento)->first();
   }
 
   public static function alumnos_detalle_institucion($id_detalle_institucion)

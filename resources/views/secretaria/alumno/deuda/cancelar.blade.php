@@ -4,10 +4,6 @@
   Cancelar deuda de actividad
 @endsection
 
-@section('styles')
-  {!!Html::style('vendors/bootgrid/jquery.bootgrid.min.css')!!}
-@endsection
-
 @section('content')
   <h1>CANCELAR DEUDA DE ACTIVIDAD</h1>
 
@@ -24,53 +20,53 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal'])!!}
+          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-buscar-actividades-alumno'])!!}
             <div class="form-group">
-              <label for="dni" class="col-sm-3 control-label">DNI</label>
+              <label for="dni" class="col-sm-3 control-label">Alumno</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="dni" name="dni" placeholder="DNI">
+                      <input type="text" class="form-control input-sm" id="nro_documento" name="nro_documento" placeholder="Documento de Alumno">
                   </div>
               </div>
             </div>
             <div class="form-group">
               <div class="pull-right">
-                <button class="btn btn-warning waves-effect">Buscar</button>
+                <button class="btn btn-warning waves-effect" id="btn-buscar-alumno">Buscar</button>
               </div>
             </div>
           {!!Form::close()!!}
         </div>
       </div>
-      <div class="card">
+      <div class="card js-toggle">
+        <div class="card-header">
+          <h3><span id="nombre-alumno" class="text-uppercase"></span></h3>
+        </div>
         <div class="card-body card-padding">
-          <div class="table-responsive">
-            <table id="data-table-basic" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th data-column-id="id" data-visible="false" data-identifier="true">Id</th>
-                        <th data-column-id="Concepto" class="warning c-white">Concepto</th>
-                        <th data-column-id="Monto" class="warning c-white">Monto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Matrícula Colegio 2016</td>
-                    <td>100.00</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Matrícula CEBA 2016</td>
-                    <td>100.00</td>
-                  </tr>
-                </tbody>
-            </table>
-          </div>
-          <div class="form-group">
-            <div class="pull-right">
-              <button class="btn btn-warning waves-effect">Cancelar Deudas</button>
+          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-lista-deudas-alumno'])!!}
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+            <input type="hidden" name="nro_documento" id="nro_documento">
+            <div class="form-group">
+              <div class="table-responsive">
+                <table id="tabla-actividades-listar-alumno" class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th class="hidden">Id</th>
+                          <th class="danger c-white">Concepto</th>
+                          <th class="danger c-white">Monto (S/)</th>
+                          <th class="danger c-white">seleccionar</th>
+                        </tr>
+                    </thead>
+                    <tbody>                      
+                    </tbody>
+                </table>
+              </div>                
+            </div>  
+            <div class="form-group">
+              <div class="pull-right">
+                <button class="btn btn-warning waves-effect">Cancelar Deudas</button>
+              </div>
             </div>
-          </div>
+          {!!Form::close()!!}   
         </div>
       </div>
     </div>
@@ -78,25 +74,5 @@
 @endsection
 
 @section('scripts')
-  {!!Html::script('vendors/bootgrid/jquery.bootgrid.updated.min.js')!!}
-  {!!Html::script('js/own.scripts.js')!!}
-  <script type="text/javascript">
-      $(document).ready(function(){
-          //Basic Example
-          $("#data-table-basic").bootgrid({
-              css: {
-                  icon: 'zmdi icon',
-                  iconColumns: 'zmdi-view-module',
-                  iconDown: 'zmdi-expand-more',
-                  iconRefresh: 'zmdi-refresh',
-                  iconUp: 'zmdi-expand-less'
-              },
-              selection : true,
-              multiSelect : true,
-              rowSelect : true,
-              keepSelection : true,
-              navigation : 0,
-          });
-        });
-  </script>
+  <script src="{{ asset('js/secretaria.js') }}"></script>
 @endsection
