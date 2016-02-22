@@ -4,10 +4,6 @@
   Administrar Otros Cobros
 @endsection
 
-@section('styles')
-  {!!Html::style('vendors/bootgrid/jquery.bootgrid.min.css')!!}
-@endsection
-
 @section('content')
   <h1>ADMINISTRAR OTROS COBROS</h1>
 
@@ -87,7 +83,9 @@
       <div class="card">
         <div class="card-header">
           <h2>Lista de Otros Cobros</h2>
-          {!!Form::open(array('route' => 'admin.cobros.otros.store', 'class' => 'form-horizontal', 'method' => 'POST'))!!}
+        </div>
+        <div class="card-body card-padding">
+          {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-listar-c-otros'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -100,29 +98,25 @@
               </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary waves-effect pull-right">Buscar</button>
+              <button type="submit" class="btn btn-primary waves-effect pull-right" id="btn-listar-c-otros">Buscar</button>
             </div>
           {!!Form::close()!!}
         </div>
+      </div>
+      <div class="card">
         <div class="card-body card-padding">
           <div class="table-responsive">
-            <table id="data-table-basic" class="table table-striped">
+            <table id="tabla-listar-c-otros" class="table table-striped">
                 <thead>
                     <tr>
-                        <th data-column-id="id" data-visible="false" data-identifier="true">Id</th>
-                        <th data-column-id="Concepto" class="warning c-white">Concepto</th>
-                        <th data-column-id="Monto" class="warning c-white">Monto</th>
-                        <th data-column-id="Tipo" class="warning c-white">Estado</th>
-                        <th data-column-id="Acciones" data-formatter="commands" data-sortable="false">Acciones</th>
+                        <th class="hidden">Id</th>
+                        <th class="warning c-white">Concepto</th>
+                        <th class="warning c-white">Monto</th>
+                        <th class="warning c-white">Estado</th>
+                        <th class="warning c-white">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Constancia Estudios Colegio</td>
-                    <td>100.00</td>
-                    <td>Deshabilitado</td>
-                  </tr>
                 </tbody>
             </table>
           </div>
@@ -132,27 +126,10 @@
   </div>
 @endsection
 
+@section('modals')
+  @include('layouts.modals.c-otro')
+@endsection
+
 @section('scripts')
-  {!!Html::script('vendors/bootgrid/jquery.bootgrid.updated.min.js')!!}
-  {!!Html::script('js/own.scripts.js')!!}
-  <script type="text/javascript">
-      $(document).ready(function(){
-          //Basic Example
-          $("#data-table-basic").bootgrid({
-              css: {
-                  icon: 'zmdi icon',
-                  iconColumns: 'zmdi-view-module',
-                  iconDown: 'zmdi-expand-more',
-                  iconRefresh: 'zmdi-refresh',
-                  iconUp: 'zmdi-expand-less'
-              },
-              formatters: {
-                  "commands": function(column, row) {
-                      return "<button type=\"button\" class=\"btn btn-icon waves-effect btn-success waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-edit\"></span></button> " +
-                          "<button type=\"button\" class=\"btn btn-icon btn-danger waves-effect waves-circle\" data-row-id=\"" + row.id + "\"><span class=\"zmdi zmdi-delete\"></span></button>";
-                  }
-              },
-          });
-        });
-  </script>
+  <script src="{{ asset('js/admin.js') }}"></script>
 @endsection

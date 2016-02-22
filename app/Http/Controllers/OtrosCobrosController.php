@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\OtrosCobrosCreateRequest;
+use JSoria\Http\Requests\OtrosCobrosUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Categoria;
@@ -100,9 +101,19 @@ class OtrosCobrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OtrosCobrosUpdateRequest $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $nombre = $request['nombre'];
+            $monto = $request['monto'];
+            $estado = $request['estado'] == "true" ? 1 : 0;
+
+            Categoria::find($id)->update(['nombre' => $nombre, 'monto' => $monto, 'estado' => $estado]);
+
+            return response()->json(['mensaje' => 'Actualizado']);
+        } else {
+            return response()->json(['mensaje' => 'Request not AJAX.']);
+        }
     }
 
     /**
@@ -114,5 +125,16 @@ class OtrosCobrosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /*
+    * Listar cobros
+    */
+    public function listaCobros(Request $request, $id_institucion)
+    {
+        if ($request->ajax()) {
+            $otros_cobros = Categoria::otrosCobrosInstitucion($id_institucion);
+            return response()->json($otros_cobros);
+        }
     }
 }

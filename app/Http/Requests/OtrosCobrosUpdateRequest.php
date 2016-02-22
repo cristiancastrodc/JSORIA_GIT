@@ -4,7 +4,7 @@ namespace JSoria\Http\Requests;
 
 use JSoria\Http\Requests\Request;
 
-class OtrosCobrosCreateRequest extends Request
+class OtrosCobrosUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class OtrosCobrosCreateRequest extends Request
     public function rules()
     {
         return [
-            'id_institucion' => 'required|numeric',
             'nombre' => 'required|string',
-            'monto' => 'required|numeric',           
+            'monto' => 'required|numeric'
         ];
     }
 }
