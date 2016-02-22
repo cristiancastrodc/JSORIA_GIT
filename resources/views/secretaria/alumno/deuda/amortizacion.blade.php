@@ -20,46 +20,61 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal'])!!}
+          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-amortizar-alumno'])!!}
             <div class="form-group">
-              <label for="dni" class="col-sm-3 control-label">DNI</label>
+              <label for="dni" class="col-sm-3 control-label">Alumno</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="dni" name="dni" placeholder="DNI">
+                      <input type="text" class="form-control input-sm" id="nro_documento" name="nro_documento" placeholder="Documento de Alumno">
                   </div>
               </div>
             </div>
             <div class="form-group">
               <div class="pull-right">
-                <button class="btn btn-warning waves-effect">Buscar</button>
+                <button class="btn btn-warning waves-effect" id="btn-buscar-alumno">Buscar</button>
               </div>
             </div>
           {!!Form::close()!!}
         </div>
       </div>
-      <div class="card">
-        <div class="card-body card-padding">
-          <div class="table-responsive">
-              <table class="table table-bordered">
-                  <thead>
-                      <tr>
-                          <th class="warning c-white">Concepto</th>
-                          <th class="warning c-white">Monto (S/)</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>Pensión Marzo 2016</td>
-                          <td>500.00</td>
-                          <td>
-                            <button class="btn bgm-lightgreen waves-effect">Amortizar</button>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
+      <div class="card js-toggle">
+        <div class="card-header">
+          <h3><span id="nombre-alumno"></span></h3>
+        </div>
+        <div class="card">
+          <div class="card-body card-padding">
+            {!!Form::open(['class' => 'form-horizontal'])!!}
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+                <input type="hidden" name="nro_documento" id="nro_documento">
+                <div class="form-group">
+                  <div class="table-responsive">
+                    <table id="tabla-deudasAmortizacion-alumno" class="table table-striped">
+                        <thead>
+                            <tr>
+                              <th class="hidden">Id</th>
+                              <th class="danger c-white">Concepto</th>
+                              <th class="danger c-white">Monto (S/)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                              <td>Pensión Marzo 2016</td>
+                              <td>500.00</td>
+                              <td>
+                                <button class="btn bgm-lightgreen waves-effect">Amortizar</button>
+                              </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>                
+                </div>                
+              {!!Form::close()!!}            
           </div>
         </div>
       </div>
     </div>
   </div>
+@endsection
+@section('scripts')
+  <script src="{{ asset('js/secretaria.js') }}"></script>
 @endsection

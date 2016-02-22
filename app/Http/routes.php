@@ -46,6 +46,7 @@ Route::resource('cajera/retiros','RetirosController');
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
 Route::get('secretaria/alumno/{dni}', 'AlumnosController@datosAlumno');
+Route::get('secretaria/alumno/categorias/{dni}', 'AlumnosController@categoriasAlumno');
 Route::get('secretaria/alumno/deudas/agregar','AlumnosController@agregarDeuda');
 Route::get('secretaria/alumno/deudas/listar','AlumnosController@deudas');
 Route::get('secretaria/alumno/deudas/cancelar','AlumnosController@cancelarDeudaActividad');
@@ -54,6 +55,9 @@ Route::resource('secretaria/ciclo/cerrar','CicloController');
 Route::get('secretaria/alumno/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
 Route::get('secretaria/alumno/grados/{id_detalle_institucion}', 'InstitucionDetalleController@gradosDetalle');
 Route::get('secretaria/alumno/matriculas/{id_detalle_institucion}', 'InstitucionDetalleController@matriculas');
+Route::get('secretaria/alumno/lista_deudas/{dni}', 'AlumnosController@listaDeudasAlumno');
+Route::get('secretaria/alumno/lista_actividades/{dni}', 'AlumnosController@listaDeudasActividadesAlumno');
+Route::get('secretaria/alumno/amortizar_deudas/{dni}', 'AlumnosController@amortizarDeudaAlumno');
 
 /**/
 Route::get('secretaria/reporte', 'PdfController@invoice');
