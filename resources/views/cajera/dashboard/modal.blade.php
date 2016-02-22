@@ -6,11 +6,22 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal">
+                    <div class="table-responsive">
+                        <table id="tabla-resumen" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="hidden">Id</th>
+                                    <th class="warning c-white">Concepto</th>
+                                    <th class="warning c-white">Monto (S/)</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">CANCELAR</button>
-                <a href="/cajera/imprimir" class="btn btn-default">Imprimir</a>
+                <!-- /cajera/imprimir -->
             </div>
         </div>
     </div>

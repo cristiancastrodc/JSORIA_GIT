@@ -50,7 +50,7 @@
             </table>
           </div>
           <h4 id="btn-toggle-compras">Compras <i class="zmdi zmdi-menu"></i></h4>
-          <div id="compras-toggle" style="display:none">
+          <div id="compras-toggle" class="form-group" style="display:none">
             <div class="table-responsive">
               <table id="tabla-categorias-compras" class="table table-striped">
                 <thead>

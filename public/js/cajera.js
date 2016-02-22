@@ -23,13 +23,14 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
       $('#tabla-pagos-pendientes tbody').empty();
       for (var i = 0; i < response[2].length; i++) {
         var fila = "<tr>";
-        fila += "<td class='hidden'>" + response[2][i].id + "</td>";
-        fila += "<td>" + response[2][i].nombre + "</td>";
+        fila += "<td class='hidden id'>" + response[2][i].id + "</td>";
+        fila += "<td class='hidden destino'>" + response[2][i].destino + "</td>";
+        fila += "<td class='nombre'>" + response[2][i].nombre + "</td>";
 
         monto = parseFloat(response[2][i].saldo) - parseFloat(response[2][i].descuento);
-        fila += "<td class='text-right'>" + monto.toFixed(2) + "</td>";
+        fila += "<td class='text-right monto'>" + monto.toFixed(2) + "</td>";
 
-        fila += "<td><label class='checkbox checkbox-inline'><input type='checkbox'><i class='input-helper'></i> Seleccionar</label></td>";
+        fila += "<td><label class='checkbox checkbox-inline'><input type='checkbox' class='selected'><i class='input-helper'></i> Seleccionar</label></td>";
         fila += "</tr>";
 
         $('#tabla-pagos-pendientes tbody').append(fila);
@@ -38,9 +39,10 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
       $('#tabla-categorias-compras tbody').empty();
       for (var i = 0; i < response[3].length; i++) {
         var fila = "<tr class='" + response[3][i].id + "'>";
-        fila += "<td class='hidden'>" + response[3][i].id + "</td>";
-        fila += "<td><div class='fg-line'><input type='text' class='form-control text-right' value='0' onkeyup='calcularImporte(" + response[3][i].id + ", this.value)'></div></td>";
-        fila += "<td>" + response[3][i].nombre + "</td>";
+        fila += "<td class='hidden id'>" + response[3][i].id + "</td>";
+        fila += "<td class='hidden destino'>" + response[3][i].destino + "</td>";
+        fila += "<td><div class='fg-line'><input type='text' class='form-control text-right cantidad' value='0' onkeyup='calcularImporte(" + response[3][i].id + ", this.value)'></div></td>";
+        fila += "<td class='nombre'>" + response[3][i].nombre + "</td>";
         fila += "<td><input type='text' class='form-control text-right monto disabled' disabled value='" + response[3][i].monto + "' /></td>";
         fila += "<td><input type='text' class='form-control text-right importe disabled' disabled /></td>";
         fila += "</tr>";
@@ -71,7 +73,70 @@ function calcularImporte (id, value) {
 };
 
 $('#btn-finalizar-pago').click(function (e) {
-  $modal = $('#modal-resumen-pago');
+  var fila_resumen = "";
+  var total = 0;
+  var destino_externo = false;
 
-  $modal.modal('show');
+  var $filas_pagos = $("#tabla-pagos-pendientes tr");
+  var nro_pagos_sel = 0;
+  $filas_pagos.each(function(index, el) {
+    var sel = $(this).find('.selected').is(':checked');
+    if (sel) {
+      destino_externo = $(this).find('.destino').html() == "0" ? false : true;
+      var monto_pago = parseFloat($(this).find('.monto').html());
+      fila_resumen += "<tr><td class='hidden id'>" + $(this).find('.id').html() + "</td><td class='nombre'>" + $(this).find('.nombre').html() + "</td><td class='monto text-right'>" + monto_pago + "</td></tr>"
+      nro_pagos_sel++;
+      total += monto_pago;
+    };
+  });
+
+  var $filas_compras = $("#tabla-categorias-compras tr");
+  var nro_compras = 0;
+  $filas_compras.each(function(index, el) {
+    var qty = parseInt($(this).find('.cantidad').val());
+    if (qty > 0) {
+      destino_externo = $(this).find('.destino').html() == "0" ? false : true;
+      var monto_compra = parseFloat($(this).find('.importe').val());
+      fila_resumen += "<tr><td class='hidden id'>" + $(this).find('.id').html() + "</td><td class='nombre'>" + $(this).find('.nombre').html() + "</td><td class='monto text-right'>" + monto_compra + "</td></tr>"
+      nro_compras++;
+      total += monto_compra;
+    };
+  });
+
+  $modal = $('#modal-resumen-pago');
+  $modal.find('#tabla-resumen tbody').empty();
+  if (nro_pagos_sel == 0 && nro_compras == 0) {
+    swal({
+      title : 'Advertencia',
+      text : 'Debe seleccionar un deuda a pagar o una compra como mínimo.',
+      type : 'warning'
+    });
+  } else{
+    $modal.find('#tabla-resumen tbody').append(fila_resumen);
+    $modal.find('#tabla-resumen tbody').append("<tr><td class='text-right'><b>TOTAL:</b></td><td class='text-right'>"  + total + "</td></tr>");
+    var botones = "<button type='button' class='btn btn-link' data-dismiss='modal'>CANCELAR</button><button id='btn-comprobante' class='btn btn-default bgm-indigo'>COMPROBANTE</button>";
+    if (!destino_externo) {
+      botones += "<button type='button' class='btn bgm-orange btn-md' id='btn-boleta'>BOLETA</button><button type='button' class='btn bgm-green btn-md' id='btn-factura'>FACTURA</button>";
+    }
+    $modal.find('.modal-footer').html(botones);
+    enlazarBotones();
+    $modal.modal('show');
+  };
 });
+
+function enlazarBotones () {
+  $('#btn-comprobante').click(function(e) {
+    e.preventDefault();
+    console.log('compr');
+  });
+
+  $('#btn-boleta').click(function(e) {
+    e.preventDefault();
+    console.log('bolet');
+  });
+
+  $('#btn-factura').click(function(e) {
+    e.preventDefault();
+    console.log('fact');
+  });
+}

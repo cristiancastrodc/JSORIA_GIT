@@ -120,7 +120,7 @@ class CobrosController extends Controller
                 $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
                           ->where('deuda_ingreso.id_alumno','=', $nro_documento)
                           ->where('deuda_ingreso.estado_pago','=', 0)
-                          ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo', 'deuda_ingreso.descuento', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.estado_descuento', 'deuda_ingreso.estado_fraccionam')
+                          ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo', 'deuda_ingreso.descuento', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.estado_descuento', 'deuda_ingreso.estado_fraccionam', 'categoria.destino')
                           ->get();
 
                 $hoy = date('Y/m/d');
