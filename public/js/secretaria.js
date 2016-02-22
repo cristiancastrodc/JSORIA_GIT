@@ -11,7 +11,7 @@ $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
     if (response['mensaje']) {
       swal({
             title: "Error",
-            text: "Sucedió algo inesperado. El Alumno ya esta matricula en otra institucion.",
+            text: response['mensaje'],
             type: "warning"
         }, function () {
           document.location.reload();

@@ -208,13 +208,18 @@ class AlumnosController extends Controller
         //return response()->json(['mensaje' => 'ok']);
         if ($request->ajax()) {
             $alumno = Alumno::datos_alumno($dni);
-
-            if ($alumno->estado == 0) {
-                return response()->json($alumno);
+            if ($alumno) {
+                if ($alumno->estado == 0) {
+                    return response()->json($alumno);
+                } else {
+                    return response()->json([
+                        'mensaje' => 'CUIDADO!. El alumno ya esta matriculado.'
+                    ]);
+                }
             } else {
                 return response()->json([
-                    'mensaje' => 'El alumno ya esta matriculado.'
-                ]);
+                        'mensaje' => 'EL ALUMNO NO ESTA REGISTRADO.'
+                    ]);
             }
         }
     }
