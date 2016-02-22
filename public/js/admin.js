@@ -527,12 +527,12 @@ $('#btn-crear-pensiones').click(function (e) {
       for (var nro_mes = nro_mes_inicio; nro_mes <= nro_mes_fin; nro_mes++) {
         var nombre = 'Pension ' + meses[nro_mes] + ' ' + anio_inicio;
         var fecha_inicio = anio_inicio + '/' + nro_mes + '/01';
-        var fecha_fin = anio_inicio + '/' + nro_mes + '/28';
+        /*var fecha_fin = anio_inicio + '/' + nro_mes + '/28';*/
+        var fecha_fin = new Date(anio_inicio, nro_mes + 1, 0);
 
         $('#tabla-crear-pensiones tr').each(function (index, el) {
           var $id_detalle_institucion = $(this).find('.id-division').html();
           var $monto = $(this).find('.monto-matricula').val();
-
 
           if (index != 0) {
             XHRs.push($.ajax({
@@ -570,6 +570,7 @@ $('#btn-crear-pensiones').click(function (e) {
         var nombre = 'Pension ' + meses[dfi.getMonth() + 1] + ' ' + dfi.getFullYear();
         var fecha_mes = dfi.getMonth() + 1;
         var fecha_ini = dfi.getFullYear() + '/' + fecha_mes + '/01';
+        //var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
         var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
 
         $('#tabla-crear-pensiones tr').each(function (index, el) {

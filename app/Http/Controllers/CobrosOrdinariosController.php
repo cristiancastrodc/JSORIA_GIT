@@ -13,6 +13,7 @@ use JSoria\InstitucionDetalle;
 use Redirect;
 use Session;
 
+
 class CobrosOrdinariosController extends Controller
 {
     /**
@@ -130,5 +131,11 @@ class CobrosOrdinariosController extends Controller
             $cobros_ordinarios = Categoria::cobrosOrdinariosInstitucion($id_institucion);
             return response()->json($cobros_ordinarios);
         }
+    }
+
+    public function imprimir()
+    {
+
+
     }
 }

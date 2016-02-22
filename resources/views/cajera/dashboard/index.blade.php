@@ -10,10 +10,10 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal'])!!}
+          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-buscar-deudas'])!!}
             <div class="form-group">
               <label for="codigo" class="col-sm-3 control-label">Ingrese código</label>
               <div class="col-sm-6">
@@ -22,87 +22,66 @@
                   </div>
               </div>
               <div class="col-sm-3">
-                <button class="btn btn-warning waves-effect">Buscar</button>
+                <button class="btn btn-warning waves-effect" id="btn-buscar-deudas">Buscar</button>
               </div>
             </div>
           {!!Form::close()!!}
         </div>
       </div>
-      <div class="card">
+      <div class="card js-toggle" id="card-deudas-alumno">
         <div class="card-header">
-          <h3>Santiago Perez Huaman</h3>
-          <h4>Universidad Privada Líder Peruana</h4>
+          <h3><span id="nombre-alumno" class="text-uppercase"></span></h3>
+          <h4><span id="nombre-institucion"></span></h4>
+          <input type="hidden" id="id_institucion">
+          <input type="hidden" id="nro_documento">
+          <input type="hidden" id="id_pagos">
+          <input type="hidden" id="id_compras">
+          <input type="hidden" id="_token" value="{{ csrf_token() }}">
         </div>
         <div class="card-body card-padding">
           <h4>Pagos Pendientes</h4>
           <div class="table-responsive">
-            <table id="pagos-pendientes" class="table table-striped">
+            <table id="tabla-pagos-pendientes" class="table table-striped">
               <thead>
                   <tr>
-                      <th data-column-id="id" data-visible="false" data-identifier="true">Id</th>
-                      <th data-column-id="Nombre" class="warning c-white">Nombre</th>
-                      <th data-column-id="Monto" class="warning c-white">Monto</th>
+                      <th class="hidden">Id</th>
+                      <th class="warning c-white">Concepto</th>
+                      <th class="warning c-white">Monto (S/)</th>
+                      <th class="warning c-white">Acciones</th>
                   </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Matrícula Colegio 2016</td>
-                  <td>100.00</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Matrícula CEBA 2016</td>
-                  <td>100.00</td>
-                </tr>
               </tbody>
             </table>
           </div>
-          <h4>Compras</h4>
-          <div class="table-responsive">
-            <table id="categorias-compras" class="table table-striped">
-              <thead>
-                  <tr>
-                      <th class="warning c-white">Concepto</th>
-                      <th class="warning c-white">Cantidad</th>
-                      <th class="warning c-white">Monto Unitario (S/)</th>
-                      <th class="warning c-white">Importe</th>
-                  </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Constancia</td>
-                  <td>
-                    <div class="fg-line">
-                      <input type="text" class="form-control">
-                    </div>
-                  </td>
-                  <td>100.00</td>
-                  <td>100.00</td>
-                </tr>
-                <tr>
-                  <td>FUT</td>
-                  <td>
-                    <div class="fg-line">
-                      <input type="text" class="form-control">
-                    </div>
-                  </td>
-                  <td>100.00</td>
-                  <td>100.00</td>
-                </tr>
-              </tbody>
-            </table>
+          <h4 id="btn-toggle-compras">Compras <i class="zmdi zmdi-menu"></i></h4>
+          <div id="compras-toggle" class="form-group" style="display:none">
+            <div class="table-responsive">
+              <table id="tabla-categorias-compras" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="hidden">Id</th>
+                        <th class="warning c-white">Cantidad</th>
+                        <th class="warning c-white">Concepto</th>
+                        <th class="warning c-white">Monto Unit. (S/)</th>
+                        <th class="warning c-white">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
-              <button class="btn btn-warning pull-right waves-effect">
+              <button class="btn btn-warning pull-right waves-effect" id="btn-finalizar-pago">
                 FINALIZAR
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="card">
+      <div class="card js-toggle" id="card-deuda-extraordinaria">
         <div class="card-header">
           <h3>Cliente: Marcelo Soto Paredes</h3>
         </div>
