@@ -274,3 +274,51 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
     }  
   });
 });
+
+/*** Amortizar deudas de un alumno ***/
+$('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
+  e.preventDefault();
+
+  var ruta = '../amortizar_deudas/' + $('#form-amortizar-alumno #nro_documento').val();
+  var documento_alumno = "";
+  var nombres_alumno = "";
+  var apellidos_alumno = "";
+
+  $('#tabla-deudasAmortizacion-alumno tbody').empty();
+  $.get(ruta, function (response, state) {
+    if (response['mensaje']) {
+      swal({
+            title: "Error",
+            text: response['mensaje'],
+            type: "warning"
+        }, function () {
+          document.location.reload();
+        });
+    } else {
+  
+      documento_alumno = response[0].nro_documento;
+      nombres_alumno = response[0].nombres;
+      apellidos_alumno = response[0].apellidos;
+
+      $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+      $('#tabla-deudasAmortizacion-alumno #nro_documento').val(documento_alumno);
+
+      for (var i = 0; i < response[1].length; i++) {
+      
+        var $id = response[1][i].id;
+        var $monto = response[1][i].saldo;
+        var $deuda = response[1][i].nombre;
+
+        var fila = "<tr>";
+        fila += "<td class='hidden'>" + $id + "</td>";
+        fila += "<td>" + $deuda + "</td>";
+        fila += "<td class='text-right'>" + $monto + "</td>";
+        fila += "<td><button class='btn bgm-lightgreen waves-effect'>Amortizar</button></td>";
+        
+        $('#tabla-deudasAmortizacion-alumno tbody').append(fila);
+      }
+
+      $('.js-toggle').slideDown('fast');
+    }  
+  });
+});

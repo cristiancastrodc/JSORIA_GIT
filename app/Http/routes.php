@@ -57,6 +57,7 @@ Route::get('secretaria/alumno/grados/{id_detalle_institucion}', 'InstitucionDeta
 Route::get('secretaria/alumno/matriculas/{id_detalle_institucion}', 'InstitucionDetalleController@matriculas');
 Route::get('secretaria/alumno/lista_deudas/{dni}', 'AlumnosController@listaDeudasAlumno');
 Route::get('secretaria/alumno/lista_actividades/{dni}', 'AlumnosController@listaDeudasActividadesAlumno');
+Route::get('secretaria/alumno/amortizar_deudas/{dni}', 'AlumnosController@amortizarDeudaAlumno');
 
 /**/
 Route::get('secretaria/reporte', 'PdfController@invoice');
