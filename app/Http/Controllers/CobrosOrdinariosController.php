@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\CobroOrdinarioCreateRequest;
+use JSoria\Http\Requests\CobroOrdinarioUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Categoria;
@@ -107,7 +108,7 @@ class CobrosOrdinariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CobroOrdinarioUpdateRequest $request, $id)
     {
         if ($request->ajax()) {
             $nombre = $request['nombre'];

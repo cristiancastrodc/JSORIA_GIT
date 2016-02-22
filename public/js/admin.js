@@ -860,7 +860,7 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
       console.log(data);
       swal({
           title: "Éxito",
-          text: "Se actualizó la pensión.",
+          text: "Se actualizó el concepto.",
           type: "success",
           closeOnConfirm: true
       }, function(){
@@ -876,6 +876,16 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
       }, function(){
           console.log('fail');
       });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
     }
   });
 });
