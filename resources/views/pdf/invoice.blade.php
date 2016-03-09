@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Example 2</title>
-    {!! Html::style('assets/pdf.css') !!}
+    {!! Html::style('css/pdf.css') !!}
   </head>
   <body>
 
@@ -30,7 +30,11 @@
             <td class="unit">{{ $data['price'] }}</td>
             <td class="total">{{ $data['total'] }} </td>
           </tr>
-
+          @foreach($deudas as $deuda)
+            <tr>
+              <td>{{ $deuda['saldo'] }}</td>
+            </tr>
+          @endforeach
         </tbody>
         <tfoot>
           <tr>

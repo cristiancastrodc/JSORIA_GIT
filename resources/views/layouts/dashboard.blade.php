@@ -136,7 +136,7 @@
           <li><a href="{!!URL::to('/secretaria/ciclo/cerrar')!!}">
             <i class="zmdi zmdi-close-circle-o"></i> Cerrar Ciclo</a>
           </li>
-          <li><a href="">
+          <li><a href="{!!URL::to('/secretaria/reportes')!!}">
             <i class="zmdi zmdi-chart"></i> Reporte</a>
           </li>
         @endif

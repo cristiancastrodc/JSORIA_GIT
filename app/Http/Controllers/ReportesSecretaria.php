@@ -7,40 +7,18 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
-class PdfController extends Controller
+use JSoria\Deuda_Ingreso;
+
+class ReportesSecretaria extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function invoice()
-    {
-        $data = $this->getData();
-        $date = date('Y-m-d');
-        $invoice = "2222";
-        $view =  \View::make('pdf.invoice', compact('data', 'date', 'invoice'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        return $pdf->stream('invoice');
-    }
-
-    public function getData()
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
-    }
-
-
     public function index()
     {
-        return view('secretaria.reportes.index');
+        //
     }
 
     /**
@@ -61,7 +39,31 @@ class PdfController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nro_documento = $request['nro_documento'];
+        $fecha_inicio = $request['fecha_inicio'];
+
+        $deudas = Deuda_Ingreso::where('id_alumno', '=', $nro_documento)
+                  ->where('estado_pago', '=', '0')
+                  ->get();
+
+        $data = $this->getData();
+        $date = $fecha_inicio;
+        $invoice = "2222";
+        $view =  \View::make('pdf.invoice', compact('data', 'date', 'invoice', 'deudas'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('invoice');
+    }
+
+    public function getData()
+    {
+        $data =  [
+            'quantity'      => '1' ,
+            'description'   => 'some ramdom text',
+            'price'   => '500',
+            'total'     => '500'
+        ];
+        return $data;
     }
 
     /**
