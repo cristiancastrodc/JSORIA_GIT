@@ -583,100 +583,9 @@ $('#btn-crear-pensiones').click(function (e) {
   if (nroFilas > 1) {
 
     $boton = $(this);
-    $boton.html('Cargando...');
 
     var $mes_inicio = $('#mes_inicio').val();
     var $mes_fin = $('#mes_fin').val();
-<<<<<<< HEAD
-=======
-    var nro_mes_inicio = parseInt($mes_inicio.split('/')[0], 10);
-    var anio_inicio = parseInt($mes_inicio.split('/')[1], 10);
-    var nro_mes_fin = parseInt($mes_fin.split('/')[0], 10);
-    var anio_fin = parseInt($mes_fin.split('/')[1], 10);
-    var $token = $('#form-crear-pensiones #token').val();
-    var XHRs = [];
-    var ruta = '/admin/pensiones';
-    var resultado = true;
-    var meses = [0,'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-
-    if (anio_inicio == anio_fin) {
-      for (var nro_mes = nro_mes_inicio; nro_mes <= nro_mes_fin; nro_mes++) {
-        var nombre = 'Pension ' + meses[nro_mes] + ' ' + anio_inicio;
-        var fecha_inicio = anio_inicio + '/' + nro_mes + '/01';
-        /*var fecha_fin = anio_inicio + '/' + nro_mes + '/28';*/
-        var fecha_fin = new Date(anio_inicio, nro_mes + 1, 0);
-
-        $('#tabla-crear-pensiones tr').each(function (index, el) {
-          var $id_detalle_institucion = $(this).find('.id-division').html();
-          var $monto = $(this).find('.monto-matricula').val();
-
-          if (index != 0) {
-            XHRs.push($.ajax({
-              url : ruta,
-              headers : {'X-CSRF-TOKEN': $token},
-              type : 'POST',
-              dataType : 'json',
-              data : {
-                nombre : nombre,
-                monto : $monto,
-                tipo : 'pension',
-                estado : '1',
-                fecha_inicio : fecha_inicio,
-                fecha_fin : fecha_fin,
-                destino : '0',
-                id_detalle_institucion : $id_detalle_institucion
-              },
-              fail : function () {
-                resultado = false;
-              }
-            }));
-          };
-        });
-      };
-    } else if (anio_inicio < anio_fin) {
-
-      var kfecha_inicio = anio_inicio + "/" + nro_mes_inicio + "/01";
-      var kfecha_fin = anio_fin + "/" + nro_mes_fin + "/01";
-
-      var dfi = new Date(kfecha_inicio);
-      var dff = new Date(kfecha_fin);
-
-      while (dfi <= dff) {
-
-        var nombre = 'Pension ' + meses[dfi.getMonth() + 1] + ' ' + dfi.getFullYear();
-        var fecha_mes = dfi.getMonth() + 1;
-        var fecha_ini = dfi.getFullYear() + '/' + fecha_mes + '/01';
-        //var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
-        var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
-
-        $('#tabla-crear-pensiones tr').each(function (index, el) {
-          var $id_detalle_institucion = $(this).find('.id-division').html();
-          var $monto = $(this).find('.monto-matricula').val();
-
-
-          if (index != 0) {
-            XHRs.push($.ajax({
-              url : ruta,
-              headers : {'X-CSRF-TOKEN': $token},
-              type : 'POST',
-              dataType : 'json',
-              data : {
-                nombre : nombre,
-                monto : $monto,
-                tipo : 'pension',
-                estado : '1',
-                fecha_inicio : fecha_ini,
-                fecha_fin : fecha_fin,
-                destino : '0',
-                id_detalle_institucion : $id_detalle_institucion
-              },
-              fail : function () {
-                resultado = false;
-              }
-            }));
-          };
-        });
->>>>>>> origin/cajera
 
     if ($mes_inicio != "" && $mes_fin != "") {
       var nro_mes_inicio = parseInt($mes_inicio.split('/')[0], 10);
@@ -697,16 +606,17 @@ $('#btn-crear-pensiones').click(function (e) {
       });
 
       if (!errors) {
+        $boton.html('Cargando...');
         if (anio_inicio == anio_fin) {
           for (var nro_mes = nro_mes_inicio; nro_mes <= nro_mes_fin; nro_mes++) {
             var nombre = 'Pension ' + meses[nro_mes] + ' ' + anio_inicio;
             var fecha_inicio = anio_inicio + '/' + nro_mes + '/01';
-            var fecha_fin = anio_inicio + '/' + nro_mes + '/28';
+            var fecha_fin = moment(fecha_inicio, 'YYYY/M/DD').endOf('month').format('YYYY/MM/DD');
+            //var fecha_fin = anio_inicio + '/' + nro_mes + '/28';
 
             $('#tabla-crear-pensiones tr').each(function (index, el) {
               var $id_detalle_institucion = $(this).find('.id-division').html();
               var $monto = $(this).find('.monto-pension').val();
-
 
               if (index != 0) {
                 XHRs.push($.ajax({
@@ -732,24 +642,18 @@ $('#btn-crear-pensiones').click(function (e) {
             });
           };
         } else if (anio_inicio < anio_fin) {
+          debug('El año de inicio es menor al año de fin.');
+          var m_fecha_inicio = moment(anio_inicio + "/" + nro_mes_inicio + "/01", 'YYYY/M/DD');
+          var m_fecha_fin = moment(anio_fin + "/" + nro_mes_fin + "/01", 'YYYY/M/DD');
 
-          var kfecha_inicio = anio_inicio + "/" + nro_mes_inicio + "/01";
-          var kfecha_fin = anio_fin + "/" + nro_mes_fin + "/01";
-
-          var dfi = new Date(kfecha_inicio);
-          var dff = new Date(kfecha_fin);
-
-          while (dfi <= dff) {
-
-            var nombre = 'Pension ' + meses[dfi.getMonth() + 1] + ' ' + dfi.getFullYear();
-            var fecha_mes = dfi.getMonth() + 1;
-            var fecha_ini = dfi.getFullYear() + '/' + fecha_mes + '/01';
-            var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
+          while (m_fecha_inicio <= m_fecha_fin) {
+            var nombre = 'Pension ' + m_fecha_inicio.format('MMMM') + ' ' + m_fecha_inicio.format('YYYY');
+            var pension_ini = m_fecha_inicio.format('YYYY/MM/DD');
+            var pension_fin = m_fecha_inicio.clone().endOf('month').format('YYYY/MM/DD');
 
             $('#tabla-crear-pensiones tr').each(function (index, el) {
               var $id_detalle_institucion = $(this).find('.id-division').html();
               var $monto = $(this).find('.monto-pension').val();
-
 
               if (index != 0) {
                 XHRs.push($.ajax({
@@ -762,8 +666,8 @@ $('#btn-crear-pensiones').click(function (e) {
                     monto : $monto,
                     tipo : 'pension',
                     estado : '1',
-                    fecha_inicio : fecha_ini,
-                    fecha_fin : fecha_fin,
+                    fecha_inicio : pension_ini,
+                    fecha_fin : pension_fin,
                     destino : '0',
                     id_detalle_institucion : $id_detalle_institucion
                   },
@@ -774,24 +678,25 @@ $('#btn-crear-pensiones').click(function (e) {
               };
             });
 
-            dfi.setMonth(dfi.getMonth() + 1);
+            m_fecha_inicio.add(1, 'M');
           }
         }
-
+        /*** Apply XHRs ***/
         $.when.apply(null, XHRs).then(function () {
           if (resultado) {
+            debug('Las pensiones fueron creadas');
             swal({
-                title: "Éxito!",
-                text: "Se crearon las pensiones correctamente.",
-                type: "success"
+              title: "Éxito!",
+              text: "Se crearon las pensiones correctamente.",
+              type: "success"
             }, function () {
               document.location.reload();
             });
           } else {
             swal({
-                title: "Error",
-                text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
-                type: "warning"
+              title: "Error",
+              text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+              type: "warning"
             }, function () {
               document.location.reload();
             });
@@ -799,27 +704,24 @@ $('#btn-crear-pensiones').click(function (e) {
         });
       } else {
         swal({
-            title: "¡Atención!",
-            text: "Debe ingresar todos los montos.",
-            type: "warning"
+          title: "¡Atención!",
+          text: "Debe ingresar todos los montos.",
+          type: "warning"
         });
-        $boton.html('Guardar');
       };
     } else {
       swal({
-          title: "¡Atención!",
-          text: "Debe seleccionar los meses de inicio y fin.",
-          type: "warning"
+        title: "¡Atención!",
+        text: "Debe seleccionar los meses de inicio y fin.",
+        type: "warning"
       });
-      $boton.html('Guardar');
     };
   } else {
     swal({
-        title: "¡Atención!",
-        text: "Debe seleccionar una institución primero.",
-        type: "warning"
+      title: "¡Atención!",
+      text: "Debe seleccionar una institución primero.",
+      type: "warning"
     });
-    $boton.html('Guardar');
   }
 });
 

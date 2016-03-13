@@ -215,7 +215,7 @@
   {!!Html::script('vendors/input-mask/input-mask.min.js')!!}
   {!!Html::script('vendors/farbtastic/farbtastic.min.js')!!}
   {!!Html::script('js/functions.js')!!}
-  {!!Html::script('js/demo.js')!!}
+  {!!Html::script('js/global.js')!!}
 
   @if (Auth::user()->tipo == "Cajera")
     @if(Request::is('escritorio'))
