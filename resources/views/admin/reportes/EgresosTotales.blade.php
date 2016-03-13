@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-  Reporte de Lista de Egresos
+  Reporte de Egresos Totales
 @endsection
 
 @section('content')
-  <h1>REPORTE DE LISTA DE EGRESOS</h1>
+  <h1>REPORTE DE EGRESOS TOTALES</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-egresos','route' => 'admin.reportes.ListaEgresos.procesar.store','method' => 'POST'))!!}      
+         {!!Form::open(array('class' => 'form-horizontal','route' => 'admin.reportes.IngresosTotales.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -33,14 +33,25 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="rubro" class="col-sm-3 control-label">Rubro</label>
-              <div class="col-sm-9">
-                <select class="selectpicker" name="rubro" id="rubro" title='Seleccione'>
-                </select> 
-                <input type="checkbox" name="checkbox_todos" id=" checkbox_todos"> Todos
-              </div>
-            </div>
+              <label for="" class="col-sm-3 control-label"></label>
 
+            <label class="radio radio-inline m-r-10">
+                <input type="radio" name="inlineRadioOptions" value="dias">
+                <i class="input-helper"></i>Dias  
+            </label>
+            
+            <label class="radio radio-inline m-r-10">
+                <input type="radio" name="inlineRadioOptions" value="mes">
+                <i class="input-helper"></i>  
+                Mes
+            </label>          
+            <label class="radio radio-inline m-r-10">
+                <input type="radio" name="inlineRadioOptions" value="anio">
+                <i class="input-helper"></i>  
+                Año
+            </label> 
+            </div>
+          
             <div class="form-group">
               <label for="fecha_inicio" class="col-sm-3 control-label">Fecha Inicial:</label>
                 <div class="col-sm-9">
@@ -65,7 +76,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarEgreso">Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-IngresosTotales">Generar</button>
               </div>
             </div>
           {!!Form::close()!!}

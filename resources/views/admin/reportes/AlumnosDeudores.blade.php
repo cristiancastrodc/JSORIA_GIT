@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-  Reporte de Lista de Egresos
+  Reporte de Alumnos Deudores
 @endsection
 
 @section('content')
-  <h1>REPORTE DE LISTA DE EGRESOS</h1>
+  <h1>REPORTE DE ALUMNOS DEUDORES</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-egresos','route' => 'admin.reportes.ListaEgresos.procesar.store','method' => 'POST'))!!}      
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-ingresos','route' => 'admin.reportes.ListaIngresos.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -33,11 +33,28 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="rubro" class="col-sm-3 control-label">Rubro</label>
+              <label for="nombre_division" class="col-sm-3 control-label"></label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="rubro" id="rubro" title='Seleccione'>
+                <select class="selectpicker" name="id_detalle_institucion" id="id_detalle_institucion" title='Seleccione'>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="categoria" class="col-sm-3 control-label">Categoria</label>
+              <div class="col-sm-9">
+                <select class="selectpicker" name="categoria" id="categoria" title='Seleccione'>
                 </select> 
-                <input type="checkbox" name="checkbox_todos" id=" checkbox_todos"> Todos
+                <div class="form-group">
+                  <div class="col-sm-9 col-sm-3">
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" name="exterior">
+                              <i class="input-helper"></i>
+                              Todos                              
+                          </label>
+                      </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -65,7 +82,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarEgreso">Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso">Generar</button>
               </div>
             </div>
           {!!Form::close()!!}

@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['route' => 'admin.reportes.IngresosTotales.procesar.store','class' => 'form-horizontal', 'method' => 'POST'])!!}
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-ingresos','route' => 'admin.reportes.IngresosTotales.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -41,21 +41,24 @@
             </div>
             <div class="form-group">
               <label for="" class="col-sm-3 control-label"></label>
-              <div class="col-sm-9">
-				<input type="radio" name="tipo_fecha"
-				value="dias">Dias
-				&nbsp;&nbsp;
-				<input type="radio" name="tipo_fecha"
-				value="mes">Mes
-				&nbsp;&nbsp;
-				<input type="radio" name="tipo_fecha"
-				value="Anio">Año
-              </div>
-            </div>
 
+            <label class="radio radio-inline m-r-10">
+                <input type="radio" name="inlineRadioOptions" value="dias">
+                <i class="input-helper"></i>Dias  
+            </label>
             
-              
-            
+            <label class="radio radio-inline m-r-10">
+                <input type="radio" name="inlineRadioOptions" value="mes">
+                <i class="input-helper"></i>  
+                Mes
+            </label>          
+            <label class="radio radio-inline m-r-10">
+                <input type="radio" name="inlineRadioOptions" value="anio">
+                <i class="input-helper"></i>  
+                Año
+            </label> 
+            </div>
+          
             <div class="form-group">
               <label for="fecha_inicio" class="col-sm-3 control-label">Fecha Inicial:</label>
                 <div class="col-sm-9">
@@ -91,5 +94,5 @@
 @endsection
 
 @section('scripts')
-  <script src="{{ asset('js/secretaria.js') }}"></script>
+  <script src="{{ asset('js/reportes.js') }}"></script>
 @endsection

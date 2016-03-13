@@ -60,4 +60,11 @@ class Categoria extends Model
     ->select('categoria.id', 'categoria.nombre', 'categoria.monto', 'categoria.estado', 'categoria.tipo', 'categoria.destino')
     ->get();
   }
+  public static function categoria_divisiones($id_detalle_institucion)
+  {
+   return Categoria::where('id_detalle_institucion', '=', $id_detalle_institucion)
+    ->where('estado', '=', '1')
+    ->select('id', 'nombre')
+    ->get(); 
+  }
 }

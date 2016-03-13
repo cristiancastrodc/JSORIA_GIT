@@ -20,7 +20,8 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['route' => 'admin.reportes.IngresosTotales.procesar.store','class' => 'form-horizontal', 'method' => 'POST'])!!}
+          <!--{!!Form::open(['route' => 'admin.reportes.IngresosTotales.procesar.store','class' => 'form-horizontal', 'method' => 'POST'])!!}-->
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-ingresos','route' => 'admin.reportes.IngresosTotales.procesar.store','method' => 'POST'))!!}          
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -75,5 +76,5 @@
 @endsection
 
 @section('scripts')
-  <script src="{{ asset('js/secretaria.js') }}"></script>
+  <script src="{{ asset('js/reportes.js') }}"></script>
 @endsection

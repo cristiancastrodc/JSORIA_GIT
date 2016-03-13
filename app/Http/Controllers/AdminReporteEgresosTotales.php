@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
-use JSoria\InstitucionDetalle;
-class AdminReporteListarIngresos extends Controller
+class AdminReporteEgresosTotales extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class AdminReporteListarIngresos extends Controller
      */
     public function index()
     {
-        return view('admin.reportes.ListaIngresos');
+        return view('admin.reportes.EgresosTotales');
     }
 
     /**
@@ -38,7 +37,7 @@ class AdminReporteListarIngresos extends Controller
      */
     public function store(Request $request)
     {
-        $id_institucion = $request['id_institucion'];
+       $id_institucion = $request['id_institucion'];
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';
@@ -66,10 +65,10 @@ class AdminReporteListarIngresos extends Controller
         $data = $this->getData();
         $date = $fecha_inicio;
         $invoice = "2222";
-        $view =  \View::make('pdf.AdminListarIngresos', compact('id_institucion','data','date', 'invoice'))->render();
+        $view =  \View::make('pdf.AdminEgresosTotales', compact('id_institucion','data','date', 'invoice'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('AdminListarIngresos');             
+        return $pdf->stream('AdminEgresosTotales'); 
     }
 
     public function getData()

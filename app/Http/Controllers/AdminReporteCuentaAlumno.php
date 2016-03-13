@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
-use JSoria\InstitucionDetalle;
-class AdminReporteListarIngresos extends Controller
+class AdminReporteCuentaAlumno extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class AdminReporteListarIngresos extends Controller
      */
     public function index()
     {
-        return view('admin.reportes.ListaIngresos');
+        return view('admin.reportes.CuentaAlumno');
     }
 
     /**
@@ -66,12 +65,12 @@ class AdminReporteListarIngresos extends Controller
         $data = $this->getData();
         $date = $fecha_inicio;
         $invoice = "2222";
-        $view =  \View::make('pdf.AdminListarIngresos', compact('id_institucion','data','date', 'invoice'))->render();
+        $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','data','date', 'invoice'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('AdminListarIngresos');             
+        return $pdf->stream('AdminEgresosRubro'); 
     }
-
+    
     public function getData()
     {
         $data =  [
@@ -82,7 +81,6 @@ class AdminReporteListarIngresos extends Controller
         ];
         return $data;
     }
-
     /**
      * Display the specified resource.
      *

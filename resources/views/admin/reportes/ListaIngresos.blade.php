@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['route' => 'admin.reportes.ListaIngresos.procesar.store','class' => 'form-horizontal', 'method' => 'POST'])!!}
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-ingresos','route' => 'admin.reportes.ListaIngresos.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="id_detalle_institucion" class="col-sm-3 control-label"></label>
+              <label for="nombre_division" class="col-sm-3 control-label"></label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="id_detalle_institucion" id="id_detalle_institucion" title='Seleccione'>
                 </select>
@@ -44,7 +44,17 @@
               <div class="col-sm-9">
                 <select class="selectpicker" name="categoria" id="categoria" title='Seleccione'>
                 </select> 
-                <input type="checkbox" name="checkbox_todos" id=" checkbox_todos"> Todos
+                <div class="form-group">
+                  <div class="col-sm-9 col-sm-3">
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" name="exterior">
+                              <i class="input-helper"></i>
+                              Todos                              
+                          </label>
+                      </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -83,5 +93,5 @@
 @endsection
 
 @section('scripts')
-  <script src="{{ asset('js/secretaria.js') }}"></script>
+  <script src="{{ asset('js/reportes.js') }}"></script>
 @endsection

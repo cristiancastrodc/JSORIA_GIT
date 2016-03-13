@@ -108,7 +108,10 @@
                 <li><a href="{!!URL::to('/admin/reportes/IngresosCategoria')!!}">Ingresos agrupados por categoria</a></li>
                 <li><a href="{!!URL::to('/admin/reportes/IngresosTotales')!!}">Ingresos totales</a></li>
                 <li><a href="{!!URL::to('/admin/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/EgresosRubro')!!}">Ingresos agrupados por categoria</a></li>                
+                <li><a href="{!!URL::to('/admin/reportes/EgresosRubro')!!}">Egresos agrupados por rubro</a></li>                
+                <li><a href="{!!URL::to('/admin/reportes/EgresosTotales')!!}">Egresos totales</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/AlumnosDeudores')!!}">Alumnos Deudores</a></
+                <li><a href="{!!URL::to('/admin/reportes/CuentaAlumno')!!}">Cuenta de Alumno</a></li>                
             </ul>
           </li>          
         @endif

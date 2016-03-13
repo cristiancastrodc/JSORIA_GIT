@@ -5,14 +5,9 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
-use JSoria\Http\Requests\RubroCreateRequest;
 use JSoria\Http\Controllers\Controller;
-
-use JSoria\Rubro;
-use Redirect;
-use Session;
-
-class RubrosController extends Controller
+use JSoria\Categoria;
+class CategoriasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +16,7 @@ class RubrosController extends Controller
      */
     public function index()
     {
-        $rubros = Rubro::All();
-        return view('tesorera.rubro.index', compact('rubros'));
+        //
     }
 
     /**
@@ -41,15 +35,9 @@ class RubrosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RubroCreateRequest $request)
+    public function store(Request $request)
     {
-        $nombre = $request['nombre'];
-        Rubro::create([
-            'nombre' => $nombre
-        ]);
-
-        Session::flash('message','Se creó el rubro.');
-        return Redirect::to('/tesorera/rubros');
+        //
     }
 
     /**
@@ -81,7 +69,7 @@ class RubrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RubroUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -97,20 +85,12 @@ class RubrosController extends Controller
         //
     }
 
-    public function crearconajax(Request $request)
-    {
-        $nombre = $request['nombre'];
-        Rubro::create([
-            'nombre' => $nombre
-        ]);
-        return response()->json(['mensaje' => 'Rubro creado']);
-    }
-
-    public function rubrosInstitucion(Request $request)
+    public function categoriasDivision(Request $request, $id_detalle_institucion)
     {
         if ($request->ajax()) {
-            $rubros = Rubro::rubro_instituciones();
-            return response()->json($rubros);
+            $categorias = Categoria::categoria_divisiones($id_detalle_institucion);
+            return response()->json($categorias);
         }
     }
+
 }
