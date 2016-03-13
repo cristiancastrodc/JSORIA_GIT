@@ -1,5 +1,4 @@
 <?php
-
 namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,16 +8,21 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
 
-class ReportesSecretaria extends Controller
+
+class AdminReporteIngresosTotales extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    
     public function index()
-    {        
-        return view('secretaria.reportes.index');
+    {
+        return view('admin.reportes.IngresosTotales');
+
     }
 
     /**
@@ -39,20 +43,39 @@ class ReportesSecretaria extends Controller
      */
     public function store(Request $request)
     {
-        $nro_documento = $request['nro_documento'];
+           
+        $id_institucion = $request['id_institucion'];
+        switch ($id_institucion) {
+            case 1:
+                $id_institucion='I.E. J. Soria';
+                break;
+            case 2:
+                $id_institucion='CEBA Konrad Adenahuer';
+                break;
+            case 3:
+                $id_institucion='I.S.T. Urusayhua';
+                break;
+            case 4:
+                $id_institucion='ULP';
+                break;
+            default:
+                break;
+        }
+        $id_detalle_institucion = $request['id_detalle_institucion'];
+
         $fecha_inicio = $request['fecha_inicio'];
 
-        $deudas = Deuda_Ingreso::where('id_alumno', '=', $nro_documento)
+        /*$deudas = Deuda_Ingreso::where('id_alumno', '=', $nro_documento)
                   ->where('estado_pago', '=', '0')
-                  ->get();
+                  ->get();*/
 
         $data = $this->getData();
         $date = $fecha_inicio;
         $invoice = "2222";
-        $view =  \View::make('pdf.invoice', compact('data', 'date', 'invoice', 'deudas'))->render();
+        $view =  \View::make('pdf.AdminIngresosTotales', compact('id_institucion','data','date', 'invoice'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('invoice');
+        return $pdf->stream('AdminIngresosTotales');             
     }
 
     public function getData()
@@ -65,7 +88,6 @@ class ReportesSecretaria extends Controller
         ];
         return $data;
     }
-
     /**
      * Display the specified resource.
      *

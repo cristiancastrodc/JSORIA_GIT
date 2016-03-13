@@ -101,9 +101,16 @@
           <li><a href="{!!URL::to('/admin/ingresos')!!}">
             <i class="zmdi zmdi-money"></i> Retiro</a>
           </li>
-          <li><a href="">
-            <i class="zmdi zmdi-chart"></i> Reportes</a>
-          </li>
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
+            <ul>
+                <li><a href="{!!URL::to('/admin/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/IngresosCategoria')!!}">Ingresos agrupados por categoria</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/IngresosTotales')!!}">Ingresos totales</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/EgresosRubro')!!}">Ingresos agrupados por categoria</a></li>                
+            </ul>
+          </li>          
         @endif
         @if(Auth::user()->tipo == "Cajera")
           <!-- Cajera -->

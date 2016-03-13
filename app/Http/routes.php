@@ -64,7 +64,19 @@ Route::get('secretaria/alumno/lista_actividades/{dni}', 'AlumnosController@lista
 Route::get('secretaria/alumno/amortizar_deudas/{dni}', 'AlumnosController@amortizarDeudaAlumno');
 
 /**/
-Route::get('secretaria/reportes', 'PdfController@index');
+//Route::get('secretaria/reportes', 'PdfController@index');
 //Route::post('secretaria/reportes/procesar', 'PdfController@invoice');
+Route::get('secretaria/reportes', 'ReportesSecretaria@index');
 Route::resource('secretaria/reportes/procesar','ReportesSecretaria');
-Route::get('secretaria/reporte', 'PdfController@invoice');
+
+Route::get('admin/reportes/ListaIngresos','AdminReporteListarIngresos@index');
+Route::resource('admin/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
+Route::get('admin/reportes/IngresosCategoria','AdminReporteIngresosCategoria@index');
+Route::resource('admin/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria');
+Route::get('admin/reportes/IngresosTotales','AdminReporteIngresosTotales@index');
+Route::resource('admin/reportes/IngresosTotales/procesar','AdminReporteIngresosTotales');
+Route::get('admin/reportes/ListaEgresos','AdminReporteListarEgresos@index');
+Route::resource('admin/reportes/ListaEgresos/procesar','AdminReporteListarEgresos');
+Route::get('admin/reportes/EgresosRubro','AdminReporteEgresosRubro@index');
+Route::resource('admin/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
+
