@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.11
+-- version 4.4.14
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-03-2016 a las 18:13:44
--- Versión del servidor: 5.6.24
--- Versión de PHP: 5.6.8
+-- Tiempo de generación: 15-03-2016 a las 03:24:32
+-- Versión del servidor: 5.6.26
+-- Versión de PHP: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `jsoria_dbmngmt`
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `jsoria_categoria` (
   `fecha_fin` date DEFAULT NULL,
   `destino` char(1) DEFAULT '0',
   `id_detalle_institucion` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=279 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `jsoria_categoria`
@@ -365,7 +365,39 @@ INSERT INTO `jsoria_categoria` (`id`, `nombre`, `monto`, `tipo`, `estado`, `fech
 (243, 'Cobro Extraordinario', NULL, 'cobro_extraordinario', '1', NULL, NULL, '1', 20),
 (244, 'Cobro Extraordinario', NULL, 'cobro_extraordinario', '1', NULL, NULL, '1', 21),
 (245, 'Constancia', '200.00', 'multiple', '0', NULL, NULL, '1', 20),
-(246, 'Admisión 2016-I', '150.00', 'multiple', '1', NULL, NULL, '0', 21);
+(246, 'Admisión 2016-I', '150.00', 'multiple', '1', NULL, NULL, '0', 21),
+(247, 'Pension Marzo 2016', '110.00', 'pension', '1', '2016-03-01', '2016-03-31', '0', 1),
+(248, 'Pension Marzo 2016', '120.00', 'pension', '1', '2016-03-01', '2016-03-31', '0', 2),
+(249, 'Pension Marzo 2016', '130.00', 'pension', '1', '2016-03-01', '2016-03-31', '0', 3),
+(250, 'Pension Abril 2016', '110.00', 'pension', '1', '2016-04-01', '2016-04-30', '0', 1),
+(251, 'Pension Abril 2016', '120.00', 'pension', '1', '2016-04-01', '2016-04-30', '0', 2),
+(252, 'Pension Abril 2016', '130.00', 'pension', '1', '2016-04-01', '2016-04-30', '0', 3),
+(253, 'Pension Marzo 2016', '150.00', 'pension', '1', '2016-03-01', '2016-03-31', '0', 4),
+(254, 'Pension Abril 2016', '150.00', 'pension', '1', '2016-04-01', '2016-04-30', '0', 4),
+(255, 'Pension Marzo 2016', '160.00', 'pension', '1', '2016-03-01', '2016-03-31', '0', 5),
+(256, 'Pension Abril 2016', '160.00', 'pension', '1', '2016-04-01', '2016-04-30', '0', 5),
+(257, 'Pension Noviembre 2016', '150.00', 'pension', '1', '2016-11-01', '2016-11-28', '0', 4),
+(258, 'Pension Diciembre 2016', '150.00', 'pension', '1', '2016-12-01', '2016-12-28', '0', 4),
+(259, 'Pension Noviembre 2016', '160.00', 'pension', '1', '2016-11-01', '2016-11-28', '0', 5),
+(260, 'Pension Diciembre 2016', '160.00', 'pension', '1', '2016-12-01', '2016-12-28', '0', 5),
+(261, 'Pension Enero 2017', '160.00', 'pension', '1', '2017-01-01', '2017-01-28', '0', 5),
+(262, 'Pension Enero 2017', '150.00', 'pension', '1', '2017-01-01', '2017-01-28', '0', 4),
+(263, 'Pension Febrero 2017', '150.00', 'pension', '1', '2017-02-01', '2017-02-28', '0', 4),
+(264, 'Pension Febrero 2017', '160.00', 'pension', '1', '2017-02-01', '2017-02-28', '0', 5),
+(265, 'Pension Marzo 2017', '150.00', 'pension', '1', '2017-03-01', '2017-03-28', '0', 4),
+(266, 'Pension Marzo 2017', '160.00', 'pension', '1', '2017-03-01', '2017-03-28', '0', 5),
+(267, 'Pension Junio 2016', '120.00', 'pension', '1', '2016-06-01', '2016-06-30', '0', 4),
+(268, 'Pension Junio 2016', '130.00', 'pension', '1', '2016-06-01', '2016-06-30', '0', 5),
+(269, 'Pension Julio 2016', '120.00', 'pension', '1', '2016-07-01', '2016-07-31', '0', 4),
+(270, 'Pension Agosto 2016', '120.00', 'pension', '1', '2016-08-01', '2016-08-31', '0', 4),
+(271, 'Pension Julio 2016', '130.00', 'pension', '1', '2016-07-01', '2016-07-31', '0', 5),
+(272, 'Pension Agosto 2016', '130.00', 'pension', '1', '2016-08-01', '2016-08-31', '0', 5),
+(273, 'Pension Diciembre 2016', '200.00', 'pension', '1', '2016-12-01', '2016-12-31', '0', 4),
+(274, 'Pension Diciembre 2016', '250.00', 'pension', '1', '2016-12-01', '2016-12-31', '0', 5),
+(275, 'Pension Enero 2017', '200.00', 'pension', '1', '2017-01-01', '2017-01-31', '0', 4),
+(276, 'Pension Enero 2017', '250.00', 'pension', '1', '2017-01-01', '2017-01-31', '0', 5),
+(277, 'Derecho de Grado', '400.00', 'sin_factor', '0', NULL, NULL, '0', 21),
+(278, 'Toga y Birrete', '100.00', 'sin_factor', '1', NULL, NULL, '1', 20);
 
 -- --------------------------------------------------------
 
@@ -454,257 +486,260 @@ CREATE TABLE IF NOT EXISTS `jsoria_deuda_ingreso` (
   `id_autorizacion` int(11) DEFAULT NULL,
   `id_retiro` int(11) DEFAULT NULL,
   `id_cajera` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=245 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `jsoria_deuda_ingreso`
 --
 
 INSERT INTO `jsoria_deuda_ingreso` (`id`, `saldo`, `descuento`, `estado_pago`, `estado_retiro`, `estado_descuento`, `estado_fraccionam`, `cliente_extr`, `descripcion_extr`, `fecha_hora_ingreso`, `id_categoria`, `id_alumno`, `id_autorizacion`, `id_retiro`, `id_cajera`) VALUES
-(1, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '12345678', NULL, NULL, NULL),
-(2, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '12121212', NULL, NULL, NULL),
-(3, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 19, '11111111', NULL, NULL, NULL),
-(4, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 111, '11111111', NULL, NULL, NULL),
-(5, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 115, '11111111', NULL, NULL, NULL),
-(6, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 118, '11111111', NULL, NULL, NULL),
-(7, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 121, '11111111', NULL, NULL, NULL),
-(8, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 124, '11111111', NULL, NULL, NULL),
-(9, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 127, '11111111', NULL, NULL, NULL),
-(10, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 130, '11111111', NULL, NULL, NULL),
-(11, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 133, '11111111', NULL, NULL, NULL),
-(12, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 136, '11111111', NULL, NULL, NULL),
-(13, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 139, '11111111', NULL, NULL, NULL),
-(14, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 20, '22222222', NULL, NULL, NULL),
-(15, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 112, '22222222', NULL, NULL, NULL),
-(16, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 114, '22222222', NULL, NULL, NULL),
-(17, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 117, '22222222', NULL, NULL, NULL),
-(18, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 120, '22222222', NULL, NULL, NULL),
-(19, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 123, '22222222', NULL, NULL, NULL),
-(20, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 126, '22222222', NULL, NULL, NULL),
-(21, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 129, '22222222', NULL, NULL, NULL),
-(22, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 132, '22222222', NULL, NULL, NULL),
-(23, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 135, '22222222', NULL, NULL, NULL),
-(24, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 138, '22222222', NULL, NULL, NULL),
-(25, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '33333333', NULL, NULL, NULL),
-(26, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 110, '33333333', NULL, NULL, NULL),
-(27, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 113, '33333333', NULL, NULL, NULL),
-(28, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 116, '33333333', NULL, NULL, NULL),
-(29, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 119, '33333333', NULL, NULL, NULL),
-(30, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 122, '33333333', NULL, NULL, NULL),
-(31, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 125, '33333333', NULL, NULL, NULL),
-(32, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 128, '33333333', NULL, NULL, NULL),
-(33, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 131, '33333333', NULL, NULL, NULL),
-(34, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 134, '33333333', NULL, NULL, NULL),
-(35, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 137, '33333333', NULL, NULL, NULL),
-(36, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 20, '15432112', NULL, NULL, NULL),
-(37, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 112, '15432112', NULL, NULL, NULL),
-(38, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 114, '15432112', NULL, NULL, NULL),
-(39, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 117, '15432112', NULL, NULL, NULL),
-(40, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 120, '15432112', NULL, NULL, NULL),
-(41, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 123, '15432112', NULL, NULL, NULL),
-(42, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 126, '15432112', NULL, NULL, NULL),
-(43, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 129, '15432112', NULL, NULL, NULL),
-(44, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 132, '15432112', NULL, NULL, NULL),
-(45, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 135, '15432112', NULL, NULL, NULL),
-(46, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 138, '15432112', NULL, NULL, NULL),
-(47, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 11, '23456543', NULL, NULL, NULL),
-(48, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 35, '23456543', NULL, NULL, NULL),
-(49, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 43, '23456543', NULL, NULL, NULL),
-(50, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 62, '23456543', NULL, NULL, NULL),
-(51, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 69, '23456543', NULL, NULL, NULL),
-(52, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 76, '23456543', NULL, NULL, NULL),
-(53, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 83, '23456543', NULL, NULL, NULL),
-(54, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 7, '23456654', NULL, NULL, NULL),
-(55, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 33, '23456654', NULL, NULL, NULL),
-(56, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 40, '23456654', NULL, NULL, NULL),
-(57, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 58, '23456654', NULL, NULL, NULL),
-(58, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 66, '23456654', NULL, NULL, NULL),
-(59, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 73, '23456654', NULL, NULL, NULL),
-(60, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 80, '23456654', NULL, NULL, NULL),
-(61, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 6, '23456787', NULL, NULL, NULL),
-(62, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 31, '23456787', NULL, NULL, NULL),
-(63, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 38, '23456787', NULL, NULL, NULL),
-(64, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 57, '23456787', NULL, NULL, NULL),
-(65, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 64, '23456787', NULL, NULL, NULL),
-(66, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 71, '23456787', NULL, NULL, NULL),
-(67, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 78, '23456787', NULL, NULL, NULL),
-(68, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 8, '23456789', NULL, NULL, NULL),
-(69, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 34, '23456789', NULL, NULL, NULL),
-(70, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 39, '23456789', NULL, NULL, NULL),
-(71, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 59, '23456789', NULL, NULL, NULL),
-(72, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 65, '23456789', NULL, NULL, NULL),
-(73, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 72, '23456789', NULL, NULL, NULL),
-(74, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 79, '23456789', NULL, NULL, NULL),
-(75, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 13, '23498755', NULL, NULL, NULL),
-(76, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 21, '23498755', NULL, NULL, NULL),
-(77, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 26, '23498755', NULL, NULL, NULL),
-(78, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 85, '23498755', NULL, NULL, NULL),
-(79, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 90, '23498755', NULL, NULL, NULL),
-(80, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 95, '23498755', NULL, NULL, NULL),
-(81, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 100, '23498755', NULL, NULL, NULL),
-(82, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 105, '23498755', NULL, NULL, NULL),
-(83, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 17, '65434567', NULL, NULL, NULL),
-(84, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 24, '65434567', NULL, NULL, NULL),
-(85, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 29, '65434567', NULL, NULL, NULL),
-(86, 110.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 87, '65434567', NULL, NULL, NULL),
-(87, 110.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 93, '65434567', NULL, NULL, NULL),
-(88, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 98, '65434567', NULL, NULL, NULL),
-(89, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 103, '65434567', NULL, NULL, NULL),
-(90, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 108, '65434567', NULL, NULL, NULL),
-(91, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 17, '65434567', NULL, NULL, NULL),
-(92, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 24, '65434567', NULL, NULL, NULL),
-(93, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 29, '65434567', NULL, NULL, NULL),
-(94, 110.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 87, '65434567', NULL, NULL, NULL),
-(95, 110.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 93, '65434567', NULL, NULL, NULL),
-(96, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 98, '65434567', NULL, NULL, NULL),
-(97, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 103, '65434567', NULL, NULL, NULL),
-(98, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 108, '65434567', NULL, NULL, NULL),
-(99, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 20, '99999999', NULL, NULL, NULL),
-(100, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 112, '99999999', NULL, NULL, NULL),
-(101, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 114, '99999999', NULL, NULL, NULL),
-(102, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 117, '99999999', NULL, NULL, NULL),
-(103, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 120, '99999999', NULL, NULL, NULL),
-(104, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 123, '99999999', NULL, NULL, NULL),
-(105, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 126, '99999999', NULL, NULL, NULL),
-(106, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 129, '99999999', NULL, NULL, NULL),
-(107, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 132, '99999999', NULL, NULL, NULL),
-(108, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 135, '99999999', NULL, NULL, NULL),
-(109, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 138, '99999999', NULL, NULL, NULL),
-(110, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '72626272', NULL, NULL, NULL),
-(111, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 110, '72626272', NULL, NULL, NULL),
-(112, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 113, '72626272', NULL, NULL, NULL),
-(113, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 116, '72626272', NULL, NULL, NULL),
-(114, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 119, '72626272', NULL, NULL, NULL),
-(115, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 122, '72626272', NULL, NULL, NULL),
-(116, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 125, '72626272', NULL, NULL, NULL),
-(117, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 128, '72626272', NULL, NULL, NULL),
-(118, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 131, '72626272', NULL, NULL, NULL),
-(119, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 134, '72626272', NULL, NULL, NULL),
-(120, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 137, '72626272', NULL, NULL, NULL),
-(121, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 161, '72626272', NULL, NULL, NULL),
-(122, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 162, '72626272', NULL, NULL, NULL),
-(123, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 167, '72626272', NULL, NULL, NULL),
-(124, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 170, '72626272', NULL, NULL, NULL),
-(125, 200.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 173, '72626272', NULL, NULL, NULL),
-(126, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 176, '72626272', NULL, NULL, NULL),
-(127, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 179, '72626272', NULL, NULL, NULL),
-(128, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 182, '72626272', NULL, NULL, NULL),
-(129, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 185, '72626272', NULL, NULL, NULL),
-(130, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 188, '72626272', NULL, NULL, NULL),
-(131, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 217, NULL, NULL, NULL, NULL),
-(132, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 219, '65434567', NULL, NULL, NULL),
-(133, 20.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 221, '23456543', NULL, NULL, NULL),
-(134, 20.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 221, '23498755', NULL, NULL, NULL),
-(135, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '12121212', NULL, NULL, NULL),
-(136, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '12345678', NULL, NULL, NULL),
-(137, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '33333333', NULL, NULL, NULL),
-(138, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '72626272', NULL, NULL, NULL),
-(139, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '15432112', NULL, NULL, NULL),
-(140, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '22222222', NULL, NULL, NULL),
-(141, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '99999999', NULL, NULL, NULL),
-(142, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '11111111', NULL, NULL, NULL),
-(143, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 223, '23456787', NULL, NULL, NULL),
-(144, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 223, '23456789', NULL, NULL, NULL),
-(145, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 223, '23456654', NULL, NULL, NULL),
-(146, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 224, '23456543', NULL, NULL, NULL),
-(147, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 224, '23498755', NULL, NULL, NULL),
-(148, 7.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 233, '65434567', NULL, NULL, NULL),
-(149, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 236, '23456787', NULL, NULL, NULL),
-(150, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 236, '23456789', NULL, NULL, NULL),
-(151, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 236, '23456654', NULL, NULL, NULL),
-(152, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 11, '01010101', NULL, NULL, NULL),
-(153, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 62, '01010101', NULL, NULL, NULL),
-(154, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 69, '01010101', NULL, NULL, NULL),
-(155, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 76, '01010101', NULL, NULL, NULL),
-(156, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 83, '01010101', NULL, NULL, NULL),
-(157, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 11, '01010101', NULL, NULL, NULL),
-(158, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 62, '01010101', NULL, NULL, NULL),
-(159, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 69, '01010101', NULL, NULL, NULL),
-(160, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 76, '01010101', NULL, NULL, NULL),
-(161, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 83, '01010101', NULL, NULL, NULL),
-(162, 500.00, 0.00, '0', '0', '0', '0', 'Sr. Antonio Banderas', 'Alquiler de Local', NULL, 240, NULL, NULL, NULL, NULL),
-(163, 550.00, 0.00, '0', '0', '0', '0', 'Inversiones Requeridas S.A.C', 'Venta de carpetas de segunda mano', NULL, 241, NULL, NULL, NULL, NULL),
-(164, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 7, 'PN-012222', NULL, NULL, NULL),
-(165, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 58, 'PN-012222', NULL, NULL, NULL),
-(166, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 66, 'PN-012222', NULL, NULL, NULL),
-(167, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 73, 'PN-012222', NULL, NULL, NULL),
-(168, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 80, 'PN-012222', NULL, NULL, NULL),
-(169, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 20, '22222222', NULL, NULL, NULL),
-(170, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 112, '22222222', NULL, NULL, NULL),
-(171, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 114, '22222222', NULL, NULL, NULL),
-(172, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 117, '22222222', NULL, NULL, NULL),
-(173, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 120, '22222222', NULL, NULL, NULL),
-(174, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 123, '22222222', NULL, NULL, NULL),
-(175, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 126, '22222222', NULL, NULL, NULL),
-(176, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 129, '22222222', NULL, NULL, NULL),
-(177, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 132, '22222222', NULL, NULL, NULL),
-(178, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 135, '22222222', NULL, NULL, NULL),
-(179, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 138, '22222222', NULL, NULL, NULL),
-(180, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 163, '22222222', NULL, NULL, NULL),
-(181, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 166, '22222222', NULL, NULL, NULL),
-(182, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 168, '22222222', NULL, NULL, NULL),
-(183, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 171, '22222222', NULL, NULL, NULL),
-(184, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 174, '22222222', NULL, NULL, NULL),
-(185, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 177, '22222222', NULL, NULL, NULL),
-(186, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 180, '22222222', NULL, NULL, NULL),
-(187, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 183, '22222222', NULL, NULL, NULL),
-(188, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 186, '22222222', NULL, NULL, NULL),
-(189, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 189, '22222222', NULL, NULL, NULL),
-(190, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '66666666', NULL, NULL, NULL),
-(191, 190.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 110, '66666666', NULL, NULL, NULL),
-(192, 190.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 113, '66666666', NULL, NULL, NULL),
-(193, 200.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 116, '66666666', NULL, NULL, NULL),
-(194, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 119, '66666666', NULL, NULL, NULL),
-(195, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 122, '66666666', NULL, NULL, NULL),
-(196, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 125, '66666666', NULL, NULL, NULL),
-(197, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 128, '66666666', NULL, NULL, NULL),
-(198, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 131, '66666666', NULL, NULL, NULL),
-(199, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 134, '66666666', NULL, NULL, NULL),
-(200, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 137, '66666666', NULL, NULL, NULL),
-(201, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 161, '66666666', NULL, NULL, NULL),
-(202, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 162, '66666666', NULL, NULL, NULL),
-(203, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 167, '66666666', NULL, NULL, NULL),
-(204, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 170, '66666666', NULL, NULL, NULL),
-(205, 200.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 173, '66666666', NULL, NULL, NULL),
-(206, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 176, '66666666', NULL, NULL, NULL),
-(207, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 179, '66666666', NULL, NULL, NULL),
-(208, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 182, '66666666', NULL, NULL, NULL),
-(209, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 185, '66666666', NULL, NULL, NULL),
-(210, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 188, '66666666', NULL, NULL, NULL),
-(211, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 19, '34567976', NULL, NULL, NULL),
-(212, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 111, '34567976', NULL, NULL, NULL),
-(213, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 115, '34567976', NULL, NULL, NULL),
-(214, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 118, '34567976', NULL, NULL, NULL),
-(215, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 121, '34567976', NULL, NULL, NULL),
-(216, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 124, '34567976', NULL, NULL, NULL),
-(217, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 127, '34567976', NULL, NULL, NULL),
-(218, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 130, '34567976', NULL, NULL, NULL),
-(219, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 133, '34567976', NULL, NULL, NULL),
-(220, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 136, '34567976', NULL, NULL, NULL),
-(221, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 139, '34567976', NULL, NULL, NULL),
-(222, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 164, '34567976', NULL, NULL, NULL),
-(223, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 165, '34567976', NULL, NULL, NULL),
-(224, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 169, '34567976', NULL, NULL, NULL),
-(225, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 172, '34567976', NULL, NULL, NULL),
-(226, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 175, '34567976', NULL, NULL, NULL),
-(227, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 178, '34567976', NULL, NULL, NULL),
-(228, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 181, '34567976', NULL, NULL, NULL),
-(229, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 184, '34567976', NULL, NULL, NULL),
-(230, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 187, '34567976', NULL, NULL, NULL),
-(231, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 190, '34567976', NULL, NULL, NULL),
-(232, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 13, '55555555', NULL, NULL, NULL),
-(233, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 85, '55555555', NULL, NULL, NULL),
-(234, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 90, '55555555', NULL, NULL, NULL),
-(235, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 95, '55555555', NULL, NULL, NULL),
-(236, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 100, '55555555', NULL, NULL, NULL),
-(237, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 105, '55555555', NULL, NULL, NULL),
-(238, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 8, '11111111', NULL, NULL, NULL),
-(239, 110.00, 12.10, '0', '0', '0', '0', NULL, NULL, NULL, 59, '11111111', NULL, NULL, NULL),
-(240, 110.00, 12.10, '0', '0', '0', '0', NULL, NULL, NULL, 65, '11111111', NULL, NULL, NULL),
-(241, 110.00, 12.10, '0', '0', '0', '0', NULL, NULL, NULL, 72, '11111111', NULL, NULL, NULL),
-(242, 110.00, 12.10, '0', '0', '0', '0', NULL, NULL, NULL, 79, '11111111', NULL, NULL, NULL),
-(243, 1.50, 0.00, '1', '0', '0', '0', NULL, NULL, '2016-03-07 23:44:09', 228, '65434567', NULL, NULL, NULL),
-(244, 1.50, 0.00, '1', '0', '0', '0', NULL, NULL, '2016-03-07 23:54:33', 228, '65434567', NULL, NULL, NULL);
+(1, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '12345678', NULL, NULL, 8),
+(2, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '12121212', NULL, NULL, 8),
+(3, 220.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 19, '11111111', NULL, NULL, 8),
+(4, 100.00, 11.00, '1', '0', '0', '0', NULL, NULL, NULL, 111, '11111111', NULL, NULL, 8),
+(5, 100.00, 11.00, '1', '0', '0', '0', NULL, NULL, NULL, 115, '11111111', NULL, NULL, 8),
+(6, 100.00, 11.00, '1', '0', '0', '0', NULL, NULL, NULL, 118, '11111111', NULL, NULL, 8),
+(7, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 121, '11111111', NULL, NULL, 8),
+(8, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 124, '11111111', NULL, NULL, 8),
+(9, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 127, '11111111', NULL, NULL, 8),
+(10, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 130, '11111111', NULL, NULL, 8),
+(11, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 133, '11111111', NULL, NULL, 8),
+(12, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 136, '11111111', NULL, NULL, 8),
+(13, 100.00, 11.00, '0', '0', '0', '0', NULL, NULL, NULL, 139, '11111111', NULL, NULL, 8),
+(14, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 20, '22222222', NULL, NULL, 8),
+(15, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 112, '22222222', NULL, NULL, 8),
+(16, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 114, '22222222', NULL, NULL, 8),
+(17, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 117, '22222222', NULL, NULL, 8),
+(18, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 120, '22222222', NULL, NULL, 8),
+(19, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 123, '22222222', NULL, NULL, 8),
+(20, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 126, '22222222', NULL, NULL, 8),
+(21, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 129, '22222222', NULL, NULL, 8),
+(22, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 132, '22222222', NULL, NULL, 8),
+(23, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 135, '22222222', NULL, NULL, 8),
+(24, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 138, '22222222', NULL, NULL, 8),
+(25, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '33333333', NULL, NULL, 8),
+(26, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 110, '33333333', NULL, NULL, 8),
+(27, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 113, '33333333', NULL, NULL, 8),
+(28, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 116, '33333333', NULL, NULL, 8),
+(29, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 119, '33333333', NULL, NULL, 8),
+(30, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 122, '33333333', NULL, NULL, 8),
+(31, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 125, '33333333', NULL, NULL, 8),
+(32, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 128, '33333333', NULL, NULL, 8),
+(33, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 131, '33333333', NULL, NULL, 8),
+(34, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 134, '33333333', NULL, NULL, 8),
+(35, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 137, '33333333', NULL, NULL, 8),
+(36, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 20, '15432112', NULL, NULL, 8),
+(37, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 112, '15432112', NULL, NULL, 8),
+(38, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 114, '15432112', NULL, NULL, 8),
+(39, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 117, '15432112', NULL, NULL, 8),
+(40, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 120, '15432112', NULL, NULL, 8),
+(41, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 123, '15432112', NULL, NULL, 8),
+(42, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 126, '15432112', NULL, NULL, 8),
+(43, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 129, '15432112', NULL, NULL, 8),
+(44, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 132, '15432112', NULL, NULL, 8),
+(45, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 135, '15432112', NULL, NULL, 8),
+(46, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 138, '15432112', NULL, NULL, 8),
+(47, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 11, '23456543', NULL, NULL, 8),
+(48, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 35, '23456543', NULL, NULL, 8),
+(49, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 43, '23456543', NULL, NULL, 8),
+(50, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 62, '23456543', NULL, NULL, 8),
+(51, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 69, '23456543', NULL, NULL, 8),
+(52, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 76, '23456543', NULL, NULL, 8),
+(53, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 83, '23456543', NULL, NULL, 8),
+(54, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 7, '23456654', NULL, NULL, 8),
+(55, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 33, '23456654', NULL, NULL, 8),
+(56, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 40, '23456654', NULL, NULL, 8),
+(57, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 58, '23456654', NULL, NULL, 8),
+(58, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 66, '23456654', NULL, NULL, 8),
+(59, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 73, '23456654', NULL, NULL, 8),
+(60, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 80, '23456654', NULL, NULL, 8),
+(61, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 6, '23456787', NULL, NULL, 8),
+(62, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 31, '23456787', NULL, NULL, 8),
+(63, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 38, '23456787', NULL, NULL, 8),
+(64, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 57, '23456787', NULL, NULL, 8),
+(65, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 64, '23456787', NULL, NULL, 8),
+(66, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 71, '23456787', NULL, NULL, 8),
+(67, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 78, '23456787', NULL, NULL, 8),
+(68, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 8, '23456789', NULL, NULL, 8),
+(69, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 34, '23456789', NULL, NULL, 8),
+(70, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 39, '23456789', NULL, NULL, 8),
+(71, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 59, '23456789', NULL, NULL, 8),
+(72, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 65, '23456789', NULL, NULL, 8),
+(73, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 72, '23456789', NULL, NULL, 8),
+(74, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 79, '23456789', NULL, NULL, 8),
+(75, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 13, '23498755', NULL, NULL, 8),
+(76, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 21, '23498755', NULL, NULL, 8),
+(77, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 26, '23498755', NULL, NULL, 8),
+(78, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 85, '23498755', NULL, NULL, 8),
+(79, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 90, '23498755', NULL, NULL, 8),
+(80, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 95, '23498755', NULL, NULL, 8),
+(81, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 100, '23498755', NULL, NULL, 8),
+(82, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 105, '23498755', NULL, NULL, 8),
+(83, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 17, '65434567', NULL, NULL, 8),
+(84, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 24, '65434567', NULL, NULL, 8),
+(85, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 29, '65434567', NULL, NULL, 8),
+(86, 110.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 87, '65434567', NULL, NULL, 8),
+(87, 110.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 93, '65434567', NULL, NULL, 8),
+(88, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 98, '65434567', NULL, NULL, 8),
+(89, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 103, '65434567', NULL, NULL, 8),
+(90, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 108, '65434567', NULL, NULL, 8),
+(91, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 17, '65434567', NULL, NULL, 8),
+(92, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 24, '65434567', NULL, NULL, 8),
+(93, 100.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 29, '65434567', NULL, NULL, 8),
+(94, 110.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 87, '65434567', NULL, NULL, 8),
+(95, 110.00, 0.00, '1', '0', '0', '0', NULL, NULL, NULL, 93, '65434567', NULL, NULL, 8),
+(96, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 98, '65434567', NULL, NULL, 8),
+(97, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 103, '65434567', NULL, NULL, 8),
+(98, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 108, '65434567', NULL, NULL, 8),
+(99, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 20, '99999999', NULL, NULL, 8),
+(100, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 112, '99999999', NULL, NULL, 8),
+(101, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 114, '99999999', NULL, NULL, 8),
+(102, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 117, '99999999', NULL, NULL, 8),
+(103, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 120, '99999999', NULL, NULL, 8),
+(104, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 123, '99999999', NULL, NULL, 8),
+(105, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 126, '99999999', NULL, NULL, 8),
+(106, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 129, '99999999', NULL, NULL, 8),
+(107, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 132, '99999999', NULL, NULL, 8),
+(108, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 135, '99999999', NULL, NULL, 8),
+(109, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 138, '99999999', NULL, NULL, 8),
+(110, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '72626272', NULL, NULL, 8),
+(111, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 110, '72626272', NULL, NULL, 8),
+(112, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 113, '72626272', NULL, NULL, 8),
+(113, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 116, '72626272', NULL, NULL, 8),
+(114, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 119, '72626272', NULL, NULL, 8),
+(115, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 122, '72626272', NULL, NULL, 8),
+(116, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 125, '72626272', NULL, NULL, 8),
+(117, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 128, '72626272', NULL, NULL, 8),
+(118, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 131, '72626272', NULL, NULL, 8),
+(119, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 134, '72626272', NULL, NULL, 8),
+(120, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 137, '72626272', NULL, NULL, 8),
+(121, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 161, '72626272', NULL, NULL, 8),
+(122, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 162, '72626272', NULL, NULL, 8),
+(123, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 167, '72626272', NULL, NULL, 8),
+(124, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 170, '72626272', NULL, NULL, 8),
+(125, 200.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 173, '72626272', NULL, NULL, 8),
+(126, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 176, '72626272', NULL, NULL, 8),
+(127, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 179, '72626272', NULL, NULL, 8),
+(128, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 182, '72626272', NULL, NULL, 8),
+(129, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 185, '72626272', NULL, NULL, 8),
+(130, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 188, '72626272', NULL, NULL, 8),
+(131, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 217, NULL, NULL, NULL, 8),
+(132, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 219, '65434567', NULL, NULL, 8),
+(133, 20.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 221, '23456543', NULL, NULL, 8),
+(134, 20.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 221, '23498755', NULL, NULL, 8),
+(135, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '12121212', NULL, NULL, 8),
+(136, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '12345678', NULL, NULL, 8),
+(137, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '33333333', NULL, NULL, 8),
+(138, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '72626272', NULL, NULL, 8),
+(139, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '15432112', NULL, NULL, 8),
+(140, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '22222222', NULL, NULL, 8),
+(141, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '99999999', NULL, NULL, 8),
+(142, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 222, '11111111', NULL, NULL, 8),
+(143, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 223, '23456787', NULL, NULL, 8),
+(144, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 223, '23456789', NULL, NULL, 8),
+(145, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 223, '23456654', NULL, NULL, 8),
+(146, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 224, '23456543', NULL, NULL, 8),
+(147, 10.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 224, '23498755', NULL, NULL, 8),
+(148, 7.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 233, '65434567', NULL, NULL, 8),
+(149, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 236, '23456787', NULL, NULL, 8),
+(150, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 236, '23456789', NULL, NULL, 8),
+(151, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 236, '23456654', NULL, NULL, 8),
+(152, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 11, '01010101', NULL, NULL, 8),
+(153, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 62, '01010101', NULL, NULL, 8),
+(154, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 69, '01010101', NULL, NULL, 8),
+(155, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 76, '01010101', NULL, NULL, 8),
+(156, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 83, '01010101', NULL, NULL, 8),
+(157, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 11, '01010101', NULL, NULL, 8),
+(158, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 62, '01010101', NULL, NULL, 8),
+(159, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 69, '01010101', NULL, NULL, 8),
+(160, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 76, '01010101', NULL, NULL, 8),
+(161, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 83, '01010101', NULL, NULL, 8),
+(162, 500.00, 0.00, '0', '0', '0', '0', 'Sr. Antonio Banderas', 'Alquiler de Local', NULL, 240, NULL, NULL, NULL, 8),
+(163, 550.00, 0.00, '0', '0', '0', '0', 'Inversiones Requeridas S.A.C', 'Venta de carpetas de segunda mano', NULL, 241, NULL, NULL, NULL, 8),
+(164, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 7, 'PN-012222', NULL, NULL, 8),
+(165, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 58, 'PN-012222', NULL, NULL, 8),
+(166, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 66, 'PN-012222', NULL, NULL, 8),
+(167, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 73, 'PN-012222', NULL, NULL, 8),
+(168, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 80, 'PN-012222', NULL, NULL, 8),
+(169, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 20, '22222222', NULL, NULL, 8),
+(170, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 112, '22222222', NULL, NULL, 8),
+(171, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 114, '22222222', NULL, NULL, 8),
+(172, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 117, '22222222', NULL, NULL, 8),
+(173, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 120, '22222222', NULL, NULL, 8),
+(174, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 123, '22222222', NULL, NULL, 8),
+(175, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 126, '22222222', NULL, NULL, 8),
+(176, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 129, '22222222', NULL, NULL, 8),
+(177, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 132, '22222222', NULL, NULL, 8),
+(178, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 135, '22222222', NULL, NULL, 8),
+(179, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 138, '22222222', NULL, NULL, 8),
+(180, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 163, '22222222', NULL, NULL, 8),
+(181, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 166, '22222222', NULL, NULL, 8),
+(182, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 168, '22222222', NULL, NULL, 8),
+(183, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 171, '22222222', NULL, NULL, 8),
+(184, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 174, '22222222', NULL, NULL, 8),
+(185, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 177, '22222222', NULL, NULL, 8),
+(186, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 180, '22222222', NULL, NULL, 8),
+(187, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 183, '22222222', NULL, NULL, 8),
+(188, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 186, '22222222', NULL, NULL, 8),
+(189, 110.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 189, '22222222', NULL, NULL, 8),
+(190, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 18, '66666666', NULL, NULL, 8),
+(191, 190.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 110, '66666666', NULL, NULL, 8),
+(192, 190.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 113, '66666666', NULL, NULL, 8),
+(193, 200.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 116, '66666666', NULL, NULL, 8),
+(194, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 119, '66666666', NULL, NULL, 8),
+(195, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 122, '66666666', NULL, NULL, 8),
+(196, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 125, '66666666', NULL, NULL, 8),
+(197, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 128, '66666666', NULL, NULL, 8),
+(198, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 131, '66666666', NULL, NULL, 8),
+(199, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 134, '66666666', NULL, NULL, 8),
+(200, 150.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 137, '66666666', NULL, NULL, 8),
+(201, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 161, '66666666', NULL, NULL, 8),
+(202, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 162, '66666666', NULL, NULL, 8),
+(203, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 167, '66666666', NULL, NULL, 8),
+(204, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 170, '66666666', NULL, NULL, 8),
+(205, 200.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 173, '66666666', NULL, NULL, 8),
+(206, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 176, '66666666', NULL, NULL, 8),
+(207, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 179, '66666666', NULL, NULL, 8),
+(208, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 182, '66666666', NULL, NULL, 8),
+(209, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 185, '66666666', NULL, NULL, 8),
+(210, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 188, '66666666', NULL, NULL, 8),
+(211, 220.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 19, '34567976', NULL, NULL, 8),
+(212, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 111, '34567976', NULL, NULL, 8),
+(213, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 115, '34567976', NULL, NULL, 8),
+(214, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 118, '34567976', NULL, NULL, 8),
+(215, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 121, '34567976', NULL, NULL, 8),
+(216, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 124, '34567976', NULL, NULL, 8),
+(217, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 127, '34567976', NULL, NULL, 8),
+(218, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 130, '34567976', NULL, NULL, 8),
+(219, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 133, '34567976', NULL, NULL, 8),
+(220, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 136, '34567976', NULL, NULL, 8),
+(221, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 139, '34567976', NULL, NULL, 8),
+(222, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 164, '34567976', NULL, NULL, 8),
+(223, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 165, '34567976', NULL, NULL, 8),
+(224, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 169, '34567976', NULL, NULL, 8),
+(225, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 172, '34567976', NULL, NULL, 8),
+(226, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 175, '34567976', NULL, NULL, 8),
+(227, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 178, '34567976', NULL, NULL, 8),
+(228, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 181, '34567976', NULL, NULL, 8),
+(229, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 184, '34567976', NULL, NULL, 8),
+(230, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 187, '34567976', NULL, NULL, 8),
+(231, 120.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 190, '34567976', NULL, NULL, 8),
+(232, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 13, '55555555', NULL, NULL, 8),
+(233, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 85, '55555555', NULL, NULL, 8),
+(234, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 90, '55555555', NULL, NULL, 8),
+(235, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 95, '55555555', NULL, NULL, 8),
+(236, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 100, '55555555', NULL, NULL, 8),
+(237, 100.00, 15.00, '0', '0', '0', '0', NULL, NULL, NULL, 105, '55555555', NULL, NULL, 8),
+(238, 100.00, 0.00, '0', '0', '0', '0', NULL, NULL, NULL, 8, '11111111', NULL, NULL, 8),
+(239, 110.00, 12.10, '0', '0', '0', '0', NULL, NULL, NULL, 59, '11111111', NULL, NULL, 8),
+(240, 110.00, 12.10, '0', '0', '0', '0', NULL, NULL, NULL, 65, '11111111', NULL, NULL, 8),
+(241, 110.00, 12.10, '0', '0', '0', '0', NULL, NULL, NULL, 72, '11111111', NULL, NULL, 8),
+(242, 110.00, 12.10, '0', '0', '0', '0', NULL, NULL, NULL, 79, '11111111', NULL, NULL, 8),
+(243, 1.50, 0.00, '1', '1', '0', '0', NULL, NULL, '2016-03-07 23:44:09', 228, '65434567', NULL, NULL, 8),
+(244, 1.50, 0.00, '1', '1', '0', '0', NULL, NULL, '2016-03-07 23:54:33', 228, '65434567', NULL, NULL, 8),
+(245, 100.00, 0.00, '1', '1', '0', '0', NULL, NULL, '2016-03-13 05:59:36', 278, '11111111', NULL, NULL, 8),
+(246, 1.50, 0.00, '1', '1', '0', '0', NULL, NULL, '2016-03-13 17:31:24', 228, '65434567', NULL, NULL, 8),
+(247, 100.00, 0.00, '1', '1', '0', '0', NULL, NULL, '2016-03-14 15:03:22', 278, '11111111', NULL, NULL, 8);
 
 -- --------------------------------------------------------
 
@@ -875,11 +910,25 @@ INSERT INTO `jsoria_permisos` (`id_institucion`, `id_usuario`) VALUES
 
 CREATE TABLE IF NOT EXISTS `jsoria_retiro` (
   `id` int(11) NOT NULL,
-  `monto` double(8,2) DEFAULT NULL,
-  `fecha_hora` datetime DEFAULT NULL,
-  `estado` char(1) DEFAULT NULL,
+  `monto` double(8,2) DEFAULT '0.00',
+  `fecha_hora` datetime DEFAULT CURRENT_TIMESTAMP,
+  `estado` char(1) DEFAULT '0',
   `id_usuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `jsoria_retiro`
+--
+
+INSERT INTO `jsoria_retiro` (`id`, `monto`, `fecha_hora`, `estado`, `id_usuario`) VALUES
+(1, 0.00, '2016-03-14 15:00:28', '0', 7),
+(2, 0.00, '2016-03-14 15:03:54', '0', 7),
+(3, 0.00, '2016-03-14 15:04:58', '0', 7),
+(4, 0.00, '2016-03-14 15:07:30', '0', 7),
+(5, 0.00, '2016-03-14 15:08:27', '0', 7),
+(6, 0.00, '2016-03-14 20:44:52', '0', 7),
+(7, 101.50, '2016-03-14 20:51:52', '0', 7),
+(8, 101.50, '2016-03-14 21:22:46', '0', 7);
 
 -- --------------------------------------------------------
 
@@ -929,8 +978,8 @@ CREATE TABLE IF NOT EXISTS `jsoria_usuario` (
 --
 
 INSERT INTO `jsoria_usuario` (`id`, `dni`, `nombres`, `apellidos`, `tipo`, `usuario_login`, `password`, `remember_token`) VALUES
-(7, '12324432', 'Jeronimo', 'Soria Mormontoy', 'Administrador', 'admin', '$2y$10$L7ll7zPYKkD9RHB04e4k5O5Unid2NeVyyaakwD5B.SXxVv3smw0Vy', 'bu1xuWJqrrEkv5hPYrAdpohv3nFAn4s7KFXUWlm8MaQlXgQhml9vQLMLer2v'),
-(8, '78665546', 'Carmen', 'Cajera', 'Cajera', 'cajera', '$2y$10$V6E1ye2vZkkynW8PKLLgF.Qv0SIdSOGFsZyNJ1dZKzVLti2DzoEm.', 'h848s4XeI0WGUdJFKCPBdbNbOfWDkx99Xf9od1BSuCKJM8jnkHn8TLSN72wU'),
+(7, '12324432', 'Jeronimo', 'Soria Mormontoy', 'Administrador', 'admin', '$2y$10$L7ll7zPYKkD9RHB04e4k5O5Unid2NeVyyaakwD5B.SXxVv3smw0Vy', 'shyIwOzVgaWMqKioZ5n2MTQIg5WVE5CnT4tQuncURQ67T83jgnG2WZaxUWFU'),
+(8, '78665546', 'Carmen', 'Salas Gamarra', 'Cajera', 'cajera', '$2y$10$53abKk10AfYqE1uGEI/Baeq1BivAv4To8pfQdV0b50jf2nzwEGSE6', 'X7L9Vh8fHwCnyYIwiUr8zw3YNldX1uuJImN7PQ0eZ3oq4e3BXHX84XZtln1O'),
 (10, '23432546', 'Secretaria', 'CEBA3', 'Secretaria', 'secretaria2', '$2y$10$CJognbVvQWssmZ.RueCgHOg/uXWBGtWJKTbVqywoq1IhjjaetOr.W', 'nThXt9tXwk01imboJwvlfv6tea34490IJLJgG1VqRmpif2Tk787tIHmCDTYz'),
 (11, '34354355', 'Secretaria', 'Instituto', 'Secretaria', 'secretaria3', '$2y$10$pn4iSXBJXGny9U9igqfkgu8MB42ulfTtffznJ5XzDM620quRcvGEu', 'j2a8QAc1EBSOrUpuH189OH81aZeTilviyA8kJFSZCydOC5iTF9uVZvuxnQOI'),
 (12, '23434645', 'Secretaria', 'ULP', 'Secretaria', 'secretaria4', '$2y$10$wJc.HSR718MjetmW/6e9beQ0E4UB5eOiLkQALpd72k.KpW7jP1nLS', 'HAjB3tG2ytlgF20vjV0VnL5ztnwxYgDbvHvGTScK07WI34gTFEwLPjVCWnKv'),
@@ -946,19 +995,22 @@ INSERT INTO `jsoria_usuario` (`id`, `dni`, `nombres`, `apellidos`, `tipo`, `usua
 -- Indices de la tabla `jsoria_alumno`
 --
 ALTER TABLE `jsoria_alumno`
-  ADD PRIMARY KEY (`nro_documento`), ADD KEY `fk_grado_alumno_idx` (`id_grado`);
+  ADD PRIMARY KEY (`nro_documento`),
+  ADD KEY `fk_grado_alumno_idx` (`id_grado`);
 
 --
 -- Indices de la tabla `jsoria_autorizacion`
 --
 ALTER TABLE `jsoria_autorizacion`
-  ADD PRIMARY KEY (`id`), ADD KEY `fk_id_alumno_idx` (`id_alumno`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_alumno_idx` (`id_alumno`);
 
 --
 -- Indices de la tabla `jsoria_categoria`
 --
 ALTER TABLE `jsoria_categoria`
-  ADD PRIMARY KEY (`id`), ADD KEY `fk_detalle:institucion_categoria_idx` (`id_detalle_institucion`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_detalle:institucion_categoria_idx` (`id_detalle_institucion`);
 
 --
 -- Indices de la tabla `jsoria_comprobante`
@@ -970,31 +1022,40 @@ ALTER TABLE `jsoria_comprobante`
 -- Indices de la tabla `jsoria_detalle_egreso`
 --
 ALTER TABLE `jsoria_detalle_egreso`
-  ADD PRIMARY KEY (`id_egreso`,`id_rubro`), ADD KEY `fk_rubro_idx` (`id_rubro`);
+  ADD PRIMARY KEY (`id_egreso`,`id_rubro`),
+  ADD KEY `fk_rubro_idx` (`id_rubro`);
 
 --
 -- Indices de la tabla `jsoria_detalle_institucion`
 --
 ALTER TABLE `jsoria_detalle_institucion`
-  ADD PRIMARY KEY (`id`), ADD KEY `fk_institucion_detalle_institucion_idx` (`id_institucion`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_institucion_detalle_institucion_idx` (`id_institucion`);
 
 --
 -- Indices de la tabla `jsoria_deuda_ingreso`
 --
 ALTER TABLE `jsoria_deuda_ingreso`
-  ADD PRIMARY KEY (`id`), ADD KEY `fk_categoria_deuda_idx` (`id_categoria`), ADD KEY `fk_autorizacion_deuda_idx` (`id_autorizacion`), ADD KEY `fk_retiro_deuda_idx` (`id_retiro`), ADD KEY `fk_alumno_deuda_idx` (`id_alumno`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_categoria_deuda_idx` (`id_categoria`),
+  ADD KEY `fk_autorizacion_deuda_idx` (`id_autorizacion`),
+  ADD KEY `fk_retiro_deuda_idx` (`id_retiro`),
+  ADD KEY `fk_alumno_deuda_idx` (`id_alumno`),
+  ADD KEY `fkUsuario_Deuda_Ingreso` (`id_cajera`);
 
 --
 -- Indices de la tabla `jsoria_egreso`
 --
 ALTER TABLE `jsoria_egreso`
-  ADD PRIMARY KEY (`id`), ADD KEY `id_idx` (`id_institucion`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_idx` (`id_institucion`);
 
 --
 -- Indices de la tabla `jsoria_grado`
 --
 ALTER TABLE `jsoria_grado`
-  ADD PRIMARY KEY (`id`), ADD KEY `fk_detalle_institucion_grado_idx` (`id_detalle`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_detalle_institucion_grado_idx` (`id_detalle`);
 
 --
 -- Indices de la tabla `jsoria_institucion`
@@ -1006,13 +1067,15 @@ ALTER TABLE `jsoria_institucion`
 -- Indices de la tabla `jsoria_permisos`
 --
 ALTER TABLE `jsoria_permisos`
-  ADD PRIMARY KEY (`id_institucion`,`id_usuario`), ADD KEY `fk_usuario_permisos_idx` (`id_usuario`);
+  ADD PRIMARY KEY (`id_institucion`,`id_usuario`),
+  ADD KEY `fk_usuario_permisos_idx` (`id_usuario`);
 
 --
 -- Indices de la tabla `jsoria_retiro`
 --
 ALTER TABLE `jsoria_retiro`
-  ADD PRIMARY KEY (`id`), ADD KEY `fkid_usuario_retiro_idx` (`id_usuario`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fkid_usuario_retiro_idx` (`id_usuario`);
 
 --
 -- Indices de la tabla `jsoria_rubro`
@@ -1039,7 +1102,7 @@ ALTER TABLE `jsoria_autorizacion`
 -- AUTO_INCREMENT de la tabla `jsoria_categoria`
 --
 ALTER TABLE `jsoria_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=247;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=279;
 --
 -- AUTO_INCREMENT de la tabla `jsoria_comprobante`
 --
@@ -1054,7 +1117,7 @@ ALTER TABLE `jsoria_detalle_institucion`
 -- AUTO_INCREMENT de la tabla `jsoria_deuda_ingreso`
 --
 ALTER TABLE `jsoria_deuda_ingreso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=245;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=248;
 --
 -- AUTO_INCREMENT de la tabla `jsoria_grado`
 --
@@ -1064,7 +1127,7 @@ ALTER TABLE `jsoria_grado`
 -- AUTO_INCREMENT de la tabla `jsoria_retiro`
 --
 ALTER TABLE `jsoria_retiro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `jsoria_rubro`
 --
@@ -1083,60 +1146,61 @@ ALTER TABLE `jsoria_usuario`
 -- Filtros para la tabla `jsoria_autorizacion`
 --
 ALTER TABLE `jsoria_autorizacion`
-ADD CONSTRAINT `fk_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `jsoria_alumno` (`nro_documento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_id_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `jsoria_alumno` (`nro_documento`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `jsoria_categoria`
 --
 ALTER TABLE `jsoria_categoria`
-ADD CONSTRAINT `fk_detalle:institucion_categoria` FOREIGN KEY (`id_detalle_institucion`) REFERENCES `jsoria_detalle_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_detalle:institucion_categoria` FOREIGN KEY (`id_detalle_institucion`) REFERENCES `jsoria_detalle_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `jsoria_detalle_egreso`
 --
 ALTER TABLE `jsoria_detalle_egreso`
-ADD CONSTRAINT `fk_egreso_detalle_egreso` FOREIGN KEY (`id_egreso`) REFERENCES `jsoria_egreso` (`id`) ON UPDATE CASCADE,
-ADD CONSTRAINT `fk_rubro_detalle_egreso` FOREIGN KEY (`id_rubro`) REFERENCES `jsoria_rubro` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_egreso_detalle_egreso` FOREIGN KEY (`id_egreso`) REFERENCES `jsoria_egreso` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rubro_detalle_egreso` FOREIGN KEY (`id_rubro`) REFERENCES `jsoria_rubro` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `jsoria_detalle_institucion`
 --
 ALTER TABLE `jsoria_detalle_institucion`
-ADD CONSTRAINT `fk_institucion_detalle_institucion` FOREIGN KEY (`id_institucion`) REFERENCES `jsoria_institucion` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_institucion_detalle_institucion` FOREIGN KEY (`id_institucion`) REFERENCES `jsoria_institucion` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `jsoria_deuda_ingreso`
 --
 ALTER TABLE `jsoria_deuda_ingreso`
-ADD CONSTRAINT `fk_alumno_deuda` FOREIGN KEY (`id_alumno`) REFERENCES `jsoria_alumno` (`nro_documento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_autorizacion_deuda` FOREIGN KEY (`id_autorizacion`) REFERENCES `jsoria_autorizacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_categoria_deuda` FOREIGN KEY (`id_categoria`) REFERENCES `jsoria_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_retiro_deuda` FOREIGN KEY (`id_retiro`) REFERENCES `jsoria_retiro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fkUsuario_Deuda_Ingreso` FOREIGN KEY (`id_cajera`) REFERENCES `jsoria_usuario` (`id`),
+  ADD CONSTRAINT `fk_alumno_deuda` FOREIGN KEY (`id_alumno`) REFERENCES `jsoria_alumno` (`nro_documento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_autorizacion_deuda` FOREIGN KEY (`id_autorizacion`) REFERENCES `jsoria_autorizacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_categoria_deuda` FOREIGN KEY (`id_categoria`) REFERENCES `jsoria_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_retiro_deuda` FOREIGN KEY (`id_retiro`) REFERENCES `jsoria_retiro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `jsoria_egreso`
 --
 ALTER TABLE `jsoria_egreso`
-ADD CONSTRAINT `fk_institucion_egreso_id` FOREIGN KEY (`id_institucion`) REFERENCES `jsoria_institucion` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_institucion_egreso_id` FOREIGN KEY (`id_institucion`) REFERENCES `jsoria_institucion` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `jsoria_grado`
 --
 ALTER TABLE `jsoria_grado`
-ADD CONSTRAINT `fk_detalle_institucion_grado` FOREIGN KEY (`id_detalle`) REFERENCES `jsoria_detalle_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_detalle_institucion_grado` FOREIGN KEY (`id_detalle`) REFERENCES `jsoria_detalle_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `jsoria_permisos`
 --
 ALTER TABLE `jsoria_permisos`
-ADD CONSTRAINT `fk_institucion_permisos` FOREIGN KEY (`id_institucion`) REFERENCES `jsoria_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_usuario_permisos` FOREIGN KEY (`id_usuario`) REFERENCES `jsoria_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_institucion_permisos` FOREIGN KEY (`id_institucion`) REFERENCES `jsoria_institucion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_permisos` FOREIGN KEY (`id_usuario`) REFERENCES `jsoria_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `jsoria_retiro`
 --
 ALTER TABLE `jsoria_retiro`
-ADD CONSTRAINT `fkid_usuario_retiro` FOREIGN KEY (`id_usuario`) REFERENCES `jsoria_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fkid_usuario_retiro` FOREIGN KEY (`id_usuario`) REFERENCES `jsoria_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
