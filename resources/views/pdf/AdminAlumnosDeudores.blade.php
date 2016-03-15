@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Reporte Egresos Totales</title>
+    <title>Reporte Alumnos Deudores</title>
     {!! Html::style('css/pdf.css') !!}
   </head>
   <body>
@@ -10,7 +10,7 @@
     <main>
       <div id="details" class="clearfix">
         <div id="invoice">
-          <h1>EGRESOS TOTALES {{ $id_institucion }}</h1>
+          <h1>ALUMNOS DEUDORES {{ $id_institucion }}</h1>
           <div class="date">Date of Invoice: {{ $date }}</div>
         </div>
       </div>
@@ -18,13 +18,15 @@
         <thead>
           <tr>
             <th class="no">#</th>
-            <th class="desc">FECHA</th>
-            <th class="unit">MONTO</th>
+            <th class="desc">HORA INGRESO</th>
+            <th class="unit">CLIENTE</th>
+            <th class="total">CATEGORIA</th>
+            <th class="total">MONTO</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
-            <td colspan="0"></td>
+            <td colspan="3"></td>
             <td >TOTAL</td>
             <td>$6,500.00</td>
           </tr>

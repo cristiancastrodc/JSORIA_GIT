@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
-use JSoria\Categoria;
-class CategoriasController extends Controller
+
+use JSoria\Grado;
+
+class GradosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -85,12 +87,11 @@ class CategoriasController extends Controller
         //
     }
 
-    public function categoriasDivision(Request $request, $id_detalle_institucion)
+    public function gradosDivision(Request $request, $id_detalle_institucion)
     {
         if ($request->ajax()) {
-            $categorias = Categoria::categoria_divisiones($id_detalle_institucion);
-            return response()->json($categorias);
+            $grados = Grado::grado_divisiones($id_detalle_institucion);
+            return response()->json($grados);
         }
-    }
-
+    }    
 }

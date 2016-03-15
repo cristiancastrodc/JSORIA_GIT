@@ -4,6 +4,10 @@ namespace JSoria;
 
 use Illuminate\Database\Eloquent\Model;
 
+use JSoria\Grado;
+
+
+
 class Grado extends Model
 {
   /**
@@ -15,4 +19,10 @@ class Grado extends Model
 
   /*** Custom ***/
   public $timestamps = false;
+
+  public static function grado_divisiones($id_detalle_institucion)
+  {
+    return Grado::where('id_detalle','=',$id_detalle_institucion)->get();
+  }
 }
+

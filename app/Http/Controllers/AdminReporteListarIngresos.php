@@ -39,6 +39,7 @@ class AdminReporteListarIngresos extends Controller
     public function store(Request $request)
     {
         $id_institucion = $request['id_institucion'];
+        //$id_institucion = $request->id_institucion;
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';

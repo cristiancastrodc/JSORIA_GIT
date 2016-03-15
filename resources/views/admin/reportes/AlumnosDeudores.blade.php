@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-ingresos','route' => 'admin.reportes.ListaIngresos.procesar.store','method' => 'POST'))!!}
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-listar_deudores','route' => 'admin.reportes.AlumnosDeudores.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -40,21 +40,10 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="categoria" class="col-sm-3 control-label">Categoria</label>
+              <label for="grado" class="col-sm-3 control-label">Grado</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="categoria" id="categoria" title='Seleccione'>
+                <select class="selectpicker" name="grado" id="grado" title='Seleccione'>
                 </select> 
-                <div class="form-group">
-                  <div class="col-sm-9 col-sm-3">
-                      <div class="checkbox">
-                          <label>
-                              <input type="checkbox" name="exterior">
-                              <i class="input-helper"></i>
-                              Todos                              
-                          </label>
-                      </div>
-                  </div>
-                </div>
               </div>
             </div>
 

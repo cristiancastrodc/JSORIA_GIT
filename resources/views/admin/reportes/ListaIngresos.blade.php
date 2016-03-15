@@ -21,6 +21,7 @@
       <div class="card">
         <div class="card-body card-padding">
          {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-ingresos','route' => 'admin.reportes.ListaIngresos.procesar.store','method' => 'POST'))!!}
+            <input type="hidden" value="{{ csrf_token() }}" id="_token">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -40,22 +41,28 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="categoria" class="col-sm-3 control-label">Categoria</label>
+              <label for="id_institucion" class="col-sm-3 control-label">Categoria</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="categoria" id="categoria" title='Seleccione'>
-                </select> 
-                <div class="form-group">
+                <select class="selectpicker" name="id_categoria" id="id_categoria" title='Seleccione'>
+                  <option value="matricula">Matriculas</option>
+                  <option value="pension">Pensiones</option>
+                  <option value="actividad">Actividades</option>
+                  <option value="cobro_extraordinario">Cobros Extraordinarios</option>
+                  <option value="con_factor">Cobro Con Factor</option>
+                  <option value="sin_factor">Cobro Sin Factor</option>
+                  <option value="multiple">Otros cobros</option>
+                </select>
                   <div class="col-sm-9 col-sm-3">
                       <div class="checkbox">
                           <label>
-                              <input type="checkbox" name="exterior">
+                              <input type="checkbox" name="todas-categorias" id="todas-categorias">
                               <i class="input-helper"></i>
                               Todos                              
                           </label>
                       </div>
-                  </div>
-                </div>
+                  </div>                
               </div>
+
             </div>
 
             <div class="form-group">
@@ -82,7 +89,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso">Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso" formtarget="_blank">Generar</button>
               </div>
             </div>
           {!!Form::close()!!}
