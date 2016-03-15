@@ -157,7 +157,6 @@ class CobrosController extends Controller
     {
         try {
             // Enter the share name for your USB printer here
-            //$connector = "Ticketera";
             $connector = new WindowsPrintConnector("Tickets");
 
             /* Print a "Hello world" receipt" */
@@ -174,17 +173,49 @@ class CobrosController extends Controller
 
     public function guardarCobro(Request $request)
     {
+        $mensaje = '';
+
         if ($request->ajax()) {
             $deudas = $request['id_pagos'];
-            $deudas = explode(',', $deudas);
+            $deudas = array_filter(explode(',', $deudas));
 
-            $conta = "";
             foreach ($deudas as $deuda) {
                 $pago = Deuda_Ingreso::find($deuda);
                 $pago->estado_pago = 1;
                 $pago->save();
             }
-            return $conta;
+
+            $compras = $request['id_compras'];
+            $compras = array_filter(explode(',', $compras));
+            $nro_compras = intval(count($compras) / 2);
+
+            for ($i = 0; $i < $nro_compras; $i++) {
+                $i1 = $i + 1;
+                Deuda_Ingreso::create([
+                    'saldo' => $compras[$i1],
+                    'estado_pago' => 1,
+                    'id_categoria' => $compras[$i],
+                    'id_alumno' => $request['nro_documento']
+                ]);
+            }
+
+            $mensaje = 'The request has completed succesfully.';
+
+            try {
+                // Enter the share name for your USB printer here
+                $connector = new WindowsPrintConnector("Tickets");
+
+                $printer = new Escpos($connector);
+                $printer -> text("Corporacion JSoria!\n");
+                $printer -> cut();
+
+                /* Close printer */
+                $printer -> close();
+            } catch(Exception $e) {
+                $mensaje = "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+            }
+
+            return response()->json(['mensaje' => $mensaje]);
         }
     }
 }

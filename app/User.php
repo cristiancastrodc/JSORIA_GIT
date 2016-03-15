@@ -42,4 +42,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		}
 	}
 
+	/*** Recuperar cajeras ***/
+	public static function getUsuarioCajera()
+	{
+		return User::where('tipo', '=', 'cajera')
+					 ->select('id', 'nombres', 'apellidos')
+					 ->get();
+	}
 }

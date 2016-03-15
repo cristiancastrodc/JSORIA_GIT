@@ -19,10 +19,12 @@ function debug (message, isString = true) {
 }
 
 /*** Function that throws a SweetAlert ***/
-function sweet_alert (pTitle, pText, pType) {
+function sweet_alert (pTitle, pText, pType, fun = '') {
   swal({
     title: pTitle,
     text: pText,
     type: pType
+  }, function () {
+    if (fun == 'reload') { document.location.reload(); };
   });
 }
