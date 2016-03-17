@@ -22,7 +22,7 @@ class InstitucionDetalle extends Model
     {
       return Grado::where('id_detalle','=',$id)->get();
     }
-     public static function matricula($id)
+    public static function matricula($id)
     {
       return Categoria::where('id_detalle_institucion','=',$id)
       					-> where('estado', '=', 1)

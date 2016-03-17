@@ -163,7 +163,7 @@
             <i class="zmdi zmdi-tag"></i> Rubros</a>
           </li>
           <li><a href="{!!URL::to('/tesorera/ingresos')!!}">
-            <i class="zmdi zmdi-money"></i> Ingresos</a>
+            <i class="zmdi zmdi-money"></i> Retirar Ingresos</a>
           </li>
           <li><a href="">
             <i class="zmdi zmdi-chart"></i> Reportes</a>
@@ -225,7 +225,7 @@
   {!!Html::script('vendors/input-mask/input-mask.min.js')!!}
   {!!Html::script('vendors/farbtastic/farbtastic.min.js')!!}
   {!!Html::script('js/functions.js')!!}
-  {!!Html::script('js/demo.js')!!}
+  {!!Html::script('js/global.js')!!}
 
   @if (Auth::user()->tipo == "Cajera")
     @if(Request::is('escritorio'))

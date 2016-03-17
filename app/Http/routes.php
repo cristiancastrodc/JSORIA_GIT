@@ -36,11 +36,17 @@ Route::get('admin/pensiones/{id_detalle_institucion}/{anio}', 'PensionesControll
 Route::get('admin/actividades/listar/{id_detalle_institucion}', 'ActividadesController@listaActividades');
 Route::get('admin/cobros/ordinarios/listar/{id_institucion}', 'CobrosOrdinariosController@listaCobros');
 Route::get('admin/cobros/otros/listar/{id_institucion}', 'OtrosCobrosController@listaCobros');
+Route::get('admin/retirar/{id_cajera}', 'RetirosController@retiroAdmin');
+Route::post('admin/retirar/actualizar', 'RetirosController@store');
 /*** Rutas para tesorera ***/
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
 Route::resource('tesorera/ingresos','IngresosController');
 Route::post('tesorera/egresos/rubroNuevo', 'RubrosController@crearconajax');
+Route::get('tesorera/retirar/{id_cajera}', 'RetirosController@retiroTesorera');
+Route::post('tesorera/retirar/actualizar', 'RetirosController@store');
+Route::get('tesorera/rubro/listar', 'RubrosController@listaRubros');
+Route::post('tesorera/egresos/crear_egreso', 'EgresosController@crearEgreso');
 /*** Rutas para tesorera ***/
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');

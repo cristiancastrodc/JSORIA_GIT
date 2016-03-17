@@ -8,7 +8,7 @@ $('#form-crear-actividad #id_institucion').change(function (e) {
 
   $.get(route, function (response, state) {
     for (var i = 0; i < response.length; i++) {
-      var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre_division + "</option>"
+      var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre_division + "</option>";
       $detalle_institucion.append(opcion);
     };
     $detalle_institucion.selectpicker('refresh');
@@ -583,7 +583,6 @@ $('#btn-crear-pensiones').click(function (e) {
   if (nroFilas > 1) {
 
     $boton = $(this);
-    $boton.html('Cargando...');
 
     var $mes_inicio = $('#mes_inicio').val();
     var $mes_fin = $('#mes_fin').val();
@@ -607,16 +606,17 @@ $('#btn-crear-pensiones').click(function (e) {
       });
 
       if (!errors) {
+        $boton.html('Cargando...');
         if (anio_inicio == anio_fin) {
           for (var nro_mes = nro_mes_inicio; nro_mes <= nro_mes_fin; nro_mes++) {
             var nombre = 'Pension ' + meses[nro_mes] + ' ' + anio_inicio;
             var fecha_inicio = anio_inicio + '/' + nro_mes + '/01';
-            var fecha_fin = anio_inicio + '/' + nro_mes + '/28';
+            var fecha_fin = moment(fecha_inicio, 'YYYY/M/DD').endOf('month').format('YYYY/MM/DD');
+            //var fecha_fin = anio_inicio + '/' + nro_mes + '/28';
 
             $('#tabla-crear-pensiones tr').each(function (index, el) {
               var $id_detalle_institucion = $(this).find('.id-division').html();
               var $monto = $(this).find('.monto-pension').val();
-
 
               if (index != 0) {
                 XHRs.push($.ajax({
@@ -642,24 +642,18 @@ $('#btn-crear-pensiones').click(function (e) {
             });
           };
         } else if (anio_inicio < anio_fin) {
+          debug('El año de inicio es menor al año de fin.');
+          var m_fecha_inicio = moment(anio_inicio + "/" + nro_mes_inicio + "/01", 'YYYY/M/DD');
+          var m_fecha_fin = moment(anio_fin + "/" + nro_mes_fin + "/01", 'YYYY/M/DD');
 
-          var kfecha_inicio = anio_inicio + "/" + nro_mes_inicio + "/01";
-          var kfecha_fin = anio_fin + "/" + nro_mes_fin + "/01";
-
-          var dfi = new Date(kfecha_inicio);
-          var dff = new Date(kfecha_fin);
-
-          while (dfi <= dff) {
-
-            var nombre = 'Pension ' + meses[dfi.getMonth() + 1] + ' ' + dfi.getFullYear();
-            var fecha_mes = dfi.getMonth() + 1;
-            var fecha_ini = dfi.getFullYear() + '/' + fecha_mes + '/01';
-            var fecha_fin = dfi.getFullYear() + '/' + fecha_mes + '/28';
+          while (m_fecha_inicio <= m_fecha_fin) {
+            var nombre = 'Pension ' + m_fecha_inicio.format('MMMM') + ' ' + m_fecha_inicio.format('YYYY');
+            var pension_ini = m_fecha_inicio.format('YYYY/MM/DD');
+            var pension_fin = m_fecha_inicio.clone().endOf('month').format('YYYY/MM/DD');
 
             $('#tabla-crear-pensiones tr').each(function (index, el) {
               var $id_detalle_institucion = $(this).find('.id-division').html();
               var $monto = $(this).find('.monto-pension').val();
-
 
               if (index != 0) {
                 XHRs.push($.ajax({
@@ -672,8 +666,8 @@ $('#btn-crear-pensiones').click(function (e) {
                     monto : $monto,
                     tipo : 'pension',
                     estado : '1',
-                    fecha_inicio : fecha_ini,
-                    fecha_fin : fecha_fin,
+                    fecha_inicio : pension_ini,
+                    fecha_fin : pension_fin,
                     destino : '0',
                     id_detalle_institucion : $id_detalle_institucion
                   },
@@ -684,24 +678,25 @@ $('#btn-crear-pensiones').click(function (e) {
               };
             });
 
-            dfi.setMonth(dfi.getMonth() + 1);
+            m_fecha_inicio.add(1, 'M');
           }
         }
-
+        /*** Apply XHRs ***/
         $.when.apply(null, XHRs).then(function () {
           if (resultado) {
+            debug('Las pensiones fueron creadas');
             swal({
-                title: "Éxito!",
-                text: "Se crearon las pensiones correctamente.",
-                type: "success"
+              title: "Éxito!",
+              text: "Se crearon las pensiones correctamente.",
+              type: "success"
             }, function () {
               document.location.reload();
             });
           } else {
             swal({
-                title: "Error",
-                text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
-                type: "warning"
+              title: "Error",
+              text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+              type: "warning"
             }, function () {
               document.location.reload();
             });
@@ -709,27 +704,24 @@ $('#btn-crear-pensiones').click(function (e) {
         });
       } else {
         swal({
-            title: "¡Atención!",
-            text: "Debe ingresar todos los montos.",
-            type: "warning"
+          title: "¡Atención!",
+          text: "Debe ingresar todos los montos.",
+          type: "warning"
         });
-        $boton.html('Guardar');
       };
     } else {
       swal({
-          title: "¡Atención!",
-          text: "Debe seleccionar los meses de inicio y fin.",
-          type: "warning"
+        title: "¡Atención!",
+        text: "Debe seleccionar los meses de inicio y fin.",
+        type: "warning"
       });
-      $boton.html('Guardar');
     };
   } else {
     swal({
-        title: "¡Atención!",
-        text: "Debe seleccionar una institución primero.",
-        type: "warning"
+      title: "¡Atención!",
+      text: "Debe seleccionar una institución primero.",
+      type: "warning"
     });
-    $boton.html('Guardar');
   }
 });
 
@@ -1183,6 +1175,88 @@ function reloadTablaOtrosCobros (modal_cobro) {
   }
 };
 /*** Fin Otros Cobros ***/
+
+/*** Retiros ***/
+$('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
+  e.preventDefault();
+  debug('Boton Buscar Cobros presionado.');
+
+  var $id_cajera = $('#id_cajera').val();
+
+  if ($id_cajera != '') {
+    $('#tabla-ingresos-cajera tbody').empty();
+    var ruta = 'retirar/' + $('#id_cajera').val() + "";
+
+    $.get(ruta, function (response, state) {
+      var monto_no_retirado = 0;
+      var monto_por_retirar = 0;
+      for (var i = 0; i < response.length; i++) {
+        var monto = response[i].saldo - response[i].descuento;
+        if (response[i].estado_retiro == 0) {
+          monto_no_retirado += monto;
+        } else if (response[i].estado_retiro == 1) {
+          monto_por_retirar += monto;
+        }
+        var fila = "<tr>";
+        fila += "<td class='hidden id_cobro'>" + response[i].id + "</td>";
+        fila += "<td>" + response[i].fecha_hora_ingreso + "</td>";
+        fila += "<td>" + response[i].nombre + "</td>";
+        if (response[i].estado_retiro == 0) {
+          fila += "<td><span class='p-5'>No retirado</span></td>";
+        } else if (response[i].estado_retiro == 1) {
+          fila += "<td><span class='bgm-orange c-white p-5'>Por retirar</span></td>";
+        }
+        fila += "<td class='text-right'>" + monto.toFixed(2) + "</td>";
+        fila += "</tr>";
+        $('#tabla-ingresos-cajera tbody').append(fila);
+      };
+      $('#cobros-no-retirados').html(monto_no_retirado.toFixed(2));
+      $('#cobros-por-retirar').html(monto_por_retirar.toFixed(2));
+    });
+    $('#card-ingresos-admin.js-toggle').slideDown();
+  } else {
+    sweet_alert('¡Atención!', 'Debe de seleccionar una cajera.', 'warning');
+  }
+});
+
+$('#btn-retirar-ingresos').click(function (e) {
+  e.preventDefault();
+  debug('Boton Retirar Ingresos presionado.');
+
+  var ids_cobros = [];
+  $('#tabla-ingresos-cajera tbody > tr').each(function(index, el) {
+    ids_cobros.push($(this).find('.id_cobro').html());
+  });
+
+  var ruta = 'retirar/actualizar';
+  var $token = $('#_token').val();
+  $.ajax({
+    url: ruta,
+    type: 'POST',
+    dataType: 'json',
+    headers : { 'X-CSRF-TOKEN' : $token },
+    data : { ids_cobros : ids_cobros }
+  })
+  .done(function(data) {
+    if (data.tipo == 'creado') {
+      debug("Retiro creado con éxito.");
+      sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+    } else if (data.tipo == 'sin_cambios') {
+      debug("No se realizó cambios.");
+      swal({
+        title: data.mensaje
+      }, function () {
+        document.location.reload();
+      });
+    };
+  })
+  .fail(function(data) {
+    debug("Error del servidor.");
+    debug(data, false);
+    sweet_alert('Ocurrió algo inesperado', 'No se pudo procesar la petición.', 'warning', 'reload');
+  });
+});
+/***************/
 
 /*** Funciones adicionales ***/
 function notify(message, from, align, type, animIn, animOut){

@@ -52,7 +52,7 @@
         </div>
         <div class="card-body card-padding">
           <div class="table-responsive">
-            <table id="data-table-basic" class="table table-striped">
+            <table id="tabla-listar-rubro" class="table table-striped">
                 <thead>
                     <tr>
                         <th data-column-id="id" data-visible="false">Id</th>
@@ -66,6 +66,10 @@
                         <tr>
                           <td>{{$rubro->id}}</td>
                           <td>{{$rubro->nombre}}</td> 
+                          <td>
+                          <td><a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber m-r-20' data-id="{{ $rubro->id }}" data-nombre="{{ $rubro->nombre }}"><i class='zmdi zmdi-edit'></i></a></td>
+                          {!!Form::close()!!}
+                        </td>
                         </tr>                      
                       @endforeach
                 </tbody>
@@ -77,27 +81,11 @@
   </div>
 @endsection
 
+@section('modals')
+  @include('layouts.modals.rubro')
+@endsection
+
 @section('scripts')
-  {!!Html::script('vendors/bootgrid/jquery.bootgrid.updated.min.js')!!}
-  {!!Html::script('js/own.scripts.js')!!}
-  <script type="text/javascript">
-      $(document).ready(function(){
-          //Basic Example
-          $("#data-table-basic").bootgrid({
-              css: {
-                  icon: 'zmdi icon',
-                  iconColumns: 'zmdi-view-module',
-                  iconDown: 'zmdi-expand-more',
-                  iconRefresh: 'zmdi-refresh',
-                  iconUp: 'zmdi-expand-less'
-              },
-              formatters: {
-                  "commands": function(column, row) {
-                      return "<button type=\"button\" class=\"btn btn-icon waves-effect btn-primary\" data-row-id=\"" + row.id + "\" value=\"" + row.id + "\" OnClick='EditarRubro(this)'><span class=\"zmdi zmdi-edit\"></span></button> " +
-                          "<button type=\"button\" class=\"btn btn-icon waves-effect btn-danger\" data-row-id=\"" + row.id + "\" value=\"" + row.id + "\" OnClick='EliminarRubro(this)'><span class=\"zmdi zmdi-delete\"></span></button>";
-                  }
-              },
-          });
-        });
-  </script>
+  <script src="{{ asset('vendors/bootstrap-growl/bootstrap-growl.min.js') }}"></script>
+  <script src="{{ asset('js/tesorera.js') }}"></script>
 @endsection

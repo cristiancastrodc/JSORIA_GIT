@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\RubroCreateRequest;
+use JSoria\Http\Requests\RubroUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Rubro;
@@ -14,6 +15,11 @@ use Session;
 
 class RubrosController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+      $this->middleware('tesorera');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -110,6 +116,15 @@ class RubrosController extends Controller
     {
         if ($request->ajax()) {
             $rubros = Rubro::rubro_instituciones();
+            return response()->json($rubros);
+        }
+    }
+
+    /*** Listar los rubros ***/
+    public function listaRubros(Request $request)
+    {
+        if ($request->ajax()) {
+            $rubros = Rubro::all();
             return response()->json($rubros);
         }
     }
