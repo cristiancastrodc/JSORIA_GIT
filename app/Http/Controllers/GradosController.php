@@ -7,40 +7,18 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
-class PdfController extends Controller
+use JSoria\Grado;
+
+class GradosController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function invoice()
-    {
-        $data = $this->getData();
-        $date = date('Y-m-d');
-        $invoice = "2222";
-        $view =  \View::make('pdf.invoice', compact('data', 'date', 'invoice'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        return $pdf->stream('invoice');
-    }
-
-    public function getData()
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
-    }
-
-
     public function index()
     {
-        return view('secretaria.reportes.index');
+        //
     }
 
     /**
@@ -108,4 +86,12 @@ class PdfController extends Controller
     {
         //
     }
+
+    public function gradosDivision(Request $request, $id_detalle_institucion)
+    {
+        if ($request->ajax()) {
+            $grados = Grado::grado_divisiones($id_detalle_institucion);
+            return response()->json($grados);
+        }
+    }    
 }

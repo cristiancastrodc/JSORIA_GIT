@@ -7,40 +7,18 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
-class PdfController extends Controller
+use JSoria\Deuda_Ingreso;
+
+class AdminReporteCuentaAlumno extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function invoice()
-    {
-        $data = $this->getData();
-        $date = date('Y-m-d');
-        $invoice = "2222";
-        $view =  \View::make('pdf.invoice', compact('data', 'date', 'invoice'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        return $pdf->stream('invoice');
-    }
-
-    public function getData()
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
-    }
-
-
     public function index()
     {
-        return view('secretaria.reportes.index');
+        return view('admin.reportes.CuentaAlumno');
     }
 
     /**
@@ -61,9 +39,28 @@ class PdfController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $id_alumno = $request['nro_documento'];
 
+        $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
+                            ->join('alumno','id_alumno','=','alumno.nro_documento')
+                            ->where('estado_pago','=',0)
+                            ->where('id_alumno','=',$id_alumno)
+                            ->select('categoria.nombre','saldo','descuento','alumno.nombres','alumno.apellidos')
+                            ->get();
+        //return $datas;
+
+/*select jsoria_categoria.nombre,jsoria_deuda_ingreso.saldo-jsoria_deuda_ingreso.descuento as Monto
+from jsoria_deuda_ingreso
+inner join jsoria_categoria
+on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
+where jsoria_deuda_ingreso.estado_pago = 0
+    and jsoria_deuda_ingreso.id_alumno = id_alumno*/
+        $view =  \View::make('pdf.AdminCuentaAlumno', compact('id_alumno','datas'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('AdminCuentaAlumno'); 
+    }
+    
     /**
      * Display the specified resource.
      *

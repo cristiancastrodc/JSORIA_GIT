@@ -12,4 +12,12 @@ class Rubro extends Model
 
   /*** Custom ***/
   public $timestamps = false;
+
+  public static function rubro_instituciones()
+  {
+   return Rubro::select('nombre')
+    ->get(); 
+  }  
 }
+
+
