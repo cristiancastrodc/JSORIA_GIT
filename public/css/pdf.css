@@ -4,6 +4,11 @@
   clear: both;
 }
 
+.pagebreak {
+  page-break-before: always;
+
+}
+
 a {
   color: #5D6975;
   text-decoration: underline;
@@ -75,6 +80,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   margin-bottom: 20px;
+  page-break-inside: auto;
 }
 
 table tr:nth-child(2n-1) td {
@@ -83,7 +89,7 @@ table tr:nth-child(2n-1) td {
 
 table th,
 table td {
-  text-align: center;
+  text-align: left;
 }
 
 table th {
@@ -101,7 +107,7 @@ table .desc {
 
 table td {
   padding: 20px;
-  text-align: right;
+  text-align: left;
 }
 
 table td.service,

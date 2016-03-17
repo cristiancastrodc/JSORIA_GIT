@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
+use JSoria\Deuda_Ingreso;
+use DB;
+
 class AdminReporteIngresosCategoria extends Controller
 {
     /**
@@ -38,6 +41,45 @@ class AdminReporteIngresosCategoria extends Controller
     public function store(Request $request)
     {
         $id_institucion = $request['id_institucion'];
+        //$id_institucion = $request->id_institucion;
+
+        $id_detalle_institucion = $request['id_detalle_institucion'];
+
+        $fecha_inicio = $request['fecha_inicio'];
+        $fecha_fin = $request['fecha_fin'];        
+
+        $fecha_inicio = $request['fecha_inicio'];
+
+        $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
+                            ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
+                            ->where('estado_pago','=',1)
+                            ->where(function($query) use($id_detalle_institucion,$id_institucion){
+                                $query->where('categoria.id_detalle_institucion','=',$id_detalle_institucion)
+                                      ->orwhere(function($query2) use($id_institucion){
+                                    $query2->where('detalle_institucion.nombre_division','=','Todo')
+                                           ->where('detalle_institucion.id_institucion','=',$id_institucion);
+                                });
+                            })
+                            ->where(function($query3) use($fecha_inicio,$fecha_fin){
+                                $query3->where('fecha_hora_ingreso','>',$fecha_inicio)
+                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
+                            })
+                            ->groupBy('id_categoria')
+                            ->get(['categoria.nombre'],DB::raw('Sum(saldo - descuento) as monto'));
+            //return $datas;                            
+
+
+/*select jsoria_categoria.nombre,sum(jsoria_deuda_ingreso.saldo-jsoria_deuda_ingreso.descuento) as Monto
+from jsoria_deuda_ingreso
+inner join jsoria_categoria
+on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
+inner join jsoria_detalle_institucion
+on jsoria_categoria.id_detalle_institucion = jsoria_detalle_institucion.id
+where jsoria_deuda_ingreso.estado_pago = 1
+    and (jsoria_categoria.id_detalle_institucion = id_detalle_institucion 
+        or (jsoria_detalle_institucion.nombre_division = 'Todo'and jsoria_detalle_institucion.id_institucion = 'id_institucion'))
+    and (date(jsoria_deuda_ingreso.fecha_hora_ingreso) between 'fecha_inicio' and  'fecha_fin') 
+group by jsoria_deuda_ingreso.id_categoria*/
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';
@@ -54,32 +96,12 @@ class AdminReporteIngresosCategoria extends Controller
             default:
                 break;
         }
-        $id_detalle_institucion = $request['id_detalle_institucion'];
 
-        $fecha_inicio = $request['fecha_inicio'];
-
-        /*$deudas = Deuda_Ingreso::where('id_alumno', '=', $nro_documento)
-                  ->where('estado_pago', '=', '0')
-                  ->get();*/
-
-        $data = $this->getData();
-        $date = $fecha_inicio;
-        $invoice = "2222";
-        $view =  \View::make('pdf.AdminIngresosCategoria', compact('id_institucion','data','date', 'invoice'))->render();
+        $view =  \View::make('pdf.AdminIngresosCategoria', compact('id_institucion','datas'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminIngresosCategoria'); 
-    }
-
-    public function getData()
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
+        
     }
 
     /**

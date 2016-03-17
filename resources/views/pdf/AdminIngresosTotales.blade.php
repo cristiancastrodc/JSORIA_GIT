@@ -5,30 +5,44 @@
     <title>Reporte Ingresos Totales</title>
     {!! Html::style('css/pdf.css') !!}
   </head>
-  <body>
-
-    <main>
-      <div id="details" class="clearfix">
-        <div id="invoice">
-          <h1>INVOICE {{ $id_institucion }}</h1>
-          <div class="date">Date of Invoice: {{ $date }}</div>
-        </div>
-      </div>
-      <table border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <th class="no">#</th>
-            <th class="desc">FECHA</th>
-            <th class="unit">MONTO</th>
-          </tr>
-        </thead>
+<body>
+<div >
+  <h1>{{$id_institucion}}</h1>
+  <h2>{{$date}}</h2>
+  <table >
+    <thead>
+      <tr>
+        <td>#</td>
+        <td>Fecha</td>
+        <td>Monto</td>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $i=1;?>
+          @foreach($datas as $data)
+      <tr>
+      <td><?php echo $i?></td>
+      <td>1
+      </td>
+      <td>2
+      </td>
+      <td>3
+      </td>
+    </tr>
+    <?php $i++; ?>
+    @endforeach
+   
+  </tbody>
         <tfoot>
           <tr>
-            <td colspan="0"></td>
-            <td >TOTALasd</td>
+            <td colspan="2"></td>
+            <td >TOTAL</td>
             <td>$6,500.00</td>
           </tr>
-        </tfoot>
-      </table>
-  </body>
+        </tfoot>  
+</table>
+</div>
+
+</body>        
+
 </html>
