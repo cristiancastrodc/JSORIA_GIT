@@ -21,7 +21,7 @@
       <div class="card">
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
-            <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+            <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -46,7 +46,7 @@
               <label for="numero_comprobante" class="col-sm-3 control-label">Número</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número">
+                      <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off">
                   </div>
               </div>
             </div>
@@ -55,34 +55,36 @@
               <div class="col-sm-9">
                 <div class="fg-line">
                   <div class="dtp-container fg-line">
-                    <input type='text' class="form-control date-picker" placeholder="Elija la fecha" name="fecha" id="fecha">
+                    <input type='text' class="form-control date-picker" placeholder="Elija la fecha" name="fecha_egreso" id="fecha_egreso">
                   </div>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <h4>Añadir detalles de egreso</h4>
-              <div class="col-sm-3">
-                <div class="fg-line">
-                  <input type="text" class="form-control" placeholder="Descripción" id="descripcion_egreso">
+              <div id="egreso">
+                <h4>Añadir detalles de egreso</h4>
+                <div class="col-sm-4">
+                  <div class="fg-line">
+                    <input type="text" class="form-control" placeholder="Descripción" id="descripcion_egreso">
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="fg-line">
-                  <select name="rubro_egreso" id="rubro_egreso" class="selectpicker" data-live-search="true" placeholder="Egreso" title="Rubro">
-                    @foreach($rubros as $rubro)
-                      <option value="{{ $rubro->id }}">{{ $rubro->nombre }}</option>
-                    @endforeach
-                  </select>
+                <div class="col-sm-3">
+                  <div class="fg-line">
+                    <select name="rubro_egreso" id="rubro_egreso" class="selectpicker" data-live-search="true" placeholder="Egreso" title="Seleccione">
+                      @foreach($rubros as $rubro)
+                        <option value="{{ $rubro->id }}">{{ $rubro->nombre }}</option>
+                      @endforeach
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="fg-line">
-                  <input type="text" class="form-control" placeholder="Monto" id="monto_egreso">
+                <div class="col-sm-2">
+                  <div class="fg-line">
+                    <input type="text" class="form-control text-right" placeholder="Monto" id="monto_egreso">
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-3">
-                <button class="btn btn-primary" id="add_egreso">Agregar</button>
+                <div class="col-sm-3">
+                  <button class="btn bgm-blue-soria btn-block" id="btn-detalle-egreso-agregar">Agregar</button>
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -114,30 +116,25 @@
                 </div>
               </div>
             </div>
+            <div class="form-group">
             <div class="table-responsive">
-              <table class="table">
+              <table class="table" id="tabla-resumen-egresos">
                 <thead>
                   <tr>
-                    <th class="hidden">Id</th>
                     <th class="warning c-white">Descripcion</th>
                     <th class="warning c-white">Rubro</th>
                     <th class="warning c-white">Monto (S/)</th>
+                    <th class="warning c-white">.</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="hidden">1</td>
-                    <td>Impresora</td>
-                    <td>Artículos</td>
-                    <td>1000</td>
-                  </tr>
                 </tbody>
               </table>
             </div>
+            </div>
             <div class="form-group">
-              <div class="pull-right">
-                <a href="" class="btn btn-gray waves-effect c-black">Cancelar</a>
-                <button class="btn btn-warning waves-effect">Guardar Egreso</button>
+              <div class="row m-t-10">
+                <div class="col-sm-offset-9 col-sm-3"><button class="btn btn-warning waves-effect btn-block" id="btn-guardar-egreso">Guardar Egreso</button></div>
               </div>
             </div>
           {!!Form::close()!!}

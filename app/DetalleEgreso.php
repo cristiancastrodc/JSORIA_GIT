@@ -4,16 +4,16 @@ namespace JSoria;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Egreso extends Model
+class DetalleEgreso extends Model
 {
-  protected $table = 'egreso';
+  protected $table = 'detalle_egreso';
 
   /**
    * The attributes that are mass assignable.
    *
    * @var array
    */
-  protected $fillable = ['tipo_comprobante', 'numero_comprobante', 'fecha', 'id_institucion', 'id_tesorera'];
+  protected $fillable = ['id_egreso', 'nro_detalle_egreso', 'id_rubro', 'monto', 'descripcion'];
 
   /*** Custom ***/
   public $timestamps = false;
