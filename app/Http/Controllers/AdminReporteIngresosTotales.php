@@ -10,7 +10,7 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Deuda_Ingreso;
 use DB;
 
-class AdminReporteIngresosCategoria extends Controller
+class AdminReporteIngresosTotales extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class AdminReporteIngresosCategoria extends Controller
      */
     public function index()
     {
-        return view('admin.reportes.IngresosCategoria');
+        return view('admin.reportes.IngresosTotales');
     }
 
     /**
@@ -43,13 +43,12 @@ class AdminReporteIngresosCategoria extends Controller
         $id_institucion = $request['id_institucion'];
         //$id_institucion = $request->id_institucion;
 
-        $id_detalle_institucion = $request['id_detalle_institucion'];
 
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];        
 
         $fecha_inicio = $request['fecha_inicio'];
-        //return $id_detalle_institucion .' '. $id_institucion;
+        //return $id_institucion;
 
         $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
                             ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
@@ -71,17 +70,16 @@ class AdminReporteIngresosCategoria extends Controller
             //return $datas;                            
 
 
-/*select jsoria_categoria.nombre,sum(jsoria_deuda_ingreso.saldo-jsoria_deuda_ingreso.descuento) as Monto
+/*select jsoria_deuda_ingreso.fecha_hora_ingreso,jsoria_deuda_ingreso.id_alumno,jsoria_deuda_ingreso.cliente_extr, jsoria_categoria.nombre, jsoria_deuda_ingreso.saldo - jsoria_deuda_ingreso.descuento as Monto
 from jsoria_deuda_ingreso
 inner join jsoria_categoria
 on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
 inner join jsoria_detalle_institucion
 on jsoria_categoria.id_detalle_institucion = jsoria_detalle_institucion.id
-where jsoria_deuda_ingreso.estado_pago = 1
-    and (jsoria_categoria.id_detalle_institucion = id_detalle_institucion 
-        or (jsoria_detalle_institucion.nombre_division = 'Todo'and jsoria_detalle_institucion.id_institucion = 'id_institucion'))
-    and (date(jsoria_deuda_ingreso.fecha_hora_ingreso) between 'fecha_inicio' and  'fecha_fin') 
-group by jsoria_deuda_ingreso.id_categoria*/
+ where  jsoria_deuda_ingreso.estado_pago = 1
+    and (jsoria_categoria.id_detalle_institucion = id_detalle_institucion   or (jsoria_detalle_institucion.nombre_division = 'Todo' 
+    and jsoria_detalle_institucion.id_institucion = 'id_institucion'))
+    and (date(jsoria_deuda_ingreso.fecha_hora_ingreso) between 'fecha_inicio' and  'fecha_fin');*/
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';
@@ -99,10 +97,10 @@ group by jsoria_deuda_ingreso.id_categoria*/
                 break;
         }
 
-        $view =  \View::make('pdf.AdminIngresosCategoria', compact('id_institucion','datas'))->render();
+        $view =  \View::make('pdf.AdminReporteIngresosTotales', compact('id_institucion','datas'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('AdminIngresosCategoria'); 
+        return $pdf->stream('AdminIngresosTotales'); 
         
     }
 

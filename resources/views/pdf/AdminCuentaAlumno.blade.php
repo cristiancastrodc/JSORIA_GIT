@@ -2,21 +2,19 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Reporte Alumnos Deudores</title>
+    <title>Reporte Cuenta Alumno</title>
     {!! Html::style('css/pdf.css') !!}
+    </style>
+
   </head>
-  <body>
+<body>
 <div >
-  <h1>LISTA DE ALUMNOS DEUDORES</h1>
-  <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
-  <h2>Grado: {{$id_grado}}</h2>
-   <!--Fecha con sus labes en 2 columnas--> 
-  <h3>{{$fecha_inicio}} - {{$fecha_fin}}</h3>  
+  <h1>Cuenta Alumno</h1>
+  <h2>{{$datas[1]['nombres'].' '.$datas[1]['apellidos']}}</h2>
   <table >
     <thead>
       <tr>
         <td>#</td>
-        <td>Alumno</td>
         <td>Categoria</td>
         <td>Monto</td>
       </tr>
@@ -26,8 +24,6 @@
           @foreach($datas as $data)
       <tr>
       <td><?php echo $i?></td>
-      <td>{{$data['nombres'] . '&nbsp;' . $data['apellidos']}}
-      </td>
       <td>{{$data['nombre']}}
       </td>
       <td>{{$data['saldo'] - $data['descuento']}}
@@ -47,6 +43,6 @@
 </table>
 </div>
 
-</body> 
+</body>        
 
 </html>

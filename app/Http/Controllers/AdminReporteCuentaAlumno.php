@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
+use JSoria\Deuda_Ingreso;
+
 class AdminReporteCuentaAlumno extends Controller
 {
     /**
@@ -37,50 +39,28 @@ class AdminReporteCuentaAlumno extends Controller
      */
     public function store(Request $request)
     {
-        $id_institucion = $request['id_institucion'];
-        switch ($id_institucion) {
-            case 1:
-                $id_institucion='I.E. J. Soria';
-                break;
-            case 2:
-                $id_institucion='CEBA Konrad Adenahuer';
-                break;
-            case 3:
-                $id_institucion='I.S.T. Urusayhua';
-                break;
-            case 4:
-                $id_institucion='ULP';
-                break;
-            default:
-                break;
-        }
-        $id_detalle_institucion = $request['id_detalle_institucion'];
+        $id_alumno = $request['nro_documento'];
 
-        $fecha_inicio = $request['fecha_inicio'];
+        $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
+                            ->join('alumno','id_alumno','=','alumno.nro_documento')
+                            ->where('estado_pago','=',0)
+                            ->where('id_alumno','=',$id_alumno)
+                            ->select('categoria.nombre','saldo','descuento','alumno.nombres','alumno.apellidos')
+                            ->get();
+        //return $datas;
 
-        /*$deudas = Deuda_Ingreso::where('id_alumno', '=', $nro_documento)
-                  ->where('estado_pago', '=', '0')
-                  ->get();*/
-
-        $data = $this->getData();
-        $date = $fecha_inicio;
-        $invoice = "2222";
-        $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','data','date', 'invoice'))->render();
+/*select jsoria_categoria.nombre,jsoria_deuda_ingreso.saldo-jsoria_deuda_ingreso.descuento as Monto
+from jsoria_deuda_ingreso
+inner join jsoria_categoria
+on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
+where jsoria_deuda_ingreso.estado_pago = 0
+    and jsoria_deuda_ingreso.id_alumno = id_alumno*/
+        $view =  \View::make('pdf.AdminCuentaAlumno', compact('id_alumno','datas'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('AdminEgresosRubro'); 
+        return $pdf->stream('AdminCuentaAlumno'); 
     }
     
-    public function getData()
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
-    }
     /**
      * Display the specified resource.
      *

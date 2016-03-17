@@ -48,7 +48,7 @@ class AdminReporteListarIngresos extends Controller
 
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];
-        //return $id_detalle_institucion;
+        //return $id_detalle_institucion.' '.$id_detalle_institucion;
         $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
                             ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
                             ->where('categoria.tipo','=',$id_categoria)

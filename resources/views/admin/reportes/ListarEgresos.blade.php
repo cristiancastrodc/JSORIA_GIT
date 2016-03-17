@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-egresos','route' => 'admin.reportes.AlumnosDeudores.procesar.store','method' => 'POST'))!!}      
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-egresos','route' => 'admin.reportes.ListaEgresos.procesar.store','method' => 'POST'))!!}      
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="rubro" class="col-sm-3 control-label">Rubro</label>
+              <label for="id_rubro" class="col-sm-3 control-label">Rubro</label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="rubro" id="rubro" title='Seleccione'>
                 </select> 

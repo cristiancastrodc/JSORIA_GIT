@@ -5,7 +5,7 @@
     <title>Reporte Egresos por Rubro</title>
     {!! Html::style('css/pdf.css') !!}
   </head>
-  <body>
+  <!--<body>
 
     <main>
       <div id="details" class="clearfix">
@@ -30,5 +30,44 @@
           </tr>
         </tfoot>
       </table>
-  </body>
+  </body>-->
+  <body>
+<div >
+  <h1>LISTA DE EGRESOS POR RUBRO </h1>
+  <h2>Institucion: {{$id_institucion}}</h2>
+   <!--Fecha con sus labes en 2 columnas--> 
+  <h3>{{$fecha_inicio}} - {{$fecha_fin}}</h3>  
+  <table >
+    <thead>
+      <tr>
+        <td>#</td>
+        <td>Rubro</td>
+        <td>Monto</td>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $i=1;?>
+          @foreach($datas as $data)
+      <tr>
+      <td><?php echo $i?></td>
+      <td>{{$data['nombre']}}
+      </td>
+      <td>{{$data['monto']}}
+      </td>
+    </tr>
+    <?php $i++; ?>
+    @endforeach
+   
+  </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <td >TOTAL</td>
+            <td>$6,500.00</td>
+          </tr>
+        </tfoot>  
+</table>
+</div>
+
+</body> 
 </html>
