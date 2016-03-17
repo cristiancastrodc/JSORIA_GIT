@@ -111,4 +111,13 @@ class RubrosController extends Controller
         ]);
         return response()->json(['mensaje' => 'Rubro creado']);
     }
+
+    /*** Listar los rubros ***/
+    public function listaRubros(Request $request)
+    {
+        if ($request->ajax()) {
+            $rubros = Rubro::all();
+            return response()->json($rubros);
+        }
+    }
 }

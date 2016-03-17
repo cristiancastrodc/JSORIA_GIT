@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
+use JSoria\Deuda_Ingreso;
+use JSoria\Retiro;
+use Auth;
+
 class RetirosController extends Controller
 {
     public function __construct()
@@ -42,7 +46,33 @@ class RetirosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $ids_deuda_ingreso = $request->ids_cobros;
+
+            $monto = 0;
+            $crearRetiro = true;
+            $retiro = NULL;
+            foreach ($ids_deuda_ingreso as $id) {
+                $ingreso = Deuda_Ingreso::where('id', $id)
+                           ->where('estado_retiro', 0)->first();
+                if ($ingreso) {
+                    $monto += $ingreso->saldo - $ingreso->descuento;
+                    if ($crearRetiro) {
+                        $retiro = Retiro::create(['id_usuario' => Auth::user()->id]);
+                        $crearRetiro = false;
+                    }
+                    $ingreso->update(['estado_retiro' => 1, 'id_retiro' => $retiro->id]);
+                }
+            }
+
+            if (!$crearRetiro) {
+                $retiro->update(['monto' => $monto]);
+
+                return response()->json(['mensaje' => 'Retiro creado con éxito.', 'tipo' => 'creado']);
+            } else {
+                return response()->json(['mensaje' => 'No existen ingresos para retirar.', 'tipo' => 'sin_cambios']);
+            }
+        }
     }
 
     /**
@@ -88,5 +118,22 @@ class RetirosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /** Recuperar los cobros asociados al administrador **/
+    public function retiroAdmin(Request $request, $id_cajera)
+    {
+        if ($request->ajax()) {
+            $pagos = Deuda_Ingreso::retiroAdmin($id_cajera);
+            return response()->json($pagos);
+        }
+    }
+
+    public function retiroTesorera(Request $request, $id_cajera)
+    {
+        if ($request->ajax()) {
+            $pagos = Deuda_Ingreso::retiroTesorera($id_cajera, Auth::user()->id);
+            return response()->json($pagos);
+        }
     }
 }

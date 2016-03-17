@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
+use JSoria\User;
 use JSoria\Deuda_Ingreso;
+use Auth;
 
 class IngresosController extends Controller
 {
@@ -23,8 +25,8 @@ class IngresosController extends Controller
      */
     public function index()
     {
-        $ingresos = Deuda_Ingreso::All();
-        return view('tesorera.ingreso.index', compact('ingresos'));
+        $cajeras = User::getCajerasTesorera(Auth::user()->id);
+        return view('tesorera.ingreso.index', compact('cajeras'));
     }
 
     /**
