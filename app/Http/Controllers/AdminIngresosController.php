@@ -8,6 +8,7 @@ use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
+use JSoria\User;
 
 class AdminIngresosController extends Controller
 {
@@ -18,8 +19,8 @@ class AdminIngresosController extends Controller
      */
     public function index()
     {
-        $ingresos = Deuda_Ingreso::All();
-        return view('admin.ingreso.index', compact('ingresos'));
+        $cajeras = User::getUsuarioCajera();
+        return view('admin.ingreso.index', compact('cajeras'));
     }
 
     /**

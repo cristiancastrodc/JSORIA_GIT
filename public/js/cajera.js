@@ -53,7 +53,9 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
         $('#tabla-categorias-compras tbody').append(fila);
       };
 
-      console.log(response);
+      /***** DEBUG MESSAGE *****/
+      debug(response, false);
+      /*************************/
       $('#card-deudas-alumno.js-toggle').slideDown();
     };
   });
@@ -76,6 +78,8 @@ function calcularImporte (id, value) {
 };
 
 $('#btn-finalizar-pago').click(function (e) {
+  e.preventDefault();
+
   var fila_resumen = "";
   var total = 0;
   var destino_externo = false;
@@ -136,7 +140,6 @@ $('#btn-finalizar-pago').click(function (e) {
 function enlazarBotones () {
   $('#btn-comprobante').click(function(e) {
     e.preventDefault();
-    $('.modal-factura-datos.js-toggle').slideUp();
 
     var $id_institucion = $('#id_institucion').val();
     var $nro_documento = $('#nro_documento').val();
@@ -157,21 +160,22 @@ function enlazarBotones () {
       },
     })
     .done(function(data) {
-      console.log(data);
+      /***** DEBUG MESSAGE *****/
+      debug(data.mensaje);
+      /*************************/
     })
     .fail(function(data) {
-      console.log(data);
+      /***** DEBUG MESSAGE *****/
+      debug(data, false);
+      /*************************/
     });
   });
 
   $('#btn-boleta').click(function(e) {
     e.preventDefault();
-    $('.modal-factura-datos.js-toggle').slideUp();
   });
 
   $('#btn-factura').click(function(e) {
     e.preventDefault();
-
-    $('.modal-factura-datos.js-toggle').slideDown();
   });
 }

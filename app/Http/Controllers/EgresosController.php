@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
+use JSoria\DetalleEgreso;
 use JSoria\Egreso;
 use JSoria\Permiso;
 use JSoria\Rubro;
@@ -96,5 +97,53 @@ class EgresosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /*** Crear el egreso maestro ***/
+    public function crearEgreso(Request $request)
+    {
+        if ($request->ajax()) {
+            $id_institucion = $request->id_institucion;
+            $tipo_comprobante = $request->tipo_comprobante;
+            $numero_comprobante = 0;
+            $fecha_egreso = $request->fecha_egreso;
+            if ($tipo_comprobante == "3") {
+                $egreso = Egreso::where("tipo_comprobante", 3)
+                          ->select("numero_comprobante")
+                          ->orderBy('numero_comprobante', 'desc')
+                          ->first();
+                if ($egreso) {
+                    $numero_comprobante += intval($egreso->numero_comprobante) + 1;
+                } else {
+                    $numero_comprobante = 1;
+                }
+            } else {
+                $numero_comprobante = $request->numero_comprobante;
+            }
+
+            $id_egreso = Egreso::create([
+                "tipo_comprobante" => $tipo_comprobante,
+                "numero_comprobante" => $numero_comprobante,
+                "fecha" => $fecha_egreso,
+                "id_institucion" => $id_institucion,
+                "id_tesorera" => Auth::user()->id,
+            ])->id;
+
+            $detalle_egreso = $request->detalle_egreso;
+
+            $nro_detalle = 1;
+            foreach ($detalle_egreso as $detalle) {
+                DetalleEgreso::create([
+                    'id_egreso' => $id_egreso,
+                    'nro_detalle_egreso' => $nro_detalle,
+                    'id_rubro' => $detalle['id_rubro'],
+                    'monto' => $detalle['monto'],
+                    'descripcion' => $detalle['descripcion'],
+                ]);
+                $nro_detalle++;
+            }
+
+            return response()->json(['mensaje' => 'Egreso creado exitosamente.']);
+        }
     }
 }
