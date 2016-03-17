@@ -33,13 +33,6 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="id_detalle_institucion" class="col-sm-3 control-label"></label>
-              <div class="col-sm-9">
-                <select class="selectpicker" name="id_detalle_institucion" id="id_detalle_institucion" title='Seleccione'>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
               <label for="" class="col-sm-3 control-label"></label>
 
             <label class="radio radio-inline m-r-10">

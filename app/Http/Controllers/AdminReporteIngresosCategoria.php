@@ -49,6 +49,7 @@ class AdminReporteIngresosCategoria extends Controller
         $fecha_fin = $request['fecha_fin'];        
 
         $fecha_inicio = $request['fecha_inicio'];
+        //return $id_detalle_institucion .' '. $id_institucion;
 
         $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
                             ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
@@ -60,12 +61,13 @@ class AdminReporteIngresosCategoria extends Controller
                                            ->where('detalle_institucion.id_institucion','=',$id_institucion);
                                 });
                             })
-                            ->where(function($query3) use($fecha_inicio,$fecha_fin){
+ //                           ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
+/*                            ->where(function($query3) use($fecha_inicio,$fecha_fin){
                                 $query3->where('fecha_hora_ingreso','>',$fecha_inicio)
                                       ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })
+                            })*/
                             ->groupBy('id_categoria')
-                            ->get(['categoria.nombre'],DB::raw('Sum(saldo - descuento) as monto'));
+                            ->get(['categoria.nombre',DB::raw('Sum(saldo - descuento) as monto')]);
             //return $datas;                            
 
 

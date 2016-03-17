@@ -58,7 +58,11 @@
         </table>-->
 <body>
 <div >
-  <h1>{{$id_institucion}}</h1>
+  <h1>LISTA DE INGRESOS</h1>
+  <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
+  <h2>Categoria: {{$id_categoria}}</h2>
+   <!--Fecha con sus labes en 2 columnas--> 
+  <h3>{{$fecha_inicio}} - {{$fecha_fin}}</h3>  
   <table >
     <thead>
       <tr>
@@ -75,7 +79,7 @@
           @foreach($datas as $data)
       <tr>
       <td><?php echo $i?></td>
-      <td>{{$data['nombre_division']}}
+      <td>{{$data['fecha_hora_ingreso']}}
       </td>
       <td>{{$data['id_alumno']}}
       </td>
@@ -83,7 +87,7 @@
       </td>
       <td>{{$data['nombre']}}
       </td>
-      <td>{{$data['monto']}}
+      <td>{{$data['saldo'] - $data['descuento']}}
       </td>
     </tr>
     <?php $i++; ?>

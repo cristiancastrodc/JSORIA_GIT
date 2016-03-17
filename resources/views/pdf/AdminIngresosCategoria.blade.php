@@ -25,7 +25,7 @@
       </td>
       <td>{{$data['monto']}}
       </td>
-    </tr>
+    </tr> 
     <?php $i++; ?>
     @endforeach
    

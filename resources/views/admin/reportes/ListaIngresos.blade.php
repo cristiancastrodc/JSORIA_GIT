@@ -89,7 +89,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso" formtarget="_blank">Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso" >Generar</button>
               </div>
             </div>
           {!!Form::close()!!}
