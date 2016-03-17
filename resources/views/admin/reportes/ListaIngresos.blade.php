@@ -55,7 +55,7 @@
                   <div class="col-sm-9 col-sm-3">
                       <div class="checkbox">
                           <label>
-                              <input type="checkbox" name="todas-categorias" id="todas-categorias">
+                              <input type="checkbox" name="todas_categorias" id="todas_categorias">
                               <i class="input-helper"></i>
                               Todos                              
                           </label>

@@ -9,6 +9,7 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
 use DB;
+use Carbon\Carbon;
 
 class AdminReporteIngresosTotales extends Controller
 {
@@ -49,37 +50,34 @@ class AdminReporteIngresosTotales extends Controller
 
         $fecha_inicio = $request['fecha_inicio'];
         //return $id_institucion;
+        $date_ini =new Carbon($fecha_inicio);
+        //$date_fin =Carbon::parse($fecha_fin);
+        //return $date_ini->todateString();
 
         $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
                             ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
                             ->where('estado_pago','=',1)
-                            ->where(function($query) use($id_detalle_institucion,$id_institucion){
-                                $query->where('categoria.id_detalle_institucion','=',$id_detalle_institucion)
-                                      ->orwhere(function($query2) use($id_institucion){
-                                    $query2->where('detalle_institucion.nombre_division','=','Todo')
-                                           ->where('detalle_institucion.id_institucion','=',$id_institucion);
-                                });
-                            })
+                            ->where('detalle_institucion.id_institucion','=',$id_institucion)
  //                           ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
 /*                            ->where(function($query3) use($fecha_inicio,$fecha_fin){
                                 $query3->where('fecha_hora_ingreso','>',$fecha_inicio)
                                       ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
                             })*/
-                            ->groupBy('id_categoria')
-                            ->get(['categoria.nombre',DB::raw('Sum(saldo - descuento) as monto')]);
-            //return $datas;                            
+                            ->groupBy('fecha_hora_ingreso')
+                            ->get(['fecha_hora_ingreso',DB::raw('Sum(saldo - descuento) as monto')]);
+            return $datas;                            
 
 
-/*select jsoria_deuda_ingreso.fecha_hora_ingreso,jsoria_deuda_ingreso.id_alumno,jsoria_deuda_ingreso.cliente_extr, jsoria_categoria.nombre, jsoria_deuda_ingreso.saldo - jsoria_deuda_ingreso.descuento as Monto
+/*select date(jsoria_deuda_ingreso.fecha_hora_ingreso)as Fecha,sum(jsoria_deuda_ingreso.saldo-jsoria_deuda_ingreso.descuento) as Monto
 from jsoria_deuda_ingreso
 inner join jsoria_categoria
 on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
 inner join jsoria_detalle_institucion
-on jsoria_categoria.id_detalle_institucion = jsoria_detalle_institucion.id
- where  jsoria_deuda_ingreso.estado_pago = 1
-    and (jsoria_categoria.id_detalle_institucion = id_detalle_institucion   or (jsoria_detalle_institucion.nombre_division = 'Todo' 
-    and jsoria_detalle_institucion.id_institucion = 'id_institucion'))
-    and (date(jsoria_deuda_ingreso.fecha_hora_ingreso) between 'fecha_inicio' and  'fecha_fin');*/
+on jsoria_categoria.id_detalle_institucion = jsoria_detalle_institucion.id 
+where jsoria_deuda_ingreso.estado_pago = 1
+    and jsoria_detalle_institucion.id_institucion =  id_institucion
+    and (date(jsoria_deuda_ingreso.fecha_hora_ingreso) between 'fecha_inicio' and  'fecha_fin') 
+    group by date(jsoria_deuda_ingreso.fecha_hora_ingreso);*/
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';

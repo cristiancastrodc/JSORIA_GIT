@@ -7,66 +7,23 @@
     </style>
 
   </head>
-  <!--<body>
-
-    <main>
-      <div id="details" class="clearfix">
-        <div id="invoice">
-          <h1>INVOICE {{ $id_institucion }}</h1>
-          <div class="date">Date of Invoice: </div>
-        </div>
-      </div>
-        <table border="0" cellspacing="0" cellpadding="0">
-          <thead>
-            <tr>
-            <th class="no">#</th>
-            <th class="desc">HORA INGRESO</th>
-            <th class="unit">CLIENTE</th>
-            <th class="total">CATEGORIA</th>
-            <th class="total">MONTO</th>
-          </tr>
-          </thead>
-          <tbody>
-          <?php for($i=0;$i<15;$i++)
-          {
-            ?>
-
-          <tr >
-            <td class="no">1</td>
-            <td class="desc">2</td>
-            <td class="unit">3</td>
-            <td class="total">4 </td>
-          </tr>            
-
-                    <?php } ?>
-          </tbody>
-          <tbody>
-          <?php for($i=0;$i<15;$i++)
-          {
-            ?>
-
-          <tr >
-            <td class="no">1</td>
-            <td class="desc">2</td>
-            <td class="unit">3</td>
-            <td class="total">4 </td>
-          </tr>            
-
-                    <?php } ?>
-          </tbody>          
-
-        </table>-->
 <body>
 <div >
   <h1>LISTA DE INGRESOS</h1>
+
   <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
   <h2>Categoria: {{$id_categoria}}</h2>
-   <!--Fecha con sus labes en 2 columnas--> 
-  <h3>{{$fecha_inicio}} - {{$fecha_fin}}</h3>  
+  <table >
+    <tr >
+    <td>Fecha Inicial:{{$fecha_inicio}}</td>
+    <td>Fecha Final: {{$fecha_inicio}}</td>
+    </tr>
+  </table>
+     <!--Fecha con sus labes en 2 columnas--> 
   <table >
     <thead>
       <tr>
-        <td>#</td>
+        <td>Nro</td>
         <td>Fecha Hora Ingreso</td>
         <td>Alumno</td>
         <td>Cliente</td>
@@ -75,7 +32,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i=1;?>
+      <?php $i=1;$total=0;?>
           @foreach($datas as $data)
       <tr>
       <td><?php echo $i?></td>
@@ -88,6 +45,7 @@
       <td>{{$data['nombre']}}
       </td>
       <td>{{$data['saldo'] - $data['descuento']}}
+      <?php $total=$total+$data['saldo'] - $data['descuento']?>
       </td>
     </tr>
     <?php $i++; ?>
@@ -96,9 +54,9 @@
   </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"></td>
-            <td >TOTAL</td>
-            <td>$6,500.00</td>
+            <td colspan="4"></td>
+            <td ><b>TOTAL</b></td>
+            <td><b><?php echo $total;?></b></td>
           </tr>
         </tfoot>  
 </table>

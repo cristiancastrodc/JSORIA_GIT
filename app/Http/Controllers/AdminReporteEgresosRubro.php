@@ -81,7 +81,7 @@ group by jsoria_rubro.nombre, jsoria_detalle_egreso.id_rubro;*/
             default:
                 break;
         }
-        $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','data','date', 'invoice'))->render();
+        $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','data'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminEgresosRubro'); 

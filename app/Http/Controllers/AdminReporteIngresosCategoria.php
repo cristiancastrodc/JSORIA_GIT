@@ -8,6 +8,7 @@ use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
+USE JSoria\InstitucionDetalle;
 use DB;
 
 class AdminReporteIngresosCategoria extends Controller
@@ -69,6 +70,9 @@ class AdminReporteIngresosCategoria extends Controller
                             ->groupBy('id_categoria')
                             ->get(['categoria.nombre',DB::raw('Sum(saldo - descuento) as monto')]);
             //return $datas;                            
+        $nombre_nivel= InstitucionDetalle::where('id','=',$id_detalle_institucion)
+                            ->select('nombre_division')
+                            ->first();        
 
 
 /*select jsoria_categoria.nombre,sum(jsoria_deuda_ingreso.saldo-jsoria_deuda_ingreso.descuento) as Monto
@@ -99,7 +103,7 @@ group by jsoria_deuda_ingreso.id_categoria*/
                 break;
         }
 
-        $view =  \View::make('pdf.AdminIngresosCategoria', compact('id_institucion','datas'))->render();
+        $view =  \View::make('pdf.AdminIngresosCategoria', compact('id_institucion','nombre_nivel','datas','fecha_inicio','fecha_fin'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminIngresosCategoria'); 

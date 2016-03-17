@@ -46,29 +46,6 @@
                 </select> 
               </div>
             </div>
-
-            <div class="form-group">
-              <label for="fecha_inicio" class="col-sm-3 control-label">Fecha Inicial:</label>
-                <div class="col-sm-9">
-                    <div class="fg-line">
-                        <div class="dtp-container fg-line">
-                            <input type='text' class="form-control date-picker" placeholder="Fecha" name="fecha_inicio" id="fecha_inicio" autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-              <label for="fecha_fin" class="col-sm-3 control-label">Fecha Final:</label>
-                <div class="col-sm-9">
-                    <div class="fg-line">
-                        <div class="dtp-container fg-line">
-                            <input type='text' class="form-control date-picker" placeholder="Fecha" name="fecha_fin" id="fecha_fin" autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="form-group">
               <div class="pull-right">
                 <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso">Generar</button>

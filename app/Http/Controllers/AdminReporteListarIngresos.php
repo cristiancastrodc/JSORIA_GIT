@@ -48,7 +48,28 @@ class AdminReporteListarIngresos extends Controller
 
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];
-        //return $id_detalle_institucion.' '.$id_detalle_institucion;
+        if (isset($_POST['todas_categorias']))
+        {
+//TODOS CHECKED
+        $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
+                            ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
+                            ->where('estado_pago','=',1)
+                            ->where(function($query) use($id_detalle_institucion){
+                                $query->where('categoria.id_detalle_institucion','=',$id_detalle_institucion)
+                                      ->orwhere('detalle_institucion.nombre_division','=','Todo');
+                            })
+                            ->where('detalle_institucion.id_institucion','=',$id_institucion)
+                            ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
+                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
+                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
+                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
+                            })*/
+                            ->select('fecha_hora_ingreso','id_alumno','cliente_extr','nombre','saldo','descuento')
+                            ->get();            
+        }
+        else
+        {
+//TODOS NO CHECKED            
         $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
                             ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
                             ->where('categoria.tipo','=',$id_categoria)
@@ -65,6 +86,8 @@ class AdminReporteListarIngresos extends Controller
                             })*/
                             ->select('fecha_hora_ingreso','id_alumno','cliente_extr','nombre','saldo','descuento')
                             ->get();
+        }
+        //return $id_detalle_institucion.' '.$id_detalle_institucion;
                             
         $nombre_nivel= InstitucionDetalle::where('id','=',$id_detalle_institucion)
                             ->select('nombre_division')

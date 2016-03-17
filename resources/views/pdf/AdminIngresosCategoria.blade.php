@@ -7,7 +7,14 @@
   </head>
 <body>
 <div >
-  <h1>{{$id_institucion}}</h1>
+  <h1>INGRESOS POR CATEGORIA</h1>
+  <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
+  <table >
+    <tr >
+    <td>Fecha Inicial:{{$fecha_inicio}}</td>
+    <td>Fecha Final: {{$fecha_inicio}}</td>
+    </tr>
+  </table>
   <table >
     <thead>
       <tr>
@@ -17,13 +24,14 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i=1;?>
+      <?php $i=1;$total=0;?>
           @foreach($datas as $data)
       <tr>
       <td><?php echo $i?></td>
       <td>{{$data['nombre']}}
       </td>
       <td>{{$data['monto']}}
+      <?php $total=$total+$data['monto']?>
       </td>
     </tr> 
     <?php $i++; ?>
@@ -34,7 +42,7 @@
           <tr>
             <td colspan="2"></td>
             <td >TOTAL</td>
-            <td>$6,500.00</td>
+            <td><b><?php echo $total;?></b></td>
           </tr>
         </tfoot>  
 </table>
