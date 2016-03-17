@@ -70,4 +70,34 @@ Route::get('secretaria/alumno/lista_actividades/{dni}', 'AlumnosController@lista
 Route::get('secretaria/alumno/amortizar_deudas/{dni}', 'AlumnosController@amortizarDeudaAlumno');
 
 /**/
-Route::get('secretaria/reporte', 'PdfController@invoice');
+//Route::get('secretaria/reportes', 'PdfController@index');
+//Route::post('secretaria/reportes/procesar', 'PdfController@invoice');
+Route::get('secretaria/reportes', 'ReportesSecretaria@index');
+Route::resource('secretaria/reportes/procesar','ReportesSecretaria');
+
+Route::get('admin/reportes/ListaIngresos','AdminReporteListarIngresos@index');
+Route::resource('admin/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
+Route::get('admin/categorias/{id_detalle_institucion}', 'CategoriasController@categoriasDivision');
+
+Route::get('admin/reportes/IngresosCategoria','AdminReporteIngresosCategoria@index');
+Route::resource('admin/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria');
+Route::get('admin/reportes/IngresosTotales','AdminReporteIngresosTotales@index');
+Route::resource('admin/reportes/IngresosTotales/procesar','AdminReporteIngresosTotales');
+
+Route::get('admin/reportes/ListaEgresos','AdminReporteListarEgresos@index');
+Route::resource('admin/reportes/ListaEgresos/procesar','AdminReporteListarEgresos');
+Route::get('admin/rubros','RubrosController@rubrosInstitucion');
+
+Route::get('admin/reportes/EgresosRubro','AdminReporteEgresosRubro@index');
+Route::resource('admin/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
+
+Route::get('admin/reportes/EgresosTotales','AdminReporteEgresosTotales@index');
+Route::resource('admin/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales');
+
+Route::get('admin/reportes/AlumnosDeudores','AdminReporteAlumnosDeudores@index');
+Route::resource('admin/reportes/AlumnosDeudores/procesar','AdminReporteAlumnosDeudores');
+Route::get('admin/grados/{id_detalle_institucion}','GradosController@gradosDivision');
+
+Route::get('admin/reportes/CuentaAlumno','AdminReporteCuentaAlumno@index');
+Route::resource('admin/reportes/CuentaAlumno/procesar','AdminReporteCuentaAlumno');
+

@@ -101,9 +101,19 @@
           <li><a href="{!!URL::to('/admin/ingresos')!!}">
             <i class="zmdi zmdi-money"></i> Retiro</a>
           </li>
-          <li><a href="">
-            <i class="zmdi zmdi-chart"></i> Reportes</a>
-          </li>
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
+            <ul>
+                <li><a href="{!!URL::to('/admin/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/IngresosCategoria')!!}">Ingresos agrupados por categoria</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/IngresosTotales')!!}">Ingresos totales</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/EgresosRubro')!!}">Egresos agrupados por rubro</a></li>                
+                <li><a href="{!!URL::to('/admin/reportes/EgresosTotales')!!}">Egresos totales</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/AlumnosDeudores')!!}">Alumnos Deudores</a></
+                <li><a href="{!!URL::to('/admin/reportes/CuentaAlumno')!!}">Cuenta de Alumno</a></li>                
+            </ul>
+          </li>          
         @endif
         @if(Auth::user()->tipo == "Cajera")
           <!-- Cajera -->
@@ -136,7 +146,7 @@
           <li><a href="{!!URL::to('/secretaria/ciclo/cerrar')!!}">
             <i class="zmdi zmdi-close-circle-o"></i> Cerrar Ciclo</a>
           </li>
-          <li><a href="">
+          <li><a href="{!!URL::to('/secretaria/reportes')!!}">
             <i class="zmdi zmdi-chart"></i> Reporte</a>
           </li>
         @endif
