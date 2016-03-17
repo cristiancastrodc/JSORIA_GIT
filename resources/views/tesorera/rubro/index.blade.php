@@ -66,6 +66,13 @@
                         <tr>
                           <td>{{$rubro->id}}</td>
                           <td>{{$rubro->nombre}}</td> 
+                          <td>
+                          <td><a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber m-r-20' data-id=" {{ $rubro->id }}" data-nombre="{{ $rubro->nombre }}"><i class='zmdi zmdi-edit'></i></a></td>
+                          {!!Form::open(['route' => ['admin.usuarios.destroy', $user->id], 'method' => 'DELETE', 'class' => 'inline-form'])!!}
+                            <button type="submit" class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"><i class="zmdi zmdi-delete"></i></button>
+                          {!!Form::close()!!}
+                          {!!Form::close()!!}
+                        </td>
                         </tr>                      
                       @endforeach
                 </tbody>
@@ -77,27 +84,9 @@
   </div>
 @endsection
 
+@section('modals')
+  @include('layouts.modals.rubro')
+@endsection
+
 @section('scripts')
-  {!!Html::script('vendors/bootgrid/jquery.bootgrid.updated.min.js')!!}
-  {!!Html::script('js/own.scripts.js')!!}
-  <script type="text/javascript">
-      $(document).ready(function(){
-          //Basic Example
-          $("#data-table-basic").bootgrid({
-              css: {
-                  icon: 'zmdi icon',
-                  iconColumns: 'zmdi-view-module',
-                  iconDown: 'zmdi-expand-more',
-                  iconRefresh: 'zmdi-refresh',
-                  iconUp: 'zmdi-expand-less'
-              },
-              formatters: {
-                  "commands": function(column, row) {
-                      return "<button type=\"button\" class=\"btn btn-icon waves-effect btn-primary\" data-row-id=\"" + row.id + "\" value=\"" + row.id + "\" OnClick='EditarRubro(this)'><span class=\"zmdi zmdi-edit\"></span></button> " +
-                          "<button type=\"button\" class=\"btn btn-icon waves-effect btn-danger\" data-row-id=\"" + row.id + "\" value=\"" + row.id + "\" OnClick='EliminarRubro(this)'><span class=\"zmdi zmdi-delete\"></span></button>";
-                  }
-              },
-          });
-        });
-  </script>
 @endsection
