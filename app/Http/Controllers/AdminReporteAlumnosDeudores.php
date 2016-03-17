@@ -9,6 +9,8 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Categoria;
 use JSoria\InstitucionDetalle;
+use JSoria\Grado;
+
 class AdminReporteAlumnosDeudores extends Controller
 {
     /**
@@ -92,8 +94,11 @@ order by A.nro_documento*/
                 break;
         }
 
+        $id_grado=Grado::where('id','=',$id_grado)
+                    ->first();
 
-        $view =  \View::make('pdf.AdminAlumnosDeudores', compact('id_institucion','id_detalle_institucion','id_grado','datas','fecha_inicio','fecha_fin','nombre_nivel'))->render();
+
+        $view =  \View::make('pdf.AdminAlumnosDeudores', compact('id_institucion','id_grado','datas','fecha_inicio','fecha_fin','nombre_nivel'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);        

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
+use JSoria\Egreso;
+use DB;
+
 class AdminReporteEgresosTotales extends Controller
 {
     /**
@@ -37,7 +40,41 @@ class AdminReporteEgresosTotales extends Controller
      */
     public function store(Request $request)
     {
-       $id_institucion = $request['id_institucion'];
+        $id_institucion = $request['id_institucion'];
+        //$id_institucion = $request->id_institucion;
+
+
+        $fecha_inicio = $request['fecha_inicio'];
+        $fecha_fin = $request['fecha_fin'];        
+        $radio_btn_fecha=$request['inlineRadioOptions'];
+        //return $radio_btn_fecha;
+//        $conj_fechas = array();
+        switch ($radio_btn_fecha) {
+            case 'dias':
+                $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
+                                    ->where('id_institucion','=',$id_institucion)
+                                    ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                    ->groupBy(DB::raw('date(fecha)'))
+                                    ->get([DB::raw('date(fecha) as fecha1'),DB::raw('Sum(monto) as montos')]);
+                break;
+            case 'mes':
+                $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
+                                    ->where('id_institucion','=',$id_institucion)
+                                    ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                    ->groupBy(DB::raw('month(fecha)'),DB::raw('year(fecha)'))
+                                    ->get([DB::raw('month(fecha) as fecha1'),DB::raw('year(fecha) as fecha2'),DB::raw('Sum(monto) as montos')]);
+                break;
+            case 'anio':
+                $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
+                                    ->where('id_institucion','=',$id_institucion)
+                                    ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                    ->groupBy(DB::raw('year(fecha)'))
+                                    ->get([DB::raw('year(fecha) as fecha1'),DB::raw('Sum(monto) as montos')]);
+                break;                
+            default:
+                break;
+        }
+
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';
@@ -54,33 +91,26 @@ class AdminReporteEgresosTotales extends Controller
             default:
                 break;
         }
-        $id_detalle_institucion = $request['id_detalle_institucion'];
+        switch ($radio_btn_fecha) {
+            case 'dias':
+                $radio_btn_fecha='DIAS';
+                break;
+            case 'mes':
+                $radio_btn_fecha='MESES';
+                break;
+            case 'anio':
+                $radio_btn_fecha='AÑOS';
+                break;
+            default:
+                break;
+        }        
 
-        $fecha_inicio = $request['fecha_inicio'];
-
-        /*$deudas = Deuda_Ingreso::where('id_alumno', '=', $nro_documento)
-                  ->where('estado_pago', '=', '0')
-                  ->get();*/
-
-        $data = $this->getData();
-        $date = $fecha_inicio;
-        $invoice = "2222";
-        $view =  \View::make('pdf.AdminEgresosTotales', compact('id_institucion','data','date', 'invoice'))->render();
+        $view =  \View::make('pdf.AdminEgresosTotales', compact('id_institucion','datas','fecha_inicio','fecha_fin','radio_btn_fecha'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminEgresosTotales'); 
     }
 
-    public function getData()
-    {
-        $data =  [
-            'quantity'      => '1' ,
-            'description'   => 'some ramdom text',
-            'price'   => '500',
-            'total'     => '500'
-        ];
-        return $data;
-    }
 
     /**
      * Display the specified resource.

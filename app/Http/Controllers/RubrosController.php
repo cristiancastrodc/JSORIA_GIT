@@ -19,7 +19,6 @@ class RubrosController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-      $this->middleware('tesorera');
     }
     /**
      * Display a listing of the resource.

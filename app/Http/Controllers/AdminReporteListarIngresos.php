@@ -92,23 +92,6 @@ class AdminReporteListarIngresos extends Controller
         $nombre_nivel= InstitucionDetalle::where('id','=',$id_detalle_institucion)
                             ->select('nombre_division')
                             ->first();        
-        //return $nombre_nivel;
-
-        //return $datas;
-
-/*select jsoria_deuda_ingreso.fecha_hora_ingreso,jsoria_deuda_ingreso.id_alumno,jsoria_deuda_ingreso.cliente_extr, jsoria_categoria.nombre, jsoria_deuda_ingreso.saldo - jsoria_deuda_ingreso.descuento as Monto
-from jsoria_deuda_ingreso
-
-inner join jsoria_categoria
-on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
-inner join jsoria_detalle_institucion
-on jsoria_categoria.id_detalle_institucion = jsoria_detalle_institucion.id
-
-where jsoria_categoria.tipo = 'sin_factor'
-    and jsoria_deuda_ingreso.estado_pago = 1
-    and (jsoria_categoria.id_detalle_institucion = id_detalle_institucion   or (jsoria_detalle_institucion.nombre_division = 'Todo' 
-    and jsoria_detalle_institucion.id_institucion = 'id_institucion'))
-    and (date(jsoria_deuda_ingreso.fecha_hora_ingreso) between 'fecha_inicio' and  'fecha_fin');*/
 
         switch ($id_institucion) {
             case 1:

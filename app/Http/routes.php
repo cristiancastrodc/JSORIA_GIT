@@ -86,7 +86,7 @@ Route::resource('admin/reportes/IngresosTotales/procesar','AdminReporteIngresosT
 
 Route::get('admin/reportes/ListaEgresos','AdminReporteListarEgresos@index');
 Route::resource('admin/reportes/ListaEgresos/procesar','AdminReporteListarEgresos');
-Route::get('admin/rubros','RubrosController@rubrosInstitucion');
+Route::get('admin/rubros','RubrosController@listaRubros');
 
 Route::get('admin/reportes/EgresosRubro','AdminReporteEgresosRubro@index');
 Route::resource('admin/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');

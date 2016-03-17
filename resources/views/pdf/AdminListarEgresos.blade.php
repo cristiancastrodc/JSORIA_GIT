@@ -5,41 +5,12 @@
     <title>Reporte Lista Ingresos</title>
     {!! Html::style('css/pdf.css') !!}
   </head>
-  <!--<body>
-
-    <main>
-      <div id="details" class="clearfix">
-        <div id="invoice">
-          <h1> {{ $id_institucion }}</h1>
-          <div class="date">Date of Invoice: {{ $date }}</div>
-        </div>
-      </div>
-      <table border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <th class="no">#</th>
-            <th class="desc">TIPO COMPROBANTE</th>
-            <th class="unit">NRO COMPROBANTE</th>
-            <th class="total">FECHA</th>
-            <th class="total">MONTO</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr>
-            <td colspan="3"></td>
-            <td >TOTAL</td>
-            <td>$6,500.00</td>
-          </tr>
-        </tfoot>
-      </table>
-  </body>-->
 <body>
 <div >
   <h1>LISTA DE EGRESOS</h1>
-  <!--<h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>-->
   <h2>Institucion: {{$id_institucion}}</h2>
-   <!--Fecha con sus labes en 2 columnas--> 
-  <h3>{{$fecha_inicio}} - {{$fecha_fin}}</h3>  
+  <h2>Fecha Inicial: {{$fecha_inicio}}</h2>
+  <h2>Fecha Final: {{$fecha_fin}}</h2> 
   <table >
     <thead>
       <tr>
@@ -51,10 +22,28 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i=1;?>
+      <?php $i=1;$total=0.00;?>
           @foreach($datas as $data)
       <tr>
       <td><?php echo $i?></td>
+      <?php 
+        switch ($data['tipo_comprobante']) {
+          case 1:
+            $data['tipo_comprobante']='Boleta';
+            break;
+          case 2:
+            $data['tipo_comprobante']='Factura';
+            break;
+          case 3:
+            $data['tipo_comprobante']='Comprobante Pago';
+            break;          
+          case 4:
+            $data['tipo_comprobante']='Recibo por Honorarios';
+            break;          
+          default:            
+            break;
+        };
+      ?>      
       <td>{{$data['tipo_comprobante']}}
       </td>
       <td>{{$data['numero_comprobante']}}
@@ -62,6 +51,7 @@
       <td>{{$data['nombre']}}
       </td>
       <td>{{$data['monto']}}
+      <?php $total=$total+$data['monto']?>            
       </td>
     </tr>
     <?php $i++; ?>
@@ -70,9 +60,9 @@
   </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"></td>
-            <td >TOTAL</td>
-            <td>$6,500.00</td>
+            <td colspan="3"></td>
+            <td ><b>TOTAL (S/)</b></td>
+            <td><b><?php echo number_format($total,2); ?></b></td>
           </tr>
         </tfoot>  
 </table>

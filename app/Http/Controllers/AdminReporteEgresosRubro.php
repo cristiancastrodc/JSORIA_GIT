@@ -48,23 +48,10 @@ class AdminReporteEgresosRubro extends Controller
                             ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
                             ->where('id_institucion','=',$id_institucion)
                             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
-                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })*/
                             ->groupBy('nombre','id_rubro')
-//                            ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                            ->select('nombre','monto')
                             ->get();
 
-
-/*select jsoria_rubro.nombre as Rubro,sum(jsoria_detalle_egreso.monto) as Monto
-from jsoria_egreso
-inner join jsoria_detalle_egreso
-on jsoria_egreso.id = jsoria_detalle_egreso.id_egreso
-inner join jsoria_rubro
-on jsoria_detalle_egreso.id_rubro = jsoria_rubro.id
-where jsoria_egreso.id_institucion = id_institucion   and (jsoria_egreso.fecha between ''fecha_inicio' and  ''fecha_fin')
-group by jsoria_rubro.nombre, jsoria_detalle_egreso.id_rubro;*/
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';
@@ -81,7 +68,7 @@ group by jsoria_rubro.nombre, jsoria_detalle_egreso.id_rubro;*/
             default:
                 break;
         }
-        $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','data'))->render();
+        $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','datas','fecha_inicio','fecha_fin'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminEgresosRubro'); 

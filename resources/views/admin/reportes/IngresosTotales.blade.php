@@ -36,7 +36,7 @@
               <label for="" class="col-sm-3 control-label"></label>
 
             <label class="radio radio-inline m-r-10">
-                <input type="radio" name="inlineRadioOptions" value="dias">
+                <input type="radio" name="inlineRadioOptions" value="dias" checked="checked">
                 <i class="input-helper"></i>Dias  
             </label>
             

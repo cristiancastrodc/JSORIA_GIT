@@ -13,12 +13,14 @@
 
   <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
   <h2>Categoria: {{$id_categoria}}</h2>
-  <table >
+  <h2>Fecha Inicial: {{$fecha_inicio}}</h2>
+  <h2>Fecha Final: {{$fecha_fin}}</h2>  
+  <!--<table >
     <tr >
     <td>Fecha Inicial:{{$fecha_inicio}}</td>
     <td>Fecha Final: {{$fecha_inicio}}</td>
     </tr>
-  </table>
+  </table>-->
      <!--Fecha con sus labes en 2 columnas--> 
   <table >
     <thead>
@@ -55,8 +57,8 @@
         <tfoot>
           <tr>
             <td colspan="4"></td>
-            <td ><b>TOTAL</b></td>
-            <td><b><?php echo $total;?></b></td>
+            <td ><b>TOTAL (S/)</b></td>
+            <td><b><?php echo number_format($total,2); ?></b></td>
           </tr>
         </tfoot>  
 </table>

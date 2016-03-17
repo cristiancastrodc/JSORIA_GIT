@@ -10,23 +10,24 @@
 <body>
 <div >
   <h1>Cuenta Alumno</h1>
-  <h2>{{$datas[1]['nombres'].' '.$datas[1]['apellidos']}}</h2>
+  <h2>Alumno: {{$datas[1]['nombres'].' '.$datas[1]['apellidos']}}</h2>
   <table >
     <thead>
       <tr>
-        <td>#</td>
+        <td>Nro</td>
         <td>Categoria</td>
         <td>Monto</td>
       </tr>
     </thead>
     <tbody>
-      <?php $i=1;?>
+      <?php $i=1;$total=0;?>
           @foreach($datas as $data)
       <tr>
       <td><?php echo $i?></td>
       <td>{{$data['nombre']}}
       </td>
       <td>{{$data['saldo'] - $data['descuento']}}
+      <?php $total=$total+$data['saldo'] - $data['descuento']?>             
       </td>
     </tr>
     <?php $i++; ?>
@@ -35,9 +36,9 @@
   </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"></td>
-            <td >TOTAL</td>
-            <td>$6,500.00</td>
+            <td colspan="1"></td>
+            <td ><b>TOTAL (S/)</b></td>
+            <td><b><?php echo number_format($total,2); ?></b></td>
           </tr>
         </tfoot>  
 </table>

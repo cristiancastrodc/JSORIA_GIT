@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal','route' => 'admin.reportes.IngresosTotales.procesar.store','method' => 'POST'))!!}
+         {!!Form::open(array('class' => 'form-horizontal','route' => 'admin.reportes.EgresosTotales.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">

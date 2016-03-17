@@ -9,9 +9,7 @@
 <div >
   <h1>LISTA DE ALUMNOS DEUDORES</h1>
   <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
-  <h2>Grado: {{$id_grado}}</h2>
-   <!--Fecha con sus labes en 2 columnas--> 
-  <h3>{{$fecha_inicio}} - {{$fecha_fin}}</h3>  
+  <h2>Grado: {{$id_grado['nombre_grado']}}</h2>
   <table >
     <thead>
       <tr>
@@ -22,7 +20,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php $i=1;?>
+      <?php $i=1;$total=0;?>
           @foreach($datas as $data)
       <tr>
       <td><?php echo $i?></td>
@@ -31,6 +29,7 @@
       <td>{{$data['nombre']}}
       </td>
       <td>{{$data['saldo'] - $data['descuento']}}
+      <?php $total=$total+$data['saldo'] - $data['descuento']?>       
       </td>
     </tr>
     <?php $i++; ?>
@@ -40,8 +39,8 @@
         <tfoot>
           <tr>
             <td colspan="2"></td>
-            <td >TOTAL</td>
-            <td>$6,500.00</td>
+            <td ><b>TOTAL (S/)</b></td>
+            <td><b><?php echo number_format($total,2); ?></b></td>
           </tr>
         </tfoot>  
 </table>
