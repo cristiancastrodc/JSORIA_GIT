@@ -49,4 +49,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 					 ->select('id', 'nombres', 'apellidos')
 					 ->get();
 	}
+
+	/*** Recuperar cajeras asociadas a la tesorera ***/
+	public static function getCajerasTesorera($id_tesorera)
+	{
+		return User::join('permisos', 'usuario.id', '=', 'permisos.id_usuario')
+					 ->where('tipo', '=', 'cajera')
+					 ->whereIn('permisos.id_institucion', function ($query) use ($id_tesorera) {
+					 		$query->select('id_institucion')
+					 				  ->from('permisos')
+					 				  ->where('id_usuario', $id_tesorera);
+					 })
+					 ->select('usuario.id', 'usuario.nombres', 'usuario.apellidos')
+					 ->distinct()->get();
+	}
 }

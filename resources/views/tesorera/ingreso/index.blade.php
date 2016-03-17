@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-  Ingresos
+  Retirar Ingresos
 @endsection
 
 @section('content')
-  <h1>INGRESOS</h1>
+  <h1>RETIRAR INGRESOS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,44 +17,69 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal'])!!}
+          {!! Form::open(['class' => 'form-horizontal', 'id' => 'form-ingresos-cajera']) !!}
+            <div class="form-group">
+              <label for="id_institucion" class="col-sm-3 control-label">Seleccionar Cajera:</label>
+              <div class="col-sm-9">
+                <select class="selectpicker" name="id_cajera" id="id_cajera" title='Seleccione'>
+                  @foreach ($cajeras as $cajera)
+                    <option value="{{ $cajera->id }}">{{ $cajera->nombres }} {{ $cajera->apellidos }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn btn-block bgm-blue-soria waves-effect m-t-10" id="btn-ingresos-cajera">Buscar</button>
+              </div>
+            </div>
+          {!! Form::close() !!}
+        </div>
+      </div>
+      <div class="card js-toggle" id="card-ingresos-admin">
+        <div class="card-body card-padding">
+          {!! Form::open(['class' => 'form-horizontal']) !!}
+            <input type="hidden" value="{{ csrf_token() }}" id="_token">
             <div class="table-responsive">
-              <table class="table table-bordered">
+              <table class="table table-bordered" id="tabla-ingresos-cajera">
                 <thead>
                   <tr>
                     <th class="hidden">Id</th>
-                    <th class="warning c-white">Fecha - Hora</th>
-                    <th class="warning c-white">Concepto</th>
-                    <th class="warning c-white">Estado</th>
-                    <th class="warning c-white">Monto</th>
+                    <th class="bgm-blue-soria c-white">Fecha de Ingreso</th>
+                    <th class="bgm-blue-soria c-white">Concepto</th>
+                    <th class="bgm-blue-soria c-white">Estado</th>
+                    <th class="bgm-blue-soria c-white">Monto (S/)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="hidden">1</td>
-                    <td>22/01/2016 12:04:01pm</td>
-                    <td>Pensión Marzo Colegio</td>
-                    <td><span class="bgm-orange c-white">No recogido</span></td>
-                    <td>200.00</td>
-                  </tr>
                 </tbody>
-                <tfoot class="text-right bgm-lightgreen c-white">
+                <tfoot class="text-right bgm-orange c-white">
                   <tr>
-                    <td colspan="3">Total no recogidos (S/)</td>
-                    <td>200.00</td>
+                    <td colspan="3">TOTAL NO RETIRADO (S/)</td>
+                    <td id="cobros-no-retirados"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">TOTAL POR RETIRAR (S/)</td>
+                    <td id="cobros-por-retirar"></td>
                   </tr>
                 </tfoot>
               </table>
             </div>
             <div class="form-group">
-              <button class="btn btn-warning waves-effect pull-right m-t-10">Recoger</button>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn btn-block bgm-blue-soria waves-effect m-t-10" id="btn-retirar-ingresos">Retirar</button>
+              </div>
             </div>
-          {!!Form::close()!!}
+          {!! Form::close() !!}
         </div>
       </div>
     </div>
   </div>
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('js/tesorera.js') }}"></script>
 @endsection

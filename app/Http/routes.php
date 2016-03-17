@@ -43,6 +43,8 @@ Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
 Route::resource('tesorera/ingresos','IngresosController');
 Route::post('tesorera/egresos/rubroNuevo', 'RubrosController@crearconajax');
+Route::get('tesorera/retirar/{id_cajera}', 'RetirosController@retiroTesorera');
+Route::post('tesorera/retirar/actualizar', 'RetirosController@store');
 /*** Rutas para tesorera ***/
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');

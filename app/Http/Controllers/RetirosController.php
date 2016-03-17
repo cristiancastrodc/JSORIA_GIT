@@ -123,4 +123,12 @@ class RetirosController extends Controller
             return response()->json($pagos);
         }
     }
+
+    public function retiroTesorera(Request $request, $id_cajera)
+    {
+        if ($request->ajax()) {
+            $pagos = Deuda_Ingreso::retiroTesorera($id_cajera, Auth::user()->id);
+            return response()->json($pagos);
+        }
+    }
 }
