@@ -52,7 +52,7 @@
         </div>
         <div class="card-body card-padding">
           <div class="table-responsive">
-            <table id="data-table-basic" class="table table-striped">
+            <table id="tabla-listar-rubro" class="table table-striped">
                 <thead>
                     <tr>
                         <th data-column-id="id" data-visible="false">Id</th>
@@ -67,10 +67,7 @@
                           <td>{{$rubro->id}}</td>
                           <td>{{$rubro->nombre}}</td> 
                           <td>
-                          <td><a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber m-r-20' data-id=" {{ $rubro->id }}" data-nombre="{{ $rubro->nombre }}"><i class='zmdi zmdi-edit'></i></a></td>
-                          {!!Form::open(['route' => ['admin.usuarios.destroy', $user->id], 'method' => 'DELETE', 'class' => 'inline-form'])!!}
-                            <button type="submit" class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"><i class="zmdi zmdi-delete"></i></button>
-                          {!!Form::close()!!}
+                          <td><a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber m-r-20' data-id="{{ $rubro->id }}" data-nombre="{{ $rubro->nombre }}"><i class='zmdi zmdi-edit'></i></a></td>
                           {!!Form::close()!!}
                         </td>
                         </tr>                      
@@ -89,4 +86,6 @@
 @endsection
 
 @section('scripts')
+  <script src="{{ asset('vendors/bootstrap-growl/bootstrap-growl.min.js') }}"></script>
+  <script src="{{ asset('js/tesorera.js') }}"></script>
 @endsection

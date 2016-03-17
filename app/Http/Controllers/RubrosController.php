@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\RubroCreateRequest;
+use JSoria\Http\Requests\RubroUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Rubro;
@@ -83,7 +84,18 @@ class RubrosController extends Controller
      */
     public function update(RubroUpdateRequest $request, $id)
     {
-        //
+       $rubro = Rubro::find($id);
+
+        $operacion = $request['operacion'];
+
+        if ($operacion == 'actualizar') {
+            $rubro->nombre = $request['nombre'];
+            $rubro->save();
+
+        return response()->json([
+            'mensaje' => 'actualizado'
+        ]);
+        }
     }
 
     /**
