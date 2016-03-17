@@ -43,8 +43,6 @@
         </div>
       </div>
     </div>
-
-
     <div class="col-md-7">
       <div class="card">
         <div class="card-header">
@@ -52,28 +50,30 @@
         </div>
         <div class="card-body card-padding">
           <div class="table-responsive">
+            {!! Form::open() !!}
+            <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}">
             <table id="tabla-listar-rubro" class="table table-striped">
                 <thead>
                     <tr>
-                        <th data-column-id="id" data-visible="false">Id</th>
-                        <th data-column-id="rubro" class="warning c-white">Rubro</th>
-                        <th data-column-id="acciones" data-formatter="commands" data-sortable="false">Acciones</th>
+                        <th class="warning c-white">Id</th>
+                        <th class="warning c-white">Rubro</th>
+                        <th class="warning c-white">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-
-                      @foreach ($rubros as $rubro) 
-                        <tr>
-                          <td>{{$rubro->id}}</td>
-                          <td>{{$rubro->nombre}}</td> 
-                          <td>
-                          <td><a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber m-r-20' data-id="{{ $rubro->id }}" data-nombre="{{ $rubro->nombre }}"><i class='zmdi zmdi-edit'></i></a></td>
-                          {!!Form::close()!!}
-                        </td>
-                        </tr>                      
-                      @endforeach
+                  @foreach ($rubros as $rubro)
+                    <tr>
+                      <td class='rubro-id'>{{$rubro->id}}</td>
+                      <td>{{$rubro->nombre}}</td>
+                      <td>
+                        <a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber' data-id="{{ $rubro->id }}" data-nombre="{{ $rubro->nombre }}"><i class='zmdi zmdi-edit'></i></a>
+                        <a class="btn btn-danger waves-effect eliminar-rubro" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"><i class="zmdi zmdi-delete"></i></a>
+                      </td>
+                    </tr>
+                  @endforeach
                 </tbody>
             </table>
+            {!! Form::close() !!}
           </div>
         </div>
       </div>

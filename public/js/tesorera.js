@@ -250,6 +250,8 @@ $('#modal-editar-rubro').on('shown.bs.modal', function (e) {
 });
 
 $('#modal-editar-rubro #modal-guardar').click(function () {
+  debug('Boton editar rubro presionado.');
+
   var $modal = $('#modal-editar-rubro');
   var $id = $('#modal-id').val();
   var $nombre = $('#modal-nombre').val();
@@ -264,12 +266,11 @@ $('#modal-editar-rubro #modal-guardar').click(function () {
     dataType : 'json',
     data : {
       nombre : $nombre,
-      operacion : 'actualizar'
     },
     success : function (data) {
       swal({
           title: "Éxito",
-          text: "Se actualizó el Rubro.",
+          text: data.mensaje,
           type: "success",
           closeOnConfirm : true
       }, function(){
@@ -283,7 +284,7 @@ $('#modal-editar-rubro #modal-guardar').click(function () {
           type: "error",
           closeOnConfirm: true
       }, function(){
-        console.log('fail');
+        debug('Hubo un error en la petición AJAX.');
       });
     },
     error : function (msg) {
@@ -299,25 +300,63 @@ $('#modal-editar-rubro #modal-guardar').click(function () {
   });
 });
 
-function reloadTablaRubros (modal_rubro) {
-    var ruta = 'rubro/listar/';
-    $('#tabla-listar-rubro tbody').empty();
+function reloadTablaRubros (modal_rubro, origen = "") {
+  debug('Recargar tabla de rubros.');
 
-    $.get(ruta, function (data) {
-      if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            var fila = "<tr>";
-            fila += "<td>" + data[i].id + "</td>";
-            fila += "<td>" + data[i].nombre + "</td>";
-            fila += "<td><a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber m-r-20' data-id=" + data[i].id + " data-nombre="+ data[i].nombre +"><i class='zmdi zmdi-edit'></i></a></td>";
-            fila += "</tr>";
-            $('#tabla-listar-rubro tbody').append(fila);
-        };
-      } else {
-        $('#tabla-listar-rubro tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
-      }
-    });
+  var ruta = 'rubro/listar/';
+  $('#tabla-listar-rubro tbody').empty();
 
+  $.get(ruta, function (data) {
+    if (data.length > 0) {
+      for (var i = 0; i < data.length; i++) {
+        var fila = "<tr>";
+        fila += "<td class='rubro-id'>" + data[i].id + "</td>";
+        fila += "<td>" + data[i].nombre + "</td>";
+        fila += "<td><a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber' data-id=" + data[i].id + " data-nombre="+ data[i].nombre +"><i class='zmdi zmdi-edit'></i></a>";
+        fila += "<a class='btn btn-danger waves-effect eliminar-rubro' data-toggle='tooltip' data-placement='top' data-original-title='Eliminar'><i class='zmdi zmdi-delete'></i></a></td>";
+        fila += "</tr>";
+        $('#tabla-listar-rubro tbody').append(fila);
+      };
+    } else {
+      $('#tabla-listar-rubro tbody').append('<tr><td colspan="3">No existen resultados.</td></tr>');
+    }
+  });
+
+  if (origen = "") {
     modal_rubro.modal('hide');
+  };
 }
+
+$('#tabla-listar-rubro').on('click', '.eliminar-rubro', function(e) {
+  debug('Eliminar Rubro');
+
+  var $id = $(this).parents('tr').find('.rubro-id').html();
+  var ruta = '/tesorera/rubros/' + $id;
+  var $token = $('#_token').val();
+
+  $.ajax({
+    url: ruta,
+    headers : { 'X-CSRF-TOKEN' : $token },
+    type : 'DELETE',
+    dataType : 'json',
+    success : function (data) {
+      //debug(data, false);
+      if (data.tipo == 'exito') {
+        swal({
+          title : '¡Éxito!',
+          text : data.mensaje,
+          type : 'success'
+        }, function () {
+          reloadTablaRubros(null, 'eliminar');
+        });
+      } else{
+        swal({
+          title : 'Ocurrió un error.',
+          text : data.mensaje,
+          type : 'error'
+        });
+      };
+    },
+  })
+});
 /*** Fin de Mantenimiento de Rubro ***/
