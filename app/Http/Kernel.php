@@ -28,6 +28,9 @@ class Kernel extends HttpKernel {
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'JSoria\Http\Middleware\RedirectIfAuthenticated',
 		'admin' => 'JSoria\Http\Middleware\Admin',
+		'tesorera' => 'JSoria\Http\Middleware\tesorera',
+		'Secretaria' => 'JSoria\Http\Middleware\Secretaria',
+		'Cajera' => 'JSoria\Http\Middleware\Cajera',
 	];
 
 }
