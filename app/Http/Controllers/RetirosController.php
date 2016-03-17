@@ -9,6 +9,11 @@ use JSoria\Http\Controllers\Controller;
 
 class RetirosController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+      $this->middleware('Cajera');
+    }
     /**
      * Display a listing of the resource.
      *
