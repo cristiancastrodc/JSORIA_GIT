@@ -83,22 +83,23 @@
       </div>
       <div class="card js-toggle" id="card-deuda-extraordinaria">
         <div class="card-header">
-          <h3>Cliente: Marcelo Soto Paredes</h3>
+          <h3><span id="cliente_extr" class="text-uppercase"></span></h3>
         </div>
         <div class="card-body card-padding">
           <form class="form-horizontal" role="form">
+            <input type="hidden" id="id_deuda_extr">
             <div class="form-group">
               <div class="col-sm-2"><h4>Concepto:</h4></div>
-              <div class="col-sm-8">Alquiler de local. Días 21-01 al 23-01.</div>
-              <div class="col-sm-2">S/ 500.00</div>
+              <div class="col-sm-8"><span id="descripcion_extr"></span></div>
+              <div class="col-sm-2">S/ <span id="monto_extr"></span></div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
                 <div class="pull-right">
-                  <button class="btn btn-gray waves-effect">Cancelar</button>
-                  <button class="btn bgm-green waves-effect">Comprobante</button>
-                  <button class="btn bgm-indigo waves-effect">Boleta</button>
-                  <button class="btn bgm-red waves-effect">Factura</button>
+                  <button class="btn btn-gray waves-effect cobro_extr">Cancelar</button>
+                  <button class="btn bgm-green waves-effect cobro_extr" id="btn-comprobante">Comprobante</button>
+                  <button class="btn bgm-indigo waves-effect cobro_extr" id="btn-boleta">Boleta</button>
+                  <button class="btn bgm-red waves-effect cobro_extr" id="btn-factura">Factura</button>
                 </div>
               </div>
             </div>

@@ -13,50 +13,64 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
         text : response['mensaje'],
         type : 'warning',
       });
-    } else{
-      var nombre_alumno = response[0].nombres + ' ' + response[0].apellidos;
-      var nro_documento = response[0].nro_documento;
-      $('#nro_documento').val(nro_documento);
-      $('#nombre-alumno').html(nombre_alumno);
-      var nombre_institucion = response[1].nombre;
-      var id_institucion = response[1].id;
-      $('#id_institucion').val(id_institucion);
-      $('#nombre-institucion').html(nombre_institucion);
+    } else {
+      if (response['res']) {
+        var deuda = response['deuda'];
+        var cliente = deuda['cliente_extr'];
+        var descripcion = deuda['descripcion_extr'];
+        var monto = deuda['saldo'];
+        var id_deuda = deuda['id'];
 
-      $('#tabla-pagos-pendientes tbody').empty();
-      for (var i = 0; i < response[2].length; i++) {
-        var fila = "<tr>";
-        fila += "<td class='hidden id'>" + response[2][i].id + "</td>";
-        fila += "<td class='hidden destino'>" + response[2][i].destino + "</td>";
-        fila += "<td class='nombre'>" + response[2][i].nombre + "</td>";
+        $("#cliente_extr").html(cliente);
+        $("#descripcion_extr").html(descripcion);
+        $("#monto_extr").html(monto.toFixed(2));
+        $('#id_deuda_extr').val(id_deuda);
+        $('#card-deuda-extraordinaria.js-toggle').slideDown('fast');
+      } else{
+        var nombre_alumno = response[0].nombres + ' ' + response[0].apellidos;
+        var nro_documento = response[0].nro_documento;
+        $('#nro_documento').val(nro_documento);
+        $('#nombre-alumno').html(nombre_alumno);
+        var nombre_institucion = response[1].nombre;
+        var id_institucion = response[1].id;
+        $('#id_institucion').val(id_institucion);
+        $('#nombre-institucion').html(nombre_institucion);
 
-        monto = parseFloat(response[2][i].saldo) - parseFloat(response[2][i].descuento);
-        fila += "<td class='text-right monto'>" + monto.toFixed(2) + "</td>";
+        $('#tabla-pagos-pendientes tbody').empty();
+        for (var i = 0; i < response[2].length; i++) {
+          var fila = "<tr>";
+          fila += "<td class='hidden id'>" + response[2][i].id + "</td>";
+          fila += "<td class='hidden destino'>" + response[2][i].destino + "</td>";
+          fila += "<td class='nombre'>" + response[2][i].nombre + "</td>";
 
-        fila += "<td><label class='checkbox checkbox-inline'><input type='checkbox' class='selected'><i class='input-helper'></i> Seleccionar</label></td>";
-        fila += "</tr>";
+          monto = parseFloat(response[2][i].saldo) - parseFloat(response[2][i].descuento);
+          fila += "<td class='text-right monto'>" + monto.toFixed(2) + "</td>";
 
-        $('#tabla-pagos-pendientes tbody').append(fila);
+          fila += "<td><label class='checkbox checkbox-inline'><input type='checkbox' class='selected'><i class='input-helper'></i> Seleccionar</label></td>";
+          fila += "</tr>";
+
+          $('#tabla-pagos-pendientes tbody').append(fila);
+        };
+
+        $('#tabla-categorias-compras tbody').empty();
+        for (var i = 0; i < response[3].length; i++) {
+          var fila = "<tr class='" + response[3][i].id + "'>";
+          fila += "<td class='hidden id'>" + response[3][i].id + "</td>";
+          fila += "<td class='hidden destino'>" + response[3][i].destino + "</td>";
+          fila += "<td><div class='fg-line'><input type='text' class='form-control text-right cantidad' value='0' onkeyup='calcularImporte(" + response[3][i].id + ", this.value)'></div></td>";
+          fila += "<td class='nombre'>" + response[3][i].nombre + "</td>";
+          fila += "<td><input type='text' class='form-control text-right monto disabled' disabled value='" + response[3][i].monto + "' /></td>";
+          fila += "<td><input type='text' class='form-control text-right importe disabled' disabled /></td>";
+          fila += "</tr>";
+
+          $('#tabla-categorias-compras tbody').append(fila);
+        };
+
+        /***** DEBUG MESSAGE *****/
+        debug(response, false);
+        /*************************/
+        $('#card-deudas-alumno.js-toggle').slideDown();
       };
-
-      $('#tabla-categorias-compras tbody').empty();
-      for (var i = 0; i < response[3].length; i++) {
-        var fila = "<tr class='" + response[3][i].id + "'>";
-        fila += "<td class='hidden id'>" + response[3][i].id + "</td>";
-        fila += "<td class='hidden destino'>" + response[3][i].destino + "</td>";
-        fila += "<td><div class='fg-line'><input type='text' class='form-control text-right cantidad' value='0' onkeyup='calcularImporte(" + response[3][i].id + ", this.value)'></div></td>";
-        fila += "<td class='nombre'>" + response[3][i].nombre + "</td>";
-        fila += "<td><input type='text' class='form-control text-right monto disabled' disabled value='" + response[3][i].monto + "' /></td>";
-        fila += "<td><input type='text' class='form-control text-right importe disabled' disabled /></td>";
-        fila += "</tr>";
-
-        $('#tabla-categorias-compras tbody').append(fila);
-      };
-
-      /***** DEBUG MESSAGE *****/
-      debug(response, false);
-      /*************************/
-      $('#card-deudas-alumno.js-toggle').slideDown();
     };
   });
 });
@@ -121,7 +135,7 @@ $('#btn-finalizar-pago').click(function (e) {
   if (nro_pagos_sel == 0 && nro_compras == 0) {
     swal({
       title : 'Advertencia',
-      text : 'Debe seleccionar un deuda a pagar o una compra como mínimo.',
+      text : 'Debe seleccionar una deuda a pagar o una compra como mínimo.',
       type : 'warning'
     });
   } else{
@@ -132,14 +146,15 @@ $('#btn-finalizar-pago').click(function (e) {
       botones += "<button type='button' class='btn bgm-orange btn-md' id='btn-boleta'>BOLETA</button><button type='button' class='btn bgm-green btn-md' id='btn-factura'>FACTURA</button>";
     }
     $modal.find('.modal-footer').html(botones);
-    enlazarBotones();
+    debug('enlazar');
+    //enlazarBotones($modal);
     $modal.modal('show');
   };
 });
 
-function enlazarBotones () {
-  $('#btn-comprobante').click(function(e) {
+$('#modal-resumen-pago').on('click', '#btn-comprobante', function(e) {
     e.preventDefault();
+    debug('btn-comprobante');
 
     var $id_institucion = $('#id_institucion').val();
     var $nro_documento = $('#nro_documento').val();
@@ -148,7 +163,7 @@ function enlazarBotones () {
     var $id_compras = $("#id_compras").val();
 
     $.ajax({
-      url: 'cajera/cobro/guardar',
+      url: '/cajera/cobro/guardar',
       headers: {'X-CSRF-TOKEN' : $token},
       type: 'POST',
       dataType: 'json',
@@ -158,24 +173,91 @@ function enlazarBotones () {
         id_pagos : $id_pagos,
         id_compras : $id_compras,
       },
-    })
-    .done(function(data) {
-      /***** DEBUG MESSAGE *****/
-      debug(data.mensaje);
-      /*************************/
-    })
-    .fail(function(data) {
-      /***** DEBUG MESSAGE *****/
-      debug(data, false);
-      /*************************/
+      success : function (data) {
+        debug(data, false);
+        swal({
+          title : '¡Éxito!',
+          text :  data.mensaje,
+          type : 'success',
+        }, function () {
+          //$modal.modal('hide');
+          document.location.reload();
+        });
+      }
     });
-  });
+});
 
-  $('#btn-boleta').click(function(e) {
+$('#modal-resumen-pago').on('click', '#btn-boleta', function(e) {
     e.preventDefault();
-  });
+    debug('btn-comprobante');
 
-  $('#btn-factura').click(function(e) {
+    var $id_institucion = $('#id_institucion').val();
+    var $nro_documento = $('#nro_documento').val();
+    var $token = $('#_token').val();
+    var $id_pagos = $("#id_pagos").val();
+    var $id_compras = $("#id_compras").val();
+
+    $.ajax({
+      url: '/cajera/cobro/guardar',
+      headers: {'X-CSRF-TOKEN' : $token},
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        id_institucion: $id_institucion,
+        nro_documento : $nro_documento,
+        id_pagos : $id_pagos,
+        id_compras : $id_compras,
+      },
+      success : function (data) {
+        debug(data, false);
+        swal({
+          title : '¡Éxito!',
+          text :  data.mensaje,
+          type : 'success',
+        }, function () {
+          //$modal.modal('hide');
+          document.location.reload();
+        });
+      }
+    });
+});
+
+$('#modal-resumen-pago').on('click', '#btn-factura', function(e) {
     e.preventDefault();
-  });
+    debug('btn-comprobante');
+
+    var $id_institucion = $('#id_institucion').val();
+    var $nro_documento = $('#nro_documento').val();
+    var $token = $('#_token').val();
+    var $id_pagos = $("#id_pagos").val();
+    var $id_compras = $("#id_compras").val();
+
+    $.ajax({
+      url: '/cajera/cobro/guardar',
+      headers: {'X-CSRF-TOKEN' : $token},
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        id_institucion: $id_institucion,
+        nro_documento : $nro_documento,
+        id_pagos : $id_pagos,
+        id_compras : $id_compras,
+      },
+      success : function (data) {
+        debug(data, false);
+        swal({
+          title : '¡Éxito!',
+          text :  data.mensaje,
+          type : 'success',
+        }, function () {
+          //$modal.modal('hide');
+          document.location.reload();
+        });
+      }
+    });
+});
+
+/*** Inicio de Procesar guardado del cobro ***/
+function procesarGuardarTransaccion ($modal) {
 }
+/*** Fin de Procesar guardado del cobro ***/
