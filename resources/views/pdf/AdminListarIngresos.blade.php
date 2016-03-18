@@ -10,15 +10,58 @@
 <body>
 <div >
   <h1>LISTA DE INGRESOS</h1>
+  <?php
+  switch ($id_categoria) {
+    case 'matricula':
+      $id_categoria='Matriculas';
+      break;
+    case 'pension':
+      $id_categoria='Matriculas';
+      break;
+    case 'actividad':
+      $id_categoria='Actividades';
+      break;
+    case 'cobro_extraordinario':
+      $id_categoria='Cobros Extraordinarios';
+      break;
+    case 'con_factor':
+      $id_categoria='Cobro Con Facto';
+      break;
+    case 'sin_factor':
+      $id_categoria='Cobro Sin Factor';
+      break;
+    case 'multiple':
+      $id_categoria='Otros cobros';
+      break;    
+    default:      
+      break;
+  }
+  ?>
+  <?php if ($nombre_nivel['nombre_division']=='Todo'){
+    $nombre_nivel['nombre_division']='';
+  }
+  else
+  {
+   $nombre_nivel['nombre_division'] = '- '.$nombre_nivel['nombre_division'];
+  }
+  ?>    
+  <h2>Institucion: {{$id_institucion}} {{$nombre_nivel['nombre_division']}}</h2>
+  <?php if ($var_checkbox=='true'){
 
-  <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
+  }
+  else{?>
   <h2>Categoria: {{$id_categoria}}</h2>
-  <table >
+  <?php
+  }
+  ?>
+  <h2>Fecha Inicial: {{$fecha_inicio}}</h2>
+  <h2>Fecha Final: {{$fecha_fin}}</h2>  
+  <!--<table >
     <tr >
     <td>Fecha Inicial:{{$fecha_inicio}}</td>
     <td>Fecha Final: {{$fecha_inicio}}</td>
     </tr>
-  </table>
+  </table>-->
      <!--Fecha con sus labes en 2 columnas--> 
   <table >
     <thead>
@@ -55,8 +98,8 @@
         <tfoot>
           <tr>
             <td colspan="4"></td>
-            <td ><b>TOTAL</b></td>
-            <td><b><?php echo $total;?></b></td>
+            <td ><b>TOTAL (S/)</b></td>
+            <td><b><?php echo number_format($total,2); ?></b></td>
           </tr>
         </tfoot>  
 </table>

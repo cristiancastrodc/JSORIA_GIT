@@ -8,6 +8,8 @@ use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
+use JSoria\InstitucionDetalle;
+use JSoria\Institucion;
 
 class AdminReporteCuentaAlumno extends Controller
 {
@@ -45,17 +47,17 @@ class AdminReporteCuentaAlumno extends Controller
                             ->join('alumno','id_alumno','=','alumno.nro_documento')
                             ->where('estado_pago','=',0)
                             ->where('id_alumno','=',$id_alumno)
-                            ->select('categoria.nombre','saldo','descuento','alumno.nombres','alumno.apellidos')
+                            ->select('categoria.nombre','saldo','descuento','alumno.nombres','alumno.apellidos','categoria.id_detalle_institucion')
                             ->get();
-        //return $datas;
 
-/*select jsoria_categoria.nombre,jsoria_deuda_ingreso.saldo-jsoria_deuda_ingreso.descuento as Monto
-from jsoria_deuda_ingreso
-inner join jsoria_categoria
-on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
-where jsoria_deuda_ingreso.estado_pago = 0
-    and jsoria_deuda_ingreso.id_alumno = id_alumno*/
-        $view =  \View::make('pdf.AdminCuentaAlumno', compact('id_alumno','datas'))->render();
+        $id_detalle_institucion = $datas[0]->id_detalle_institucion;
+       
+        $Institucion_alumno = InstitucionDetalle::join('institucion','id_institucion','=','institucion.id')
+                                                ->where('detalle_institucion.id','=',$id_detalle_institucion)
+                                                ->select('detalle_institucion.nombre_division','Institucion.nombre')
+                                                ->get();
+
+        $view =  \View::make('pdf.AdminCuentaAlumno', compact('id_alumno','datas','Institucion_alumno'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminCuentaAlumno'); 

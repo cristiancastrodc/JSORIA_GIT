@@ -36,8 +36,16 @@
               <label for="id_rubro" class="col-sm-3 control-label">Rubro</label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="rubro" id="rubro" title='Seleccione'>
-                </select> 
-                <input type="checkbox" name="checkbox_todos" id=" checkbox_todos"> Todos
+                </select>
+                  <div class="col-sm-9 col-sm-3">
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" name="checkbox_todos" id="checkbox_todos">
+                              <i class="input-helper"></i>
+                              Todos                              
+                          </label>
+                      </div>
+                  </div>                 
               </div>
             </div>
 
@@ -65,7 +73,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarEgreso">Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarEgreso" formtarget="_blank">Generar</button>
               </div>
             </div>
           {!!Form::close()!!}

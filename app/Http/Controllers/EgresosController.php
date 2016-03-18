@@ -5,6 +5,8 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
+use JSoria\Http\Requests\EgresoCreateRequest;
+use JSoria\Http\Requests\EgresoUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\DetalleEgreso;
@@ -139,7 +141,7 @@ class EgresosController extends Controller
     }
 
     /*** Crear un Egreso ***/
-    public function crearEgreso(Request $request)
+    public function crearEgreso(EgresoCreateRequest $request)
     {
         if ($request->ajax()) {
             $id_institucion = $request->id_institucion;

@@ -55,7 +55,7 @@
                   <div class="col-sm-9 col-sm-3">
                       <div class="checkbox">
                           <label>
-                              <input type="checkbox" name="todas_categorias" id="todas_categorias">
+                              <input type="checkbox" name="todas_categorias" id="todas_categorias" class="input_control">
                               <i class="input-helper"></i>
                               Todos                              
                           </label>
@@ -89,7 +89,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso" >Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso" formtarget="_blank">Generar</button>
               </div>
             </div>
           {!!Form::close()!!}

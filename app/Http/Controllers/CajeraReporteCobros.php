@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
-use JSoria\Egreso;
-
-class AdminReporteEgresosRubro extends Controller
+use JSoria\Categoria;
+use Carbon\Carbon;
+use DB;
+use Auth;
+class CajeraReporteCobros extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +20,21 @@ class AdminReporteEgresosRubro extends Controller
      */
     public function index()
     {
-        return view('admin.reportes.EgresosRubro');
+        $today= Carbon::now();
+        $today=$today->toDateString();
+        $id_cajera=Auth::user()->id;
+
+        $datas = Categoria::join('deuda_ingreso','categoria.id','=','deuda_ingreso.id_categoria')
+                            ->leftJoin('alumno','deuda_ingreso.id_alumno','=','alumno.nro_documento')
+                            ->where('estado_pago','=',1)
+                            ->where(DB::raw('date(fecha_hora_ingreso)'),'=',$today)
+                            ->where('id_cajera','=',$id_cajera)
+                            ->select(DB::raw('date(fecha_hora_ingreso) as Fecha'),'alumno.nombres','alumno.apellidos','deuda_ingreso.cliente_extr','categoria.nombre','deuda_ingreso.saldo','deuda_ingreso.descuento')
+                            ->get();   
+        $view =  \View::make('pdf.CajeraCobros', compact('datas','today'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('CajeraCobros');                          
     }
 
     /**
@@ -39,41 +55,8 @@ class AdminReporteEgresosRubro extends Controller
      */
     public function store(Request $request)
     {
-        $id_institucion = $request['id_institucion'];
-
-        $fecha_inicio = $request['fecha_inicio'];
-        $fecha_fin = $request['fecha_fin'];
-
-        $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
-                            ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
-                            ->where('id_institucion','=',$id_institucion)
-                            ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-                            ->groupBy('nombre','id_rubro')
-                            ->select('nombre','monto')
-                            ->get();
-
-        switch ($id_institucion) {
-            case 1:
-                $id_institucion='I.E. J. Soria';
-                break;
-            case 2:
-                $id_institucion='CEBA Konrad Adenahuer';
-                break;
-            case 3:
-                $id_institucion='I.S.T. Urusayhua';
-                break;
-            case 4:
-                $id_institucion='ULP';
-                break;
-            default:
-                break;
-        }
-        $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','datas','fecha_inicio','fecha_fin'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        return $pdf->stream('AdminEgresosRubro'); 
+        //
     }
-    
 
     /**
      * Display the specified resource.

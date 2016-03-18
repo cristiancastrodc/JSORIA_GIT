@@ -56,20 +56,8 @@ class AdminReporteListarEgresos extends Controller
                             ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
                             ->where('id_institucion','=',$id_institucion)
                             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
-                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })*/
-//                            ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                            ->select('tipo_comprobante','numero_comprobante','nombre','monto')
                             ->get();
-/*select jsoria_egreso.tipo_comprobante,jsoria_egreso.numero_comprobante,jsoria_rubro.nombre as Rubro,jsoria_detalle_egreso.monto as Monto
-from jsoria_egreso
-inner join jsoria_detalle_egreso
-on jsoria_egreso.id = jsoria_detalle_egreso.id_egreso
-inner join jsoria_rubro
- on jsoria_detalle_egreso.id_rubro = jsoria_rubro.id
-where jsoria_egreso.id_institucion = id_institucion
-    and (jsoria_egreso.fecha between ''fecha_inicio' and  ''fecha_fin');            */
         }
         else
         {
@@ -79,26 +67,9 @@ where jsoria_egreso.id_institucion = id_institucion
                             ->where('id_institucion','=',$id_institucion)
                             ->where('detalle_egreso.id_rubro','=',$id_rubro)
                             ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
-                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })*/
-//                            ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                            ->select('tipo_comprobante','numero_comprobante','nombre','monto')
                             ->get();
-                            
-/*select jsoria_egreso.tipo_comprobante,jsoria_egreso.numero_comprobante,jsoria_rubro.nombre as Rubro,jsoria_detalle_egreso.monto as Monto
-from jsoria_egreso
-inner join jsoria_detalle_egreso
-on jsoria_egreso.id = jsoria_detalle_egreso.id_egreso
-inner join jsoria_rubro
- on jsoria_detalle_egreso.id_rubro = jsoria_rubro.id
-where jsoria_egreso.id_institucion = id_institucion
-    and (jsoria_egreso.fecha between ''fecha_inicio' and  ''fecha_fin')
-    and jsoria_detalle_egreso.id_rubro= 'rubro';*/
         }
-        return $datas;
-
-
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';
