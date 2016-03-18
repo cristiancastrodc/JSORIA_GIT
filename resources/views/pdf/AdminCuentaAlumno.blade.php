@@ -11,6 +11,7 @@
 <div >
   <h1>Cuenta Alumno</h1>
   <h2>Alumno: {{$datas[1]['nombres'].' '.$datas[1]['apellidos']}}</h2>
+  <h2>Institucion: {{$Institucion_alumno[0]['nombre'].' - '.$Institucion_alumno[0]['nombre_division']}}</h2>
   <table >
     <thead>
       <tr>
