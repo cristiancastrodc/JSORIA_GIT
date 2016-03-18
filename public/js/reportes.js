@@ -106,3 +106,9 @@ $(document).ready(function () {
       $('#id_categoria').attr("disabled", $(this).is(":checked"));
    });
 });
+
+$(document).ready(function () {
+   $("#checkbox_todos").click(function () {
+      $('#rubro').attr("disabled", $(this).is(":checked"));
+   });
+});

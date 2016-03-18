@@ -62,10 +62,6 @@ class AdminReporteListarIngresos extends Controller
                             })
                             ->where('detalle_institucion.id_institucion','=',$id_institucion)
                             ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
-                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
-                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })*/
                             ->select('fecha_hora_ingreso','id_alumno','cliente_extr','nombre','saldo','descuento')
                             ->get();            
         }
@@ -82,14 +78,9 @@ class AdminReporteListarIngresos extends Controller
                             })
                             ->where('detalle_institucion.id_institucion','=',$id_institucion)
                             ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
-                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
-                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })*/
                             ->select('fecha_hora_ingreso','id_alumno','cliente_extr','nombre','saldo','descuento')
                             ->get();
         }
-        //return $id_detalle_institucion.' '.$id_detalle_institucion;
                             
         $nombre_nivel= InstitucionDetalle::where('id','=',$id_detalle_institucion)
                             ->select('nombre_division')

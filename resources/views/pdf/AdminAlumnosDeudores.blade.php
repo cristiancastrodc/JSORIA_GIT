@@ -8,8 +8,19 @@
   <body>
 <div >
   <h1>LISTA DE ALUMNOS DEUDORES</h1>
-  <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
+  <?php if ($nombre_nivel['nombre_division']=='Todo'){
+    $nombre_nivel['nombre_division']='';?>
+  <h2>Institucion: {{$id_institucion}} {{$nombre_nivel['nombre_division']}}</h2>
+  <?php
+  }
+  else
+  {
+   $nombre_nivel['nombre_division'] = '- '.$nombre_nivel['nombre_division'];?>
+  <h2>Institucion: {{$id_institucion}} {{$nombre_nivel['nombre_division']}}</h2>
   <h2>Grado: {{$id_grado['nombre_grado']}}</h2>
+  <?php
+  }
+  ?>  
   <table >
     <thead>
       <tr>

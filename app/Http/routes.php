@@ -103,6 +103,16 @@ Route::resource('admin/reportes/CuentaAlumno/procesar','AdminReporteCuentaAlumno
 
 Route::get('cajera/reporte/procesar','CajeraReporteCobros@index');
 
+Route::get('tesorera/reportes/ListaIngresos', 'AdminReporteListarIngresos@index');
+Route::resource('tesorera/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
+Route::get('tesorera/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
+Route::get('tesorera/reportes/IngresosCategoria', 'AdminReporteIngresosCategoria@index');
+Route::resource('tesorera/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria');
+Route::get('tesorera/reportes/IngresosTotales', 'AdminReporteIngresosTotales@index');
+Route::resource('tesorera/reportes/IngresosTotales/procesar','AdminReporteIngresosTotales');
+Route::get('tesorera/reportes/ListaEgresos', 'AdminReporteListarEgresos@index');
+Route::resource('tesorera/reportes/ListaEgresos/procesar','AdminReporteListarEgresos');
+Route::get('tesorera/rubros','RubrosController@listaRubros');
 Route::get('tesorera/reportes/EgresosRubro', 'AdminReporteEgresosRubro@index');
 Route::resource('tesorera/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
 Route::get('tesorera/reportes/EgresosTotales', 'AdminReporteEgresosTotales@index');

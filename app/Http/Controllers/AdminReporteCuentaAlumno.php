@@ -56,13 +56,7 @@ class AdminReporteCuentaAlumno extends Controller
                                                 ->where('detalle_institucion.id','=',$id_detalle_institucion)
                                                 ->select('detalle_institucion.nombre_division','Institucion.nombre')
                                                 ->get();
- //return $Institucion_alumno;
-/*select jsoria_categoria.nombre,jsoria_deuda_ingreso.saldo-jsoria_deuda_ingreso.descuento as Monto
-from jsoria_deuda_ingreso
-inner join jsoria_categoria
-on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
-where jsoria_deuda_ingreso.estado_pago = 0
-    and jsoria_deuda_ingreso.id_alumno = id_alumno*/
+
         $view =  \View::make('pdf.AdminCuentaAlumno', compact('id_alumno','datas','Institucion_alumno'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
