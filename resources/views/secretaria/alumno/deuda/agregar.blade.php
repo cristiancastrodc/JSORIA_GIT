@@ -17,7 +17,7 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
       <div class="card">
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-categorias-alumno'])!!}
@@ -38,12 +38,10 @@
         </div>
       </div>
       <div class="card js-toggle">
-        <div class="card-header">
-          <h3><span id="nombre-alumno"></span></h3>
-        </div>
         <div class="card">
           <div class="card-body card-padding">
-            {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-categorias-alumno'])!!}
+            <h3 class="text-uppercase"><span id="nombre-alumno"></span></h3>
+            {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-agregar-deuda-alumno'])!!}
               <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
               <input type="hidden" name="nro_documento" id="nro_documento">
               <div class="form-group">
@@ -61,11 +59,11 @@
                       <tbody>
                       </tbody>
                   </table>
-                </div>                
+                </div>
               </div>
               <div class="form-group">
                 <div class="pull-right">
-                  <button class="btn btn-warning waves-effect">Guardar</button>
+                  <button class="btn btn-warning waves-effect" id="btn-agregar-deuda">Guardar</button>
                 </div>
               </div>
             {!!Form::close()!!}
@@ -75,7 +73,7 @@
     </div>
   </div>
 @endsection
-  
+
 @section('scripts')
   <script src="{{ asset('js/secretaria.js') }}"></script>
 @endsection

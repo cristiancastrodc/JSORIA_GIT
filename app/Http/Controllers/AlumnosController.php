@@ -65,10 +65,10 @@ class AlumnosController extends Controller
                 ]);
 
             Session::flash('message', 'Alumno creado exitosamente. Ahora, si desea puede crear su cuenta.');
-            return redirect('/secretaria/alumno/matricular')->with('nro_documento', $nro_documento);            
+            return redirect('/secretaria/alumno/matricular')->with('nro_documento', $nro_documento);
         } catch (\Illuminate\Database\QueryException $e) {
             Session::flash('message', 'El número de documento ingresado ya existe.');
-            return redirect('/secretaria/alumnos/create');            
+            return redirect('/secretaria/alumnos/create');
         }
     }
 
@@ -238,9 +238,9 @@ class AlumnosController extends Controller
                                 ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
                                 ->first();
 
-                
-            if ($estado) {  
-                if ($estado->estado == 1) {                
+
+            if ($estado) {
+                if ($estado->estado == 1) {
                 $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
 
                 $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
@@ -283,7 +283,7 @@ class AlumnosController extends Controller
 
             if ($alumno) {
                 $response = array($alumno, $deudas);
-                return response()->json($response);           
+                return response()->json($response);
             } else {
                 return response()->json([
                     'mensaje' => 'El alumno no existe.'
@@ -302,9 +302,9 @@ class AlumnosController extends Controller
                                    ->where('deuda_ingreso.estado_pago','=',0)
                                    ->where('categoria.tipo','=','actividad')
                                    ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
-                                   ->get();               
-            if ($alumno) {  
-                if ($alumno->estado == 1) {                
+                                   ->get();
+            if ($alumno) {
+                if ($alumno->estado == 1) {
                     $response = array($alumno, $deudas);
                     return response()->json($response);
 
@@ -321,7 +321,7 @@ class AlumnosController extends Controller
         }
     }
 
-    
+
     public function amortizarDeudaAlumno(Request $request, $documento)
     {
         if ($request->ajax()) {
@@ -332,9 +332,9 @@ class AlumnosController extends Controller
                                    ->where('deuda_ingreso.estado_pago','=',0)
                                    ->where('deuda_ingreso.estado_fraccionam','=',0)
                                    ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
-                                   ->get();               
-            if ($alumno) {  
-                if ($alumno->estado == 1) {                
+                                   ->get();
+            if ($alumno) {
+                if ($alumno->estado == 1) {
                     $response = array($alumno, $deudas);
                     return response()->json($response);
 
@@ -348,6 +348,28 @@ class AlumnosController extends Controller
                     'mensaje' => 'El alumno no existe.'
                 ]);
             }
+        }
+    }
+
+    /*** Agregar deudas para un alumno ***/
+    public function agregarDeudasAlumno(Request $request)
+    {
+        if ($request->ajax()) {
+            $nro_documento = $request->nro_documento;
+            $deudas = $request->deudas;
+
+            foreach ($deudas as $deuda) {
+                $id_categoria = $deuda['id_categoria'];
+                $monto = Categoria::find($id_categoria)->monto;
+                $saldo = floatval($monto) * floatval($deuda['factor']);
+
+                Deuda_Ingreso::create([
+                    'saldo' => $saldo,
+                    'id_categoria' => $id_categoria,
+                    'id_alumno' => $nro_documento
+                ]);
+            }
+            return response()->json(['mensaje' => 'Deudas de alumno creadas exitosamente.']);
         }
     }
 }

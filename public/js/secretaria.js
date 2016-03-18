@@ -25,7 +25,7 @@ $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
       $('#form-matricular #nro_documento').val(documento_alumno);
 
       $('.js-toggle').slideDown('fast');
-    }    
+    }
   });
 });
 
@@ -142,7 +142,7 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
       if (response['mensaje']) {
         swal({
               title: "Error",
-              text: "El Alumno NO esta matricula.",
+              text: "El Alumno NO esta matriculado.",
               type: "warning"
           }, function () {
             document.location.reload();
@@ -153,7 +153,7 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
           apellidos_alumno = response[0].apellidos;
 
           $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-          $('#form-categorias-alumno #nro_documento').val(documento_alumno);
+          $('#form-agregar-deuda-alumno #nro_documento').val(documento_alumno);
 
           for (var i = 0; i < response[1].length; i++) {
             var $id = response[1][i].id;
@@ -161,10 +161,10 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
             var $nombre = response[1][i].nombre;
 
             var fila = "<tr>";
-            fila += "<td class='hidden'>" + $id + "</td>";
+            fila += "<td class='hidden id-categoria'>" + $id + "</td>";
             fila += "<td>" + $nombre + "</td>";
             fila += "<td class='text-right'>" + $monto + "</td>";
-            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right' placeholder='Factor'></div></td>";
+            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' placeholder='Factor'></div></td>";
             fila += "<td><p class='text-right total'></p></td>"
             fila += "</tr>";
 
@@ -174,7 +174,7 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
           $('.js-toggle').slideDown('fast');
         }
     }
-    });    
+    });
 });
 
 /*** Listar deudas de alumno ***/
@@ -197,7 +197,7 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
           document.location.reload();
         });
     } else {
-  
+
       documento_alumno = response[0].nro_documento;
       nombres_alumno = response[0].nombres;
       apellidos_alumno = response[0].apellidos;
@@ -206,7 +206,7 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
       $('#form-deudas-alumno #nro_documento').val(documento_alumno);
 
       for (var i = 0; i < response[1].length; i++) {
-      
+
         var $id = response[1][i].id;
         var $monto = response[1][i].saldo;
         var $deuda = response[1][i].nombre;
@@ -217,13 +217,13 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
         fila += "<td class='text-right'>" + $monto + "</td>";
         fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right' placeholder='Descuento'></div></td>";
         fila += "<td><div class='toggle-switch'><input id='ts1' type='checkbox' hidden='hidden'><label for='ts1' class='ts-helper'></label></div></td>";
-        
+
         $('#tabla-deudas-alumno tbody').append(fila);
       }
 
       $('.js-toggle').slideDown('fast');
     }
-  
+
   });
 });
 
@@ -247,7 +247,7 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
           document.location.reload();
         });
     } else {
-  
+
       documento_alumno = response[0].nro_documento;
       nombres_alumno = response[0].nombres;
       apellidos_alumno = response[0].apellidos;
@@ -256,7 +256,7 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
       $('#tabla-actividades-listar-alumno #nro_documento').val(documento_alumno);
 
       for (var i = 0; i < response[1].length; i++) {
-      
+
         var $id = response[1][i].id;
         var $monto = response[1][i].saldo;
         var $deuda = response[1][i].nombre;
@@ -266,12 +266,12 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
         fila += "<td>" + $deuda + "</td>";
         fila += "<td class='text-right'>" + $monto + "</td>";
         fila += "<td><div class='toggle-switch'><input id='ts1' type='checkbox' hidden='hidden'><label for='ts1' class='ts-helper'></label></div></td>";
-        
+
         $('#tabla-actividades-listar-alumno tbody').append(fila);
       }
 
       $('.js-toggle').slideDown('fast');
-    }  
+    }
   });
 });
 
@@ -295,7 +295,7 @@ $('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
           document.location.reload();
         });
     } else {
-  
+
       documento_alumno = response[0].nro_documento;
       nombres_alumno = response[0].nombres;
       apellidos_alumno = response[0].apellidos;
@@ -304,7 +304,7 @@ $('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
       $('#tabla-deudasAmortizacion-alumno #nro_documento').val(documento_alumno);
 
       for (var i = 0; i < response[1].length; i++) {
-      
+
         var $id = response[1][i].id;
         var $monto = response[1][i].saldo;
         var $deuda = response[1][i].nombre;
@@ -314,11 +314,62 @@ $('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
         fila += "<td>" + $deuda + "</td>";
         fila += "<td class='text-right'>" + $monto + "</td>";
         fila += "<td><button class='btn bgm-lightgreen waves-effect'>Amortizar</button></td>";
-        
+
         $('#tabla-deudasAmortizacion-alumno tbody').append(fila);
       }
 
       $('.js-toggle').slideDown('fast');
-    }  
+    }
   });
 });
+
+/*** Inicio de Agregar Deuda a Alumno ***/
+$('#btn-agregar-deuda').click(function(e) {
+  e.preventDefault();
+  debug('Presionado boton agregar deuda a alumno.');
+
+  var $nro_documento = $('#form-agregar-deuda-alumno #nro_documento').val();
+
+  var $filas = $('#tabla-categorias-alumno > tbody > tr');
+
+  var deudas = [];
+  $filas.each(function(index, el) {
+    var $factor = $(this).find('.deuda-factor').val();
+
+    if ($factor != "" && $factor != "0") {
+      var $id_categoria = $(this).find('.id-categoria').html();
+      var deuda = {
+        "id_categoria" : $id_categoria,
+        "factor" : $factor,
+      };
+      deudas.push(deuda);
+    };
+  });
+
+  if (deudas.length > 0) {
+    var ruta = '/secretaria/alumno/deudas/crear';
+    var $token = $('#token').val();
+    $.ajax({
+      headers : { 'X-CSRF-TOKEN' : $token },
+      url: ruta,
+      type: 'POST',
+      dataType: 'json',
+      data : {
+        nro_documento : $nro_documento,
+        deudas : deudas,
+      },
+      success : function (data) {
+        debug(data.mensaje);
+        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+      },
+      fail : function (data) {
+        debug('Error en la creación del egreso.');
+        debug(data, false);
+        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la creación del egreso, inténtelo de nuevo más tarde.', 'warning', 'reload');
+      }
+    });
+  } else{
+    sweet_alert('¡Atención!', 'Debe ingresar por lo menos un factor', 'warning');
+  };
+});
+/*** Fin de Agregar Deuda a Alumno ***/

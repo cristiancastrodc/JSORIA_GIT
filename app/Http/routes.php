@@ -70,6 +70,7 @@ Route::get('secretaria/alumno/matriculas/{id_detalle_institucion}', 'Institucion
 Route::get('secretaria/alumno/lista_deudas/{dni}', 'AlumnosController@listaDeudasAlumno');
 Route::get('secretaria/alumno/lista_actividades/{dni}', 'AlumnosController@listaDeudasActividadesAlumno');
 Route::get('secretaria/alumno/amortizar_deudas/{dni}', 'AlumnosController@amortizarDeudaAlumno');
+Route::post('secretaria/alumno/deudas/crear','AlumnosController@agregarDeudasAlumno');
 
 /**/
 //Route::get('secretaria/reportes', 'PdfController@index');
