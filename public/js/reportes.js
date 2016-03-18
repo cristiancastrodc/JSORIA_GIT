@@ -100,3 +100,9 @@ $(document).ready(function() {
           this.submit();
     });
 });
+
+$(document).ready(function () {
+   $("#todas_categorias").click(function () {
+      $('#id_categoria').attr("disabled", $(this).is(":checked"));
+   });
+});
