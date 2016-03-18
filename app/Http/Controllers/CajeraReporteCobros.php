@@ -25,7 +25,7 @@ class CajeraReporteCobros extends Controller
         $id_cajera=Auth::user()->id;
 
         $datas = Categoria::join('deuda_ingreso','categoria.id','=','deuda_ingreso.id_categoria')
-                            ->join('alumno','deuda_ingreso.id_alumno','=','alumno.nro_documento')
+                            ->leftJoin('alumno','deuda_ingreso.id_alumno','=','alumno.nro_documento')
                             ->where('estado_pago','=',1)
                             ->where(DB::raw('date(fecha_hora_ingreso)'),'=',$today)
                             ->where('id_cajera','=',$id_cajera)
