@@ -372,4 +372,19 @@ class AlumnosController extends Controller
             return response()->json(['mensaje' => 'Deudas de alumno creadas exitosamente.']);
         }
     }
+
+    /*** Eliminar Actividad del alumno ***/
+    public function EliminarDeudaActividad(Request $request)
+    {
+        if ($request->ajax()) {
+            $deudasCanceladas = $request->deudasCanceladas;
+
+            foreach ($deudasCanceladas as $deuda) {
+                $id_deuda = $deuda['id_deuda'];
+                Deuda_Ingreso::where('id','=',$id_deuda)
+                              ->delete();
+            }
+            return response()->json(['mensaje' => 'Deuda de actividad del alumno eliminada correctamente.']);
+        }
+    }
 }

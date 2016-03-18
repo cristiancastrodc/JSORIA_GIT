@@ -71,6 +71,7 @@ Route::get('secretaria/alumno/lista_deudas/{dni}', 'AlumnosController@listaDeuda
 Route::get('secretaria/alumno/lista_actividades/{dni}', 'AlumnosController@listaDeudasActividadesAlumno');
 Route::get('secretaria/alumno/amortizar_deudas/{dni}', 'AlumnosController@amortizarDeudaAlumno');
 Route::post('secretaria/alumno/deudas/crear','AlumnosController@agregarDeudasAlumno');
+Route::post('secretaria/alumno/deudas/eliminar_actividad','AlumnosController@EliminarDeudaActividad');
 
 /**/
 //Route::get('secretaria/reportes', 'PdfController@index');

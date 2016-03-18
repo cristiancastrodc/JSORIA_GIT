@@ -262,10 +262,11 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
         var $deuda = response[1][i].nombre;
 
         var fila = "<tr>";
-        fila += "<td class='hidden'>" + $id + "</td>";
+        var id_cb = "ts" + i;
+        fila += "<td class='hidden id-categoria'>" + $id + "</td>";
         fila += "<td>" + $deuda + "</td>";
         fila += "<td class='text-right'>" + $monto + "</td>";
-        fila += "<td><div class='toggle-switch'><input id='ts1' type='checkbox' hidden='hidden'><label for='ts1' class='ts-helper'></label></div></td>";
+        fila += "<td><div class='toggle-switch'><input id='" + id_cb + "' type='checkbox' hidden='hidden' class='check'><label for='" + id_cb + "' class='ts-helper'></label></div></td>";
 
         $('#tabla-actividades-listar-alumno tbody').append(fila);
       }
@@ -363,9 +364,9 @@ $('#btn-agregar-deuda').click(function(e) {
         sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
       },
       fail : function (data) {
-        debug('Error en la creación del egreso.');
+        debug('Error al agregar deuda.');
         debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la creación del egreso, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        sweet_alert('Ocurrió algo inesperado', 'Hubo un error al momento de agregar la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
       }
     });
   } else{
@@ -373,3 +374,58 @@ $('#btn-agregar-deuda').click(function(e) {
   };
 });
 /*** Fin de Agregar Deuda a Alumno ***/
+
+/*** Inicio de Cancelar Deuda de Actividad a un Alumno ***/
+$('#btn-cancelar-deuda-actividad').click(function(e) {
+  e.preventDefault();
+  debug('Presionado boton cancelar deuda actividad a alumno.');
+
+  var $nro_documento = $('#form-lista-deudas-alumno #nro_documento').val();
+
+  var $filas = $('#tabla-actividades-listar-alumno > tbody > tr');
+
+  var deudasCanceladas = [];
+
+  $filas.each(function(index, el) {
+    var $seleccionado = $(this).find('[type=checkbox]').is(':checked');
+
+    if ($seleccionado) {
+      var $id_deuda = $(this).find('.id-categoria').html();
+      var deuda = {
+        "id_deuda" : $id_deuda,
+      };
+      deudasCanceladas.push(deuda);
+    };
+    
+  });
+  debug(deudasCanceladas, false);
+
+  if (deudasCanceladas.length > 0) {
+    var ruta = '/secretaria/alumno/deudas/eliminar_actividad';
+    var $token = $('#token').val();
+    $.ajax({
+      headers : { 'X-CSRF-TOKEN' : $token },
+      url: ruta,
+      type: 'POST',
+      dataType: 'json',
+      data : {
+        deudasCanceladas : deudasCanceladas,
+      },
+      success : function (data) {
+        debug(data.mensaje);
+        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+      },
+      fail : function (data) {
+        debug('Error en la eliminacion de la actividad.');
+        debug(data, false);
+        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la eliminacion de la actividad, inténtelo de nuevo más tarde.', 'warning', 'reload');
+      }
+    });
+  } else{
+    sweet_alert('¡Atención!', 'Debe seleccionar por lo menos una actividad', 'warning');
+  };
+  
+
+
+});
+/*** Fin de Cancelar Deuda de Actividad a un Alumno ***/
