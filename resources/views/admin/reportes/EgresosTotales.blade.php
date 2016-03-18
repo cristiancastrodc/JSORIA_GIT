@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal','route' => 'admin.reportes.EgresosTotales.procesar.store','method' => 'POST'))!!}
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-otros-reportes','route' => 'admin.reportes.EgresosTotales.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -36,7 +36,7 @@
               <label for="" class="col-sm-3 control-label"></label>
 
             <label class="radio radio-inline m-r-10">
-                <input type="radio" name="inlineRadioOptions" value="dias">
+                <input type="radio" name="inlineRadioOptions" value="dias" checked="checked">
                 <i class="input-helper"></i>Dias  
             </label>
             
@@ -76,7 +76,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-IngresosTotales">Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-IngresosTotales" formtarget="_blank">Generar</button>
               </div>
             </div>
           {!!Form::close()!!}

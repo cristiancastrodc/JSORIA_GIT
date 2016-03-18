@@ -66,7 +66,7 @@ where jsoria_deuda_ingreso.estado_pago = 0
         $view =  \View::make('pdf.AdminCuentaAlumno', compact('id_alumno','datas','Institucion_alumno'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-    return $pdf->stream('AdminCuentaAlumno'); 
+        return $pdf->stream('AdminCuentaAlumno'); 
     }
     
     /**

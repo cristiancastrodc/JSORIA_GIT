@@ -105,12 +105,12 @@
             <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
             <ul>
                 <li><a href="{!!URL::to('/admin/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/IngresosCategoria')!!}">Ingresos agrupados por categoria</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/IngresosTotales')!!}">Ingresos totales</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/IngresosCategoria')!!}">Ingresos agrupados por Categorias</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/IngresosTotales')!!}">Ingresos Totales</a></li>
                 <li><a href="{!!URL::to('/admin/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/EgresosRubro')!!}">Egresos agrupados por rubro</a></li>                
-                <li><a href="{!!URL::to('/admin/reportes/EgresosTotales')!!}">Egresos totales</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/AlumnosDeudores')!!}">Alumnos Deudores</a></
+                <li><a href="{!!URL::to('/admin/reportes/EgresosRubro')!!}">Egresos agrupados por Rubros</a></li>                
+                <li><a href="{!!URL::to('/admin/reportes/EgresosTotales')!!}">Egresos Totales</a></li>
+                <li><a href="{!!URL::to('/admin/reportes/AlumnosDeudores')!!}">Alumnos Deudores</a></li>
                 <li><a href="{!!URL::to('/admin/reportes/CuentaAlumno')!!}">Cuenta de Alumno</a></li>                
             </ul>
           </li>          
@@ -126,7 +126,7 @@
           <li><a href="{!!URL::to('/cajera/retiros')!!}">
             <i class="zmdi zmdi-assignment-return"></i> Retiro</a>
           </li>
-          <li><a href="">
+          <li><a href="{!!URL::to('/cajera/reporte/procesar')!!}" target="_blank">
             <i class="zmdi zmdi-chart"></i> Reporte</a>
           </li>
         @endif
@@ -165,9 +165,14 @@
           <li><a href="{!!URL::to('/tesorera/ingresos')!!}">
             <i class="zmdi zmdi-money"></i> Retirar Ingresos</a>
           </li>
-          <li><a href="">
-            <i class="zmdi zmdi-chart"></i> Reportes</a>
-          </li>
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
+            <ul>
+                <li><a href="{!!URL::to('/tesorera/reportes/EgresosRubro')!!}">Egresos agrupados por Rubros</a></li>
+                <li><a href="{!!URL::to('/tesorera/reportes/EgresosTotales')!!}">Egresos Totales</a></li>            
+            </ul>
+          </li>          
+
         @endif
       </ul>
     </aside>

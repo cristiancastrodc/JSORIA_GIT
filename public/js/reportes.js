@@ -60,3 +60,43 @@ $('#form-listar_deudores #id_detalle_institucion').change(function (e) {
     $grado_institucion.selectpicker('refresh');
   });
 });
+
+$(document).ready(function() {
+    $('#form-reporte-ingresos').on('submit', function(evt) {
+          evt.preventDefault();
+          setTimeout(function() {
+               window.location.reload();
+          },0);
+          this.submit();
+    });
+});
+
+$(document).ready(function() {
+    $('#form-reporte-egresos').on('submit', function(evt) {
+          evt.preventDefault();
+          setTimeout(function() {
+               window.location.reload();
+          },0);
+          this.submit();
+    });
+});
+
+$(document).ready(function() {
+    $('#form-otros-reportes').on('submit', function(evt) {
+          evt.preventDefault();
+          setTimeout(function() {
+               window.location.reload();
+          },0);
+          this.submit();
+    });
+});
+
+$(document).ready(function() {
+    $('#form-listar_deudores').on('submit', function(evt) {
+          evt.preventDefault();
+          setTimeout(function() {
+               window.location.reload();
+          },0);
+          this.submit();
+    });
+});

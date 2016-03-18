@@ -9,7 +9,6 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
 use DB;
-use Carbon\Carbon;
 
 class AdminReporteIngresosTotales extends Controller
 {
@@ -57,10 +56,6 @@ class AdminReporteIngresosTotales extends Controller
                                     ->where('estado_pago','=',1)
                                     ->where('detalle_institucion.id_institucion','=',$id_institucion)
                                     ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
-        /*                            ->where(function($query3) use($fecha_inicio,$fecha_fin){
-                                        $query3->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                              ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                                    })*/
                                     ->groupBy(DB::raw('date(fecha_hora_ingreso)'))
                                     ->get([DB::raw('date(fecha_hora_ingreso) as fecha1'),DB::raw('Sum(saldo - descuento) as monto')]);
                 break;
@@ -70,10 +65,6 @@ class AdminReporteIngresosTotales extends Controller
                                     ->where('estado_pago','=',1)
                                     ->where('detalle_institucion.id_institucion','=',$id_institucion)
                                     ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
-        /*                            ->where(function($query3) use($fecha_inicio,$fecha_fin){
-                                        $query3->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                              ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                                    })*/
                                     ->groupBy(DB::raw('month(fecha_hora_ingreso)'),DB::raw('year(fecha_hora_ingreso)'))
                                     ->get([DB::raw('month(fecha_hora_ingreso) as fecha1'),DB::raw('year(fecha_hora_ingreso) as fecha2'),DB::raw('Sum(saldo - descuento) as monto')]);
                 break;
@@ -83,10 +74,6 @@ class AdminReporteIngresosTotales extends Controller
                                     ->where('estado_pago','=',1)
                                     ->where('detalle_institucion.id_institucion','=',$id_institucion)
                                     ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
-        /*                            ->where(function($query3) use($fecha_inicio,$fecha_fin){
-                                        $query3->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                              ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                                    })*/
                                     ->groupBy(DB::raw('year(fecha_hora_ingreso)'))
                                     ->get([DB::raw('year(fecha_hora_ingreso) as fecha1'),DB::raw('Sum(saldo - descuento) as monto')]);
                 break;                

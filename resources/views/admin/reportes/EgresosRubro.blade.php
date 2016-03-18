@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['route' => 'admin.reportes.EgresosRubro.procesar.store','class' => 'form-horizontal', 'method' => 'POST'])!!}
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-otros-reportes','route' => 'admin.reportes.EgresosRubro.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -57,7 +57,7 @@
 
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-EgresosRubro">Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-EgresosRubro" formtarget="_blank">Generar</button>
               </div>
             </div>
           {!!Form::close()!!}

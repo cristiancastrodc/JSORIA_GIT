@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding" >
-          {!!Form::open(['route' => 'admin.reportes.CuentaAlumno.procesar.store','class' => 'form-horizontal', 'method' => 'POST'])!!}
+          {!!Form::open(['route' => 'admin.reportes.CuentaAlumno.procesar.store', 'id' => 'form-otros-reportes','class' => 'form-horizontal', 'method' => 'POST'])!!}
             <div class="form-group">
               <label for="nro_documento" class="col-sm-3 control-label">Alumno</label>
               <div class="col-sm-9">
@@ -31,7 +31,7 @@
             </div>            
             <div class="form-group">
               <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-buscar-alumno">Generar</button>
+                <button type="submit" class="btn btn-warning waves-effect" id="btn-buscar-alumno" formtarget="_blank">Generar</button>
               </div>
             </div>
           {!!Form::close()!!}
