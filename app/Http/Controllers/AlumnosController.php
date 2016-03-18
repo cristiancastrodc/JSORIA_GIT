@@ -387,4 +387,34 @@ class AlumnosController extends Controller
             return response()->json(['mensaje' => 'Deuda de actividad del alumno eliminada correctamente.']);
         }
     }
+
+  /*** Eliminar deuda del alumno ***/
+    public function EliminarDeuda(Request $request)
+    {
+        if ($request->ajax()) {
+            $deudasEliminar = $request->deudasEliminar;
+
+            foreach ($deudasEliminar as $deuda) {
+                $id_deuda = $deuda['id_deuda'];
+                Deuda_Ingreso::where('id','=',$id_deuda)
+                              ->delete();
+            }
+            return response()->json(['mensaje' => 'Deuda del alumno eliminada correctamente.']);
+        }
+    }
+  /*** Descontar deuda del alumno ***/
+    public function DescontarDeuda(Request $request)
+    {
+        if ($request->ajax()) {
+            $deudasDescontar = $request->deudasDescontar;
+
+            foreach ($deudasDescontar as $deuda) {
+                $id_deuda = $deuda['id_deuda'];
+                $descuento = $deuda['monto'];
+                Deuda_Ingreso::where('id','=',$id_deuda)
+                              ->update(['descuento'=>$descuento,'estado_descuento'=>'1']);
+            }
+            return response()->json(['mensaje' => 'Descontado correctamente.']);
+        }
+    }  
 }

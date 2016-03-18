@@ -211,12 +211,15 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
         var $monto = response[1][i].saldo;
         var $deuda = response[1][i].nombre;
 
+
+        var id_cb = "ts" + i;
         var fila = "<tr>";
-        fila += "<td class='hidden'>" + $id + "</td>";
+
+        fila += "<td class='hidden id-deuda'>" + $id + "</td>";
         fila += "<td>" + $deuda + "</td>";
         fila += "<td class='text-right'>" + $monto + "</td>";
-        fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right' placeholder='Descuento'></div></td>";
-        fila += "<td><div class='toggle-switch'><input id='ts1' type='checkbox' hidden='hidden'><label for='ts1' class='ts-helper'></label></div></td>";
+        fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right descuento' placeholder='Descuento'></div></td>";
+        fila += "<td><div class='toggle-switch'><input id='" + id_cb + "' type='checkbox' hidden='hidden'><label for='" + id_cb + "' class='ts-helper'></label></div></td>";
 
         $('#tabla-deudas-alumno tbody').append(fila);
       }
@@ -425,7 +428,96 @@ $('#btn-cancelar-deuda-actividad').click(function(e) {
     sweet_alert('¡Atención!', 'Debe seleccionar por lo menos una actividad', 'warning');
   };
   
+});
+/*** Fin de Cancelar Deuda de Actividad a un Alumno ***/
+
+/*** Inicio descuento deudas alumno ***/
+$('#btn-autorizar-descuento').click(function(e) {
+  e.preventDefault();
+  debug('Presionado boton decontar deuda a alumno.');
+
+  var $nro_documento = $('#form-lista-deudas-alumno #nro_documento').val();
+
+  var $filas = $('#tabla-deudas-alumno > tbody > tr');
+  var $fila_desc = $('#tabla-deudas-alumno > tbody > tr');
+
+  var deudasEliminar = [];
+  var deudasDescontar = [];
+
+  $filas.each(function(index, el) {
+    var $seleccionado = $(this).find('[type=checkbox]').is(':checked');
+
+    if ($seleccionado) {
+      var $id_deuda = $(this).find('.id-deuda').html();
+      var deuda = {
+        "id_deuda" : $id_deuda,
+      };
+      deudasEliminar.push(deuda);
+    };
+    });
+
+  $fila_desc.each(function(index, el) {
+    var $monto = $(this).find('.descuento').val();
+
+    if ($monto != "" && $monto != "0") {
+      var $id_deuda = $(this).find('.id-deuda').html();
+      var deudas = {
+        "id_deuda" : $id_deuda,
+        "monto" : $monto,
+      };
+      deudasDescontar.push(deudas);
+    };
+    });
+      
+  debug(deudasEliminar, false);
+  debug(deudasDescontar, false);
+
+  if (deudasEliminar.length > 0) {
+    var ruta = '/secretaria/alumno/deudas/eliminar_deuda';
+    var $token = $('#token').val();
+    $.ajax({
+      headers : { 'X-CSRF-TOKEN' : $token },
+      url: ruta,
+      type: 'POST',
+      dataType: 'json',
+      data : {
+        deudasEliminar : deudasEliminar,
+      },
+      success : function (data) {
+        debug(data.mensaje);
+        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+      },
+      fail : function (data) {
+        debug('Error en la eliminacion de la deuda.');
+        debug(data, false);
+        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la eliminacion de la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
+      }
+    });
+  };
+
+  if (deudasDescontar.length > 0) {
+    var ruta = '/secretaria/alumno/deudas/descontar_deuda';
+    var $token = $('#token').val();
+    $.ajax({
+      headers : { 'X-CSRF-TOKEN' : $token },
+      url: ruta,
+      type: 'POST',
+      dataType: 'json',
+      data : {
+        deudasDescontar : deudasDescontar,
+      },
+      success : function (data) {
+        debug(data.mensaje);
+        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+      },
+      fail : function (data) {
+        debug('Error en el descuento de la deuda.');
+        debug(data, false);
+        sweet_alert('Ocurrió algo inesperado', 'Hubo un error al descontar la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
+      }
+    });
+  };
 
 
 });
-/*** Fin de Cancelar Deuda de Actividad a un Alumno ***/
+/*** Inicio descuento deudas alumno ***/
