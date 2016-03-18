@@ -57,7 +57,7 @@ class HerramientasController extends Controller
 
       fwrite($handle, $Data);
       fclose($handle);
-      copy($file, "//192.168.0.100/EpsonLX350");
+      copy($file, "//localhost/EpsonLX350");
       unlink($file);
   }
 
