@@ -41,6 +41,8 @@
         <div class="card-body card-padding">
           <h4>Lista de Egresos</h4>
           <div class="table-responsive">
+            {!! Form::open() !!}
+            <input type="hidden" id="_token" value="{{ csrf_token() }}">
             <table class="table table-bordered" id="tabla-listar-egresos">
               <thead>
                 <tr>
@@ -53,6 +55,7 @@
               <tbody>
               </tbody>
             </table>
+            {!! Form::close() !!}
           </div>
         </div>
       </div>

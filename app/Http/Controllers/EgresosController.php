@@ -117,7 +117,6 @@ class EgresosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
@@ -126,9 +125,17 @@ class EgresosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            DetalleEgreso::where('id_egreso', $id)
+                         ->delete();
+
+            Egreso::where('id', $id)
+                  ->delete();
+
+            return response()->json(['mensaje' => 'OK', 'tipo' => 'exito']);
+        }
     }
 
     /*** Crear un Egreso ***/
@@ -204,9 +211,7 @@ class EgresosController extends Controller
 
             $egreso = Egreso::find($id_egreso);
             $egreso->id_institucion = $id_institucion;
-            if ($tipo_comprobante == '3') {
-                $egreso->numero_comprobante = intval($numero_comprobante);
-            } else {
+            if ($tipo_comprobante != '3') {
                 $egreso->numero_comprobante = $numero_comprobante;
             }
             $egreso->fecha = $fecha_egreso;
@@ -214,26 +219,17 @@ class EgresosController extends Controller
 
             $detalle_egreso = $request->detalle_egreso;
 
-            /************** BORRAAAAAAAAAAAAAR DETALLES *******************/
-            $nro_detalle = 1;
             foreach ($detalle_egreso as $detalle) {
-                DetalleEgreso::create([
-                    'id_egreso' => $id_egreso,
-                    'nro_detalle_egreso' => $nro_detalle,
+                DetalleEgreso::where('id_egreso', $id_egreso)
+                ->where('nro_detalle_egreso', $detalle['nro_detalle_egreso'])
+                ->update([
                     'id_rubro' => $detalle['id_rubro'],
-                    'monto' => $detalle['monto'],
                     'descripcion' => $detalle['descripcion'],
+                    'monto' => $detalle['monto']
                 ]);
-                $nro_detalle++;
             }
 
-            $response = array('mensaje' => 'Egreso creado exitosamente.');
-            if ($tipo_comprobante == "3") {
-                $response["nro_resultado"] = $numero_comprobante;
-            } else {
-                $response["nro_resultado"] = "";
-            }
-            return response()->json($response);
+            return response()->json(['mensaje' => 'Egreso actualizado exitosamente.']);
         }
     }
 }

@@ -20,7 +20,7 @@
     <div class="col-md-10">
       <div class="card">
         <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
+          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-modificar-egreso-tesorera'])!!}
             <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
             <input type="hidden" name="id_egreso" value="{{ $egreso->id }}" id="id_egreso">
             <div class="form-group">
@@ -71,62 +71,6 @@
               </div>
             </div>
             <div class="form-group">
-              <div id="egreso">
-                <h4>Añadir detalles de egreso</h4>
-                <div class="col-sm-4">
-                  <div class="fg-line">
-                    <input type="text" class="form-control" placeholder="Descripción" id="descripcion_egreso">
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <div class="fg-line">
-                    <select name="rubro_egreso" id="rubro_egreso" class="selectpicker" data-live-search="true" placeholder="Egreso" title="Seleccione">
-                      @foreach($rubros as $rubro)
-                        <option value="{{ $rubro->id }}">{{ $rubro->nombre }}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-                <div class="col-sm-2">
-                  <div class="fg-line">
-                    <input type="text" class="form-control text-right" placeholder="Monto" id="monto_egreso">
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <button class="btn bgm-blue-soria btn-block" id="btn-detalle-egreso-agregar">Agregar</button>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-sm-6 col-sm-offset-6">
-                  <div class="panel-group" role="tablist" aria-multiselectable="true" data-collapse-color="cyan">
-                    <div class="panel panel-collapse">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="c-cyan">
-                                    Añadir Rubro
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body">
-                                <div class="col-sm-7">
-                                  <div class="fg-line">
-                                    <input type="text" class="form-control input-sm" id="nombre" name="nombre" placeholder="Nombre">
-                                  </div>
-                                </div>
-                                <div class="col-sm-5">
-                                  <button class="btn btn-primary waves-effect" id="btn_nuevo_rubro">Agregar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
             <div class="table-responsive">
               <table class="table" id="tabla-resumen-egresos">
                 <thead>
@@ -134,17 +78,32 @@
                     <th class="warning c-white">Descripcion</th>
                     <th class="warning c-white">Rubro</th>
                     <th class="warning c-white">Monto (S/)</th>
-                    <th class="warning c-white">.</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach($detalles_egreso as $detalle)
                     <tr>
-                      <td class='egreso-descripcion'>{{ $detalle->descripcion }}</td>
-                      <td class='hidden egreso-rubro-id'>{{ $detalle->id_rubro }}</td>
-                      <td>{{ $detalle->nombre }}</td>
-                      <td class='text-right egreso-monto'>{{ $detalle->monto }}</td>
-                      <td><a class='delete-row c-red'><i class='zmdi zmdi-close-circle'></i> Quitar</a></td>
+                      <td class="hidden detalle-egreso-id">{{ $detalle->nro_detalle_egreso }}</td>
+                      <td>
+                        <div class="fg-line">
+                          <input type="text" class="form-control egreso-descripcion" value="{{ $detalle->descripcion }}">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="fg-line">
+                          <select name="egreso-rubro-id" class="selectpicker egreso-rubro-id" data-container="body">
+                            <option value="{{ $detalle->id_rubro }}">{{ $detalle->nombre }}</option>
+                            @foreach($rubros as $rubro)
+                            <option value="{{ $rubro->id }}">{{ $rubro->nombre }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="fg-line">
+                          <input type="text" class="form-control egreso-monto text-right" value="{{ $detalle->monto }}">
+                        </div>
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>

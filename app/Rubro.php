@@ -16,8 +16,8 @@ class Rubro extends Model
   public static function rubro_instituciones()
   {
    return Rubro::select('nombre')
-    ->get(); 
-  }  
+    ->get();
+  }
 }
 
 

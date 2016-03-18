@@ -387,7 +387,7 @@ $('#btn-buscar-egresos').click(function(e) {
         if (data.length > 0) {
           for (var i = 0; i < data.length; i++) {
             var fila = "<tr>";
-            fila += "<td class='hidden'>" + data[i].id + "</td>";
+            fila += "<td class='hidden egreso-id'>" + data[i].id + "</td>";
             fila += "<td>" + data[i].nombre + "</td>";
             switch(data[i].tipo_comprobante) {
               case '1':
@@ -450,10 +450,12 @@ $('#btn-modificar-egreso').click(function(e) {
       var detalle_egreso = [];
 
       $('#tabla-resumen-egresos > tbody > tr').each(function(index, el) {
-        var $descripcion = $(this).find('.egreso-descripcion').html();
-        var $egreso_rubro = $(this).find('.egreso-rubro-id').html();
-        var $monto = $(this).find('.egreso-monto').html();
+        var $detalle_id = $(this).find('.detalle-egreso-id').html();
+        var $descripcion = $(this).find('.egreso-descripcion').val();
+        var $egreso_rubro = $(this).find('.egreso-rubro-id').val();
+        var $monto = $(this).find('.egreso-monto').val();
         var detalle = {
+          "nro_detalle_egreso" : $detalle_id,
           "descripcion" : $descripcion,
           "id_rubro" : $egreso_rubro,
           "monto" : $monto,
@@ -461,6 +463,7 @@ $('#btn-modificar-egreso').click(function(e) {
         detalle_egreso.push(detalle);
       });
 
+      debug(detalle_egreso, false);
       $.ajax({
         headers : { 'X-CSRF-TOKEN' : $token },
         url: ruta,
@@ -476,13 +479,21 @@ $('#btn-modificar-egreso').click(function(e) {
         }
       })
       .done(function(data) {
+        debug(data, false);
         debug(data.mensaje);
-        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        swal({
+          title : '¡Éxito!',
+          text : data.mensaje,
+          type : 'success',
+        }, function () {
+          var ruta = '/tesorera/egresos';
+          window.location = ruta;
+        });
       })
       .fail(function(data) {
         debug('Error en la modificación del egreso.');
         debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la creación del egreso, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la creación del egreso, inténtelo de nuevo más tarde.', 'warning');
       });
     } else{
       debug('Falta ingresar el detalle.');
@@ -493,4 +504,112 @@ $('#btn-modificar-egreso').click(function(e) {
     sweet_alert('¡Atención!', 'Debe llenar todos los campos generales.', 'warning');
   };
 });
+
+$('#tabla-listar-egresos').on('click', '.eliminar-egreso', function(e) {
+  debug('Eliminar egreso');
+  var $id_egreso = $(this).parents('tr').find('.egreso-id').html();
+
+  swal({
+    title: "¿Realmente desea eliminar el egreso?",
+    text: "Cualquier dato que elimine no podrá ser recuperado.",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonClass: "btn-danger",
+    confirmButtonText: "Eliminar egreso",
+    closeOnConfirm: false
+  },
+  function(){
+    var ruta = '/tesorera/egresos/' + $id_egreso;
+    var $token = $('#_token').val();
+
+    $.ajax({
+      url: ruta,
+      headers : { 'X-CSRF-TOKEN' : $token },
+      type : 'DELETE',
+      dataType : 'json',
+      success : function (data) {
+        if (data.tipo == 'exito') {
+          swal({
+            title : '¡Éxito!',
+            text : data.mensaje,
+            type : 'success'
+          }, function () {
+            debug('Recargar tabla de egresos.');
+            reloadTablaEgresos();
+          });
+        } else{
+          swal({
+            title : 'Ocurrió un error.',
+            text : data.mensaje,
+            type : 'error'
+          });
+        };
+      },
+      fail : function (data) {
+        debug(data, false);
+      },
+      always : function (data) {
+        debug(data, false);
+      }
+    });
+  });
+});
+
+function reloadTablaEgresos () {
+  var $fecha_egresos = $('#fecha_egresos').val();
+  if ($fecha_egresos != "") {
+    debug('Fecha de egresos correcta.');
+    var ruta = 'egreso/listar_fecha';
+    $('#tabla-listar-egresos > tbody').empty();
+
+    $.ajax({
+      url: ruta,
+      type: 'GET',
+      dataType: 'json',
+      data: {
+        fecha_egreso : $fecha_egresos
+      },
+      success : function (data) {
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+            var fila = "<tr>";
+            fila += "<td class='hidden egreso-id'>" + data[i].id + "</td>";
+            fila += "<td>" + data[i].nombre + "</td>";
+            switch(data[i].tipo_comprobante) {
+              case '1':
+                fila += "<td>Boleta</td>";
+                break;
+              case '2':
+                fila += "<td>Factura</td>";
+                break;
+              case '3':
+                fila += "<td>Comprobante de Pago</td>";
+                break;
+              case '4':
+                fila += "<td>Recibo por Honorarios</td>";
+                break;
+            };
+            if (data[i].tipo_comprobante == 3) {
+              fila += "<td class='text-right'>" + pad(data[i].numero_comprobante, 6) + "</td>";
+            } else{
+              fila += "<td class='text-right'>" + data[i].numero_comprobante + "</td>";
+            };
+            fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn bgm-amber waves-effect'><i class='zmdi zmdi-edit'></i></a>";
+            fila += "<a class='btn btn-danger waves-effect eliminar-egreso'><i class='zmdi zmdi-delete'></i></a></td>";
+            fila += "</tr>";
+            $('#tabla-listar-egresos tbody').append(fila);
+          };
+        } else {
+          $('#tabla-listar-egresos > tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+        };
+      },
+      fail : function (data) {
+        sweet_alert('Ocurrió algo inesperado', 'No se pudo recuperar los egresos. Intente de nuevo más tarde.', 'error');
+      }
+    });
+  } else {
+    debug('No se ingresó Fecha de egresos.');
+    sweet_alert('¡Atención!', 'Debe de seleccionar la fecha para buscar.', 'warning');
+  };
+}
 /*** Fin de Modificar Egresos ***/
