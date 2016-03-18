@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('title')
-  Registrar Egreso
+  Modificar Egreso
 @endsection
 
 @section('content')
-  <h1>REGISTRAR EGRESO</h1>
+  <h1>MODIFICAR EGRESO</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -22,12 +22,20 @@
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
             <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
+            <input type="hidden" name="id_egreso" value="{{ $egreso->id }}" id="id_egreso">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir...'>
+                <select class="selectpicker" name="id_institucion" id="id_institucion">
                   @foreach($permisos as $permiso)
-                    <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
+                    @if ($permiso->id == $egreso->id_institucion)
+                      <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
+                    @endif
+                  @endforeach
+                  @foreach($permisos as $permiso)
+                    @if ($permiso->id != $egreso->id_institucion)
+                      <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
+                    @endif
                   @endforeach
                 </select>
               </div>
@@ -35,11 +43,8 @@
             <div class="form-group">
               <label for="tipo_comprobante" class="col-sm-3 control-label">Tipo de comprobante</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="tipo_comprobante" id="tipo_comprobante" title='Elegir...'>
-                  <option value="1">Boleta</option>
-                  <option value="2">Factura</option>
-                  <option value="3">Comprobante de Pago</option>
-                  <option value="4">Recibo por Honorario</option>
+                <select class="selectpicker" name="tipo_comprobante" id="tipo_comprobante" disabled>
+                  <option value="{{ $egreso->tipo_comprobante }}">{{ $comprobante }}</option>
                 </select>
               </div>
             </div>
@@ -47,7 +52,11 @@
               <label for="numero_comprobante" class="col-sm-3 control-label">Número</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off">
+                    @if ($egreso->tipo_comprobante == '3')
+                      <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" disabled value="{{ str_pad($egreso->numero_comprobante, 6, '0', STR_PAD_LEFT) }}">
+                    @else
+                      <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off" value="{{ $egreso->numero_comprobante }}">
+                    @endif
                   </div>
               </div>
             </div>
@@ -56,7 +65,7 @@
               <div class="col-sm-9">
                 <div class="fg-line">
                   <div class="dtp-container fg-line">
-                    <input type='text' class="form-control date-picker" placeholder="Elija la fecha" name="fecha_egreso" id="fecha_egreso">
+                    <input type='text' class="form-control date-picker" placeholder="Elija la fecha" name="fecha_egreso" id="fecha_egreso" value="{{ $egreso->fecha }}">
                   </div>
                 </div>
               </div>
@@ -129,13 +138,22 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach($detalles_egreso as $detalle)
+                    <tr>
+                      <td class='egreso-descripcion'>{{ $detalle->descripcion }}</td>
+                      <td class='hidden egreso-rubro-id'>{{ $detalle->id_rubro }}</td>
+                      <td>{{ $detalle->nombre }}</td>
+                      <td class='text-right egreso-monto'>{{ $detalle->monto }}</td>
+                      <td><a class='delete-row c-red'><i class='zmdi zmdi-close-circle'></i> Quitar</a></td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>
             </div>
             <div class="form-group">
               <div class="row m-t-10">
-                <div class="col-sm-offset-9 col-sm-3"><button class="btn btn-warning waves-effect btn-block" id="btn-guardar-egreso">Guardar Egreso</button></div>
+                <div class="col-sm-offset-9 col-sm-3"><button class="btn btn-warning waves-effect btn-block" id="btn-modificar-egreso">Modificar Egreso</button></div>
               </div>
             </div>
           {!!Form::close()!!}

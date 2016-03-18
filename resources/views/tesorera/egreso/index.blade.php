@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h1>EGRESOS</h1>
+  <h1>BUSCAR EGRESOS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,7 +17,7 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="card">
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal'])!!}
@@ -26,36 +26,31 @@
                 <div class="col-sm-6">
                     <div class="fg-line">
                         <div class="dtp-container fg-line">
-                            <input type='text' class="form-control date-picker" placeholder="Elija la fecha" name="fecha" id="fecha">
+                            <input type='text' class="form-control date-picker" placeholder="Elija la fecha" name="fecha_egresos" id="fecha_egresos">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                  <button class="btn btn-primary waves_effect" id="buscar_egresos">Buscar</button>
+                  <button class="btn bgm-blue-soria waves_effect btn-block" id="btn-buscar-egresos">Buscar</button>
                 </div>
             </div>
           {!!Form::close()!!}
+        </div>
+      </div>
+      <div class="card js-toggle" id="card-lista-egresos">
+        <div class="card-body card-padding">
           <h4>Lista de Egresos</h4>
           <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="tabla-listar-egresos">
               <thead>
                 <tr>
                   <th class="warning c-white">Institución</th>
                   <th class="warning c-white">Tipo de Comprobante</th>
-                  <th class="warning c-white">Número</th>
+                  <th class="warning c-white">Número de Comprobante</th>
                   <th class="warning c-white">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>I.E. J. Soria</td>
-                  <td>Boleta</td>
-                  <td>5642</td>
-                  <td>
-                    <button class="btn btn-primary btn-icon waves-effect"><i class="zmdi zmdi-edit"></i></button>
-                    <button class="btn btn-danger btn-icon waves-effect"><i class="zmdi zmdi-delete"></i></button>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -63,4 +58,8 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('js/tesorera.js') }}"></script>
 @endsection
