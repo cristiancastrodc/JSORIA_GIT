@@ -10,9 +10,50 @@
 <body>
 <div >
   <h1>LISTA DE INGRESOS</h1>
+  <?php
+  switch ($id_categoria) {
+    case 'matricula':
+      $id_categoria='Matriculas';
+      break;
+    case 'pension':
+      $id_categoria='Matriculas';
+      break;
+    case 'actividad':
+      $id_categoria='Actividades';
+      break;
+    case 'cobro_extraordinario':
+      $id_categoria='Cobros Extraordinarios';
+      break;
+    case 'con_factor':
+      $id_categoria='Cobro Con Facto';
+      break;
+    case 'sin_factor':
+      $id_categoria='Cobro Sin Factor';
+      break;
+    case 'multiple':
+      $id_categoria='Otros cobros';
+      break;    
+    default:      
+      break;
+  }
+  ?>
+  <?php if ($nombre_nivel['nombre_division']=='Todo'){
+    $nombre_nivel['nombre_division']='';
+  }
+  else
+  {
+   $nombre_nivel['nombre_division'] = '- '.$nombre_nivel['nombre_division'];
+  }
+  ?>    
+  <h2>Institucion: {{$id_institucion}} {{$nombre_nivel['nombre_division']}}</h2>
+  <?php if ($var_checkbox=='true'){
 
-  <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
+  }
+  else{?>
   <h2>Categoria: {{$id_categoria}}</h2>
+  <?php
+  }
+  ?>
   <h2>Fecha Inicial: {{$fecha_inicio}}</h2>
   <h2>Fecha Final: {{$fecha_fin}}</h2>  
   <!--<table >

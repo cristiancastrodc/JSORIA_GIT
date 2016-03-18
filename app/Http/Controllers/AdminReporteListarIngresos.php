@@ -48,6 +48,8 @@ class AdminReporteListarIngresos extends Controller
 
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];
+        $var_checkbox=isset($_POST['todas_categorias']);
+        $var_checkbox = ($var_checkbox) ? 'true' : 'false';
         if (isset($_POST['todas_categorias']))
         {
 //TODOS CHECKED
@@ -109,7 +111,7 @@ class AdminReporteListarIngresos extends Controller
             default:
                 break;
         }        
-        $view =  \View::make('pdf.AdminListarIngresos', compact('id_institucion','id_detalle_institucion','id_categoria','datas','nombre_nivel','fecha_inicio','fecha_fin'))->render();
+        $view =  \View::make('pdf.AdminListarIngresos', compact('id_institucion','id_detalle_institucion','id_categoria','datas','nombre_nivel','fecha_inicio','fecha_fin','var_checkbox'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminListarIngresos');
