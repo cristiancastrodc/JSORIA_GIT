@@ -10,6 +10,7 @@ use JSoria\Http\Requests\AlumnoUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Alumno;
+use JSoria\Autorizacion;
 use JSoria\Permiso;
 use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
@@ -269,7 +270,6 @@ class AlumnosController extends Controller
     public function listaDeudasAlumno(Request $request, $documento)
     {
         if ($request->ajax()) {
-
             $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
                                    ->where('deuda_ingreso.id_alumno','=',$documento)
                                    ->where('deuda_ingreso.estado_pago','=',0)
@@ -393,20 +393,43 @@ class AlumnosController extends Controller
     {
         if ($request->ajax()) {
             $deudas = $request->deudas;
+            $resolucion = $request->resolucion;
+            $nro_documento = $request->nro_documento;
 
-            foreach ($deudas as $deuda) {
-                $id_deuda = $deuda['id_deuda'];
-                $descuento = $deuda['monto'];
-                $operacion =$deuda['operacion'];
-                if($operacion == 'eliminar'){
-                    Deuda_Ingreso::where('id','=',$id_deuda)
-                              ->delete();
-                }elseif ($operacion == 'descontar') {
-                    Deuda_Ingreso::where('id','=',$id_deuda)
-                              ->update(['descuento'=>$descuento,'estado_descuento'=>'1']);
+            $Autorizado = Autorizacion::where('id_alumno','=',$nro_documento)
+                                    ->where('rd','=',$resolucion)
+                                    ->first();
+            
+            if ($Autorizado) {
+
+                if ($Autorizado->estado == 0 && $Autorizado->fecha_limite >= date('Y-m-d')) {
+                    $id_autorizacion = $Autorizado->id;
+                    foreach ($deudas as $deuda) {
+                        $id_deuda = $deuda['id_deuda'];
+                        $descuento = $deuda['monto'];
+                        $operacion =$deuda['operacion'];
+                        if($operacion == 'eliminar'){
+                            Deuda_Ingreso::where('id','=',$id_deuda)
+                                      ->delete();
+                            Autorizacion::where('id','=',$id_autorizacion)
+                                        ->update(['estado'=>'1']);
+                        }elseif ($operacion == 'descontar') {
+                            Deuda_Ingreso::where('id','=',$id_deuda)
+                                      ->update(['descuento'=>$descuento,'estado_descuento'=>'1']);
+
+                            Autorizacion::where('id','=',$id_autorizacion)
+                                        ->update(['estado'=>'1']);
+                        }
+                    }
+                    return response()->json(['mensaje' => 'Deuda del alumno procesada correctamente.', 'tipo' => 'sus']);
+                }else{
+                    return response()->json(['mensaje' => 'La autorizacion ya vencio o ya fue utilizada.', 'tipo' => 'error']);
                 }
+
+            } else {
+                return response()->json(['mensaje' => 'No Existe ninguna autorizacion para el alumno.', 'tipo' => 'error']);
             }
-            return response()->json(['mensaje' => 'Deuda del alumno procesada correctamente.']);
+            
         }
     }  
 }

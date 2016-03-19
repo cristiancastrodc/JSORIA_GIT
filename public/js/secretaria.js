@@ -203,7 +203,7 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
       apellidos_alumno = response[0].apellidos;
 
       $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-      $('#form-deudas-alumno #nro_documento').val(documento_alumno);
+      $('#form-lista-deudas-alumno #nro_documento').val(documento_alumno);
 
       for (var i = 0; i < response[1].length; i++) {
 
@@ -437,7 +437,8 @@ $('#btn-autorizar-descuento').click(function(e) {
   debug('Presionado boton decontar deuda a alumno.');
 
   var $nro_documento = $('#form-lista-deudas-alumno #nro_documento').val();
-
+  var $resolucion = $('#form-autorizacion-descuento #rd').val();
+  debug($resolucion);
   var $filas = $('#tabla-deudas-alumno > tbody > tr');
 
   var deudas = [];
@@ -474,10 +475,16 @@ $('#btn-autorizar-descuento').click(function(e) {
       dataType: 'json',
       data : {
         deudas : deudas,
+        resolucion: $resolucion,
+        nro_documento: $nro_documento,
       },
       success : function (data) {
-        debug(data.mensaje);
+        debug(data, false);
+        if (data.tipo == 'error') {
+           sweet_alert('¡Error!', data.mensaje, 'error', 'reload');
+        } else {
         sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        }
       },
       fail : function (data) {
         debug('Error en el proceso de elimar y/o descontar de la deuda.');
