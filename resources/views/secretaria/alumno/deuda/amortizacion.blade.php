@@ -57,13 +57,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                              <td>Pensión Marzo 2016</td>
-                              <td>500.00</td>
-                              <td>
-                                <button class="btn bgm-lightgreen waves-effect">Amortizar</button>
-                              </td>
-                          </tr>
                         </tbody>
                     </table>
                   </div>                
@@ -74,6 +67,10 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('modals')
+  @include('layouts.modals.amortizacion')
 @endsection
 @section('scripts')
   <script src="{{ asset('js/secretaria.js') }}"></script>

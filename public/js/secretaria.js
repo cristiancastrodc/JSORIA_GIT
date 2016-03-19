@@ -261,7 +261,7 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
       for (var i = 0; i < response[1].length; i++) {
 
         var $id = response[1][i].id;
-        var $monto = response[1][i].saldo;
+        var $monto = response[1][i].saldo - response[1][i].descuento ;
         var $deuda = response[1][i].nombre;
 
         var fila = "<tr>";
@@ -310,14 +310,15 @@ $('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
       for (var i = 0; i < response[1].length; i++) {
 
         var $id = response[1][i].id;
-        var $monto = response[1][i].saldo;
+        var $monto = response[1][i].saldo - response[1][i].descuento;
         var $deuda = response[1][i].nombre;
 
         var fila = "<tr>";
         fila += "<td class='hidden'>" + $id + "</td>";
         fila += "<td>" + $deuda + "</td>";
         fila += "<td class='text-right'>" + $monto + "</td>";
-        fila += "<td><button class='btn bgm-lightgreen waves-effect'>Amortizar</button></td>";
+        fila += "<td><a href='#modal-crear-amortizacion' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + $id + "' data-deuda='" + $deuda + "' data-saldo='" + $monto + "'><i class='zmdi zmdi-edit'></i> Amortizar</a></td>";
+        //fila += "<td><button class='btn bgm-lightgreen waves-effect'>Amortizar</button></td>";
 
         $('#tabla-deudasAmortizacion-alumno tbody').append(fila);
       }
@@ -494,4 +495,103 @@ $('#btn-autorizar-descuento').click(function(e) {
     });
   };
 });
-/*** Inicio descuento deudas alumno ***/
+/*** fin descuento deudas alumno ***/
+/*** Modal Amortizacion***/
+$('#modal-crear-amortizacion').on('shown.bs.modal', function (e) {
+  var $boton = $(e.relatedTarget);
+  var id = $boton.data('id');
+  var deuda = $boton.data('deuda');
+  var saldo = $boton.data('saldo');
+  var monto = $boton.data('monto');
+
+  var $modal = $(this);
+  $modal.find('#modal-id').val(id);
+  $modal.find('#modal-deuda').html(deuda);
+  $modal.find('#modal-saldo').html(saldo);
+});
+
+$('#modal-crear-amortizacion #modal-guardar').click(function () {
+  var $modal = $('#modal-crear-amortizacion');
+  var $id = $('#modal-id').val();
+  var $monto = $('#modal-monto').val();
+  var $token = $('#modal-token').val();
+
+  var ruta = '/secretaria/alumno/amortizarDeuda';
+
+  $.ajax({
+    url: ruta,
+    headers : { 'X-CSRF-TOKEN' : $token },
+    type : 'POST',
+    dataType : 'json',
+    data : {
+      id_deuda : $id,
+      monto : $monto,
+    },
+    success : function (data) {
+      swal({
+          title: "Éxito",
+          text: data.mensaje,
+          type: "success",
+          closeOnConfirm : true
+      }, function(){
+          document.location.reload();
+          //reloadTablaActividades($modal);
+      });
+    },
+    error : function (data) {
+      debug(data, false);swal({
+          title: "ERROR",
+          text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
+          type: "error",
+          closeOnConfirm: true
+      }, function(){
+        console.log('fail');
+      });
+    },
+  });  
+
+  /*$.ajax({
+    url: ruta,
+    headers : { 'X-CSRF-TOKEN' : $token },
+    type : 'POST',
+    dataType : 'json',
+    data : {
+      id: $id,
+      nombre : $nombre,
+      saldo : $saldo,
+      monto : $monto,      
+    },
+    success : function (data) {
+      swal({
+          title: "Éxito",
+          text: "Se creó la amortizacion.",
+          type: "success",
+          closeOnConfirm : true
+      }, 
+      });
+    },
+    fail : function (data) {
+      swal({
+          title: "ERROR",
+          text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
+          type: "error",
+          closeOnConfirm: true
+      }, function(){
+        console.log('fail');
+      });
+    },
+    error : function (msg) {
+      var err_list = '<ul>';
+      $.each( msg.responseJSON, function( i, val ) {
+        err_list += '<li>' + val[0] + '</li>';
+      });
+      err_list += '</ul>';
+
+      $('#modal-error #message').html(err_list);
+      $('#modal-error').fadeIn();
+    }
+  });*/
+});
+
+
+

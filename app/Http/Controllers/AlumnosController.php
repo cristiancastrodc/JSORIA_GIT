@@ -301,7 +301,7 @@ class AlumnosController extends Controller
                                    ->where('deuda_ingreso.id_alumno','=',$documento)
                                    ->where('deuda_ingreso.estado_pago','=',0)
                                    ->where('categoria.tipo','=','actividad')
-                                   ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
+                                   ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo','deuda_ingreso.descuento')
                                    ->get();
             if ($alumno) {
                 if ($alumno->estado == 1) {
@@ -331,7 +331,7 @@ class AlumnosController extends Controller
                                    ->where('deuda_ingreso.id_alumno','=',$documento)
                                    ->where('deuda_ingreso.estado_pago','=',0)
                                    ->where('deuda_ingreso.estado_fraccionam','=',0)
-                                   ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
+                                   ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo','deuda_ingreso.descuento')
                                    ->get();
             if ($alumno) {
                 if ($alumno->estado == 1) {
@@ -431,5 +431,37 @@ class AlumnosController extends Controller
             }
             
         }
-    }  
+    }
+
+    /*** Crear Amortizacion***/  
+    public function CrearAmortizacion(Request $request)
+    {
+
+        if ($request->ajax()) {
+
+        $id=$request->id_deuda;
+        $Deuda = Deuda_Ingreso::find($id);
+        $nro_documento = $Deuda->id_alumno;
+        $id_categoria = $Deuda->id_categoria;
+        $monto = $request->monto;
+        $saldo = $Deuda->saldo-$monto;
+        
+
+        /* Actualizar saldo del id */
+            Deuda_Ingreso::where('id', '=', $id)
+                        ->update(['saldo' => $saldo,'estado_fraccionam'=>'1']);
+
+        /* Crear nueva deuda con el monto*/
+            Deuda_Ingreso::create([
+                    'saldo' => $monto,
+                    'id_categoria' => $id_categoria,
+                    'id_alumno' => $nro_documento
+                ]);
+
+        return response()->json([
+            'mensaje' => 'Creado'
+        ]);
+            //return response()->json($request->all());
+        }
+    }
 }
