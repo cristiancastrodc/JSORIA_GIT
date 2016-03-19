@@ -4,9 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "09e67edd1df6ba27418e169f848bb429",
-    "content-hash": "546c7d3e71c2094e514042e30ee62310",
+    "hash": "d6bc135ade6a4cf91414e82f887b8d5e",
+    "content-hash": "5d4681592e74f3dd27daaf3c327b1c36",
     "packages": [
+        {
+            "name": "arielcr/numero-a-letras",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arielcr/numero-a-letras.git",
+                "reference": "197b28e2e2afe842024866ba9e0b5637eb9a9497"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arielcr/numero-a-letras/zipball/197b28e2e2afe842024866ba9e0b5637eb9a9497",
+                "reference": "197b28e2e2afe842024866ba9e0b5637eb9a9497",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "NumeroALetras": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ariel Orozco",
+                    "email": "bassplayer85@gmail.com",
+                    "homepage": "http://arielorozco.com"
+                }
+            ],
+            "description": "Convierte un número a su valor correspondiente en letras.",
+            "homepage": "https://github.com/arielcr/numero-a-letras",
+            "keywords": [
+                "convertir",
+                "letras",
+                "numero"
+            ],
+            "time": "2015-12-07 16:55:59"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.0.0",
@@ -845,16 +888,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v1.3.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "ff76e1a660669bb56ba74ba0583fd8d41417bf39"
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/ff76e1a660669bb56ba74ba0583fd8d41417bf39",
-                "reference": "ff76e1a660669bb56ba74ba0583fd8d41417bf39",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c7e26a21ba357863de030f0b9e701c7d04593774",
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774",
                 "shasum": ""
             },
             "require": {
@@ -889,7 +932,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-03-17 16:11:57"
+            "time": "2016-03-18 20:34:03"
         },
         {
             "name": "psr/log",
@@ -3116,7 +3159,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "arielcr/numero-a-letras": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
