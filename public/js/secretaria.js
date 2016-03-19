@@ -439,41 +439,33 @@ $('#btn-autorizar-descuento').click(function(e) {
   var $nro_documento = $('#form-lista-deudas-alumno #nro_documento').val();
 
   var $filas = $('#tabla-deudas-alumno > tbody > tr');
-  var $fila_desc = $('#tabla-deudas-alumno > tbody > tr');
 
-  var deudasEliminar = [];
-  var deudasDescontar = [];
+  var deudas = [];
 
   $filas.each(function(index, el) {
     var $seleccionado = $(this).find('[type=checkbox]').is(':checked');
-
+    var $monto = $(this).find('.descuento').val();
     if ($seleccionado) {
       var $id_deuda = $(this).find('.id-deuda').html();
       var deuda = {
         "id_deuda" : $id_deuda,
-      };
-      deudasEliminar.push(deuda);
-    };
-    });
-
-  $fila_desc.each(function(index, el) {
-    var $monto = $(this).find('.descuento').val();
-
-    if ($monto != "" && $monto != "0") {
+        "monto" : 0,
+        "operacion" : 'eliminar',
+      };      
+    deudas.push(deuda);
+    }else if($monto != "" && $monto != "0") {
       var $id_deuda = $(this).find('.id-deuda').html();
-      var deudas = {
+      var deuda = {
         "id_deuda" : $id_deuda,
-        "monto" : $monto,
-      };
-      deudasDescontar.push(deudas);
+        "monto" : $monto,        
+        "operacion" : 'descontar',
+      };      
+    deudas.push(deuda);
     };
-    });
-      
-  debug(deudasEliminar, false);
-  debug(deudasDescontar, false);
+    });      
 
-  if (deudasEliminar.length > 0) {
-    var ruta = '/secretaria/alumno/deudas/eliminar_deuda';
+  if (deudas.length > 0) {
+    var ruta = '/secretaria/alumno/deudas/eliminar_descontar_deuda';
     var $token = $('#token').val();
     $.ajax({
       headers : { 'X-CSRF-TOKEN' : $token },
@@ -481,43 +473,18 @@ $('#btn-autorizar-descuento').click(function(e) {
       type: 'POST',
       dataType: 'json',
       data : {
-        deudasEliminar : deudasEliminar,
+        deudas : deudas,
       },
       success : function (data) {
         debug(data.mensaje);
         sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
       },
       fail : function (data) {
-        debug('Error en la eliminacion de la deuda.');
+        debug('Error en el proceso de elimar y/o descontar de la deuda.');
         debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la eliminacion de la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en el proceso de elimar y/o descontar de la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
       }
     });
   };
-
-  if (deudasDescontar.length > 0) {
-    var ruta = '/secretaria/alumno/deudas/descontar_deuda';
-    var $token = $('#token').val();
-    $.ajax({
-      headers : { 'X-CSRF-TOKEN' : $token },
-      url: ruta,
-      type: 'POST',
-      dataType: 'json',
-      data : {
-        deudasDescontar : deudasDescontar,
-      },
-      success : function (data) {
-        debug(data.mensaje);
-        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
-      },
-      fail : function (data) {
-        debug('Error en el descuento de la deuda.');
-        debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'Hubo un error al descontar la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
-      }
-    });
-  };
-
-
 });
 /*** Inicio descuento deudas alumno ***/
