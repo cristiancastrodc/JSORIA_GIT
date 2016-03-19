@@ -9,6 +9,8 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Categoria;
 use JSoria\InstitucionDetalle;
+use JSoria\Grado;
+
 class AdminReporteAlumnosDeudores extends Controller
 {
     /**
@@ -46,17 +48,11 @@ class AdminReporteAlumnosDeudores extends Controller
 
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];
-        //return $id_institucion.' '.$id_detalle_institucion.' '.$id_grado;
         $datas = Categoria::join('deuda_ingreso','categoria.id','=','deuda_ingreso.id_categoria')
                             ->join('alumno','deuda_ingreso.id_alumno','=','alumno.nro_documento')
                             ->where('deuda_ingreso.estado_pago','=',0)
                             ->where('alumno.id_grado','=',$id_grado)
                             ->where('id_detalle_institucion','=',$id_detalle_institucion)
-                            //->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
-                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
-                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })*/
                             ->select('alumno.nombres','alumno.apellidos','nombre','deuda_ingreso.saldo','deuda_ingreso.descuento')
                             ->orderBy('alumno.nro_documento')
                             ->get();
@@ -64,16 +60,6 @@ class AdminReporteAlumnosDeudores extends Controller
         $nombre_nivel= InstitucionDetalle::where('id','=',$id_detalle_institucion)
                             ->select('nombre_division')
                             ->first();        
-
-        //return $datas;
-
-/*select concat(A.nombres, ' ' ,A.apellidos) as Alumno, C.nombre, D.saldo - D.descuento as monto 
-from jsoria_categoria AS C inner join jsoria_deuda_ingreso AS D
-on D.id_categoria = C.id inner join jsoria_alumno AS A on D.id_alumno = A.nro_documento
-where D.estado_pago = '0'
-    and A.id_grado = id_grado
-    and C.id_detalle_institucion = id_detalle_institucion
-order by A.nro_documento*/
 
         switch ($id_institucion) {
             case 1:
@@ -92,8 +78,11 @@ order by A.nro_documento*/
                 break;
         }
 
+        $id_grado=Grado::where('id','=',$id_grado)
+                    ->first();
 
-        $view =  \View::make('pdf.AdminAlumnosDeudores', compact('id_institucion','id_detalle_institucion','id_grado','datas','fecha_inicio','fecha_fin','nombre_nivel'))->render();
+
+        $view =  \View::make('pdf.AdminAlumnosDeudores', compact('id_institucion','id_grado','datas','fecha_inicio','fecha_fin','nombre_nivel'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);        

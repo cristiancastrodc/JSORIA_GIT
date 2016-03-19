@@ -39,6 +39,7 @@
                   <option value="1">Boleta</option>
                   <option value="2">Factura</option>
                   <option value="3">Comprobante de Pago</option>
+                  <option value="4">Recibo por Honorario</option>
                 </select>
               </div>
             </div>

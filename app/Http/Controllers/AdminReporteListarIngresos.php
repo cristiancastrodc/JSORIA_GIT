@@ -48,6 +48,8 @@ class AdminReporteListarIngresos extends Controller
 
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];
+        $var_checkbox=isset($_POST['todas_categorias']);
+        $var_checkbox = ($var_checkbox) ? 'true' : 'false';
         if (isset($_POST['todas_categorias']))
         {
 //TODOS CHECKED
@@ -60,10 +62,6 @@ class AdminReporteListarIngresos extends Controller
                             })
                             ->where('detalle_institucion.id_institucion','=',$id_institucion)
                             ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
-                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
-                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })*/
                             ->select('fecha_hora_ingreso','id_alumno','cliente_extr','nombre','saldo','descuento')
                             ->get();            
         }
@@ -80,35 +78,13 @@ class AdminReporteListarIngresos extends Controller
                             })
                             ->where('detalle_institucion.id_institucion','=',$id_institucion)
                             ->whereBetween('fecha_hora_ingreso',[$fecha_inicio,$fecha_fin])
-                            /*->where(function($query2) use($fecha_inicio,$fecha_fin){
-                                $query2->where('fecha_hora_ingreso','>',$fecha_inicio)
-                                      ->orwhere('fecha_hora_ingreso','<',$fecha_fin);
-                            })*/
                             ->select('fecha_hora_ingreso','id_alumno','cliente_extr','nombre','saldo','descuento')
                             ->get();
         }
-        //return $id_detalle_institucion.' '.$id_detalle_institucion;
                             
         $nombre_nivel= InstitucionDetalle::where('id','=',$id_detalle_institucion)
                             ->select('nombre_division')
                             ->first();        
-        //return $nombre_nivel;
-
-        //return $datas;
-
-/*select jsoria_deuda_ingreso.fecha_hora_ingreso,jsoria_deuda_ingreso.id_alumno,jsoria_deuda_ingreso.cliente_extr, jsoria_categoria.nombre, jsoria_deuda_ingreso.saldo - jsoria_deuda_ingreso.descuento as Monto
-from jsoria_deuda_ingreso
-
-inner join jsoria_categoria
-on jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id
-inner join jsoria_detalle_institucion
-on jsoria_categoria.id_detalle_institucion = jsoria_detalle_institucion.id
-
-where jsoria_categoria.tipo = 'sin_factor'
-    and jsoria_deuda_ingreso.estado_pago = 1
-    and (jsoria_categoria.id_detalle_institucion = id_detalle_institucion   or (jsoria_detalle_institucion.nombre_division = 'Todo' 
-    and jsoria_detalle_institucion.id_institucion = 'id_institucion'))
-    and (date(jsoria_deuda_ingreso.fecha_hora_ingreso) between 'fecha_inicio' and  'fecha_fin');*/
 
         switch ($id_institucion) {
             case 1:
@@ -126,7 +102,7 @@ where jsoria_categoria.tipo = 'sin_factor'
             default:
                 break;
         }        
-        $view =  \View::make('pdf.AdminListarIngresos', compact('id_institucion','id_detalle_institucion','id_categoria','datas','nombre_nivel','fecha_inicio','fecha_fin'))->render();
+        $view =  \View::make('pdf.AdminListarIngresos', compact('id_institucion','id_detalle_institucion','id_categoria','datas','nombre_nivel','fecha_inicio','fecha_fin','var_checkbox'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminListarIngresos');

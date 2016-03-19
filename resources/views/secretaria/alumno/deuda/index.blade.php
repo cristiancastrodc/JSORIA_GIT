@@ -71,7 +71,9 @@
             <div class="form-group">
               <label for="" class="control-label col-sm-3">Resolucion:</label>
               <div class="col-sm-9">
-                <div class="fg-line"><input type="text" name="rd" id="rd" class="form-control"></div>
+                <div class="fg-line">
+                  <input type="text" name="rd" id="rd" class="form-control">
+                </div>
               </div>
             </div>
             <div class="form-group">

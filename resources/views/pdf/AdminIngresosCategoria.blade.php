@@ -8,17 +8,21 @@
 <body>
 <div >
   <h1>INGRESOS POR CATEGORIA</h1>
-  <h2>Institucion: {{$id_institucion}} - {{$nombre_nivel['nombre_division']}}</h2>
-  <table >
-    <tr >
-    <td>Fecha Inicial:{{$fecha_inicio}}</td>
-    <td>Fecha Final: {{$fecha_inicio}}</td>
-    </tr>
-  </table>
+  <?php if ($nombre_nivel['nombre_division']=='Todo'){
+    $nombre_nivel['nombre_division']='';
+  }
+  else
+  {
+   $nombre_nivel['nombre_division'] = '- '.$nombre_nivel['nombre_division'];
+  }
+  ?>  
+  <h2>Institucion: {{$id_institucion}} {{$nombre_nivel['nombre_division']}}</h2>
+  <h2>Fecha Inicial: {{$fecha_inicio}}</h2>
+  <h2>Fecha Final: {{$fecha_fin}}</h2>  
   <table >
     <thead>
       <tr>
-        <td>#</td>
+        <td>Nro</td>
         <td>Categoria</td>
         <td>Monto</td>
       </tr>
@@ -40,9 +44,9 @@
   </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"></td>
-            <td >TOTAL</td>
-            <td><b><?php echo $total;?></b></td>
+            <td colspan="1"></td>
+            <td ><b>TOTAL (S/)</b></td>
+            <td><b><?php echo number_format($total,2); ?></b></td>
           </tr>
         </tfoot>  
 </table>

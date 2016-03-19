@@ -4,6 +4,8 @@ namespace JSoria;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Auth;
+
 class Egreso extends Model
 {
   protected $table = 'egreso';
@@ -17,4 +19,14 @@ class Egreso extends Model
 
   /*** Custom ***/
   public $timestamps = false;
+
+  /*** Recuperar Lista de Egresos por Fecha ***/
+  public static function egresosPorFecha($fecha_egreso)
+  {
+    return Egreso::join('institucion', 'egreso.id_institucion', '=', 'institucion.id')
+           ->where('fecha', $fecha_egreso)
+           ->where('id_tesorera', Auth::user()->id)
+           ->select('egreso.id', 'institucion.nombre', 'egreso.tipo_comprobante', 'egreso.numero_comprobante')
+           ->get();
+  }
 }

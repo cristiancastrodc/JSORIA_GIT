@@ -28,3 +28,10 @@ function sweet_alert (pTitle, pText, pType, fun = '') {
     if (fun == 'reload') { document.location.reload(); };
   });
 }
+
+/*** Function that adds leading zeros to a number ***/
+function pad(num, size) {
+  var s = num + "";
+  while (s.length < size) s = "0" + s;
+  return s;
+}

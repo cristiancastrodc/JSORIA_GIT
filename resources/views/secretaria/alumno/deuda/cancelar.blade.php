@@ -63,7 +63,7 @@
             </div>  
             <div class="form-group">
               <div class="pull-right">
-                <button class="btn btn-warning waves-effect">Cancelar Deudas</button>
+                <button class="btn btn-warning waves-effect" id="btn-cancelar-deuda-actividad">Cancelar Deudas</button>
               </div>
             </div>
           {!!Form::close()!!}   

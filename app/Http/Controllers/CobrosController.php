@@ -12,9 +12,10 @@ use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
 use JSoria\Institucion;
 use JSoria\InstitucionDetalle;
+use JSoria\UsuarioImpresora;
+use JSoria\Http\Controllers\HerramientasController;
 
-use Escpos;
-use WindowsPrintConnector;
+use Auth;
 
 class CobrosController extends Controller
 {
@@ -30,7 +31,11 @@ class CobrosController extends Controller
      */
     public function index()
     {
-        return view('cajera.cobros.index');
+      $categorias = Categoria::where('tipo', 'multiple')
+                             ->where('estado', 1)
+                             ->get();
+
+        return view('cajera.cobros.index', compact('categorias'));
     }
 
     /**
@@ -147,32 +152,14 @@ class CobrosController extends Controller
             } else {
                 $deuda = Deuda_Ingreso::find($nro_documento);
 
-                if ($deuda) {
-                    return response()->json(['res' => 'hay deuda']);
+                if ($deuda->cliente_extr != null && $deuda->descripcion_extr != null) {
+                    return response()->json(['res' => 'hay deuda', 'deuda' => $deuda]);
                 } else {
                     return response()->json(['mensaje' => 'No se encuentra alumno ni codigo correspondiente al dato ingresado.']);
                 }
             }
         } else {
             return response()->json(['mensaje' => 'Esta petición sólo se puede acceder desde AJAX.']);
-        }
-    }
-
-    public function imprimir()
-    {
-        try {
-            // Enter the share name for your USB printer here
-            $connector = new WindowsPrintConnector("Tickets");
-
-            /* Print a "Hello world" receipt" */
-            $printer = new Escpos($connector);
-            $printer -> text("Corporacion JSoria!\n");
-            $printer -> cut();
-
-            /* Close printer */
-            $printer -> close();
-        } catch(Exception $e) {
-            echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
         }
     }
 
@@ -184,43 +171,103 @@ class CobrosController extends Controller
             $deudas = $request['id_pagos'];
             $deudas = array_filter(explode(',', $deudas));
 
+            $pagos = array();
+            $monto_total = 0;
+
             foreach ($deudas as $deuda) {
                 $pago = Deuda_Ingreso::find($deuda);
                 $pago->estado_pago = 1;
+                $pago->fecha_hora_ingreso = date("Y-m-d H:i:s");
+                $pago->id_cajera = Auth::user()->id;
                 $pago->save();
+
+                $categoria = Categoria::find($pago->id_categoria);
+                $monto = floatval($pago->saldo) - floatval($pago->descuento);
+                $monto_total += $monto;
+                $concepto = array($categoria->nombre, $monto);
+                array_push($pagos, $concepto);
             }
 
             $compras = $request['id_compras'];
             $compras = array_filter(explode(',', $compras));
             $nro_compras = intval(count($compras) / 2);
 
+            $nro_documento = $request['nro_documento'];
             for ($i = 0; $i < $nro_compras; $i++) {
                 $i1 = $i + 1;
                 Deuda_Ingreso::create([
                     'saldo' => $compras[$i1],
                     'estado_pago' => 1,
                     'id_categoria' => $compras[$i],
-                    'id_alumno' => $request['nro_documento']
+                    'id_alumno' => $nro_documento,
+                    'id_cajera' => Auth::user()->id
                 ]);
+
+                $categoria = Categoria::find($compras[$i]);
+                $monto = $compras[$i1];
+                $monto_total += $monto;
+                $concepto = array($categoria->nombre, $monto);
+                array_push($pagos, $concepto);
             }
 
-            $mensaje = 'The request has completed succesfully.';
+            $alumno = Alumno::find($nro_documento);
+            $nombre_completo = strtoupper($alumno->nombres . " " . $alumno->apellidos);
 
-            try {
-                // Enter the share name for your USB printer here
-                $connector = new WindowsPrintConnector("Tickets");
+            $mensaje = 'Pagos de alumno correctamente actualizados.';
 
-                $printer = new Escpos($connector);
-                $printer -> text("Corporacion JSoria!\n");
-                $printer -> cut();
-
-                /* Close printer */
-                $printer -> close();
-            } catch(Exception $e) {
-                $mensaje = "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+            $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
+            if ($usuario_impresora->tipo_impresora == 'matricial') {
+                if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
+                    HerramientasController::imprimirBoletaCompMatricial($nro_documento, $nombre_completo, $pagos, $monto_total);
+                } elseif ($request['tipo'] == 'factura') {
+                    HerramientasController::imprimirFacturaMatricial($nro_documento, $nombre_completo, $pagos, $monto_total, $request['ruc_cliente'], $request['razon_social'], $request['direccion']);
+                };
+            } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
+                if ($request['tipo'] == 'comprobante') {
+                    HerramientasController::imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total);
+                } else {
+                    $mensaje = 'Pagos de alumno actualizados. Puede girar la boleta/factura manualmente.';
+                }
             }
 
             return response()->json(['mensaje' => $mensaje]);
+        }
+    }
+
+    public function guardarCobroExtraordinario(Request $request)
+    {
+        if ($request->ajax()) {
+            $id_deuda = $request->id_deuda_extr;
+
+            $deuda = Deuda_Ingreso::find($id_deuda);
+            $deuda->estado_pago = 1;
+            $deuda->fecha_hora_ingreso = date('Y-m-d H:i:s');
+            $deuda->id_cajera = Auth::user()->id;
+            $deuda->save();
+
+
+            $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
+            if ($usuario_impresora->tipo_impresora == 'matricial') {
+                if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
+                    HerramientasController::imprimirBoletaCompMatricialExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo);
+                } elseif ($request['tipo'] == 'factura') {
+                    HerramientasController::imprimirFacturaMatricialExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $request['ruc_cliente'], $request['razon_social'], $request['direccion']);
+                };
+            } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
+                if ($request['tipo'] == 'comprobante') {
+                    $id_razon_social = Deuda_Ingreso::join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                                                    ->join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                                                    ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
+                                                    ->where('deuda_ingreso.id', $id_deuda)
+                                                    ->first();
+                    $id_razon_social = $id_razon_social->id_razon_social;
+                    HerramientasController::imprimirComprobanteTicketeraExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $id_razon_social);
+                } else {
+                    $mensaje = 'Cobro realizado. Puede girar la boleta/factura manualmente.';
+                }
+            }
+
+            return response()->json(['mensaje' => 'Cobro realizado exitosamente.']);
         }
     }
 }

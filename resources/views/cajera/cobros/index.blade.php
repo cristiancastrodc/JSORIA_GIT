@@ -17,68 +17,77 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="card">
         <div class="card-body card-padding">
+          {!!Form::open(['class' => 'form-horizontal'])!!}
+          <input type="hidden" id="_token" value="{{ csrf_token() }}">
           <div class="table-responsive">
             <table id="otros-conceptos" class="table table-striped">
               <thead>
                   <tr>
-                      <th data-column-id="id" data-visible="false" data-identifier="true">Id</th>
-                      <th data-column-id="Nombre" class="warning c-white">Nombre</th>
-                      <th data-column-id="Monto" class="warning c-white">Monto</th>
+                      <th class="hidden">Id</th>
+                      <th class="warning c-white">Nombre</th>
+                      <th class="warning c-white">Monto</th>
+                      <th class="warning c-white">¿Seleccionar?</th>
                   </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Matrícula Colegio 2016</td>
-                  <td>100.00</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Matrícula CEBA 2016</td>
-                  <td>100.00</td>
-                </tr>
+                @foreach($categorias as $categoria)
+                  <tr>
+                    <td class="hidden id">{{ $categoria->id }}</td>
+                    <td class="nombre">{{ $categoria->nombre }}</td>
+                    <td class="monto">{{ $categoria->monto }}</td>
+                    <td class="hidden destino">{{ $categoria->destino }}</td>
+                    <td>
+                      <label class='checkbox checkbox-inline'><input type='checkbox' class='selected'><i class='input-helper'></i> Seleccionar</label>
+                    </td>
+                  </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal'])!!}
-            <div class="form-group">
-              <div class="col-sm-2"><h4>Concepto:</h4></div>
-              <div class="col-sm-8">Inscripción Examen de Admisión.</div>
-              <div class="col-sm-2">S/ 100.00</div>
-            </div>
-            <div class="form-group">
-                <label for="DNI" class="col-sm-3 control-label">DNI</label>
-                <div class="col-sm-9">
-                    <div class="fg-line">
-                        <input type="text" class="form-control input-sm" id="DNI" name="DNI" placeholder="DNI">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="cliente_extr" class="col-sm-3 control-label">Nombre:</label>
-                <div class="col-sm-9">
-                    <div class="fg-line">
-                        <input type="text" class="form-control input-sm" id="cliente_extr" name="cliente_extr" placeholder="Nombre">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <div class="pull-right">
-                  <button class="btn btn-gray waves-effect">Cancelar</button>
-                  <button class="btn bgm-green waves-effect">Comprobante</button>
-                  <button class="btn bgm-indigo waves-effect">Boleta</button>
-                  <button class="btn bgm-red waves-effect">Factura</button>
-                </div>
+          <div class="form-group">
+              <label for="DNI" class="col-sm-3 control-label">DNI</label>
+              <div class="col-sm-9">
+                  <div class="fg-line">
+                      <input type="text" class="form-control input-sm" id="dni_cliente" name="DNI" placeholder="DNI">
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="cliente_extr" class="col-sm-3 control-label">Nombre:</label>
+              <div class="col-sm-9">
+                  <div class="fg-line">
+                      <input type="text" class="form-control input-sm" id="nombre_cliente" name="cliente_extr" placeholder="Nombre">
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
+              <div class="col-sm-9">
+                  <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente" placeholder="Solo ingresar en caso de factura"></div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
+              <div class="col-sm-9">
+                  <div class="fg-line"><input type="text" class="form-control" id="razon_social" placeholder="Solo ingresar en caso de factura"></div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="direccion" class="control-label col-sm-3">Dirección:</label>
+              <div class="col-sm-9">
+                  <div class="fg-line"><input type="text" class="form-control" id="direccion" placeholder="Solo ingresar en caso de factura"></div>
+              </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn bgm-blue-soria btn-block m-t-10" id="btn-cobrar-multiple"> Cobrar</button>
               </div>
             </div>
+          </div>
           {!!Form::close()!!}
         </div>
       </div>
@@ -86,25 +95,10 @@
   </div>
 @endsection
 
+@section('modals')
+  @include('cajera.cobros.modal')
+@endsection
+
 @section('scripts')
-  {!!Html::script('vendors/bootgrid/jquery.bootgrid.updated.min.js')!!}
-  {!!Html::script('js/own.scripts.js')!!}
-  <script type="text/javascript">
-      $(document).ready(function(){
-          $("#otros-conceptos").bootgrid({
-              css: {
-                  icon: 'zmdi icon',
-                  iconColumns: 'zmdi-view-module',
-                  iconDown: 'zmdi-expand-more',
-                  iconRefresh: 'zmdi-refresh',
-                  iconUp: 'zmdi-expand-less'
-              },
-              selection : true,
-              multiSelect : true,
-              rowSelect : true,
-              keepSelection : true,
-              navigation : 0,
-          });
-        });
-  </script>
+  <script src="{{ asset('js/cajera.js') }}"></script>
 @endsection

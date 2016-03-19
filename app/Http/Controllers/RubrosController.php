@@ -10,6 +10,7 @@ use JSoria\Http\Requests\RubroUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Rubro;
+use JSoria\DetalleEgreso;
 use Redirect;
 use Session;
 
@@ -18,7 +19,6 @@ class RubrosController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-      $this->middleware('tesorera');
     }
     /**
      * Display a listing of the resource.
@@ -89,7 +89,11 @@ class RubrosController extends Controller
      */
     public function update(RubroUpdateRequest $request, $id)
     {
-        //
+        $rubro = Rubro::find($id);
+        $rubro->nombre = $request['nombre'];
+        $rubro->save();
+
+        return response()->json(['mensaje' => 'Rubro editado correctamente.']);
     }
 
     /**
@@ -98,9 +102,18 @@ class RubrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $data = DetalleEgreso::where('id_rubro', $id)->get();
+            if ($data->isEmpty()) {
+                Rubro::destroy($id);
+                return response()->json(['mensaje' => 'Rubro eliminado correctamente.', 'tipo' => 'exito']);
+            } else {
+                return response()->json(['mensaje' => 'No se puede eliminar el rubro. Existen egresos asociados.', 'tipo' => 'error']);
+            }
+            //return response()->json(['data' => $data->isEmpty()]);
+        }
     }
 
     public function crearconajax(Request $request)
