@@ -31,7 +31,11 @@ class CobrosController extends Controller
      */
     public function index()
     {
-        return view('cajera.cobros.index');
+      $categorias = Categoria::where('tipo', 'multiple')
+                             ->where('estado', 1)
+                             ->get();
+
+        return view('cajera.cobros.index', compact('categorias'));
     }
 
     /**

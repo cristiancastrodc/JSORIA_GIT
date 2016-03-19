@@ -309,3 +309,32 @@ $('#btn-factura-extr').click(function(e) {
   var id_deuda_extr = $('#id_deuda_extr').val();
 });
 /*** Fin de Procesar pago Extra ***/
+
+$('#btn-cobrar-multiple').click(function(e) {
+  e.preventDefault();
+  debug('Clicked');
+
+  var $filas = $("#otros-conceptos > tbody > tr");
+  var nro_pagos_sel = 0;
+  var compras = [];
+  var filas_resumen = "";
+  var total = 0;
+  var destino_externo = false;
+
+  $filas.each(function(index, el) {
+    var sel = $(this).find('.selected').is(':checked');
+    if (sel) {
+      if (!destino_externo) { destino_externo = $(this).find('.destino').html() == "0" ? false : true; };
+      var monto_pago = parseFloat($(this).find('.monto').html());
+      filas_resumen += "<tr><td class='hidden id'>" + $(this).find('.id').html() + "</td><td class='nombre'>" + $(this).find('.nombre').html() + "</td><td class='monto text-right'>" + monto_pago + "</td></tr>"
+      nro_pagos_sel++;
+      total += monto_pago;
+      compras.push($(this).find('.id').html());
+    };
+  });
+
+  debug(destino_externo, false);
+
+  $('#card-cobro-multiple.js-toggle').slideDown('fast');
+});
+
