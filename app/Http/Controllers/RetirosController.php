@@ -9,6 +9,7 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
 use JSoria\Retiro;
+use JSoria\User;
 use Auth;
 
 class RetirosController extends Controller
@@ -16,7 +17,6 @@ class RetirosController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-      $this->middleware('Cajera');
     }
     /**
      * Display a listing of the resource.
@@ -25,7 +25,13 @@ class RetirosController extends Controller
      */
     public function index()
     {
-        return view('cajera.retiros.index');
+        $id_cajera = Auth::user()->id;
+        $retiro = Retiro::join('usuario', 'retiro.id_usuario', '=', 'usuario.id') 
+                        ->where('retiro.id_cajera','=',$id_cajera)
+                        ->where('retiro.estado','=','0')
+                        ->select('retiro.id','retiro.monto','retiro.fecha_hora','usuario.nombres','usuario.apellidos')
+                        ->get();
+        return view('cajera.retiros.index', compact('retiro'));
     }
 
     /**
@@ -134,6 +140,17 @@ class RetirosController extends Controller
         if ($request->ajax()) {
             $pagos = Deuda_Ingreso::retiroTesorera($id_cajera, Auth::user()->id);
             return response()->json($pagos);
+        }
+    }
+    public function confirmar(Request $request)
+    {
+        if ($request->ajax()) {
+            $id_retiro = $request['id_retiro'];
+            $conf = Retiro::where('id','=',$id_retiro)
+                          ->update(['estado'=>'1']);
+
+
+            return response()->json(['mensaje' => 'El Retiro fue procesado correctamente.', 'tipo' => 'sus']);
         }
     }
 }

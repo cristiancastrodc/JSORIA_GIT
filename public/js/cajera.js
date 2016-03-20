@@ -257,7 +257,59 @@ $('#modal-resumen-pago').on('click', '#btn-factura', function(e) {
     });
 });
 
+
+
 /*** Inicio de Procesar guardado del cobro ***/
 function procesarGuardarTransaccion ($modal) {
 }
 /*** Fin de Procesar guardado del cobro ***/
+$('#modal-confirmar-autorizacion').on('shown.bs.modal', function (e) {
+  var $boton = $(e.relatedTarget);
+  var id = $boton.data('id');
+
+  var $modal = $(this);
+  $modal.find('#modal-id').val(id);
+});
+
+$('#modal-confirmar-autorizacion #modal-guardar').click(function () {
+  var $modal = $('#modal-confirmar-autorizacion');
+  var $id = $('#modal-id').val();
+  var $pass = $('#contrasenia').val();
+  var $token = $('#modal-token').val();
+  debug($id);
+  debug($pass);
+
+  var ruta = '/cajera/retiro/confirmacion';
+
+  $.ajax({
+    url: ruta,
+    headers : { 'X-CSRF-TOKEN' : $token },
+    type : 'POST',
+    dataType : 'json',
+    data : {
+      pass : $pass,
+      id_retiro : $id,
+    },
+    success : function (data) {
+      swal({
+          title: "Éxito",
+          text: data.mensaje,
+          type: "success",
+          closeOnConfirm : true
+      }, function(){
+          document.location.reload();
+          //reloadTablaActividades($modal);
+      });
+    },
+    error : function (data) {
+      debug(data, false);swal({
+          title: "ERROR",
+          text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
+          type: "error",
+          closeOnConfirm: true
+      }, function(){
+        console.log('fail');
+      });
+    },
+  });
+});

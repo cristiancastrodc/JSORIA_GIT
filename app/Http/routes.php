@@ -55,6 +55,7 @@ Route::resource('cajera/retiros','RetirosController');
 Route::get('cajera/buscar/deudas/{codigo}', 'CobrosController@buscarDeudas');
 Route::post('cajera/cobro/guardar', 'CobrosController@guardarCobro');
 Route::post('cajera/cobro/extraordinario/guardar', 'CobrosController@guardarCobroExtraordinario');
+Route::post('cajera/retiro/confirmacion', 'RetirosController@confirmar');
 /*** Rutas para secretaria ***/
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
