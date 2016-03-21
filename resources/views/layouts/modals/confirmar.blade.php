@@ -18,7 +18,7 @@
                         <label for="pass" class="control-label col-sm-4">Ingrese su contraseña:</label>
                         <div class="col-sm-8">
                             <div class="fg-line">
-                                <input type="pass" name="contrasenia" id="contrasenia" class="form-control">
+                                <input type="password" name="contrasenia" id="contrasenia" class="form-control input-sm">
                             </div>
                         </div>
                     </div>                    

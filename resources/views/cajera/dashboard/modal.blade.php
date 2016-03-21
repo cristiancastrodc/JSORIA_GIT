@@ -11,9 +11,17 @@
                         <div class="col-sm-9">
                             <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente" placeholder="Solo ingresar en caso de factura"></div>
                         </div>
+                    </div>
+                    <div class="form-group">
                         <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
                         <div class="col-sm-9">
                             <div class="fg-line"><input type="text" class="form-control" id="razon_social" placeholder="Solo ingresar en caso de factura"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion" class="control-label col-sm-3">Dirección:</label>
+                        <div class="col-sm-9">
+                            <div class="fg-line"><input type="text" class="form-control" id="direccion" placeholder="Solo ingresar en caso de factura"></div>
                         </div>
                     </div>
                     <div class="table-responsive">

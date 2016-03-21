@@ -3,6 +3,7 @@
 namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Crypt;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
@@ -41,7 +42,7 @@ class RetirosController extends Controller
      */
     public function create()
     {
-        //
+        //  
     }
 
     /**
@@ -145,12 +146,23 @@ class RetirosController extends Controller
     public function confirmar(Request $request)
     {
         if ($request->ajax()) {
-            $id_retiro = $request['id_retiro'];
-            $conf = Retiro::where('id','=',$id_retiro)
-                          ->update(['estado'=>'1']);
+            $retiro = $request['retiro'];
+            $pass = $request['pass'];
 
+            $idusuario = Retiro::find($retiro);
+            $user = $idusuario->id_usuario;
 
-            return response()->json(['mensaje' => 'El Retiro fue procesado correctamente.', 'tipo' => 'sus']);
+            $tesorera = User::find($user);
+            $contra = $tesorera->password;
+
+            if(\Hash::check($pass , $contra)){
+              Retiro::where('id','=',$retiro)
+                      ->Update(['estado'=>'1']);                      
+              return response()->json(['mensaje' => 'El Retiro fue procesado correctamente.', 'tipo' => '']);
+            }else{
+            return response()->json(['mensaje' => 'Contraseña incorrecta.', 'tipo' => 'error']);
+            //return response()->json($contra);
+          }
         }
     }
 }

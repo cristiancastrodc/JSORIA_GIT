@@ -87,6 +87,7 @@
         </div>
         <div class="card-body card-padding">
           <form class="form-horizontal" role="form">
+            <input type="hidden" id="_token-extr" value="{{ csrf_token() }}">
             <input type="hidden" id="id_deuda_extr">
             <div class="form-group">
               <div class="col-sm-2"><h4>Concepto:</h4></div>
@@ -94,12 +95,30 @@
               <div class="col-sm-2">S/ <span id="monto_extr"></span></div>
             </div>
             <div class="form-group">
+                <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
+                <div class="col-sm-9">
+                    <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente_extr" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
+                <div class="col-sm-9">
+                    <div class="fg-line"><input type="text" class="form-control" id="razon_social_extr" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="direccion" class="control-label col-sm-3">Dirección:</label>
+                <div class="col-sm-9">
+                    <div class="fg-line"><input type="text" class="form-control" id="direccion_extr" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+            </div>
+            <div class="form-group">
               <div class="col-sm-12">
                 <div class="pull-right">
                   <button class="btn btn-gray waves-effect cobro_extr">Cancelar</button>
-                  <button class="btn bgm-green waves-effect cobro_extr" id="btn-comprobante">Comprobante</button>
-                  <button class="btn bgm-indigo waves-effect cobro_extr" id="btn-boleta">Boleta</button>
-                  <button class="btn bgm-red waves-effect cobro_extr" id="btn-factura">Factura</button>
+                  <button class="btn bgm-green waves-effect" id="btn-comprobante-extr">Comprobante</button>
+                  <button class="btn bgm-indigo waves-effect" id="btn-boleta-extr">Boleta</button>
+                  <button class="btn bgm-red waves-effect" id="btn-factura-extr">Factura</button>
                 </div>
               </div>
             </div>
