@@ -53,11 +53,11 @@ class AdminReporteListarIngresos extends Controller
         $var_checkbox_instituciones = isset($_POST['todas_instituciones']);
         $var_checkbox_instituciones = ($var_checkbox_instituciones) ? 'true' : 'false';
 
-        if (isset($_POST['todas_instituciones']))
+/*        if (isset($_POST['todas_instituciones']))
         {
 //TODAS INSTITUCIONES CHECKED
             if (isset($_POST['todas_categorias']))
-            {
+            { 
     //TODOS CHECKED
             $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
                                 ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
@@ -80,7 +80,7 @@ class AdminReporteListarIngresos extends Controller
             }
         }
         else
-        {
+        {  */
 //TODAS INSTITUCIONES NO CHECKED
             if (isset($_POST['todas_categorias']))
             {
@@ -114,7 +114,7 @@ class AdminReporteListarIngresos extends Controller
                                 ->get();
             }
 
-        }
+//        }
                             
         $nombre_nivel= InstitucionDetalle::where('id','=',$id_detalle_institucion)
                             ->select('nombre_division')

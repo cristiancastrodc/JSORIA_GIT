@@ -30,7 +30,7 @@
                   <option value="3">I.S.T. Urusayhua</option>
                   <option value="4">ULP</option>
                 </select>
-                  <div class="col-sm-9 col-sm-4">
+                  <!--<div class="col-sm-9 col-sm-4">
                       <div class="checkbox">
                           <label>
                               <input type="checkbox" name="checkbox_todas_instituciones" id="checkbox_todas_instituciones">
@@ -38,7 +38,7 @@
                               Todas Instituciones                              
                           </label>
                       </div>
-                  </div>                                 
+                  </div>-->
               </div>
             </div>
             <div class="form-group">

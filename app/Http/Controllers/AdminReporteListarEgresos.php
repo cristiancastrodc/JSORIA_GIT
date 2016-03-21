@@ -49,7 +49,7 @@ class AdminReporteListarEgresos extends Controller
         $fecha_fin = $request['fecha_fin'];
         //return $id_institucion .' '.$id_rubro;
 
-        if (isset($_POST['checkbox_todas_instituciones']))
+/*        if (isset($_POST['checkbox_todas_instituciones']))
         {
 //TODAS INSTITUCIONES CHECKED
             if (isset($_POST['checkbox_todos_rubros']))
@@ -73,7 +73,7 @@ class AdminReporteListarEgresos extends Controller
             }
         }
         else
-        {
+        {  */
 //TODAS INSTITUCIONES NO CHECKED            
             if (isset($_POST['checkbox_todos_rubros']))
             {
@@ -96,7 +96,7 @@ class AdminReporteListarEgresos extends Controller
                                 ->select('tipo_comprobante','numero_comprobante','nombre','monto')
                                 ->get();
             }
-        }            
+//        }            
 
 
 

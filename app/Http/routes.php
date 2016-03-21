@@ -125,3 +125,5 @@ Route::get('tesorera/reportes/EgresosRubro', 'AdminReporteEgresosRubro@index');
 Route::resource('tesorera/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
 Route::get('tesorera/reportes/EgresosTotales', 'AdminReporteEgresosTotales@index');
 Route::resource('secretaria/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales');
+
+Route::get('tesorera/reportes/Saldo', 'TesoreraReporteSaldo@index');

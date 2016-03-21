@@ -174,6 +174,7 @@
                 <li><a href="{!!URL::to('/tesorera/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
                 <li><a href="{!!URL::to('/tesorera/reportes/EgresosRubro')!!}">Egresos agrupados por Rubros</a></li>
                 <li><a href="{!!URL::to('/tesorera/reportes/EgresosTotales')!!}">Egresos Totales</a></li>
+                <<!--<li><a href="{!!URL::to('/tesorera/reportes/Saldo')!!}" target="_blank">Saldo</a></li>-->
             </ul>
           </li>
 
