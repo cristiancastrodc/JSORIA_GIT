@@ -49,27 +49,57 @@ class AdminReporteListarEgresos extends Controller
         $fecha_fin = $request['fecha_fin'];
         //return $id_institucion .' '.$id_rubro;
 
-        if (isset($_POST['checkbox_todos']))
+        if (isset($_POST['checkbox_todas_instituciones']))
         {
-//TODOS CHECKED
-        $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
-                            ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
-                            ->where('id_institucion','=',$id_institucion)
-                            ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-                            ->select('tipo_comprobante','numero_comprobante','nombre','monto')
-                            ->get();
+//TODAS INSTITUCIONES CHECKED
+            if (isset($_POST['checkbox_todos_rubros']))
+            {
+    //TODOS CHECKED
+            $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
+                                ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
+                                ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                                ->get();
+            }
+            else
+            {
+    //TODOS NO CHECKED            
+            $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
+                                ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
+                                ->where('detalle_egreso.id_rubro','=',$id_rubro)
+                                ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                                ->get();
+            }
         }
         else
         {
-//TODOS NO CHECKED            
-        $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
-                            ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
-                            ->where('id_institucion','=',$id_institucion)
-                            ->where('detalle_egreso.id_rubro','=',$id_rubro)
-                            ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-                            ->select('tipo_comprobante','numero_comprobante','nombre','monto')
-                            ->get();
-        }
+//TODAS INSTITUCIONES NO CHECKED            
+            if (isset($_POST['checkbox_todos_rubros']))
+            {
+    //TODOS CHECKED
+            $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
+                                ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
+                                ->where('id_institucion','=',$id_institucion)
+                                ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                                ->get();
+            }
+            else
+            {
+    //TODOS NO CHECKED            
+            $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
+                                ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
+                                ->where('id_institucion','=',$id_institucion)
+                                ->where('detalle_egreso.id_rubro','=',$id_rubro)
+                                ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                                ->get();
+            }
+        }            
+
+
+
         switch ($id_institucion) {
             case 1:
                 $id_institucion='I.E. J. Soria';
