@@ -159,7 +159,7 @@
               <li><a href="{!!URL::to('/tesorera/egresos')!!}">Modificar</a></li>
             </ul>
           </li>
-          <li><a href="{!!URL::to('/tesorera/rubros')!!}">
+          <li><a href="{!!URL::to('/tesorera/rubro/fixed_listar')!!}">
             <i class="zmdi zmdi-tag"></i> Rubros</a>
           </li>
           <li><a href="{!!URL::to('/tesorera/ingresos')!!}">
