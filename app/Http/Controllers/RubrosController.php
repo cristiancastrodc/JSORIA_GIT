@@ -28,14 +28,35 @@ class RubrosController extends Controller
     public function index()
     {
         $rubros = Rubro::All();
-        return view('tesorera.rubro.index', compact('rubros'));
+        return 'hola';
+        //return view('tesorera.rubro.index', compact('rubros'));
     }
+
     public function fixed_index()
     {
         $rubros = Rubro::All();
         return view('tesorera.rubro.index', compact('rubros'));
     }
 
+    public function fixed_guardar(RubroCreateRequest $request)
+    {
+        if ($request->ajax()) {
+            $nombre = $request->nombre;
+            Rubro::create([
+                'nombre' => $nombre
+            ]);
+            return response()->json(['mensaje' => 'Rubro creado exitosamente.']);
+        }
+        /*
+        $nombre = $request['nombre'];
+        Rubro::create([
+            'nombre' => $nombre
+        ]);
+
+        Session::flash('message','Se creó el rubro.');
+        return Redirect::to('/tesorera/rubros');
+        */
+    }
     /**
      * Show the form for creating a new resource.
      *

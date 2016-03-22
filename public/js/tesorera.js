@@ -615,3 +615,29 @@ function reloadTablaEgresos () {
   };
 }
 /*** Fin de Modificar Egresos ***/
+$('#btn-crear-rubro').click(function(e) {
+  e.preventDefault();
+
+  var nombre_rubro = $('#nombre_rubro').val();
+  var ruta = '../../tesorera/rubro/fixed_guardar';
+  var $token = $('#_token').val();
+
+  $.ajax({
+    url: ruta,
+    headers: {'X-CSRF-TOKEN': $token},
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      nombre: nombre_rubro
+    },
+    success : function (data) {
+      swal({
+        title : '¡Éxito!',
+        text : data.mensaje,
+        type : 'success'
+      }, function () {
+        document.location.reload();
+      });
+    }
+  });
+});

@@ -368,6 +368,8 @@ $('#btn-cobrar-multiple').click(function(e) {
   var filas_resumen = "";
   var total = 0;
   var destino_externo = false;
+    var $modal = $('#modal-resumen-pago-multiple');
+  $modal.find('tbody').empty();
 
   $filas.each(function(index, el) {
     var sel = $(this).find('.selected').is(':checked');
@@ -382,6 +384,8 @@ $('#btn-cobrar-multiple').click(function(e) {
   });
 
   debug(destino_externo, false);
-
+    $modal.find('tbody').append(filas_resumen);
+  $modal.modal('show');
+  debug(filas_resumen);
   $('#card-cobro-multiple.js-toggle').slideDown('fast');
 });
