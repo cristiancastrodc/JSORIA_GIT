@@ -30,6 +30,11 @@ class RubrosController extends Controller
         $rubros = Rubro::All();
         return view('tesorera.rubro.index', compact('rubros'));
     }
+    public function fixed_index()
+    {
+        $rubros = Rubro::All();
+        return view('tesorera.rubro.index', compact('rubros'));
+    }
 
     /**
      * Show the form for creating a new resource.

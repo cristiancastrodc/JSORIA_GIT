@@ -49,6 +49,8 @@ Route::get('tesorera/rubro/listar', 'RubrosController@listaRubros');
 Route::post('tesorera/egresos/crear_egreso', 'EgresosController@crearEgreso');
 Route::get('tesorera/egreso/listar_fecha', 'EgresosController@listarEgresosPorFecha');
 Route::post('tesorera/egresos/actualizar/{id_egreso}', 'EgresosController@actualizar');
+Route::resource('tesorera/rubro/fixed_listar','RubrosController@fixed_index');
+Route::post('tesorera/crear/egresos/rubro/crear', 'EgresosController@egresoRubroCrear');
 /*** Rutas para tesorera ***/
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');

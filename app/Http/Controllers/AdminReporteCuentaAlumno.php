@@ -54,7 +54,7 @@ class AdminReporteCuentaAlumno extends Controller
        
         $Institucion_alumno = InstitucionDetalle::join('institucion','id_institucion','=','institucion.id')
                                                 ->where('detalle_institucion.id','=',$id_detalle_institucion)
-                                                ->select('detalle_institucion.nombre_division','Institucion.nombre')
+                                                ->select('detalle_institucion.nombre_division','institucion.nombre')
                                                 ->get();
 
         $view =  \View::make('pdf.AdminCuentaAlumno', compact('id_alumno','datas','Institucion_alumno'))->render();
