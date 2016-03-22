@@ -27,19 +27,20 @@
           <h2>Nuevo Rubro</h2>
         </div>
         <div class="card-body card-padding">
-          {!!Form::open(array('route' => 'tesorera.rubros.store', 'class' => 'form-horizontal', 'method' => 'POST'))!!}
+          <form class="form-horizontal">
+            <input type="hidden" value="{{ csrf_token() }}" id="_token">
             <div class="form-group">
               <label for="nombre" class="col-sm-3 control-label">Rubro</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Rubro">
+                      <input type="text" class="form-control" id="nombre_rubro" name="nombre" placeholder="Rubro">
                   </div>
               </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-warning waves-effect pull-right">Guardar</button>
+              <button id="btn-crear-rubro" class="btn btn-warning waves-effect pull-right">Guardar</button>
             </div>
-          {!!Form::close()!!}
+          </form>
         </div>
       </div>
     </div>

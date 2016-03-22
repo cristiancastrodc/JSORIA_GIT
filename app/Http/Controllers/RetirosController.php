@@ -27,7 +27,7 @@ class RetirosController extends Controller
     public function index()
     {
         $id_cajera = Auth::user()->id;
-        $retiro = Retiro::join('usuario', 'retiro.id_usuario', '=', 'usuario.id') 
+        $retiro = Retiro::join('usuario', 'retiro.id_usuario', '=', 'usuario.id')
                         ->where('retiro.id_cajera','=',$id_cajera)
                         ->where('retiro.estado','=','0')
                         ->select('retiro.id','retiro.monto','retiro.fecha_hora','usuario.nombres','usuario.apellidos')
@@ -42,7 +42,7 @@ class RetirosController extends Controller
      */
     public function create()
     {
-        //  
+        //
     }
 
     /**
@@ -157,7 +157,7 @@ class RetirosController extends Controller
 
             if(\Hash::check($pass , $contra)){
               Retiro::where('id','=',$retiro)
-                      ->Update(['estado'=>'1']);                      
+                      ->Update(['estado'=>'1']);
               return response()->json(['mensaje' => 'El Retiro fue procesado correctamente.', 'tipo' => '']);
             }else{
             return response()->json(['mensaje' => 'Contraseña incorrecta.', 'tipo' => 'error']);
