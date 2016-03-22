@@ -160,12 +160,12 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
             var $monto = response[1][i].monto;
             var $nombre = response[1][i].nombre;
 
-            var fila = "<tr>";
+            var fila = "<tr class=" + $id + ">";
             fila += "<td class='hidden id-categoria'>" + $id + "</td>";
             fila += "<td>" + $nombre + "</td>";
-            fila += "<td class='text-right'>" + $monto + "</td>";
-            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' placeholder='Factor'></div></td>";
-            fila += "<td><p class='text-right total'></p></td>"
+            fila += "<td class='text-right monto'>" + $monto + "</td>";
+            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' placeholder='Factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
+            fila += "<td><p class='text-right total'></p></td>";
             fila += "</tr>";
 
             $('#tabla-categorias-alumno tbody').append(fila);
@@ -176,6 +176,20 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
     }
     });
 });
+
+function calcularImporte (id, value) {
+  var sel = '#tabla-categorias-alumno tr.' + id;
+  if (value != "") {
+    value = parseFloat(value);
+    var unitario = parseFloat($(sel).find('.monto').html());
+    var importe = value * unitario;
+    $(sel).find('.total').html(importe);
+  } else {
+    $(sel).find('.total').html('0');
+  }
+  debug(importe);
+};
+
 
 /*** Listar deudas de alumno ***/
 $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {

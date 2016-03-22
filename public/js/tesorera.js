@@ -15,10 +15,12 @@ $('#form-registrar-egreso-tesorera #tipo_comprobante').change(function (event){
 
 $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
   e.preventDefault();
+  debug('clicked');
 
-  var ruta ='../egresos/rubroNuevo/';
+  var ruta ='/tesorera/crear/egresos/rubro/crear';
+  debug(ruta);
   var dato = $('#nombre').val();
-  var token =$('#token').val();
+  var token =$('#_token').val();
 
   $.ajax({
   	url: ruta,
@@ -29,7 +31,7 @@ $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
   	success : function (response) {
   		swal({
           title: "Éxito",
-          text: "Rubro creado.",
+          text: response.mensaje,
           type: "success",
       }, function () {
         $('#nombre').val("");
