@@ -381,3 +381,40 @@ $('#btn-cobrar-multiple').click(function(e) {
   debug(filas_resumen);
   $('#card-cobro-multiple.js-toggle').slideDown('fast');
 });
+
+
+/*** Inicio de Configuracion de Impresora ***/
+$('#btn-guardar-conf-impresora').click(function (e) {
+  e.preventDefault();
+
+  var $tipo_impresora = $('#tipo_impresora').val();
+  var ruta = '/cajera/configuracion/impresora/guardar';
+  var $token = $('#_token').val();
+
+  $.ajax({
+    url: ruta,
+    headers: {'X-CSRF-TOKEN' : $token},
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      tipo_impresora: $tipo_impresora,
+    },
+    success : function (data) {
+      swal({
+        title : '¡Éxito!',
+        text :  data.mensaje,
+        type : 'success',
+      }, function () {
+        document.location.reload();
+      });
+    },
+    error : function (data) {
+      var error = 'NN';
+      sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+    },
+    complete : function (data, textStatus) {
+      debug(data, false);
+      debug(textStatus);
+    }
+  });
+});
