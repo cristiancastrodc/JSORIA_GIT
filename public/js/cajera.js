@@ -7,14 +7,9 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
   var ruta = 'cajera/buscar/deudas/' + $codigo;
 
   $.get(ruta, function(response) {
-    if (response['mensaje']) {
-      swal({
-        title: 'ERROR',
-        text : response['mensaje'],
-        type : 'warning',
-      });
-    } else {
-      if (response['res']) {
+    if (response['tipo'] == 'warning') {
+      sweet_alert('¡ATENCIÓN!', response['mensaje'], 'warning');
+    } else if (response['tipo'] == 'hay_deuda_extr'){
         $('#card-deudas-alumno').slideUp('fast');
         $('#tabla-pagos-pendientes > tbody').empty();
         $('#tabla-categorias-compras > tbody').empty();
@@ -29,7 +24,7 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
         $("#monto_extr").html(monto.toFixed(2));
         $('#id_deuda_extr').val(id_deuda);
         $('#card-deuda-extraordinaria.js-toggle').slideDown('fast');
-      } else{
+    } else if (response['tipo'] == 'alumno_existe') {
         $('#card-deuda-extraordinaria.js-toggle').slideUp('fast');
         var nombre_alumno = response[0].nombres + ' ' + response[0].apellidos;
         var nro_documento = response[0].nro_documento;
@@ -70,11 +65,8 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
           $('#tabla-categorias-compras tbody').append(fila);
         };
 
-        /***** DEBUG MESSAGE *****/
         debug(response, false);
-        /*************************/
         $('#card-deudas-alumno.js-toggle').slideDown();
-      };
     };
   });
 });
@@ -218,6 +210,54 @@ $('#modal-resumen-pago').on('click', '#btn-factura', function(e) {
   });
 });
 
+
+/*** Inicio de Procesar guardado del cobro ***/
+function procesarGuardarTransaccion ($modal) {
+}
+/*** Fin de Procesar guardado del cobro ***/
+$('#modal-confirmar-autorizacion').on('shown.bs.modal', function (e) {
+  var $boton = $(e.relatedTarget);
+  var id = $boton.data('id');
+
+  var $modal = $(this);
+  $modal.find('#modal-id').val(id);
+});
+
+$('#modal-confirmar-autorizacion #modal-guardar').click(function () {
+  var $modal = $('#modal-confirmar-autorizacion');
+  var $id = $('#modal-id').val();
+  var $pass = $('#contrasenia').val();
+  var $token = $('#modal-token').val();
+  debug($id);
+  debug($pass);
+
+  var ruta = '/cajera/retiro/confirmacion';
+
+  $.ajax({
+    url: ruta,
+    headers : { 'X-CSRF-TOKEN' : $token },
+    type : 'POST',
+    dataType : 'json',
+    data : {
+      pass : $pass,
+      retiro : $id,
+    },
+    success : function (data) {
+      debug(data, false);
+      if (data.tipo == 'error') {
+         sweet_alert('¡Error!', data.mensaje, 'error');
+      } else {
+        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+      }
+    },
+    fail : function (data) {
+      debug('Error en el proceso de realizar retiro.');
+      debug(data, false);
+      sweet_alert('Ocurrió algo inesperado', 'inténtelo de nuevo más tarde.', 'warning', 'reload');
+    }
+  });
+});
+
 function procesarComprobanteBoleta ($tipo) {
   debug('Procesar Comprobante / Boleta');
   var $id_institucion = $('#id_institucion').val();
@@ -320,6 +360,8 @@ $('#btn-cobrar-multiple').click(function(e) {
   var filas_resumen = "";
   var total = 0;
   var destino_externo = false;
+    var $modal = $('#modal-resumen-pago-multiple');
+  $modal.find('tbody').empty();
 
   $filas.each(function(index, el) {
     var sel = $(this).find('.selected').is(':checked');
@@ -334,7 +376,45 @@ $('#btn-cobrar-multiple').click(function(e) {
   });
 
   debug(destino_externo, false);
-
+    $modal.find('tbody').append(filas_resumen);
+  $modal.modal('show');
+  debug(filas_resumen);
   $('#card-cobro-multiple.js-toggle').slideDown('fast');
 });
 
+
+/*** Inicio de Configuracion de Impresora ***/
+$('#btn-guardar-conf-impresora').click(function (e) {
+  e.preventDefault();
+
+  var $tipo_impresora = $('#tipo_impresora').val();
+  var ruta = '/cajera/configuracion/impresora/guardar';
+  var $token = $('#_token').val();
+
+  $.ajax({
+    url: ruta,
+    headers: {'X-CSRF-TOKEN' : $token},
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      tipo_impresora: $tipo_impresora,
+    },
+    success : function (data) {
+      swal({
+        title : '¡Éxito!',
+        text :  data.mensaje,
+        type : 'success',
+      }, function () {
+        document.location.reload();
+      });
+    },
+    error : function (data) {
+      var error = 'NN';
+      sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+    },
+    complete : function (data, textStatus) {
+      debug(data, false);
+      debug(textStatus);
+    }
+  });
+});

@@ -102,13 +102,27 @@ $(document).ready(function() {
 });
 
 $(document).ready(function () {
+   $("#checkbox_todas_instituciones").click(function () {
+      $('#id_institucion').attr("disabled", $(this).is(":checked"));
+   });
+});
+
+$(document).ready(function () {
+   $("#checkbox_todos_rubros").click(function () {
+      $('#rubro').attr("disabled", $(this).is(":checked"));
+   });
+});
+
+$(document).ready(function () {
+   $("#todas_instituciones").click(function () {
+      $('#id_institucion').attr("disabled", $(this).is(":checked"));
+      $('#id_detalle_institucion').attr("disabled", $(this).is(":checked"));
+   });
+});
+
+$(document).ready(function () {
    $("#todas_categorias").click(function () {
       $('#id_categoria').attr("disabled", $(this).is(":checked"));
    });
 });
 
-$(document).ready(function () {
-   $("#checkbox_todos").click(function () {
-      $('#rubro').attr("disabled", $(this).is(":checked"));
-   });
-});

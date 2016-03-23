@@ -8,7 +8,7 @@ use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
-USE JSoria\InstitucionDetalle;
+use JSoria\InstitucionDetalle;
 use DB;
 
 class AdminReporteIngresosCategoria extends Controller

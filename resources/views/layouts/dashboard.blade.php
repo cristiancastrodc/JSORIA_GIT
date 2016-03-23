@@ -126,6 +126,9 @@
           <li><a href="{!!URL::to('/cajera/retiros')!!}">
             <i class="zmdi zmdi-assignment-return"></i> Retiro</a>
           </li>
+          <li><a href="{!!URL::to('/cajera/configuracion/impresora')!!}">
+            <i class="zmdi zmdi-print"></i> Configuracion de Impresora</a>
+          </li>
           <li><a href="{!!URL::to('/cajera/reporte/procesar')!!}" target="_blank">
             <i class="zmdi zmdi-chart"></i> Reporte</a>
           </li>
@@ -159,7 +162,7 @@
               <li><a href="{!!URL::to('/tesorera/egresos')!!}">Modificar</a></li>
             </ul>
           </li>
-          <li><a href="{!!URL::to('/tesorera/rubros')!!}">
+          <li><a href="{!!URL::to('/tesorera/rubro/fixed_listar')!!}">
             <i class="zmdi zmdi-tag"></i> Rubros</a>
           </li>
           <li><a href="{!!URL::to('/tesorera/ingresos')!!}">
@@ -174,6 +177,7 @@
                 <li><a href="{!!URL::to('/tesorera/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
                 <li><a href="{!!URL::to('/tesorera/reportes/EgresosRubro')!!}">Egresos agrupados por Rubros</a></li>
                 <li><a href="{!!URL::to('/tesorera/reportes/EgresosTotales')!!}">Egresos Totales</a></li>
+                <<!--<li><a href="{!!URL::to('/tesorera/reportes/Saldo')!!}" target="_blank">Saldo</a></li>-->
             </ul>
           </li>
 

@@ -160,12 +160,12 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
             var $monto = response[1][i].monto;
             var $nombre = response[1][i].nombre;
 
-            var fila = "<tr>";
+            var fila = "<tr class=" + $id + ">";
             fila += "<td class='hidden id-categoria'>" + $id + "</td>";
             fila += "<td>" + $nombre + "</td>";
-            fila += "<td class='text-right'>" + $monto + "</td>";
-            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' placeholder='Factor'></div></td>";
-            fila += "<td><p class='text-right total'></p></td>"
+            fila += "<td class='text-right monto'>" + $monto + "</td>";
+            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' placeholder='Factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
+            fila += "<td><p class='text-right total'></p></td>";
             fila += "</tr>";
 
             $('#tabla-categorias-alumno tbody').append(fila);
@@ -176,6 +176,20 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
     }
     });
 });
+
+function calcularImporte (id, value) {
+  var sel = '#tabla-categorias-alumno tr.' + id;
+  if (value != "") {
+    value = parseFloat(value);
+    var unitario = parseFloat($(sel).find('.monto').html());
+    var importe = value * unitario;
+    $(sel).find('.total').html(importe);
+  } else {
+    $(sel).find('.total').html('0');
+  }
+  debug(importe);
+};
+
 
 /*** Listar deudas de alumno ***/
 $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
@@ -400,7 +414,7 @@ $('#btn-cancelar-deuda-actividad').click(function(e) {
       };
       deudasCanceladas.push(deuda);
     };
-    
+
   });
   debug(deudasCanceladas, false);
 
@@ -428,7 +442,7 @@ $('#btn-cancelar-deuda-actividad').click(function(e) {
   } else{
     sweet_alert('¡Atención!', 'Debe seleccionar por lo menos una actividad', 'warning');
   };
-  
+
 });
 /*** Fin de Cancelar Deuda de Actividad a un Alumno ***/
 
@@ -453,18 +467,18 @@ $('#btn-autorizar-descuento').click(function(e) {
         "id_deuda" : $id_deuda,
         "monto" : 0,
         "operacion" : 'eliminar',
-      };      
+      };
     deudas.push(deuda);
     }else if($monto != "" && $monto != "0") {
       var $id_deuda = $(this).find('.id-deuda').html();
       var deuda = {
         "id_deuda" : $id_deuda,
-        "monto" : $monto,        
+        "monto" : $monto,
         "operacion" : 'descontar',
-      };      
+      };
     deudas.push(deuda);
     };
-    });      
+    });
 
   if (deudas.length > 0) {
     var ruta = '/secretaria/alumno/deudas/eliminar_descontar_deuda';
@@ -548,7 +562,7 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
         console.log('fail');
       });
     },
-  });  
+  });
 
   /*$.ajax({
     url: ruta,
@@ -559,7 +573,7 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
       id: $id,
       nombre : $nombre,
       saldo : $saldo,
-      monto : $monto,      
+      monto : $monto,
     },
     success : function (data) {
       swal({
@@ -567,7 +581,7 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
           text: "Se creó la amortizacion.",
           type: "success",
           closeOnConfirm : true
-      }, 
+      },
       });
     },
     fail : function (data) {

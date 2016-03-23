@@ -46,7 +46,7 @@
   }
   ?>    
   <h2>Institucion: {{$id_institucion}} {{$nombre_nivel['nombre_division']}}</h2>
-  <?php if ($var_checkbox=='true'){
+  <?php if ($var_checkbox_categorias=='true'){
 
   }
   else{?>
@@ -56,13 +56,6 @@
   ?>
   <h2>Fecha Inicial: {{$fecha_inicio}}</h2>
   <h2>Fecha Final: {{$fecha_fin}}</h2>  
-  <!--<table >
-    <tr >
-    <td>Fecha Inicial:{{$fecha_inicio}}</td>
-    <td>Fecha Final: {{$fecha_inicio}}</td>
-    </tr>
-  </table>-->
-     <!--Fecha con sus labes en 2 columnas--> 
   <table >
     <thead>
       <tr>

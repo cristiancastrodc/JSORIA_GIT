@@ -49,12 +49,17 @@ Route::get('tesorera/rubro/listar', 'RubrosController@listaRubros');
 Route::post('tesorera/egresos/crear_egreso', 'EgresosController@crearEgreso');
 Route::get('tesorera/egreso/listar_fecha', 'EgresosController@listarEgresosPorFecha');
 Route::post('tesorera/egresos/actualizar/{id_egreso}', 'EgresosController@actualizar');
+Route::resource('tesorera/rubro/fixed_listar','RubrosController@fixed_index');
+Route::post('tesorera/crear/egresos/rubro/crear', 'EgresosController@egresoRubroCrear');
 /*** Rutas para tesorera ***/
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');
 Route::get('cajera/buscar/deudas/{codigo}', 'CobrosController@buscarDeudas');
 Route::post('cajera/cobro/guardar', 'CobrosController@guardarCobro');
 Route::post('cajera/cobro/extraordinario/guardar', 'CobrosController@guardarCobroExtraordinario');
+Route::post('cajera/retiro/confirmacion', 'RetirosController@confirmar');
+Route::get('cajera/configuracion/impresora', 'ConfiguracionController@cajeraImpresora');
+Route::post('cajera/configuracion/impresora/guardar', 'ConfiguracionController@guardarCajeraImpresora');
 /*** Rutas para secretaria ***/
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
@@ -124,3 +129,5 @@ Route::get('tesorera/reportes/EgresosRubro', 'AdminReporteEgresosRubro@index');
 Route::resource('tesorera/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
 Route::get('tesorera/reportes/EgresosTotales', 'AdminReporteEgresosTotales@index');
 Route::resource('secretaria/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales');
+
+Route::get('tesorera/reportes/Saldo', 'TesoreraReporteSaldo@index');

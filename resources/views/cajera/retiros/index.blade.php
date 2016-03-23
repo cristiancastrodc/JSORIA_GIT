@@ -20,30 +20,43 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
+          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-retiros'])!!}
+          <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
           <div class="table-responsive">
-              <table class="table table-bordered">
-                  <thead>
-                      <tr>
-                          <th class="warning c-white">Fecha - Hora</th>
-                          <th class="warning c-white">Usuario</th>
-                          <th class="warning c-white">Monto (S/)</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>20-01-2016 10:13</td>
-                          <td>Tesorera1</td>
-                          <td>500.00</td>
-                          <td>
-                            <button class="btn btn-floating-action color-block bgm-bluegray waves-effect" data-toggle="modal" data-target="#ModalDetalle">Ver detalle</button>
-                            <button class="btn btn-floating-action color-block bgm-lightgreen waves-effect" data-toggle="modal" data-target="#ModalConfirmacion">Confirmar</button>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
+            <table class="table table-bordered" id="retiros">
+              <thead>
+                <tr>
+                <th class="warning c-white" type="hidden" >id</th>
+                  <th class="warning c-white">Fecha - Hora</th>
+                  <th class="warning c-white">Tesorera</th>
+                  <th class="warning c-white">Monto (S/)</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($retiro as $ingreso)
+                  <tr>
+                    <td type="hidden">{{$ingreso->id}}</td>
+                    <td>{{$ingreso->fecha_hora}}</td>
+                    <td>{{$ingreso->nombres . '  '.$ingreso->apellidos}}</td>
+                    <td>{{$ingreso->monto}}</td>
+                    <td>
+                      <a href='#modal-confirmar-autorizacion' data-toggle='modal' class='btn bgm-amber' data-id="{{ $ingreso->id }}"><i class='zmdi zmdi-edit'> Confirmar</i></a>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div>
-        </div>
+          {!!Form::close()!!}
+        </div>        
       </div>
     </div>
   </div>
+@endsection
+
+@section('modals')
+  @include('layouts.modals.confirmar')
+@endsection
+@section('scripts')
+  <script src="{{ asset('js/cajera.js') }}"></script>
 @endsection

@@ -234,4 +234,12 @@ class EgresosController extends Controller
             return response()->json(['mensaje' => 'Egreso actualizado exitosamente.']);
         }
     }
+    
+    public function egresoRubroCrear(Request $request){
+        $nombre = $request['nombre'];
+        Rubro::create([
+            'nombre' => $nombre
+        ]);
+        return response()->json(['mensaje' => 'Rubro creado']);
+    }
 }
