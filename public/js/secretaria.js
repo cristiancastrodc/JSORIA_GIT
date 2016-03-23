@@ -414,7 +414,7 @@ $('#btn-cancelar-deuda-actividad').click(function(e) {
       };
       deudasCanceladas.push(deuda);
     };
-    
+
   });
   debug(deudasCanceladas, false);
 
@@ -442,7 +442,7 @@ $('#btn-cancelar-deuda-actividad').click(function(e) {
   } else{
     sweet_alert('¡Atención!', 'Debe seleccionar por lo menos una actividad', 'warning');
   };
-  
+
 });
 /*** Fin de Cancelar Deuda de Actividad a un Alumno ***/
 
@@ -467,18 +467,18 @@ $('#btn-autorizar-descuento').click(function(e) {
         "id_deuda" : $id_deuda,
         "monto" : 0,
         "operacion" : 'eliminar',
-      };      
+      };
     deudas.push(deuda);
     }else if($monto != "" && $monto != "0") {
       var $id_deuda = $(this).find('.id-deuda').html();
       var deuda = {
         "id_deuda" : $id_deuda,
-        "monto" : $monto,        
+        "monto" : $monto,
         "operacion" : 'descontar',
-      };      
+      };
     deudas.push(deuda);
     };
-    });      
+    });
 
   if (deudas.length > 0) {
     var ruta = '/secretaria/alumno/deudas/eliminar_descontar_deuda';
@@ -562,7 +562,7 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
         console.log('fail');
       });
     },
-  });  
+  });
 
   /*$.ajax({
     url: ruta,
@@ -573,7 +573,7 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
       id: $id,
       nombre : $nombre,
       saldo : $saldo,
-      monto : $monto,      
+      monto : $monto,
     },
     success : function (data) {
       swal({
@@ -581,7 +581,7 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
           text: "Se creó la amortizacion.",
           type: "success",
           closeOnConfirm : true
-      }, 
+      },
       });
     },
     fail : function (data) {

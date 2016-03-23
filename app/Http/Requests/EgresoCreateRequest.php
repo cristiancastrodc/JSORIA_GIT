@@ -28,7 +28,6 @@ class EgresoCreateRequest extends Request
             'tipo_comprobante' => 'required|numeric',
             'numero_comprobante' => 'required|numeric',
             'fecha_egreso' => 'required|date_format:Y/m/d',
-            
         ];
     }
 }
