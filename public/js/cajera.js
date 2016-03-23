@@ -7,14 +7,9 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
   var ruta = 'cajera/buscar/deudas/' + $codigo;
 
   $.get(ruta, function(response) {
-    if (response['mensaje']) {
-      swal({
-        title: 'ERROR',
-        text : response['mensaje'],
-        type : 'warning',
-      });
-    } else {
-      if (response['res']) {
+    if (response['tipo'] == 'warning') {
+      sweet_alert('¡ATENCIÓN!', response['mensaje'], 'warning');
+    } else if (response['tipo'] == 'hay_deuda_extr'){
         $('#card-deudas-alumno').slideUp('fast');
         $('#tabla-pagos-pendientes > tbody').empty();
         $('#tabla-categorias-compras > tbody').empty();
@@ -29,7 +24,7 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
         $("#monto_extr").html(monto.toFixed(2));
         $('#id_deuda_extr').val(id_deuda);
         $('#card-deuda-extraordinaria.js-toggle').slideDown('fast');
-      } else{
+    } else if (response['tipo'] == 'alumno_existe') {
         $('#card-deuda-extraordinaria.js-toggle').slideUp('fast');
         var nombre_alumno = response[0].nombres + ' ' + response[0].apellidos;
         var nro_documento = response[0].nro_documento;
@@ -70,11 +65,8 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
           $('#tabla-categorias-compras tbody').append(fila);
         };
 
-        /***** DEBUG MESSAGE *****/
         debug(response, false);
-        /*************************/
         $('#card-deudas-alumno.js-toggle').slideDown();
-      };
     };
   });
 });

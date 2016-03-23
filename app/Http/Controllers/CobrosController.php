@@ -113,6 +113,7 @@ class CobrosController extends Controller
             $alumno = Alumno::find($nro_documento);
 
             if ($alumno) {
+              if ($alumno->estado == '1') {
                 $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
                           ->where('alumno.nro_documento','=', $nro_documento)
                           ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle')
@@ -146,16 +147,27 @@ class CobrosController extends Controller
                     }
                 }
 
-                $response = array($alumno, $institucion, $deudas, $categorias);
+                $response = array($alumno, $institucion, $deudas, $categorias, 'tipo' => 'alumno_existe');
 
                 return $response;
+              } else {
+                return response()->json(['tipo' => 'warning', 'mensaje' => 'El alumno no está matriculado.']);
+              }
             } else {
-                $deuda = Deuda_Ingreso::find($nro_documento);
+                $deuda = Deuda_Ingreso::where('id', '=', $nro_documento)->first();
 
-                if ($deuda->cliente_extr != null && $deuda->descripcion_extr != null) {
-                    return response()->json(['res' => 'hay deuda', 'deuda' => $deuda]);
+                if ($deuda) {
+                  if ($deuda->cliente_extr != null && $deuda->descripcion_extr != null) {
+                    if ($deuda->estado_pago == '0') {
+                      return response()->json(['mensaje' => 'Existe deuda extraordinaria', 'deuda' => $deuda, 'tipo' => 'hay_deuda_extr']);
+                    } else {
+                      return response()->json(['mensaje' => 'La deuda ya fue cancelada', 'tipo' => 'warning']);
+                    }
+                  } else {
+                      return response()->json(['mensaje' => 'No se encuentra alumno ni codigo correspondiente al dato ingresado.', 'tipo' => 'warning']);
+                  }
                 } else {
-                    return response()->json(['mensaje' => 'No se encuentra alumno ni codigo correspondiente al dato ingresado.']);
+                  return response()->json(['mensaje' => 'No se encuentra alumno ni codigo correspondiente al dato ingresado.', 'tipo' => 'warning']);
                 }
             }
         } else {
