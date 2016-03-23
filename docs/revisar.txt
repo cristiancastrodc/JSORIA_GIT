@@ -1,13 +1,11 @@
 VERIFICAR
+- Procesos que involucren creacion de horas por defecto
 
 - Admin
   Al crear actividad está creando deudas de alumnos?
 
 - Tesorera:
   Agregar Id Cajera al Crear Retiro
-
-- Cajera:
-  Recuperar deudas de alumnos solo matriculados
 
 IMPLEMENTAR
 
@@ -28,7 +26,6 @@ IMPLEMENTAR
   Admin: Reporte de deudas por grados
 
 - Cajera:
-  No recuperar deuda extraordinaria si ya pagada
   Configuración de impresora
 
 REHACER
@@ -43,8 +40,9 @@ AL MIGRAR
 - Categoria: Ocho categorías para cobros extraordinarios (destino=0,1) (institucion)
 - Comprobante: Un comprobante para los C.P. emitidos por la ticketera
 - Usuario: Un administrador
-
+- Configurar impresora con los nombres por defecto de: Matricial, Ticketera
 
 FLUJO DE TRABAJO
 - Administrador debe crear pensiones y matrículas antes de iniciar cada ciclo
 - Administrador debe desactivar las matrículas pasadas
+- Una nueva cajera siempre debe configurar su impresora antes de cobrar
