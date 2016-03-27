@@ -15,6 +15,7 @@ IMPLEMENTAR
 - Todos:
   Cambio de Password
   Códigos de error en todas las peticiones (sobre todo AJAX)
+  Procesos que utilicen CURRENT_TIMESTAMP para crear fechas
 
 - Admin:
   Reporte de acciones de Usuarios
@@ -23,10 +24,11 @@ IMPLEMENTAR
 - Secretaria:
   Añadir deudas sin factor
   Reporte de Alumnos Deudores
-  Admin: Reporte de deudas por grados
+  Reporte de deudas por grados
 
 - Cajera:
-  Configuración de impresora
+  Al momento de imprimir, recuperar impresora asociada al usuario
+  Cajera solo puede cobrar de instituciones autorizadas.
 
 REHACER
 
