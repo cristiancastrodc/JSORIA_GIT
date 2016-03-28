@@ -18,7 +18,7 @@ class Retiro extends Model
    *
    * @var array
    */
-  protected $fillable = ['monto', 'fecha_hora', 'estado', 'id_usuario'];
+  protected $fillable = ['monto', 'fecha_hora', 'estado', 'id_usuario', 'id_cajera'];
 
   /*** Custom ***/
   public $timestamps = false;

@@ -15,11 +15,14 @@
 Route::get('/', 'FrontController@index');
 /*** Ruta para el escritorio ***/
 Route::get('escritorio', 'DashboardController@escritorio');
-
 /*** Ruta para el Login ***/
 Route::resource('log','LogController');
 /*** Ruta para Cerrar Sesión ***/
 Route::get('logout', 'LogController@logout');
+/*** Ruta para Modificar Perfil ***/
+Route::get('perfil', 'UserGeneralController@actualizarPerfil');
+Route::post('perfil/guardar', 'UserGeneralController@guardarPerfil');
+
 /*** Rutas para administrador ***/
 Route::resource('admin/usuarios','UsersController');
 Route::resource('admin/actividades','ActividadesController');
@@ -38,6 +41,7 @@ Route::get('admin/cobros/ordinarios/listar/{id_institucion}', 'CobrosOrdinariosC
 Route::get('admin/cobros/otros/listar/{id_institucion}', 'OtrosCobrosController@listaCobros');
 Route::get('admin/retirar/{id_cajera}', 'RetirosController@retiroAdmin');
 Route::post('admin/retirar/actualizar', 'RetirosController@store');
+
 /*** Rutas para tesorera ***/
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
@@ -51,7 +55,8 @@ Route::get('tesorera/egreso/listar_fecha', 'EgresosController@listarEgresosPorFe
 Route::post('tesorera/egresos/actualizar/{id_egreso}', 'EgresosController@actualizar');
 Route::resource('tesorera/rubro/fixed_listar','RubrosController@fixed_index');
 Route::post('tesorera/crear/egresos/rubro/crear', 'EgresosController@egresoRubroCrear');
-/*** Rutas para tesorera ***/
+
+/*** Rutas para cajera ***/
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');
 Route::get('cajera/buscar/deudas/{codigo}', 'CobrosController@buscarDeudas');
@@ -60,6 +65,8 @@ Route::post('cajera/cobro/extraordinario/guardar', 'CobrosController@guardarCobr
 Route::post('cajera/retiro/confirmacion', 'RetirosController@confirmar');
 Route::get('cajera/configuracion/impresora', 'ConfiguracionController@cajeraImpresora');
 Route::post('cajera/configuracion/impresora/guardar', 'ConfiguracionController@guardarCajeraImpresora');
+Route::post('cajera/cobro/multiple/guardar', 'CobrosController@guardarCobroMultiple');
+
 /*** Rutas para secretaria ***/
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
@@ -81,6 +88,7 @@ Route::post('secretaria/alumno/deudas/eliminar_actividad','AlumnosController@Eli
 Route::post('secretaria/alumno/deudas/eliminar_descontar_deuda','AlumnosController@EliminarDescontarDeuda');
 Route::post('secretaria/alumno/amortizarDeuda','AlumnosController@CrearAmortizacion');
 
+/*** Rutas de reportes ***/
 /**/
 //Route::get('secretaria/reportes', 'PdfController@index');
 //Route::post('secretaria/reportes/procesar', 'PdfController@invoice');

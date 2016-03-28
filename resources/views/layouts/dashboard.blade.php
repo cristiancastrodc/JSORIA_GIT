@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!--[if IE 9 ]><html class="ie9"><![endif]-->
+<![if !IE]><html lang="es"><![endif]>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,7 +65,7 @@
         <ul class="main-menu">
           <li>
             <!-- Ver el Perfil -->
-            <a href=""><i class="zmdi zmdi-account"></i> Ver Perfil</a>
+            <a href="{{ url('/perfil') }}"><i class="zmdi zmdi-account"></i> Ver Perfil</a>
           </li>
           <li>
             <!-- Cerrar sesión -->

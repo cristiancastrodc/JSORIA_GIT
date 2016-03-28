@@ -4,6 +4,8 @@ namespace JSoria;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Auth;
+
 class Categoria extends Model
 {
   protected $table = 'categoria';
@@ -59,5 +61,20 @@ class Categoria extends Model
     ->where('categoria.tipo', 'multiple')
     ->select('categoria.id', 'categoria.nombre', 'categoria.monto', 'categoria.estado', 'categoria.tipo', 'categoria.destino')
     ->get();
+  }
+
+  public static function listaOtrosCobrosCajera()
+  {
+    return Categoria::join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                    ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
+                    ->where('categoria.tipo', 'multiple')
+                    ->where('categoria.estado', '1')
+                    ->whereIn('detalle_institucion.id_institucion', function ($query) {
+                      $query->select('id_institucion')
+                            ->from('permisos')
+                            ->where('id_usuario', Auth::user()->id);
+                    })
+                    ->select('categoria.id as id', 'categoria.nombre as categoria', 'categoria.monto as monto', 'categoria.destino as destino', 'institucion.nombre as institucion')
+                    ->get();
   }
 }

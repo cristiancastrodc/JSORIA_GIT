@@ -65,7 +65,11 @@ class RetirosController extends Controller
                 if ($ingreso) {
                     $monto += $ingreso->saldo - $ingreso->descuento;
                     if ($crearRetiro) {
-                        $retiro = Retiro::create(['id_usuario' => Auth::user()->id]);
+                        $retiro = Retiro::create([
+                            'id_usuario' => Auth::user()->id,
+                            'fecha_hora' => date('Y-m-d H:i:s'),
+                            'id_cajera' => $request->id_cajera
+                        ]);
                         $crearRetiro = false;
                     }
                     $ingreso->update(['estado_retiro' => 1, 'id_retiro' => $retiro->id]);

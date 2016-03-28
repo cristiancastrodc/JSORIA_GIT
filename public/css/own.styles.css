@@ -57,3 +57,7 @@ form .form-group:last-child {
 .delete-row {
   cursor: pointer;
 }
+.radio.table-radio {
+  margin-top: 0;
+  margin-bottom: 0;
+}
