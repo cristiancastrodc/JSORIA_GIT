@@ -1185,6 +1185,7 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
 
   if ($id_cajera != '') {
     $('#tabla-ingresos-cajera tbody').empty();
+    $('#id_cajera_retirar').val($id_cajera);
     var ruta = 'retirar/' + $('#id_cajera').val() + "";
 
     $.get(ruta, function (response, state) {
@@ -1228,14 +1229,18 @@ $('#btn-retirar-ingresos').click(function (e) {
     ids_cobros.push($(this).find('.id_cobro').html());
   });
 
-  var ruta = 'retirar/actualizar';
+  var ruta = '/admin/retirar/actualizar';
   var $token = $('#_token').val();
+  var $id_cajera_retirar = $('#id_cajera_retirar').val();
   $.ajax({
     url: ruta,
     type: 'POST',
     dataType: 'json',
     headers : { 'X-CSRF-TOKEN' : $token },
-    data : { ids_cobros : ids_cobros }
+    data : {
+      ids_cobros : ids_cobros,
+      id_cajera : $id_cajera_retirar
+    }
   })
   .done(function(data) {
     if (data.tipo == 'creado') {

@@ -43,6 +43,7 @@
         <div class="card-body card-padding">
           {!! Form::open(['class' => 'form-horizontal']) !!}
             <input type="hidden" value="{{ csrf_token() }}" id="_token">
+            <input type="hidden" id="id_cajera_retirar">
             <div class="table-responsive">
               <table class="table table-bordered" id="tabla-ingresos-cajera">
                 <thead>
