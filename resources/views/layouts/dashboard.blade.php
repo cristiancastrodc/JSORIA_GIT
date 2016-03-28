@@ -65,7 +65,7 @@
         <ul class="main-menu">
           <li>
             <!-- Ver el Perfil -->
-            <a href=""><i class="zmdi zmdi-account"></i> Ver Perfil</a>
+            <a href="{{ url('/perfil') }}"><i class="zmdi zmdi-account"></i> Ver Perfil</a>
           </li>
           <li>
             <!-- Cerrar sesión -->
