@@ -1,38 +1,51 @@
 VERIFICAR
-- Procesos que involucren creacion de horas por defecto
-
-- Admin
-  Al crear actividad está creando deudas de alumnos?
-
-- Tesorera:
-  Agregar Id Cajera al Crear Retiro
+Cajera
+- Emision de Comprobante de Pago de la ULP en la Ticketera.
+- Desactivar Facturas.
+- Monto en letras debe tener céntimos.
+- Cajera que maneje impresora ticketera solo puede girar Comprobante.
 
 IMPLEMENTAR
 
 - General:
   Limitar intentos de Login a tres
+  En peticiones AJAX mostrar una capa sobrepuesta para evitar varias interacciones del usuario
 
 - Todos:
-  Cambio de Password
   Códigos de error en todas las peticiones (sobre todo AJAX)
-  Procesos que utilicen CURRENT_TIMESTAMP para crear fechas
 
 - Admin:
+  Fusionar Pensiones y Matrículas para crear relación entre ambas.
   Reporte de acciones de Usuarios
   Reporte de deudas por grados
+  Para cada modulo, restringir opciones de acuerdo a sus permisos
 
 - Secretaria:
-  Añadir deudas sin factor
   Reporte de Alumnos Deudores
   Reporte de deudas por grados
+  Nuevo Alumno: si se elige tipo doc DNI, validar que solo se pueda ingresar numeros.
+
+- Tesorera
+  Reporte de Balance de Ingresos y Egresos del día (mostrando saldo del día anterior)
+  Al registrar egreso debe haber campos para: razon social de la empresa, nombre de la persona a quien se dio el dinero
+  En Retiro, mostrar numeros de comprobante de ingresos
+  Al registrar egreso debe de haber un tipo de comprobante otros
 
 - Cajera:
-  Al momento de imprimir, recuperar impresora asociada al usuario
-  Cajera solo puede cobrar de instituciones autorizadas.
+  Al registrar un cobro, se debe registrar el numero de comprobante en el ingreso.
 
 REHACER
 
+- Administrador
+  Guardar pensiones (reducir AJAX)
+
+- Tesorera
+  Al registrar egreso con tipo comprobante de pago, no debe ser autoincremental, debe permitir el ingreso del numero
+  Modulo de Rubros
+
+- Todos los reportes
 - Estilos CSS
+- Estilos CSS de Reportes
 
 AL MIGRAR
 
