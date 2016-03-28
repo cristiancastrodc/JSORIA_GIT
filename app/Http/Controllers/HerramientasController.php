@@ -18,7 +18,7 @@ use JSoria\Institucion;
 class HerramientasController extends Controller
 {
   /*** Herramienta de impresión ***/
-  public static function imprimirBoletaCompMatricial($nro_documento, $nombre, $pagos, $monto_total)
+  public static function imprimirBoletaCompMatricial($nro_documento, $nombre, $pagos, $monto_total, $nombre_impresora)
   {
       $alumno_grado = Alumno::find($nro_documento);
       $alumno_grado = $alumno_grado->id_grado;
@@ -77,11 +77,11 @@ class HerramientasController extends Controller
 
       fwrite($handle, $Data);
       fclose($handle);
-      copy($file, "//localhost/EpsonLX350");
+      copy($file, $nombre_impresora);
       unlink($file);
   }
 
-  public static function imprimirFacturaMatricial($nro_documento, $nombre, $pagos, $monto_total, $ruc_cliente, $razon_social, $direccion)
+  public static function imprimirFacturaMatricial($nro_documento, $nombre, $pagos, $monto_total, $ruc_cliente, $razon_social, $direccion, $nombre_impresora)
   {
       $tmpdir = sys_get_temp_dir();
       $file =  tempnam($tmpdir, 'ctk');
@@ -128,11 +128,11 @@ class HerramientasController extends Controller
 
       fwrite($handle, $Data);
       fclose($handle);
-      copy($file, "//localhost/EpsonLX350");
+      copy($file, $nombre_impresora);
       unlink($file);
   }
 
-  public static function imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total)
+  public static function imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total, $nombre_impresora)
   {
     try {
       $alumno_grado = Alumno::find($nro_documento);
@@ -153,7 +153,7 @@ class HerramientasController extends Controller
 
       // Enter the share name for your USB printer here
       //$connector = "Ticketera";
-      $connector = new WindowsPrintConnector("Tickets");
+      $connector = new WindowsPrintConnector($nombre_impresora);
 
       /* Print a "Hello world" receipt" */
       $printer = new Escpos($connector);
@@ -193,7 +193,7 @@ class HerramientasController extends Controller
     }
   }
 
-  public static function imprimirBoletaCompMatricialExtr($nombre_completo, $descripcion, $monto_total)
+  public static function imprimirBoletaCompMatricialExtr($nombre_completo, $descripcion, $monto_total, $nombre_impresora)
   {
       $fecha = date('d/m/Y H:i:s');
       $monto_total = number_format($monto_total, 2);
@@ -239,11 +239,11 @@ class HerramientasController extends Controller
       $Data .= str_pad("            " . $letras, 80) . $letras . "\n";
       fwrite($handle, $Data);
       fclose($handle);
-      copy($file, "//localhost/EpsonLX350");
+      copy($file, $nombre_impresora);
       unlink($file);
   }
 
-  public static function imprimirFacturaMatricialExtr($nombre_completo, $descripcion, $monto_total, $ruc_cliente, $razon_social, $direccion)
+  public static function imprimirFacturaMatricialExtr($nombre_completo, $descripcion, $monto_total, $ruc_cliente, $razon_social, $direccion, $nombre_impresora)
   {
       $fecha = date('d/m/Y H:i:s');
       $monto_total = number_format($monto_total, 2);
@@ -289,11 +289,11 @@ class HerramientasController extends Controller
       $Data .= str_pad("            " . $letras, 80) . $letras . "\n";
       fwrite($handle, $Data);
       fclose($handle);
-      copy($file, "//localhost/EpsonLX350");
+      copy($file, $nombre_impresora);
       unlink($file);
   }
 
-  public static function imprimirComprobanteTicketeraExtr($nombre_completo, $descripcion, $monto_total, $id_razon_social)
+  public static function imprimirComprobanteTicketeraExtr($nombre_completo, $descripcion, $monto_total, $id_razon_social, $nombre_impresora)
   {
     try {
       $fecha = date('d/m/Y H:i:s');
@@ -308,7 +308,7 @@ class HerramientasController extends Controller
 
       // Enter the share name for your USB printer here
       //$connector = "Ticketera";
-      $connector = new WindowsPrintConnector("Tickets");
+      $connector = new WindowsPrintConnector($nombre_impresora);
 
       /* Print a "Hello world" receipt" */
       $printer = new Escpos($connector);

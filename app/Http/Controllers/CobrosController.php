@@ -12,6 +12,7 @@ use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
 use JSoria\Institucion;
 use JSoria\InstitucionDetalle;
+use JSoria\Permiso;
 use JSoria\UsuarioImpresora;
 use JSoria\Http\Controllers\HerramientasController;
 
@@ -117,37 +118,46 @@ class CobrosController extends Controller
                           ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle')
                           ->first();
                 $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
-                $institucion =  Institucion::find($id_institucion);
-                $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
-                                       ->where('nombre_division', '=', 'Todo')
-                                       ->first()->id;
-                $categorias = Categoria::where('tipo', '=', 'sin_factor')
-                                       ->where('estado', '=', 1)
-                                       ->where('id_detalle_institucion','=', $detalle_institucion)
-                                       ->get();
 
-                $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
-                          ->where('deuda_ingreso.id_alumno','=', $nro_documento)
-                          ->where('deuda_ingreso.estado_pago','=', 0)
-                          ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo', 'deuda_ingreso.descuento', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.estado_descuento', 'deuda_ingreso.estado_fraccionam', 'categoria.destino')
-                          ->get();
+                $permisos = Permiso::where('id_usuario', Auth::user()->id)
+                                   ->where('id_institucion', $id_institucion)
+                                   ->get();
 
-                $hoy = date('Y/m/d');
-                foreach ($deudas as $deuda) {
-                    if ($deuda->tipo == "pension" && $deuda->estado_descuento == "0" && $deuda->estado_fraccionam == "0") {
-                        $descuento = 0;
-                        $tiempo = strtotime($deuda->fecha_fin);
-                        $fecha_fin = date('Y/m/d', $tiempo);
-                        $descuento = $id_institucion == "3" && $hoy <= $fecha_fin ? floatval($deuda->saldo) * 0.11 : $descuento;
-                        $descuento = $id_institucion == "4" && $hoy <= $fecha_fin ? floatval($deuda->saldo) * 0.15 : $descuento;
-                        $deuda->descuento = $descuento;
-                        $deuda->save();
-                    }
+                if (!$permisos->isEmpty()) {
+                  $institucion =  Institucion::find($id_institucion);
+                  $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
+                                         ->where('nombre_division', '=', 'Todo')
+                                         ->first()->id;
+                  $categorias = Categoria::where('tipo', '=', 'sin_factor')
+                                         ->where('estado', '=', 1)
+                                         ->where('id_detalle_institucion','=', $detalle_institucion)
+                                         ->get();
+
+                  $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
+                            ->where('deuda_ingreso.id_alumno','=', $nro_documento)
+                            ->where('deuda_ingreso.estado_pago','=', 0)
+                            ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo', 'deuda_ingreso.descuento', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.estado_descuento', 'deuda_ingreso.estado_fraccionam', 'categoria.destino')
+                            ->get();
+
+                  $hoy = date('Y/m/d');
+                  foreach ($deudas as $deuda) {
+                      if ($deuda->tipo == "pension" && $deuda->estado_descuento == "0" && $deuda->estado_fraccionam == "0") {
+                          $descuento = 0;
+                          $tiempo = strtotime($deuda->fecha_fin);
+                          $fecha_fin = date('Y/m/d', $tiempo);
+                          $descuento = $id_institucion == "3" && $hoy <= $fecha_fin ? floatval($deuda->saldo) * 0.11 : $descuento;
+                          $descuento = $id_institucion == "4" && $hoy <= $fecha_fin ? floatval($deuda->saldo) * 0.15 : $descuento;
+                          $deuda->descuento = $descuento;
+                          $deuda->save();
+                      }
+                  }
+
+                  $response = array($alumno, $institucion, $deudas, $categorias, 'tipo' => 'alumno_existe');
+
+                  return $response;
+                } else {
+                  return response()->json(['tipo' => 'warning', 'mensaje' => 'Usuario no autorizado a realizar este cobro.']);
                 }
-
-                $response = array($alumno, $institucion, $deudas, $categorias, 'tipo' => 'alumno_existe');
-
-                return $response;
               } else {
                 return response()->json(['tipo' => 'warning', 'mensaje' => 'El alumno no está matriculado.']);
               }
@@ -228,13 +238,13 @@ class CobrosController extends Controller
             $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
             if ($usuario_impresora->tipo_impresora == 'matricial') {
                 if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
-                    HerramientasController::imprimirBoletaCompMatricial($nro_documento, $nombre_completo, $pagos, $monto_total);
+                    HerramientasController::imprimirBoletaCompMatricial($nro_documento, $nombre_completo, $pagos, $monto_total, $usuario_impresora->nombre_impresora);
                 } elseif ($request['tipo'] == 'factura') {
-                    HerramientasController::imprimirFacturaMatricial($nro_documento, $nombre_completo, $pagos, $monto_total, $request['ruc_cliente'], $request['razon_social'], $request['direccion']);
+                    HerramientasController::imprimirFacturaMatricial($nro_documento, $nombre_completo, $pagos, $monto_total, $request['ruc_cliente'], $request['razon_social'], $request['direccion'], $usuario_impresora->nombre_impresora);
                 };
             } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
                 if ($request['tipo'] == 'comprobante') {
-                    HerramientasController::imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total);
+                    HerramientasController::imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total, $usuario_impresora->nombre_impresora);
                 } else {
                     $mensaje = 'Pagos de alumno actualizados. Puede girar la boleta/factura manualmente.';
                 }
@@ -258,9 +268,9 @@ class CobrosController extends Controller
             $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
             if ($usuario_impresora->tipo_impresora == 'matricial') {
                 if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
-                    HerramientasController::imprimirBoletaCompMatricialExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo);
+                    HerramientasController::imprimirBoletaCompMatricialExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $usuario_impresora->nombre_impresora);
                 } elseif ($request['tipo'] == 'factura') {
-                    HerramientasController::imprimirFacturaMatricialExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $request['ruc_cliente'], $request['razon_social'], $request['direccion']);
+                    HerramientasController::imprimirFacturaMatricialExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $request['ruc_cliente'], $request['razon_social'], $request['direccion'], $usuario_impresora->nombre_impresora);
                 };
             } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
                 if ($request['tipo'] == 'comprobante') {
@@ -270,7 +280,7 @@ class CobrosController extends Controller
                                                     ->where('deuda_ingreso.id', $id_deuda)
                                                     ->first();
                     $id_razon_social = $id_razon_social->id_razon_social;
-                    HerramientasController::imprimirComprobanteTicketeraExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $id_razon_social);
+                    HerramientasController::imprimirComprobanteTicketeraExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $id_razon_social, $usuario_impresora->nombre_impresora);
                 } else {
                     $mensaje = 'Cobro realizado. Puede girar la boleta/factura manualmente.';
                 }

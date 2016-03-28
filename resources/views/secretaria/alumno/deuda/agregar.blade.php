@@ -52,7 +52,7 @@
                             <th class="hidden">Id</th>
                             <th class="danger c-white">Concepto</th>
                             <th class="danger c-white">Monto Unitario (S/)</th>
-                            <th class="danger c-white">Factor</th>
+                            <th class="danger c-white">Factor / Cantidad</th>
                             <th class="danger c-white">Total (S/)</th>
                           </tr>
                       </thead>

@@ -4,7 +4,7 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
 
   var $codigo = $('#form-buscar-deudas #codigo').val();
 
-  var ruta = 'cajera/buscar/deudas/' + $codigo;
+  var ruta = '/cajera/buscar/deudas/' + $codigo;
 
   $.get(ruta, function(response) {
     if (response['tipo'] == 'warning') {

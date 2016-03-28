@@ -122,21 +122,17 @@ $('#form-matricular #id_detalle_institucion').change(function (event) {
 $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
   e.preventDefault();
 
-  var ruta = '../categorias/' + $('#form-categorias-alumno #nro_documento').val();
+  var ruta = '/secretaria/alumno/categorias/' + $('#form-categorias-alumno #nro_documento').val();
   var documento_alumno = "";
   var nombres_alumno = "";
   var apellidos_alumno = "";
   $('#tabla-categorias-alumno tbody').empty();
   $.get(ruta, function (response, state) {
-    console.log(response);
-
     if (response['mensajeno']) {
       swal({
             title: "Error",
-            text: "El Alumno NO EXISTE. Crear y matricular al alumno.",
+            text: "El Alumno NO EXISTE. Primero debe crear y matricular al alumno.",
             type: "warning"
-        }, function () {
-          document.location.reload();
         });
     } else {
       if (response['mensaje']) {
@@ -144,8 +140,6 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
               title: "Error",
               text: "El Alumno NO esta matriculado.",
               type: "warning"
-          }, function () {
-            document.location.reload();
           });
       } else {
           documento_alumno = response[0].nro_documento;
@@ -164,7 +158,7 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
             fila += "<td class='hidden id-categoria'>" + $id + "</td>";
             fila += "<td>" + $nombre + "</td>";
             fila += "<td class='text-right monto'>" + $monto + "</td>";
-            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' placeholder='Factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
+            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
             fila += "<td><p class='text-right total'></p></td>";
             fila += "</tr>";
 
@@ -172,9 +166,9 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
           }
 
           $('.js-toggle').slideDown('fast');
-        }
+      }
     }
-    });
+  });
 });
 
 function calcularImporte (id, value) {
