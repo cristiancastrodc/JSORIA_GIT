@@ -963,7 +963,7 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
       console.log(data);
       swal({
           title: "Éxito",
-          text: "Se actualizó el concepto.",
+          text: "Concepto actualizado correctamente.",
           type: "success",
           closeOnConfirm: true
       }, function(){
@@ -1111,7 +1111,7 @@ $('#modal-editar-c-otro #modal-guardar').click(function () {
     success : function (data) {
       swal({
           title: "Éxito",
-          text: "Se actualizó la pensión.",
+          text: "Concepto actualizado correctamente.",
           type: "success",
           closeOnConfirm: true
       }, function(){
