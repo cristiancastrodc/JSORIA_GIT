@@ -17,17 +17,16 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
       <div class="card">
-        <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal'])!!}
-          <input type="hidden" id="_token" value="{{ csrf_token() }}">
+        <div class="card-body">
           <div class="table-responsive">
-            <table id="otros-conceptos" class="table table-striped">
+            <table class="table table-striped" id="tabla-cobros-multiples">
               <thead>
                   <tr>
                       <th class="hidden">Id</th>
                       <th class="warning c-white">Nombre</th>
+                      <th class="warning c-white">Institución</th>
                       <th class="warning c-white">Monto</th>
                       <th class="warning c-white">¿Seleccionar?</th>
                   </tr>
@@ -36,30 +35,43 @@
                 @foreach($categorias as $categoria)
                   <tr>
                     <td class="hidden id">{{ $categoria->id }}</td>
-                    <td class="nombre">{{ $categoria->nombre }}</td>
-                    <td class="monto">{{ $categoria->monto }}</td>
+                    <td class="nombre">{{ $categoria->categoria }}</td>
+                    <td class="nombre">{{ $categoria->institucion }}</td>
+                    <td class="monto text-right">{{ $categoria->monto }}</td>
                     <td class="hidden destino">{{ $categoria->destino }}</td>
                     <td>
-                      <label class='checkbox checkbox-inline'><input type='checkbox' class='selected'><i class='input-helper'></i> Seleccionar</label>
+                      <div class="radio table-radio">
+                        <label>
+                          <input type="radio" class="rb cobro-multiple" name="rb-cobro-multiple">
+                          <i class="input-helper"></i>
+                          Seleccionar
+                        </label>
+                      </div>
                     </td>
                   </tr>
                 @endforeach
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body card-padding">
+          {!!Form::open(['class' => 'form-horizontal'])!!}
+          <input type="hidden" id="_token" value="{{ csrf_token() }}">
           <div class="form-group">
-              <label for="DNI" class="col-sm-3 control-label">DNI</label>
+              <label for="dni_cliente" class="col-sm-3 control-label">DNI</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="dni_cliente" name="DNI" placeholder="DNI">
+                      <input type="text" class="form-control input-sm" id="dni_cliente" name="dni_cliente" placeholder="DNI">
                   </div>
               </div>
           </div>
           <div class="form-group">
-              <label for="cliente_extr" class="col-sm-3 control-label">Nombre:</label>
+              <label for="nombre_cliente" class="col-sm-3 control-label">Nombre:</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="nombre_cliente" name="cliente_extr" placeholder="Nombre">
+                      <input type="text" class="form-control input-sm" id="nombre_cliente" name="nombre_cliente" placeholder="Nombre">
                   </div>
               </div>
           </div>
@@ -82,9 +94,15 @@
               </div>
           </div>
           <div class="form-group">
-            <div class="row">
-              <div class="col-sm-3 col-sm-offset-9">
-                <button class="btn bgm-blue-soria btn-block m-t-10" id="btn-cobrar-multiple"> Cobrar</button>
+            <div class="row p-r-15">
+              <div class="col-sm-3 col-sm-offset-3">
+                <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="comprobante"> Comprobante</button>
+              </div>
+              <div class="col-sm-3">
+                <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="boleta"> Boleta</button>
+              </div>
+              <div class="col-sm-3">
+                <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="factura"> Factura</button>
               </div>
             </div>
           </div>

@@ -31,9 +31,7 @@ class CobrosController extends Controller
      */
     public function index()
     {
-      $categorias = Categoria::where('tipo', 'multiple')
-                             ->where('estado', 1)
-                             ->get();
+      $categorias = Categoria::listaOtrosCobrosCajera();
 
         return view('cajera.cobros.index', compact('categorias'));
     }
@@ -257,7 +255,6 @@ class CobrosController extends Controller
             $deuda->id_cajera = Auth::user()->id;
             $deuda->save();
 
-
             $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
             if ($usuario_impresora->tipo_impresora == 'matricial') {
                 if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
@@ -281,5 +278,45 @@ class CobrosController extends Controller
 
             return response()->json(['mensaje' => 'Cobro realizado exitosamente.']);
         }
+    }
+
+    public function guardarCobroMultiple(Request $request)
+    {
+      if ($request->ajax()) {
+        $mensaje = '';
+        $id_categoria = $request->id_categoria;
+        $dni = $request->dni;
+        $nombre = $request->nombre;
+
+        $categoria = Categoria::find($id_categoria);
+        Deuda_Ingreso::create([
+          'saldo' => $categoria->monto,
+          'estado_pago' => 1,
+          'cliente_extr' => $dni,
+          'descripcion_extr' => $nombre,
+          'fecha_hora_ingreso' => date('Y-m-d H:i:s'),
+          'id_categoria' => $id_categoria,
+          'id_cajera' => Auth::user()->id
+        ]);
+
+        $mensaje = 'Venta realizada exitosamente.';
+
+        $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
+        if ($usuario_impresora->tipo_impresora == 'matricial') {
+          if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
+              HerramientasController::imprimirBoletaCompMatricialMultiple($dni, $nombre, $categoria, $usuario_impresora->nombre_impresora);
+          } elseif ($request['tipo'] == 'factura') {
+              HerramientasController::imprimirFacturaMatricialMultiple($request->ruc_cliente, $request->razon_social, $request->direccion, $categoria, $usuario_impresora->nombre_impresora);
+          };
+        } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
+          if ($request['tipo'] == 'comprobante') {
+              HerramientasController::imprimirComprobanteTicketeraMultiple($dni, $nombre, $categoria, $usuario_impresora->nombre_impresora);
+          } else {
+              $mensaje = 'Venta exitosa. Puede girar la boleta/factura manualmente.';
+          }
+        }
+
+        return response()->json(['mensaje' => $mensaje]);
+      }
     }
 }

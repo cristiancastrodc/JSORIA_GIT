@@ -350,39 +350,6 @@ $('#btn-factura-extr').click(function(e) {
 });
 /*** Fin de Procesar pago Extra ***/
 
-$('#btn-cobrar-multiple').click(function(e) {
-  e.preventDefault();
-  debug('Clicked');
-
-  var $filas = $("#otros-conceptos > tbody > tr");
-  var nro_pagos_sel = 0;
-  var compras = [];
-  var filas_resumen = "";
-  var total = 0;
-  var destino_externo = false;
-    var $modal = $('#modal-resumen-pago-multiple');
-  $modal.find('tbody').empty();
-
-  $filas.each(function(index, el) {
-    var sel = $(this).find('.selected').is(':checked');
-    if (sel) {
-      if (!destino_externo) { destino_externo = $(this).find('.destino').html() == "0" ? false : true; };
-      var monto_pago = parseFloat($(this).find('.monto').html());
-      filas_resumen += "<tr><td class='hidden id'>" + $(this).find('.id').html() + "</td><td class='nombre'>" + $(this).find('.nombre').html() + "</td><td class='monto text-right'>" + monto_pago + "</td></tr>"
-      nro_pagos_sel++;
-      total += monto_pago;
-      compras.push($(this).find('.id').html());
-    };
-  });
-
-  debug(destino_externo, false);
-    $modal.find('tbody').append(filas_resumen);
-  $modal.modal('show');
-  debug(filas_resumen);
-  $('#card-cobro-multiple.js-toggle').slideDown('fast');
-});
-
-
 /*** Inicio de Configuracion de Impresora ***/
 $('#btn-guardar-conf-impresora').click(function (e) {
   e.preventDefault();
@@ -418,3 +385,136 @@ $('#btn-guardar-conf-impresora').click(function (e) {
     }
   });
 });
+
+/*** Inicio de Registro e Impresión de cobro múltiple ***/
+$('#comprobante.btn-cobro-multiple').click(function(e) {
+  e.preventDefault();
+  debug('Presionado Boton Comprobante de Otros Conceptos.');
+
+  var $tabla_body = $('#tabla-cobros-multiples > tbody');
+  var monto_total = 0;
+
+  var $radio = $tabla_body.find('input[type=radio]:checked');
+
+  if ($radio.length == 1) {
+    var $dni = $('#dni_cliente').val();
+    var $nombre = $('#nombre_cliente').val();
+
+    if ($dni != '' && $nombre != '') {
+      var $fila = $radio.closest('tr');
+      var $id = $fila.find('.id').html();
+
+      var texto = 'El monto a cancelar es S/ ' + $fila.find('.monto').html() + '. ¿Desea continuar?';
+      swal({
+        title : 'Confirmar Compra',
+        text : texto,
+        type : 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Continuar',
+        cancelButtonText: "Cancelar",
+      }, function () {
+        var ruta = '/cajera/cobro/multiple/guardar';
+        var $token = $('#_token').val();
+
+        $.ajax({
+          url: ruta,
+          headers: {'X-CSRF-TOKEN' : $token},
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            id_categoria : $id,
+            dni : $dni,
+            nombre : $nombre,
+            tipo: 'comprobante'
+          },
+          success : function (data) {
+            swal({
+              title : '¡Éxito!',
+              text :  data.mensaje,
+              type : 'success',
+            }, function () {
+              document.location.reload();
+            });
+          },
+          error : function (data) {
+            var error = '203';
+            sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+          }
+        });
+      });
+    } else {
+      sweet_alert('¡ATENCIÓN!', 'El DNI y el Nombre no pueden estar vacíos.', 'warning');
+    }
+  } else{
+    sweet_alert('¡ATENCIÓN!', 'Debe seleccionar un concepto.', 'warning');
+  };
+});
+
+$('#boleta.btn-cobro-multiple').click(function(e) {
+  e.preventDefault();
+  debug('Presionado Boton Boleta de Otros Conceptos.');
+
+  var $tabla_body = $('#tabla-cobros-multiples > tbody');
+  var monto_total = 0;
+
+  var $radio = $tabla_body.find('input[type=radio]:checked');
+
+  if ($radio.length == 1) {
+    var $dni = $('#dni_cliente').val();
+    var $nombre = $('#nombre_cliente').val();
+    var $fila = $radio.closest('tr');
+    var $destino = $fila.find('.destino').html();
+
+    if ($destino != '1') {
+      if ($dni != '' && $nombre != '') {
+        var $id = $fila.find('.id').html();
+
+        var texto = 'El monto a cancelar es S/ ' + $fila.find('.monto').html() + '. ¿Desea continuar?';
+        swal({
+          title : 'Confirmar Compra',
+          text : texto,
+          type : 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Continuar',
+          cancelButtonText: "Cancelar",
+        }, function () {
+          var ruta = '/cajera/cobro/multiple/guardar';
+          var $token = $('#_token').val();
+
+          $.ajax({
+            url: ruta,
+            headers: {'X-CSRF-TOKEN' : $token},
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              id_categoria : $id,
+              dni : $dni,
+              nombre : $nombre,
+              tipo: 'boleta'
+            },
+            success : function (data) {
+              swal({
+                title : '¡Éxito!',
+                text :  data.mensaje,
+                type : 'success',
+              }, function () {
+                document.location.reload();
+              });
+            },
+            error : function (data) {
+              var error = '203';
+              sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+            }
+          });
+        });
+      } else {
+        sweet_alert('¡ATENCIÓN!', 'El DNI y el Nombre no pueden estar vacíos.', 'warning');
+      }
+    } else{
+      sweet_alert('¡ATENCIÓN!', 'Esta operación no admite la emisión de boleta. Intente con otro tipo de comprobante.', 'warning');
+    };
+  } else{
+    sweet_alert('¡ATENCIÓN!', 'Debe seleccionar un concepto.', 'warning');
+  };
+});
+/*** Fin de Registro e Impresión de cobro múltiple ***/

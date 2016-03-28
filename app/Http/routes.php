@@ -60,6 +60,7 @@ Route::post('cajera/cobro/extraordinario/guardar', 'CobrosController@guardarCobr
 Route::post('cajera/retiro/confirmacion', 'RetirosController@confirmar');
 Route::get('cajera/configuracion/impresora', 'ConfiguracionController@cajeraImpresora');
 Route::post('cajera/configuracion/impresora/guardar', 'ConfiguracionController@guardarCajeraImpresora');
+Route::post('cajera/cobro/multiple/guardar', 'CobrosController@guardarCobroMultiple');
 /*** Rutas para secretaria ***/
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
