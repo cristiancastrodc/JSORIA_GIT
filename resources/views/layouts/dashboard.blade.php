@@ -140,7 +140,7 @@
             <a href=""><i class="zmdi zmdi-pin-account"></i> Alumnos</a>
             <ul>
               <li><a href="{!!URL::to('/secretaria/alumnos/create')!!}">Nuevo</a></li>
-              <li><a href="{!!URL::to('/secretaria/alumno/matricular')!!}">Crear Cuenta</a></li>
+              <li><a href="{!!URL::to('/secretaria/alumno/matricular')!!}">Crear Matrícula</a></li>
               <li><a href="{!!URL::to('/secretaria/alumno/deudas/agregar')!!}">Añadir Deuda</a></li>
               <li><a href="{!!URL::to('/secretaria/alumno/deudas/listar')!!}">Modificar Deudas</a></li>
               <li><a href="{!!URL::to('/secretaria/alumno/deudas/cancelar')!!}">Cancelar Deuda de Actividad</a></li>
@@ -216,6 +216,11 @@
     @endif
   @endif
 
+  <!-- AJAX Overlay -->
+  <div id="ajax-loader">
+    <img src="{{ asset('img/ajax-loader.gif') }}" alt="">
+  </div>
+
   <!-- Javascript Libraries -->
   {!!Html::script('vendors/bower_components/jquery/dist/jquery.min.js')!!}
   {!!Html::script('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js')!!}
@@ -246,6 +251,6 @@
       @include('cajera.dashboard.scripts')
     @endif
   @endif
-  @yield('scripts');
+  @yield('scripts')
 </body>
 </html>

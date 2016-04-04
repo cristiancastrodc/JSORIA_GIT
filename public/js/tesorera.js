@@ -15,10 +15,8 @@ $('#form-registrar-egreso-tesorera #tipo_comprobante').change(function (event){
 
 $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
   e.preventDefault();
-  debug('clicked');
 
   var ruta ='/tesorera/crear/egresos/rubro/crear';
-  debug(ruta);
   var dato = $('#nombre').val();
   var token =$('#_token').val();
 
@@ -28,16 +26,22 @@ $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
   	type: 'POST',
   	dataType: 'json',
   	data:{nombre: dato},
+    beforeSend: function () {
+      debug('Antes de enviar');
+      $('#ajax-loader').fadeIn('slow');
+    },
   	success : function (response) {
-  		swal({
-          title: "Éxito",
-          text: response.mensaje,
-          type: "success",
-      }, function () {
-        $('#nombre').val("");
-        reloadRubros();
+      $('#ajax-loader').fadeOut('slow', function() {
+        swal({
+            title: "Éxito",
+            text: response.mensaje,
+            type: "success",
+        }, function () {
+          $('#nombre').val("");
+          reloadRubros();
+        });
       });
-  	}
+  	},
   });
 });
 
