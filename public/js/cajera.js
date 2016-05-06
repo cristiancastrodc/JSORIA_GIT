@@ -190,22 +190,32 @@ $('#modal-resumen-pago').on('click', '#btn-factura', function(e) {
       id_pagos : $id_pagos,
       id_compras : $id_compras,
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
         title : '¡Éxito!',
         text :  data.mensaje,
         type : 'success',
-      }, function () {
-        document.location.reload();
-      });
+        }, function () {
+          document.location.reload();
+        });
+      });      
     },
     error : function (data) {
-      var error = '203';
-      sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+      $('#ajax-loader').fadeOut('slow', function () {
+        var error = '203';
+        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);  
+      });      
     },
     complete : function (data, textStatus) {
-      debug(data, false);
-      debug(textStatus);
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        debug(textStatus);
+      });      
     }
   });
 });
@@ -242,18 +252,26 @@ $('#modal-confirmar-autorizacion #modal-guardar').click(function () {
       pass : $pass,
       retiro : $id,
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      debug(data, false);
-      if (data.tipo == 'error') {
-         sweet_alert('¡Error!', data.mensaje, 'error');
-      } else {
-        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
-      }
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        if (data.tipo == 'error') {
+           sweet_alert('¡Error!', data.mensaje, 'error');
+        } else {
+          sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        }
+      });      
     },
     fail : function (data) {
-      debug('Error en el proceso de realizar retiro.');
-      debug(data, false);
-      sweet_alert('Ocurrió algo inesperado', 'inténtelo de nuevo más tarde.', 'warning', 'reload');
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug('Error en el proceso de realizar retiro.');
+        debug(data, false);
+        sweet_alert('Ocurrió algo inesperado', 'inténtelo de nuevo más tarde.', 'warning', 'reload');
+      });      
     }
   });
 });
@@ -289,9 +307,11 @@ function procesarComprobanteBoleta ($tipo) {
       });
     },
     error : function (data) {
-      debug(data, false);
-      var error = '202';
-      sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error, 'error');
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        var error = '202';
+        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error, 'error');
+      });      
     },
   });
 }
@@ -315,22 +335,33 @@ $('#btn-comprobante-extr').click(function(e) {
       id_deuda_extr: id_deuda_extr,
       tipo: 'comprobante',
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
-        title : '¡Éxito!',
-        text :  data.mensaje,
-        type : 'success',
-      }, function () {
-        document.location.reload();
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
+          title : '¡Éxito!',
+          text :  data.mensaje,
+          type : 'success',
+        }, function () {
+          document.location.reload();
+        });
       });
+      
     },
     error : function (data) {
-      var error = '203';
-      sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+      $('#ajax-loader').fadeOut('slow', function () {
+        var error = '203';
+        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+      });      
     },
     complete : function (data, textStatus) {
-      debug(data, false);
-      debug(textStatus);
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        debug(textStatus);
+      });      
     }
   });
 });
@@ -366,22 +397,33 @@ $('#btn-guardar-conf-impresora').click(function (e) {
     data: {
       tipo_impresora: $tipo_impresora,
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
-        title : '¡Éxito!',
-        text :  data.mensaje,
-        type : 'success',
-      }, function () {
-        document.location.reload();
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
+          title : '¡Éxito!',
+          text :  data.mensaje,
+          type : 'success',
+        }, function () {
+          document.location.reload();
+        });
       });
+      
     },
     error : function (data) {
-      var error = 'NN';
-      sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+      $('#ajax-loader').fadeOut('slow', function () {
+        var error = 'NN';
+        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+      });      
     },
     complete : function (data, textStatus) {
-      debug(data, false);
-      debug(textStatus);
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        debug(textStatus);
+      });      
     }
   });
 });
@@ -427,18 +469,26 @@ $('#comprobante.btn-cobro-multiple').click(function(e) {
             nombre : $nombre,
             tipo: 'comprobante'
           },
+          beforeSend : function () {
+            debug('Antes de enviar');
+            $('#ajax-loader').fadeIn('slow');
+          },
           success : function (data) {
-            swal({
-              title : '¡Éxito!',
-              text :  data.mensaje,
-              type : 'success',
-            }, function () {
-              document.location.reload();
-            });
+            $('#ajax-loader').fadeOut('slow', function () {
+              swal({
+                title : '¡Éxito!',
+                text :  data.mensaje,
+                type : 'success',
+              }, function () {
+                document.location.reload();
+              });
+            });            
           },
           error : function (data) {
-            var error = '203';
-            sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+            $('#ajax-loader').fadeOut('slow', function () {
+              var error = '203';
+              sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+            });            
           }
         });
       });
@@ -492,18 +542,26 @@ $('#boleta.btn-cobro-multiple').click(function(e) {
               nombre : $nombre,
               tipo: 'boleta'
             },
+            beforeSend : function () {
+              debug('Antes de enviar');
+              $('#ajax-loader').fadeIn('slow');
+            },
             success : function (data) {
-              swal({
-                title : '¡Éxito!',
-                text :  data.mensaje,
-                type : 'success',
-              }, function () {
-                document.location.reload();
-              });
+              $('#ajax-loader').fadeOut('slow', function () {
+                swal({
+                  title : '¡Éxito!',
+                  text :  data.mensaje,
+                  type : 'success',
+                }, function () {
+                  document.location.reload();
+                });
+              });              
             },
             error : function (data) {
-              var error = '203';
-              sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+              $('#ajax-loader').fadeOut('slow', function () {
+                var error = '203';
+               sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+              });              
             }
           });
         });

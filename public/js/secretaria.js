@@ -67,25 +67,34 @@ $('#form-matricular #btn-matricular').click(function (e) {
       id_grado : $grado,
       id_matricula : $matricula,
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
-          title: "Éxito",
-          text: "Alumno matriculado. Además fueron agregados sus pagos.",
-          type: "success",
-          closeOnConfirm: false
-      }, function(){
-          document.location.reload();
-      });
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
+            title: "Éxito",
+            text: "Alumno matriculado. Además fueron agregados sus pagos.",
+            type: "success",
+            closeOnConfirm: false
+        }, function(){
+            document.location.reload();
+          });
+      });      
     },
     fail : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "ERROR",
           text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
           type: "error",
           closeOnConfirm: false
-      }, function(){
-          document.location.reload();
-      });
+        }, function(){
+            document.location.reload();
+          });
+      });  
+      
     }
   })
 });
@@ -423,14 +432,23 @@ $('#btn-cancelar-deuda-actividad').click(function(e) {
       data : {
         deudasCanceladas : deudasCanceladas,
       },
+      beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
       success : function (data) {
-        debug(data.mensaje);
-        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        $('#ajax-loader').fadeOut('slow', function () {
+          debug(data.mensaje);
+          sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        });
+        
       },
       fail : function (data) {
-        debug('Error en la eliminacion de la actividad.');
-        debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la eliminacion de la actividad, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        $('#ajax-loader').fadeOut('slow', function () {
+          debug('Error en la eliminacion de la actividad.');
+          debug(data, false);
+          sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la eliminacion de la actividad, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        });        
       }
     });
   } else{
@@ -487,18 +505,27 @@ $('#btn-autorizar-descuento').click(function(e) {
         resolucion: $resolucion,
         nro_documento: $nro_documento,
       },
+      beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
       success : function (data) {
-        debug(data, false);
-        if (data.tipo == 'error') {
-           sweet_alert('¡Error!', data.mensaje, 'error', 'reload');
-        } else {
-        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
-        }
+        $('#ajax-loader').fadeOut('slow', function () {
+          debug(data, false);
+          if (data.tipo == 'error') {
+             sweet_alert('¡Error!', data.mensaje, 'error', 'reload');
+          } else {
+          sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+          }
+        });
+        
       },
       fail : function (data) {
-        debug('Error en el proceso de elimar y/o descontar de la deuda.');
-        debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'Hubo un error en el proceso de elimar y/o descontar de la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        $('#ajax-loader').fadeOut('slow', function () {
+          debug('Error en el proceso de elimar y/o descontar de la deuda.');
+          debug(data, false);
+          sweet_alert('Ocurrió algo inesperado', 'Hubo un error en el proceso de elimar y/o descontar de la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        });        
       }
     });
   };
@@ -535,26 +562,36 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
       id_deuda : $id,
       monto : $monto,
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "Éxito",
           text: data.mensaje,
           type: "success",
           closeOnConfirm : true
-      }, function(){
-          document.location.reload();
-          //reloadTablaActividades($modal);
+        }, function(){
+            document.location.reload();
+            //reloadTablaActividades($modal);
+        });
       });
+      
     },
     error : function (data) {
-      debug(data, false);swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);swal({
           title: "ERROR",
           text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
           type: "error",
           closeOnConfirm: true
-      }, function(){
-        console.log('fail');
+        }, function(){
+          console.log('fail');
+        });
       });
+      
     },
   });
 

@@ -41,28 +41,36 @@ $('#form-crear-actividad #btn-crear-actividad').click(function (e) {
       monto : $monto,
       id_detalle_institucion : $id_detalle_institucion,
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     fail : function (data) {
-      resultado = false;
+      $('#ajax-loader').fadeOut('slow', function () {
+        resultado = false;
+      });      
     },
     error : function (msg) {
-      var err_list = '<ul>';
-      $.each( msg.responseJSON, function( i, val ) {
-        err_list += '<li>' + val[0] + '</li>';
-      });
-      err_list += '</ul>';
+      $('#ajax-loader').fadeOut('slow', function () {
+        var err_list = '<ul>';
+        $.each( msg.responseJSON, function( i, val ) {
+          err_list += '<li>' + val[0] + '</li>';
+        });
+        err_list += '</ul>';
 
-      $.growl({
-        title : 'ERROR: ',
-        message: err_list,
-      }, {
-        type : 'danger',
-        placement: {
-          from: 'top',
-          align: 'center'
-        },
-      });
+        $.growl({
+          title : 'ERROR: ',
+          message: err_list,
+        }, {
+          type : 'danger',
+          placement: {
+            from: 'top',
+            align: 'center'
+          },
+        });
 
-      $boton.html('Guardar');
+        $boton.html('Guardar');
+      });     
     }
   }));
 
@@ -170,35 +178,45 @@ $('#modal-editar-actividad #modal-guardar').click(function () {
       monto : $monto,
       operacion : 'actualizar'
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "Éxito",
           text: "Se actualizó la actividad.",
           type: "success",
           closeOnConfirm : true
-      }, function(){
-          reloadTablaActividades($modal);
-      });
+        }, function(){
+            reloadTablaActividades($modal);
+        });
+      });      
     },
     fail : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "ERROR",
           text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
           type: "error",
           closeOnConfirm: true
-      }, function(){
-        console.log('fail');
-      });
+        }, function(){
+          console.log('fail');
+        });
+      });      
     },
     error : function (msg) {
-      var err_list = '<ul>';
-      $.each( msg.responseJSON, function( i, val ) {
-        err_list += '<li>' + val[0] + '</li>';
-      });
-      err_list += '</ul>';
+      $('#ajax-loader').fadeOut('slow', function () {
+        var err_list = '<ul>';
+        $.each( msg.responseJSON, function( i, val ) {
+          err_list += '<li>' + val[0] + '</li>';
+        });
+        err_list += '</ul>';
 
-      $('#modal-error #message').html(err_list);
-      $('#modal-error').fadeIn();
+        $('#modal-error #message').html(err_list);
+        $('#modal-error').fadeIn();
+      });      
     }
   });
 });
@@ -304,12 +322,20 @@ $('#btn-crear-matricula').click(function (e) {
               destino : '0',
               id_detalle_institucion : $id_detalle_institucion
             },
+            beforeSend : function () {
+              debug('Antes de enviar');
+              $('#ajax-loader').fadeIn('slow');
+            },
             fail : function () {
-              resultado = false;
+              $('#ajax-loader').fadeOut('slow', function () {
+                resultado = false;
+              });              
             },
             error : function (msg) {
-              errors++;
-              $boton.html('Guardar');
+              $('#ajax-loader').fadeOut('slow', function () {
+                errors++;
+                $boton.html('Guardar');
+              });              
             }
           }));
         };
@@ -420,35 +446,45 @@ $('#modal-editar-matricula #modal-guardar').click(function () {
       monto : $monto,
       operacion : 'actualizar'
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "Éxito",
           text: "Se actualizó la matrícula.",
           type: "success",
           closeOnConfirm: true
-      }, function(){
-          reloadTablaMatriculas($modal);
-      });
+        }, function(){
+            reloadTablaMatriculas($modal);
+        });
+      });      
     },
     fail : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "ERROR",
           text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
           type: "error",
           closeOnConfirm: true
-      }, function(){
-          console.log('fail');
-      });
+        }, function(){
+            console.log('fail');
+        });
+      });      
     },
     error : function (msg) {
-      var err_list = '<ul>';
-      $.each( msg.responseJSON, function( i, val ) {
-        err_list += '<li>' + val[0] + '</li>';
-      });
-      err_list += '</ul>';
+      $('#ajax-loader').fadeOut('slow', function () {
+        var err_list = '<ul>';
+        $.each( msg.responseJSON, function( i, val ) {
+          err_list += '<li>' + val[0] + '</li>';
+        });
+        err_list += '</ul>';
 
-      $('#modal-error #message').html(err_list);
-      $('#modal-error').fadeIn();
+        $('#modal-error #message').html(err_list);
+        $('#modal-error').fadeIn();
+      });      
     }
   });
 });
@@ -515,8 +551,14 @@ $('#btn-deshabilitar-matriculas').click(function (e) {
             estado : '0',
             operacion : 'estado'
           },
+          beforeSend : function () {
+            debug('Antes de enviar');
+            $('#ajax-loader').fadeIn('slow');
+          },
           fail : function () {
-            resultado = false;
+            $('#ajax-loader').fadeOut('slow', function () {
+              resultado = false;
+            });            
           }
         }));
       };
@@ -634,8 +676,14 @@ $('#btn-crear-pensiones').click(function (e) {
                     destino : '0',
                     id_detalle_institucion : $id_detalle_institucion
                   },
+                  beforeSend : function () {
+                    debug('Antes de enviar');
+                    $('#ajax-loader').fadeIn('slow');
+                  },
                   fail : function () {
-                    resultado = false;
+                    $('#ajax-loader').fadeOut('slow', function () {
+                      resultado = false;
+                    });                    
                   }
                 }));
               };
@@ -671,8 +719,14 @@ $('#btn-crear-pensiones').click(function (e) {
                     destino : '0',
                     id_detalle_institucion : $id_detalle_institucion
                   },
+                  beforeSend : function () {
+                    debug('Antes de enviar');
+                    $('#ajax-loader').fadeIn('slow');
+                  },
                   fail : function () {
-                    resultado = false;
+                    $('#ajax-loader').fadeOut('slow', function () {
+                      resultado = false;
+                    });                    
                   }
                 }));
               };
@@ -805,35 +859,45 @@ $('#modal-editar-pension #modal-guardar').click(function () {
       monto : $monto,
       operacion : 'actualizar'
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
+       $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "Éxito",
           text: "Se actualizó la pensión.",
           type: "success",
           closeOnConfirm: true
-      }, function(){
-          reloadTablaPension($modal);
-      });
+        }, function(){
+            reloadTablaPension($modal);
+        });
+      });      
     },
     fail : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "ERROR",
           text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
           type: "error",
           closeOnConfirm: true
-      }, function(){
-          console.log('fail');
-      });
+        }, function(){
+            console.log('fail');
+        });
+      });      
     },
     error : function (msg) {
-      var err_list = '<ul>';
-      $.each( msg.responseJSON, function( i, val ) {
-        err_list += '<li>' + val[0] + '</li>';
-      });
-      err_list += '</ul>';
+      $('#ajax-loader').fadeOut('slow', function () {
+        var err_list = '<ul>';
+        $.each( msg.responseJSON, function( i, val ) {
+          err_list += '<li>' + val[0] + '</li>';
+        });
+        err_list += '</ul>';
 
-      $('#modal-error #message').html(err_list);
-      $('#modal-error').fadeIn();
+        $('#modal-error #message').html(err_list);
+        $('#modal-error').fadeIn();
+      });      
     }
   });
 });
@@ -959,36 +1023,46 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
       unitario : $unitario,
       estado : $estado,
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      console.log(data);
-      swal({
-          title: "Éxito",
-          text: "Concepto actualizado correctamente.",
-          type: "success",
-          closeOnConfirm: true
-      }, function(){
-          reloadTablaCobroOrdinario($modal);
-      });
+      $('#ajax-loader').fadeOut('slow', function () {
+        console.log(data);
+        swal({
+            title: "Éxito",
+            text: "Concepto actualizado correctamente.",
+            type: "success",
+            closeOnConfirm: true
+        }, function(){
+            reloadTablaCobroOrdinario($modal);
+        });
+      });      
     },
     fail : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "ERROR",
           text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
           type: "error",
           closeOnConfirm: true
-      }, function(){
-          console.log('fail');
-      });
+        }, function(){
+            console.log('fail');
+        });
+      });      
     },
     error : function (msg) {
-      var err_list = '<ul>';
-      $.each( msg.responseJSON, function( i, val ) {
-        err_list += '<li>' + val[0] + '</li>';
-      });
-      err_list += '</ul>';
+      $('#ajax-loader').fadeOut('slow', function () {
+        var err_list = '<ul>';
+        $.each( msg.responseJSON, function( i, val ) {
+          err_list += '<li>' + val[0] + '</li>';
+        });
+        err_list += '</ul>';
 
-      $('#modal-error #message').html(err_list);
-      $('#modal-error').fadeIn();
+        $('#modal-error #message').html(err_list);
+        $('#modal-error').fadeIn();
+      });      
     }
   });
 });
@@ -1108,35 +1182,45 @@ $('#modal-editar-c-otro #modal-guardar').click(function () {
       monto : $monto,
       estado : $estado,
     },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
     success : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "Éxito",
           text: "Concepto actualizado correctamente.",
           type: "success",
           closeOnConfirm: true
-      }, function(){
-          reloadTablaOtrosCobros($modal);
-      });
+        }, function(){
+            reloadTablaOtrosCobros($modal);
+        });
+      });      
     },
     fail : function (data) {
-      swal({
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
           title: "ERROR",
           text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
           type: "error",
           closeOnConfirm: true
-      }, function(){
-          console.log('fail');
-      });
+        }, function(){
+            console.log('fail');
+        });
+      });      
     },
     error : function (msg) {
-      var err_list = '<ul>';
-      $.each( msg.responseJSON, function( i, val ) {
-        err_list += '<li>' + val[0] + '</li>';
-      });
-      err_list += '</ul>';
+      $('#ajax-loader').fadeOut('slow', function () {
+        var err_list = '<ul>';
+        $.each( msg.responseJSON, function( i, val ) {
+          err_list += '<li>' + val[0] + '</li>';
+        });
+        err_list += '</ul>';
 
-      $('#modal-error #message').html(err_list);
-      $('#modal-error').fadeIn();
+        $('#modal-error #message').html(err_list);
+        $('#modal-error').fadeIn();
+      });      
     }
   });
 });
@@ -1240,26 +1324,34 @@ $('#btn-retirar-ingresos').click(function (e) {
     data : {
       ids_cobros : ids_cobros,
       id_cajera : $id_cajera_retirar
+    },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
+    success : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        if (data.tipo == 'creado') {
+          debug("Retiro creado con éxito.");
+          sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        } else if (data.tipo == 'sin_cambios') {
+          debug("No se realizó cambios.");
+          swal({
+            title: data.mensaje
+          }, function () {
+            document.location.reload();
+          });
+        };
+      });
+    },
+    fail : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug("Error del servidor.");
+        debug(data, false);
+        sweet_alert('Ocurrió algo inesperado', 'No se pudo procesar la petición.', 'warning', 'reload');
+      });      
     }
   })
-  .done(function(data) {
-    if (data.tipo == 'creado') {
-      debug("Retiro creado con éxito.");
-      sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
-    } else if (data.tipo == 'sin_cambios') {
-      debug("No se realizó cambios.");
-      swal({
-        title: data.mensaje
-      }, function () {
-        document.location.reload();
-      });
-    };
-  })
-  .fail(function(data) {
-    debug("Error del servidor.");
-    debug(data, false);
-    sweet_alert('Ocurrió algo inesperado', 'No se pudo procesar la petición.', 'warning', 'reload');
-  });
 });
 /***************/
 
