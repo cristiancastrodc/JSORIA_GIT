@@ -193,11 +193,12 @@ class CobrosController extends Controller
 
             $pagos = array();
             $monto_total = 0;
+            $fecha_hora_ingresos = date("Y-m-d H:i:s");
 
             foreach ($deudas as $deuda) {
                 $pago = Deuda_Ingreso::find($deuda);
                 $pago->estado_pago = 1;
-                $pago->fecha_hora_ingreso = date("Y-m-d H:i:s");
+                $pago->fecha_hora_ingreso = $fecha_hora_ingresos;
                 $pago->id_cajera = Auth::user()->id;
                 $pago->save();
 
@@ -220,7 +221,8 @@ class CobrosController extends Controller
                     'estado_pago' => 1,
                     'id_categoria' => $compras[$i],
                     'id_alumno' => $nro_documento,
-                    'id_cajera' => Auth::user()->id
+                    'id_cajera' => Auth::user()->id,
+                    'fecha_hora_ingreso' => $fecha_hora_ingresos,
                 ]);
 
                 $categoria = Categoria::find($compras[$i]);
