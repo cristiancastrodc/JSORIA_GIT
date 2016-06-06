@@ -1,0 +1,41 @@
+html {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+h1 {
+  text-align: center;
+  font-size: 26px;
+}
+.date {
+  text-align: right;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  page-break-inside: auto;
+}
+table td {
+  padding: 5px 10px;
+}
+table > thead > tr {
+  background-color: #e6e6ff;
+}
+table.bordered td {
+  border: 1px solid #000;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+table {
+  margin-bottom: 0.5cm;
+}
+.bg-success {
+  background-color: #DFF0D8;
+}
+.bg-danger {
+  background-color: #F2DEDE;
+}

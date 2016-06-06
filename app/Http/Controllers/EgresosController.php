@@ -9,6 +9,7 @@ use JSoria\Http\Requests\EgresoCreateRequest;
 use JSoria\Http\Requests\EgresoUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
+use JSoria\Balance;
 use JSoria\DetalleEgreso;
 use JSoria\Egreso;
 use JSoria\Permiso;
@@ -162,16 +163,19 @@ class EgresosController extends Controller
                 $numero_comprobante = $request->numero_comprobante;
             }
 
+            $fecha_registro = date('Y-m-d H:i:s');
             $id_egreso = Egreso::create([
                 "tipo_comprobante" => $tipo_comprobante,
                 "numero_comprobante" => $numero_comprobante,
                 "fecha" => $fecha_egreso,
                 "id_institucion" => $id_institucion,
                 "id_tesorera" => Auth::user()->id,
+                "fecha_registro" => $fecha_registro,
             ])->id;
 
             $detalle_egreso = $request->detalle_egreso;
 
+            $monto_total = 0;
             $nro_detalle = 1;
             foreach ($detalle_egreso as $detalle) {
                 DetalleEgreso::create([
@@ -182,14 +186,39 @@ class EgresosController extends Controller
                     'descripcion' => $detalle['descripcion'],
                 ]);
                 $nro_detalle++;
+                $monto_total += $detalle['monto'];
             }
-
             $response = array('mensaje' => 'Egreso creado exitosamente.');
             if ($tipo_comprobante == "3") {
                 $response["nro_resultado"] = $numero_comprobante;
             } else {
                 $response["nro_resultado"] = "";
             }
+
+            /** Registrar el egreso en la tabla de Balance **/
+            $registro = Balance::where('fecha', date('Y-m-d'))
+                               ->where('id_tesorera', Auth::user()->id)
+                               ->first();
+            if ($registro) {
+                $registro->egresos += $monto_total;
+                $registro->save();
+            }
+            else {
+                $Saldo = 0;
+                $registro_anterior = Balance::where('id_tesorera', Auth::user()->id)
+                                            ->orderBy('fecha', 'desc')
+                                            ->first();
+                if ($registro_anterior) {
+                    $Saldo = $registro_anterior['ingresos'] - $registro_anterior['egresos'];
+                }
+                Balance::create([
+                    'fecha' => date('Y-m-d'),
+                    'id_tesorera' => Auth::user()->id,
+                    'ingresos' => $Saldo,
+                    'egresos' => $monto_total
+                ]);
+            }
+
             return response()->json($response);
         }
     }
@@ -234,7 +263,7 @@ class EgresosController extends Controller
             return response()->json(['mensaje' => 'Egreso actualizado exitosamente.']);
         }
     }
-    
+
     public function egresoRubroCrear(Request $request){
         $nombre = $request['nombre'];
         Rubro::create([

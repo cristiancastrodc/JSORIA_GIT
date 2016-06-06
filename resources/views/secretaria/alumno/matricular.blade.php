@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h1>CREAR CUENTA DE ALUMNO</h1>
+  <h1>CREAR MATRICULA DE ALUMNO</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">

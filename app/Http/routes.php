@@ -42,6 +42,7 @@ Route::get('admin/cobros/otros/listar/{id_institucion}', 'OtrosCobrosController@
 Route::get('admin/retirar/{id_cajera}', 'RetirosController@retiroAdmin');
 Route::post('admin/retirar/actualizar', 'RetirosController@store');
 
+/***********************************************************************************/
 /*** Rutas para tesorera ***/
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
@@ -55,7 +56,10 @@ Route::get('tesorera/egreso/listar_fecha', 'EgresosController@listarEgresosPorFe
 Route::post('tesorera/egresos/actualizar/{id_egreso}', 'EgresosController@actualizar');
 Route::resource('tesorera/rubro/fixed_listar','RubrosController@fixed_index');
 Route::post('tesorera/crear/egresos/rubro/crear', 'EgresosController@egresoRubroCrear');
+/* Reportes */
+Route::get('tesorera/reporte/balance_ingresos_egresos', 'ReportesTesoreraController@balanceIngresosEgresos');
 
+/***********************************************************************************/
 /*** Rutas para cajera ***/
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');
