@@ -6,27 +6,34 @@ $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
   var nombres_alumno = "";
   var apellidos_alumno = "";
 
-  $.get(ruta, function (response, state) {
+  $('#ajax-loader').fadeIn('fast', function () { 
+    $.get(ruta, function (response, state) {
 
-    if (response['mensaje']) {
-      swal({
-            title: "Error",
-            text: response['mensaje'],
-            type: "warning"
-        }, function () {
-          document.location.reload();
-        });
-    }else{
-      documento_alumno = response.nro_documento;
-      nombres_alumno = response.nombres;
-      apellidos_alumno = response.apellidos;
+      if (response['mensaje']) {
+        swal({
+              title: "Error",
+              text: response['mensaje'],
+              type: "warning"
+          }, function () {
+            document.location.reload();
+          });
+      }else{
+        documento_alumno = response.nro_documento;
+        nombres_alumno = response.nombres;
+        apellidos_alumno = response.apellidos;
 
-      $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-      $('#form-matricular #nro_documento').val(documento_alumno);
+        $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+        $('#form-matricular #nro_documento').val(documento_alumno);
 
-      $('.js-toggle').slideDown('fast');
-    }
+        $('.js-toggle').slideDown('fast');
+      }
+    })    
+    .always(function () {
+      $('#ajax-loader').fadeOut('slow');
+    });
   });
+
+  
 });
 
 $('#form-matricular #id_institucion').change(function (event) {
@@ -136,48 +143,53 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
   var nombres_alumno = "";
   var apellidos_alumno = "";
   $('#tabla-categorias-alumno tbody').empty();
-  $.get(ruta, function (response, state) {
-    if (response['mensajeno']) {
-      swal({
-            title: "Error",
-            text: "El Alumno NO EXISTE. Primero debe crear y matricular al alumno.",
-            type: "warning"
-        });
-    } else {
-      if (response['mensaje']) {
+  $('#ajax-loader').fadeIn('fast', function () {
+    $.get(ruta, function (response, state) {
+      if (response['mensajeno']) {
         swal({
               title: "Error",
-              text: "El Alumno NO esta matriculado.",
+              text: "El Alumno NO EXISTE. Primero debe crear y matricular al alumno.",
               type: "warning"
           });
       } else {
-          documento_alumno = response[0].nro_documento;
-          nombres_alumno = response[0].nombres;
-          apellidos_alumno = response[0].apellidos;
+        if (response['mensaje']) {
+          swal({
+                title: "Error",
+                text: "El Alumno NO esta matriculado.",
+                type: "warning"
+            });
+        } else {
+            documento_alumno = response[0].nro_documento;
+            nombres_alumno = response[0].nombres;
+            apellidos_alumno = response[0].apellidos;
 
-          $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-          $('#form-agregar-deuda-alumno #nro_documento').val(documento_alumno);
+            $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+            $('#form-agregar-deuda-alumno #nro_documento').val(documento_alumno);
 
-          for (var i = 0; i < response[1].length; i++) {
-            var $id = response[1][i].id;
-            var $monto = response[1][i].monto;
-            var $nombre = response[1][i].nombre;
+            for (var i = 0; i < response[1].length; i++) {
+              var $id = response[1][i].id;
+              var $monto = response[1][i].monto;
+              var $nombre = response[1][i].nombre;
 
-            var fila = "<tr class=" + $id + ">";
-            fila += "<td class='hidden id-categoria'>" + $id + "</td>";
-            fila += "<td>" + $nombre + "</td>";
-            fila += "<td class='text-right monto'>" + $monto + "</td>";
-            fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
-            fila += "<td><p class='text-right total'></p></td>";
-            fila += "</tr>";
+              var fila = "<tr class=" + $id + ">";
+              fila += "<td class='hidden id-categoria'>" + $id + "</td>";
+              fila += "<td>" + $nombre + "</td>";
+              fila += "<td class='text-right monto'>" + $monto + "</td>";
+              fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
+              fila += "<td><p class='text-right total'></p></td>";
+              fila += "</tr>";
 
-            $('#tabla-categorias-alumno tbody').append(fila);
-          }
+              $('#tabla-categorias-alumno tbody').append(fila);
+            }
 
-          $('.js-toggle').slideDown('fast');
+            $('.js-toggle').slideDown('fast');
+        }
       }
-    }
-  });
+    })      
+    .always(function () {
+      $('#ajax-loader').fadeOut('slow');
+    });
+  });  
 });
 
 function calcularImporte (id, value) {
@@ -204,47 +216,55 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
   var apellidos_alumno = "";
 
   $('#tabla-deudas-alumno tbody').empty();
-  $.get(ruta, function (response, state) {
-    if (response['mensaje']) {
-      swal({
-            title: "Error",
-            text: "El Alumno NO EXISTE. Crear y matricular al alumno.",
-            type: "warning"
-        }, function () {
-          document.location.reload();
-        });
-    } else {
 
-      documento_alumno = response[0].nro_documento;
-      nombres_alumno = response[0].nombres;
-      apellidos_alumno = response[0].apellidos;
+  $('#ajax-loader').fadeIn('fast', function () { 
+    $.get(ruta, function (response, state) {
+      if (response['mensaje']) {
+        swal({
+              title: "Error",
+              text: "El Alumno NO EXISTE. Crear y matricular al alumno.",
+              type: "warning"
+          }, function () {
+            document.location.reload();
+          });
+      } else {
 
-      $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-      $('#form-lista-deudas-alumno #nro_documento').val(documento_alumno);
+        documento_alumno = response[0].nro_documento;
+        nombres_alumno = response[0].nombres;
+        apellidos_alumno = response[0].apellidos;
 
-      for (var i = 0; i < response[1].length; i++) {
+        $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+        $('#form-lista-deudas-alumno #nro_documento').val(documento_alumno);
 
-        var $id = response[1][i].id;
-        var $monto = response[1][i].saldo;
-        var $deuda = response[1][i].nombre;
+        for (var i = 0; i < response[1].length; i++) {
+
+          var $id = response[1][i].id;
+          var $monto = response[1][i].saldo;
+          var $deuda = response[1][i].nombre;
 
 
-        var id_cb = "ts" + i;
-        var fila = "<tr>";
+          var id_cb = "ts" + i;
+          var fila = "<tr>";
 
-        fila += "<td class='hidden id-deuda'>" + $id + "</td>";
-        fila += "<td>" + $deuda + "</td>";
-        fila += "<td class='text-right'>" + $monto + "</td>";
-        fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right descuento' placeholder='Descuento'></div></td>";
-        fila += "<td><div class='toggle-switch'><input id='" + id_cb + "' type='checkbox' hidden='hidden'><label for='" + id_cb + "' class='ts-helper'></label></div></td>";
+          fila += "<td class='hidden id-deuda'>" + $id + "</td>";
+          fila += "<td>" + $deuda + "</td>";
+          fila += "<td class='text-right'>" + $monto + "</td>";
+          fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right descuento' placeholder='Descuento'></div></td>";
+          fila += "<td><div class='toggle-switch'><input id='" + id_cb + "' type='checkbox' hidden='hidden'><label for='" + id_cb + "' class='ts-helper'></label></div></td>";
 
-        $('#tabla-deudas-alumno tbody').append(fila);
+          $('#tabla-deudas-alumno tbody').append(fila);
+        }
+
+        $('.js-toggle').slideDown('fast');
       }
 
-      $('.js-toggle').slideDown('fast');
-    }
-
+    })     
+    .always(function () {
+      $('#ajax-loader').fadeOut('slow');
+    });
   });
+
+  
 });
 
 /*** Listar deudas de actividades de alumno ***/
@@ -257,43 +277,48 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
   var apellidos_alumno = "";
 
   $('#tabla-actividades-listar-alumno tbody').empty();
-  $.get(ruta, function (response, state) {
-    if (response['mensaje']) {
-      swal({
-            title: "Error",
-            text: response['mensaje'],
-            type: "warning"
-        }, function () {
-          document.location.reload();
-        });
-    } else {
+  $('#ajax-loader').fadeIn('fast', function () {
+    $.get(ruta, function (response, state) {
+      if (response['mensaje']) {
+        swal({
+              title: "Error",
+              text: response['mensaje'],
+              type: "warning"
+          }, function () {
+            document.location.reload();
+          });
+      } else {
 
-      documento_alumno = response[0].nro_documento;
-      nombres_alumno = response[0].nombres;
-      apellidos_alumno = response[0].apellidos;
+        documento_alumno = response[0].nro_documento;
+        nombres_alumno = response[0].nombres;
+        apellidos_alumno = response[0].apellidos;
 
-      $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-      $('#tabla-actividades-listar-alumno #nro_documento').val(documento_alumno);
+        $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+        $('#tabla-actividades-listar-alumno #nro_documento').val(documento_alumno);
 
-      for (var i = 0; i < response[1].length; i++) {
+        for (var i = 0; i < response[1].length; i++) {
 
-        var $id = response[1][i].id;
-        var $monto = response[1][i].saldo - response[1][i].descuento ;
-        var $deuda = response[1][i].nombre;
+          var $id = response[1][i].id;
+          var $monto = response[1][i].saldo - response[1][i].descuento ;
+          var $deuda = response[1][i].nombre;
 
-        var fila = "<tr>";
-        var id_cb = "ts" + i;
-        fila += "<td class='hidden id-categoria'>" + $id + "</td>";
-        fila += "<td>" + $deuda + "</td>";
-        fila += "<td class='text-right'>" + $monto + "</td>";
-        fila += "<td><div class='toggle-switch'><input id='" + id_cb + "' type='checkbox' hidden='hidden' class='check'><label for='" + id_cb + "' class='ts-helper'></label></div></td>";
+          var fila = "<tr>";
+          var id_cb = "ts" + i;
+          fila += "<td class='hidden id-categoria'>" + $id + "</td>";
+          fila += "<td>" + $deuda + "</td>";
+          fila += "<td class='text-right'>" + $monto + "</td>";
+          fila += "<td><div class='toggle-switch'><input id='" + id_cb + "' type='checkbox' hidden='hidden' class='check'><label for='" + id_cb + "' class='ts-helper'></label></div></td>";
 
-        $('#tabla-actividades-listar-alumno tbody').append(fila);
+          $('#tabla-actividades-listar-alumno tbody').append(fila);
+        }
+
+        $('.js-toggle').slideDown('fast');
       }
-
-      $('.js-toggle').slideDown('fast');
-    }
-  });
+    })      
+    .always(function () {
+      $('#ajax-loader').fadeOut('slow');
+    });
+  });  
 });
 
 /*** Amortizar deudas de un alumno ***/
@@ -306,43 +331,48 @@ $('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
   var apellidos_alumno = "";
 
   $('#tabla-deudasAmortizacion-alumno tbody').empty();
-  $.get(ruta, function (response, state) {
-    if (response['mensaje']) {
-      swal({
-            title: "Error",
-            text: response['mensaje'],
-            type: "warning"
-        }, function () {
-          document.location.reload();
-        });
-    } else {
+  $('#ajax-loader').fadeIn('fast', function () { 
+    $.get(ruta, function (response, state) {
+      if (response['mensaje']) {
+        swal({
+              title: "Error",
+              text: response['mensaje'],
+              type: "warning"
+          }, function () {
+            document.location.reload();
+          });
+      } else {
 
-      documento_alumno = response[0].nro_documento;
-      nombres_alumno = response[0].nombres;
-      apellidos_alumno = response[0].apellidos;
+        documento_alumno = response[0].nro_documento;
+        nombres_alumno = response[0].nombres;
+        apellidos_alumno = response[0].apellidos;
 
-      $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-      $('#tabla-deudasAmortizacion-alumno #nro_documento').val(documento_alumno);
+        $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+        $('#tabla-deudasAmortizacion-alumno #nro_documento').val(documento_alumno);
 
-      for (var i = 0; i < response[1].length; i++) {
+        for (var i = 0; i < response[1].length; i++) {
 
-        var $id = response[1][i].id;
-        var $monto = response[1][i].saldo - response[1][i].descuento;
-        var $deuda = response[1][i].nombre;
+          var $id = response[1][i].id;
+          var $monto = response[1][i].saldo - response[1][i].descuento;
+          var $deuda = response[1][i].nombre;
 
-        var fila = "<tr>";
-        fila += "<td class='hidden'>" + $id + "</td>";
-        fila += "<td>" + $deuda + "</td>";
-        fila += "<td class='text-right'>" + $monto + "</td>";
-        fila += "<td><a href='#modal-crear-amortizacion' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + $id + "' data-deuda='" + $deuda + "' data-saldo='" + $monto + "'><i class='zmdi zmdi-edit'></i> Amortizar</a></td>";
-        //fila += "<td><button class='btn bgm-lightgreen waves-effect'>Amortizar</button></td>";
+          var fila = "<tr>";
+          fila += "<td class='hidden'>" + $id + "</td>";
+          fila += "<td>" + $deuda + "</td>";
+          fila += "<td class='text-right'>" + $monto + "</td>";
+          fila += "<td><a href='#modal-crear-amortizacion' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + $id + "' data-deuda='" + $deuda + "' data-saldo='" + $monto + "'><i class='zmdi zmdi-edit'></i> Amortizar</a></td>";
+          //fila += "<td><button class='btn bgm-lightgreen waves-effect'>Amortizar</button></td>";
 
-        $('#tabla-deudasAmortizacion-alumno tbody').append(fila);
+          $('#tabla-deudasAmortizacion-alumno tbody').append(fila);
+        }
+
+        $('.js-toggle').slideDown('fast');
       }
-
-      $('.js-toggle').slideDown('fast');
-    }
-  });
+    })    
+    .always(function () {
+      $('#ajax-loader').fadeOut('slow');
+    });
+  });  
 });
 
 /*** Inicio de Agregar Deuda a Alumno ***/
@@ -380,14 +410,22 @@ $('#btn-agregar-deuda').click(function(e) {
         nro_documento : $nro_documento,
         deudas : deudas,
       },
+      beforeSend: function () {
+        debug('Antes de enviar');
+        $('#ajax-loader').fadeIn('slow');
+      },
       success : function (data) {
-        debug(data.mensaje);
-        sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        $('#ajax-loader').fadeOut('slow', function() {
+          debug(data.mensaje);
+          sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        });
       },
       fail : function (data) {
-        debug('Error al agregar deuda.');
-        debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'Hubo un error al momento de agregar la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        $('#ajax-loader').fadeOut('slow', function() {
+          debug('Error al agregar deuda.');
+          debug(data, false);
+          sweet_alert('Ocurrió algo inesperado', 'Hubo un error al momento de agregar la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
+        });
       }
     });
   } else{
@@ -563,9 +601,9 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
       monto : $monto,
     },
     beforeSend : function () {
-          debug('Antes de enviar');
-          $('#ajax-loader').fadeIn('slow');
-        },
+      debug('Antes de enviar');
+      $('#ajax-loader').fadeIn('slow');
+    },
     success : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
         swal({
