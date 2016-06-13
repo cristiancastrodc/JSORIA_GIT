@@ -64,9 +64,10 @@ REHACER
   Mostrar institucion del alumno en todos los procesos donde se le involucre
   Alumno Nuevo: Al seleccionar DNI, el documento debe permitir solo numeros y max. 8 caracteres
 
-- Todos los reportes
-- Estilos CSS
-- Estilos CSS de Reportes
+GENERAL
+  - Todos los reportes
+    - Estilos CSS
+    - Estilos CSS de Reportes
 
 AL MIGRAR
 

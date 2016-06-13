@@ -63,4 +63,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 					 ->select('usuario.id', 'usuario.nombres', 'usuario.apellidos')
 					 ->distinct()->get();
 	}
+
+	/*** Recuperar lista de tesoreras ***/
+	public static function getTesoreras()
+	{
+		return User::where('tipo', '=', 'tesorera')
+					 ->select('id', 'nombres', 'apellidos')
+					 ->get();
+	}
 }

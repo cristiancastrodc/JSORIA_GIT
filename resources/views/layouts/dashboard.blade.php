@@ -105,6 +105,7 @@
           <li class="sub-menu">
             <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
             <ul>
+                <li> <a href="{!!URL::to('/admin/reporte/balance_ingresos_egresos')!!}">Balance de Ingresos/Egresos</a></li>
                 <li><a href="{!!URL::to('/admin/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
                 <li><a href="{!!URL::to('/admin/reportes/IngresosCategoria')!!}">Ingresos agrupados por Categorias</a></li>
                 <li><a href="{!!URL::to('/admin/reportes/IngresosTotales')!!}">Ingresos Totales</a></li>

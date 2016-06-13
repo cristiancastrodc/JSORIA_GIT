@@ -41,6 +41,11 @@ Route::get('admin/cobros/ordinarios/listar/{id_institucion}', 'CobrosOrdinariosC
 Route::get('admin/cobros/otros/listar/{id_institucion}', 'OtrosCobrosController@listaCobros');
 Route::get('admin/retirar/{id_cajera}', 'RetirosController@retiroAdmin');
 Route::post('admin/retirar/actualizar', 'RetirosController@store');
+/* Reportes */
+Route::get('admin/reporte/balance_ingresos_egresos',
+  ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);
+Route::post('admin/reporte/balance_ingresos_egresos/procesar',
+  ['as' => 'admin.reporte.balance_ingresos_egresos.procesar', 'uses' => 'ReportesAdminController@balanceIngresosEgresosProcesar']);
 
 /***********************************************************************************/
 /*** Rutas para tesorera ***/
