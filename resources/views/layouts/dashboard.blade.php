@@ -21,7 +21,7 @@
   {!!Html::style('css/app.min.1.css')!!}
   {!!Html::style('css/app.min.2.css')!!}
   {!!Html::style('css/own.styles.css')!!}
-
+  <!-- Estilos adicionales -->
   @yield('styles')
 </head>
 <body>
@@ -75,117 +75,16 @@
       </div>
       <ul class="main-menu">
         @if(Auth::user()->tipo == "Administrador")
-          <!-- Administrador -->
-          <li><a href="{!!URL::to('/admin/actividades')!!}">
-            <i class="zmdi zmdi-assignment"></i> Actividades</a>
-          </li>
-          <li><a href="{!!URL::to('/admin/matriculas')!!}">
-            <i class="zmdi zmdi-collection-text"></i> Matriculas</a>
-          </li>
-          <li><a href="{!!URL::to('/admin/pensiones')!!}">
-            <i class="zmdi zmdi-calendar"></i> Pensiones</a>
-          </li>
-          <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-money-box"></i> Cobros</a>
-            <ul>
-                <li><a href="{!!URL::to('/admin/cobros/ordinarios')!!}">Ordinarios</a></li>
-                <li><a href="{!!URL::to('/admin/cobros/extraordinarios')!!}">Extraordinarios</a></li>
-                <li><a href="{!!URL::to('/admin/cobros/otros')!!}">Otros</a></li>
-            </ul>
-          </li>
-          <li><a href="{!!URL::to('/admin/usuarios')!!}">
-            <i class="zmdi zmdi-accounts"></i> Usuarios</a>
-          </li>
-          <li><a href="{!!URL::to('/admin/autorizacion')!!}">
-            <i class="zmdi zmdi-trending-down"></i> Autorizar Descuentos</a>
-          </li>
-          <li><a href="{!!URL::to('/admin/ingresos')!!}">
-            <i class="zmdi zmdi-money"></i> Retiro</a>
-          </li>
-          <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
-            <ul>
-                <li> <a href="{!!URL::to('/admin/reporte/balance_ingresos_egresos')!!}">Balance de Ingresos/Egresos</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/IngresosCategoria')!!}">Ingresos agrupados por Categorias</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/IngresosTotales')!!}">Ingresos Totales</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/EgresosRubro')!!}">Egresos agrupados por Rubros</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/EgresosTotales')!!}">Egresos Totales</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/AlumnosDeudores')!!}">Alumnos Deudores</a></li>
-                <li><a href="{!!URL::to('/admin/reportes/CuentaAlumno')!!}">Cuenta de Alumno</a></li>
-            </ul>
-          </li>
+          @include('layouts.menus.admin')
         @endif
         @if(Auth::user()->tipo == "Cajera")
-          <!-- Cajera -->
-          <li><a href="{!!URL::to('/escritorio')!!}">
-            <i class="zmdi zmdi-money-box"></i> Cobrar</a>
-          </li>
-          <li><a href="{!!URL::to('/cajera/cobros')!!}">
-            <i class="zmdi zmdi-money"></i> Otros Cobros</a>
-          </li>
-          <li><a href="{!!URL::to('/cajera/retiros')!!}">
-            <i class="zmdi zmdi-assignment-return"></i> Retiro</a>
-          </li>
-          <li><a href="{!!URL::to('/cajera/configuracion/impresora')!!}">
-            <i class="zmdi zmdi-print"></i> Configuracion de Impresora</a>
-          </li>
-          <li><a href="{!!URL::to('/cajera/reporte/procesar')!!}" target="_blank">
-            <i class="zmdi zmdi-chart"></i> Reporte</a>
-          </li>
+          @include('layouts.menus.cajera')
         @endif
         @if(Auth::user()->tipo == "Secretaria")
-          <!-- Secretaria -->
-          <li class="sub-menu">
-            <a href=""><i class="zmdi zmdi-pin-account"></i> Alumnos</a>
-            <ul>
-              <li><a href="{!!URL::to('/secretaria/alumnos/create')!!}">Nuevo</a></li>
-              <li><a href="{!!URL::to('/secretaria/alumno/matricular')!!}">Crear Matrícula</a></li>
-              <li><a href="{!!URL::to('/secretaria/alumno/deudas/agregar')!!}">Añadir Deuda</a></li>
-              <li><a href="{!!URL::to('/secretaria/alumno/deudas/listar')!!}">Modificar Deudas</a></li>
-              <li><a href="{!!URL::to('/secretaria/alumno/deudas/cancelar')!!}">Cancelar Deuda de Actividad</a></li>
-              <li><a href="{!!URL::to('/secretaria/alumno/deudas/amortizacion')!!}">Autorizar Amortización</a></li>
-            </ul>
-          </li>
-          <li><a href="{!!URL::to('/secretaria/ciclo/cerrar')!!}">
-            <i class="zmdi zmdi-close-circle-o"></i> Cerrar Ciclo</a>
-          </li>
-          <li><a href="{!!URL::to('/secretaria/reportes')!!}">
-            <i class="zmdi zmdi-chart"></i> Reporte</a>
-          </li>
+          @include('layouts.menus.secretaria')
         @endif
         @if(Auth::user()->tipo == "Tesorera")
-          <!-- Tesorera -->
-          <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-money-off"></i> Egresos</a>
-            <ul>
-              <li><a href="{!!URL::to('/tesorera/egresos/create')!!}">Registrar</a></li>
-              <li><a href="{!!URL::to('/tesorera/egresos')!!}">Modificar</a></li>
-            </ul>
-          </li>
-          <li><a href="{!!URL::to('/tesorera/rubro/fixed_listar')!!}">
-            <i class="zmdi zmdi-tag"></i> Rubros</a>
-          </li>
-          <li><a href="{!!URL::to('/tesorera/ingresos')!!}">
-            <i class="zmdi zmdi-money"></i> Retirar Ingresos</a>
-          </li>
-          <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
-            <ul>
-                <li>
-                  <a href="{!!URL::to('/tesorera/reporte/balance_ingresos_egresos')!!}" target="_blank">Balance de Ingresos/Egresos</a>
-                </li>
-                <li><a href="{!!URL::to('/tesorera/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
-                <li><a href="{!!URL::to('/tesorera/reportes/IngresosCategoria')!!}">Ingresos agrupados por Categorias</a></li>
-                <li><a href="{!!URL::to('/tesorera/reportes/IngresosTotales')!!}">Ingresos Totales</a></li>
-                <li><a href="{!!URL::to('/tesorera/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
-                <li><a href="{!!URL::to('/tesorera/reportes/EgresosRubro')!!}">Egresos agrupados por Rubros</a></li>
-                <li><a href="{!!URL::to('/tesorera/reportes/EgresosTotales')!!}">Egresos Totales</a></li>
-                <!--<li><a href="{!!URL::to('/tesorera/reportes/Saldo')!!}" target="_blank">Saldo</a></li>-->
-            </ul>
-          </li>
-
+          @include('layouts.menus.tesorera')
         @endif
       </ul>
     </aside>
@@ -193,11 +92,6 @@
       <div class="container">
         @include('messages.alert')
         <!-- Contenido -->
-        @if (Auth::user()->tipo == "Cajera")
-          @if(Request::is('escritorio'))
-            @include('cajera.dashboard.index')
-          @endif
-        @endif
         @yield('content')
       </div>
     </section>
@@ -212,19 +106,12 @@
       <p>Cargando...</p>
     </div>
   </div>
-
+  <!-- Modals -->
   @yield('modals')
-  @if (Auth::user()->tipo == "Cajera")
-    @if(Request::is('escritorio'))
-      @include('cajera.dashboard.modal')
-    @endif
-  @endif
-
   <!-- AJAX Overlay -->
   <div id="ajax-loader">
     <img src="{{ asset('img/ajax-loader.gif') }}" alt="">
   </div>
-
   <!-- Javascript Libraries -->
   {!!Html::script('vendors/bower_components/jquery/dist/jquery.min.js')!!}
   {!!Html::script('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js')!!}
@@ -249,12 +136,7 @@
   {!!Html::script('vendors/farbtastic/farbtastic.min.js')!!}
   {!!Html::script('js/functions.js')!!}
   {!!Html::script('js/global.js')!!}
-
-  @if (Auth::user()->tipo == "Cajera")
-    @if(Request::is('escritorio'))
-      @include('cajera.dashboard.scripts')
-    @endif
-  @endif
+  <!-- Scripts adicionales -->
   @yield('scripts')
 </body>
 </html>

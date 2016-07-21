@@ -5,6 +5,11 @@ use JSoria\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use JSoria\Usuario;
+use JSoria\UsuarioImpresora;
+
+use Auth;
+
 class DashboardController extends Controller {
 
   public function __construct()
@@ -14,7 +19,13 @@ class DashboardController extends Controller {
 
   public function escritorio()
   {
-    return view('layouts.dashboard');
+    $usuario = Auth::user();
+    if ($usuario->tipo != 'Cajera') {
+      return view('layouts.dashboard');
+    } else {
+      $tipo_impresora = UsuarioImpresora::find($usuario->id)->tipo_impresora;
+      return view('cajera.dashboard.index', compact('tipo_impresora'));
+    }
   }
 
 }

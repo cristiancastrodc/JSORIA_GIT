@@ -91,7 +91,16 @@ class ConfiguracionController extends Controller
     /*** Vista de Configuracion de Cajera ***/
     public function cajeraImpresora()
     {
-        return view('cajera.conf.impresora');
+        $tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
+        $opciones = '';
+        if ($tipo_impresora == 'matricial') {
+            $opciones = "<option value='matricial' selected>Matricial</option>";
+            $opciones .= "<option value='ticketera'>Ticketera</option>";
+        } else {
+            $opciones = "<option value='matricial'>Matricial</option>";
+            $opciones .= "<option value='ticketera' selected>Ticketera</option>";
+        }
+        return view('cajera.conf.impresora', compact('opciones'));
     }
 
     /*** Guardar configuracion de Impresora de Cajera ***/

@@ -75,35 +75,39 @@
                   </div>
               </div>
           </div>
-          <div class="form-group">
-              <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
-              <div class="col-sm-9">
-                  <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente" placeholder="Solo ingresar en caso de factura"></div>
-              </div>
-          </div>
-          <div class="form-group">
-              <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
-              <div class="col-sm-9">
-                  <div class="fg-line"><input type="text" class="form-control" id="razon_social" placeholder="Solo ingresar en caso de factura"></div>
-              </div>
-          </div>
-          <div class="form-group">
-              <label for="direccion" class="control-label col-sm-3">Dirección:</label>
-              <div class="col-sm-9">
-                  <div class="fg-line"><input type="text" class="form-control" id="direccion" placeholder="Solo ingresar en caso de factura"></div>
-              </div>
-          </div>
+          @if ($tipo_impresora == 'matricial')
+            <div class="form-group">
+                <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
+                <div class="col-sm-9">
+                    <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
+                <div class="col-sm-9">
+                    <div class="fg-line"><input type="text" class="form-control" id="razon_social" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="direccion" class="control-label col-sm-3">Dirección:</label>
+                <div class="col-sm-9">
+                    <div class="fg-line"><input type="text" class="form-control" id="direccion" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+            </div>
+          @endif
           <div class="form-group">
             <div class="row p-r-15">
               <div class="col-sm-3 col-sm-offset-3">
                 <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="comprobante"> Comprobante</button>
               </div>
-              <div class="col-sm-3">
-                <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="boleta"> Boleta</button>
-              </div>
-              <div class="col-sm-3">
-                <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="factura"> Factura</button>
-              </div>
+              @if ($tipo_impresora == 'matricial')
+                <div class="col-sm-3">
+                  <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="boleta"> Boleta</button>
+                </div>
+                <div class="col-sm-3">
+                  <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="factura"> Factura</button>
+                </div>
+              @endif
             </div>
           </div>
           {!!Form::close()!!}

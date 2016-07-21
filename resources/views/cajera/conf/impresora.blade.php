@@ -26,8 +26,7 @@
               <label for="tipo_impresora" class="col-sm-3 control-label">Tipo de Impresora:</label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="tipo_impresora" id="tipo_impresora" title='Seleccione'>
-                  <option value="matricial">Matricial</option>
-                  <option value="ticketera">Ticketera</option>
+                  <?php echo $opciones; ?>
                 </select>
               </div>
           </div>

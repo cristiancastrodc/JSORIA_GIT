@@ -1,1 +1,0 @@
-<script src="{{ asset('js/cajera.js') }}"></script>

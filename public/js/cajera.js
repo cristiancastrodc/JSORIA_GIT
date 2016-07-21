@@ -70,7 +70,6 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
     };
   });
 });
-
 /*** Fin de Buscar Deudas de Alumno o Deuda Extraordinaria ***/
 
 /*** Inicio de Procesos en la tabla de compras ***/
@@ -100,6 +99,7 @@ $('#btn-finalizar-pago').click(function (e) {
   var destino_externo = false;
   var id_pagos = [];
   var id_compras = [];
+  var tipo_impresora = $('#tipo-impresora').val();
 
   var $filas_pagos = $("#tabla-pagos-pendientes tr");
   var nro_pagos_sel = 0;
@@ -143,7 +143,7 @@ $('#btn-finalizar-pago').click(function (e) {
     $modal.find('#tabla-resumen tbody').append(fila_resumen);
     $modal.find('#tabla-resumen tbody').append("<tr><td class='text-right'><b>TOTAL:</b></td><td class='text-right'>"  + total + "</td></tr>");
     var botones = "<button type='button' class='btn btn-link' data-dismiss='modal'>CANCELAR</button><button id='btn-comprobante' class='btn btn-default bgm-indigo'>COMPROBANTE</button>";
-    if (!destino_externo) {
+    if (!destino_externo && tipo_impresora == 'matricial') {
       botones += "<button type='button' class='btn bgm-orange btn-md' id='btn-boleta'>BOLETA</button><button type='button' class='btn bgm-green btn-md' id='btn-factura'>FACTURA</button>";
     }
     $modal.find('.modal-footer').html(botones);
@@ -203,19 +203,19 @@ $('#modal-resumen-pago').on('click', '#btn-factura', function(e) {
         }, function () {
           document.location.reload();
         });
-      });      
+      });
     },
     error : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
         var error = '203';
-        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);  
-      });      
+        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+      });
     },
     complete : function (data, textStatus) {
       $('#ajax-loader').fadeOut('slow', function () {
         debug(data, false);
         debug(textStatus);
-      });      
+      });
     }
   });
 });
@@ -264,14 +264,14 @@ $('#modal-confirmar-autorizacion #modal-guardar').click(function () {
         } else {
           sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
         }
-      });      
+      });
     },
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
         debug('Error en el proceso de realizar retiro.');
         debug(data, false);
         sweet_alert('Ocurrió algo inesperado', 'inténtelo de nuevo más tarde.', 'warning', 'reload');
-      });      
+      });
     }
   });
 });
@@ -311,7 +311,7 @@ function procesarComprobanteBoleta ($tipo) {
         debug(data, false);
         var error = '202';
         sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error, 'error');
-      });      
+      });
     },
   });
 }
@@ -349,19 +349,19 @@ $('#btn-comprobante-extr').click(function(e) {
           document.location.reload();
         });
       });
-      
+
     },
     error : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
         var error = '203';
         sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
-      });      
+      });
     },
     complete : function (data, textStatus) {
       $('#ajax-loader').fadeOut('slow', function () {
         debug(data, false);
         debug(textStatus);
-      });      
+      });
     }
   });
 });
@@ -411,19 +411,19 @@ $('#btn-guardar-conf-impresora').click(function (e) {
           document.location.reload();
         });
       });
-      
+
     },
     error : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
         var error = 'NN';
         sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
-      });      
+      });
     },
     complete : function (data, textStatus) {
       $('#ajax-loader').fadeOut('slow', function () {
         debug(data, false);
         debug(textStatus);
-      });      
+      });
     }
   });
 });
@@ -482,13 +482,13 @@ $('#comprobante.btn-cobro-multiple').click(function(e) {
               }, function () {
                 document.location.reload();
               });
-            });            
+            });
           },
           error : function (data) {
             $('#ajax-loader').fadeOut('slow', function () {
               var error = '203';
               sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
-            });            
+            });
           }
         });
       });
@@ -555,13 +555,13 @@ $('#boleta.btn-cobro-multiple').click(function(e) {
                 }, function () {
                   document.location.reload();
                 });
-              });              
+              });
             },
             error : function (data) {
               $('#ajax-loader').fadeOut('slow', function () {
                 var error = '203';
                sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
-              });              
+              });
             }
           });
         });
@@ -570,6 +570,85 @@ $('#boleta.btn-cobro-multiple').click(function(e) {
       }
     } else{
       sweet_alert('¡ATENCIÓN!', 'Esta operación no admite la emisión de boleta. Intente con otro tipo de comprobante.', 'warning');
+    };
+  } else{
+    sweet_alert('¡ATENCIÓN!', 'Debe seleccionar un concepto.', 'warning');
+  };
+});
+
+$('#factura.btn-cobro-multiple').click(function(e) {
+  e.preventDefault();
+  debug('Presionado Boton Factura de Otros Conceptos.');
+
+  var $tabla_body = $('#tabla-cobros-multiples > tbody');
+  var monto_total = 0;
+
+  var $radio = $tabla_body.find('input[type=radio]:checked');
+
+  if ($radio.length == 1) {
+    var $ruc = $('#ruc_cliente').val();
+    var $razon_social = $('#razon_social').val();
+    var $direccion = $('#direccion').val();
+
+    var $fila = $radio.closest('tr');
+    var $destino = $fila.find('.destino').html();
+
+    if ($destino != '1') {
+      if ($ruc != '' && $razon_social != '') {
+        var $id = $fila.find('.id').html();
+
+        var texto = 'El monto a cancelar es S/ ' + $fila.find('.monto').html() + '. ¿Desea continuar?';
+        swal({
+          title : 'Confirmar Compra',
+          text : texto,
+          type : 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Continuar',
+          cancelButtonText: "Cancelar",
+        }, function () {
+          var ruta = '/cajera/cobro/multiple/guardar';
+          var $token = $('#_token').val();
+
+          $.ajax({
+            url: ruta,
+            headers: {'X-CSRF-TOKEN' : $token},
+            type: 'POST',
+            dataType: 'json',
+            data: {
+              id_categoria : $id,
+              ruc_cliente : $ruc,
+              razon_social : $razon_social,
+              direccion : $direccion,
+              tipo: 'factura'
+            },
+            beforeSend : function () {
+              debug('Antes de enviar');
+              $('#ajax-loader').fadeIn('slow');
+            },
+            success : function (data) {
+              $('#ajax-loader').fadeOut('slow', function () {
+                swal({
+                  title : '¡Éxito!',
+                  text :  data.mensaje,
+                  type : 'success',
+                }, function () {
+                  document.location.reload();
+                });
+              });
+            },
+            error : function (data) {
+              $('#ajax-loader').fadeOut('slow', function () {
+                var error = '203';
+               sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+              });
+            }
+          });
+        });
+      } else {
+        sweet_alert('¡ATENCIÓN!', 'El RUC y la Razón Social no pueden estar vacíos.', 'warning');
+      }
+    } else{
+      sweet_alert('¡ATENCIÓN!', 'Esta operación no admite la emisión de factura. Intente con otro tipo de comprobante.', 'warning');
     };
   } else{
     sweet_alert('¡ATENCIÓN!', 'Debe seleccionar un concepto.', 'warning');

@@ -1,3 +1,10 @@
+@extends('layouts.dashboard')
+
+@section('title')
+  Escritorio
+@endsection
+
+@section('content')
   <h1>COBROS</h1>
 
   @if(Session::has('message'))
@@ -14,6 +21,7 @@
       <div class="card">
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-buscar-deudas'])!!}
+            <input type="hidden" id="tipo-impresora" value="{{ $tipo_impresora }}">
             <div class="form-group">
               <label for="codigo" class="col-sm-3 control-label">Ingrese código</label>
               <div class="col-sm-6">
@@ -94,31 +102,35 @@
               <div class="col-sm-8"><span id="descripcion_extr"></span></div>
               <div class="col-sm-2">S/ <span id="monto_extr"></span></div>
             </div>
-            <div class="form-group">
-                <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
-                <div class="col-sm-9">
-                    <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente_extr" placeholder="Solo ingresar en caso de factura"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
-                <div class="col-sm-9">
-                    <div class="fg-line"><input type="text" class="form-control" id="razon_social_extr" placeholder="Solo ingresar en caso de factura"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="direccion" class="control-label col-sm-3">Dirección:</label>
-                <div class="col-sm-9">
-                    <div class="fg-line"><input type="text" class="form-control" id="direccion_extr" placeholder="Solo ingresar en caso de factura"></div>
-                </div>
-            </div>
+            @if ($tipo_impresora == 'matricial')
+              <div class="form-group">
+                  <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
+                  <div class="col-sm-9">
+                      <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente_extr" placeholder="Solo ingresar en caso de factura"></div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
+                  <div class="col-sm-9">
+                      <div class="fg-line"><input type="text" class="form-control" id="razon_social_extr" placeholder="Solo ingresar en caso de factura"></div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="direccion" class="control-label col-sm-3">Dirección:</label>
+                  <div class="col-sm-9">
+                      <div class="fg-line"><input type="text" class="form-control" id="direccion_extr" placeholder="Solo ingresar en caso de factura"></div>
+                  </div>
+              </div>
+            @endif
             <div class="form-group">
               <div class="col-sm-12">
                 <div class="pull-right">
                   <button class="btn btn-gray waves-effect cobro_extr">Cancelar</button>
                   <button class="btn bgm-green waves-effect" id="btn-comprobante-extr">Comprobante</button>
-                  <button class="btn bgm-indigo waves-effect" id="btn-boleta-extr">Boleta</button>
-                  <button class="btn bgm-red waves-effect" id="btn-factura-extr">Factura</button>
+                  @if ($tipo_impresora == 'matricial')
+                    <button class="btn bgm-indigo waves-effect" id="btn-boleta-extr">Boleta</button>
+                    <button class="btn bgm-red waves-effect" id="btn-factura-extr">Factura</button>
+                  @endif
                 </div>
               </div>
             </div>
@@ -127,3 +139,12 @@
       </div>
     </div>
   </div>
+@endsection
+
+@section('modals')
+  @include('cajera.dashboard.modal')
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('js/cajera.js') }}"></script>
+@endsection

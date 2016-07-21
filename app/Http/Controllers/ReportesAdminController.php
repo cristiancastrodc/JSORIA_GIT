@@ -10,6 +10,8 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Balance;
 use JSoria\User;
 
+use NumeroALetras;
+
 class ReportesAdminController extends Controller
 {
     /**

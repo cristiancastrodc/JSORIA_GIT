@@ -1,24 +1,25 @@
 LEYENDA
  (-) POR HACER
+ (**) HECHO, POR PROBAR
  (***) HECHO
 
 VERIFICAR
 Cajera
-- Emision de Comprobante de Pago de la ULP en la Ticketera.
-- Desactivar Facturas.
-- Monto en letras debe tener céntimos.
-- Cajera que maneje impresora ticketera solo puede girar Comprobante.
+** Emision de Comprobante de Pago de la ULP en la Ticketera.
+** Desactivar Facturas.
+** Monto en letras debe tener céntimos.
+*** Cajera que maneje impresora ticketera solo puede girar Comprobante.
 *** No se está guardando la fecha-hora del cobro.
 *** Al autorizar retiro se debe de actualizar el estado de los cobros asociados a 2.
-- Autorizacion de retiro esta fallando
+*** Autorizacion de retiro esta fallando
 
 Tesorera
-- No muestra los cobros de la cajera.
+*** No muestra los cobros de la cajera.
 
 IMPLEMENTAR
 
 - General:
-  Replicar AJAX Loader para todas las peticiones AJAX.
+  *** Replicar AJAX Loader para todas las peticiones AJAX.
   Limitar intentos de Login a tres
   Códigos de error en todas las peticiones (sobre todo AJAX)
 
@@ -45,9 +46,9 @@ IMPLEMENTAR
   Al registrar egreso debe de haber un tipo de comprobante "Comprobante de Egreso".
   Egresos solo se pueden modificar dentro de 30 dias calendario.
 
-- Cajera:
-  Al registrar un cobro, se debe registrar el numero de comprobante en el ingreso.
-  Agregar selector de fecha en el reporte
+Cajera:
+  - Al registrar un cobro, se debe registrar el numero de comprobante en el ingreso.
+  - Agregar selector de fecha en el reporte
 
 REHACER
 
@@ -63,6 +64,9 @@ REHACER
 - Secretaria
   Mostrar institucion del alumno en todos los procesos donde se le involucre
   Alumno Nuevo: Al seleccionar DNI, el documento debe permitir solo numeros y max. 8 caracteres
+
+Cajera
+  - Para realizar un cobro, el alumno no debe estar necesariamente matriculado.
 
 GENERAL
   - Todos los reportes

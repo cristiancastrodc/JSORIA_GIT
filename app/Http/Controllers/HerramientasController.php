@@ -158,8 +158,10 @@ class HerramientasController extends Controller
       /* Print a "Hello world" receipt" */
       $printer = new Escpos($connector);
       $printer -> setJustification(Escpos::JUSTIFY_CENTER);
-      $printer -> text("Corporacion Educativa J. Soria S.C.R.L.\n");
-      $printer -> text("RUC: 20490041339\n");
+      //$printer -> text("Corporacion Educativa J. Soria S.C.R.L.\n");
+      $printer -> text($institucion->razon_social . "\n");
+      //$printer -> text("RUC: 20490041339\n");
+      $printer -> text("RUC: " . $institucion->ruc . "\n");
       $printer -> text("Jr. Quillabamba N°110\n");
       $printer -> text("Santa Ana - La Convención Cusco\n");
       $printer -> text("=======================================\n");
@@ -293,12 +295,12 @@ class HerramientasController extends Controller
       unlink($file);
   }
 
-  public static function imprimirComprobanteTicketeraExtr($nombre_completo, $descripcion, $monto_total, $id_razon_social, $nombre_impresora)
+  public static function imprimirComprobanteTicketeraExtr($nombre_completo, $descripcion, $monto_total, $institucion, $nombre_impresora)
   {
     try {
       $fecha = date('d/m/Y H:i:s');
       $comprobante = Comprobante::where('tipo', 'comprobante')
-                                ->where('id_razon_social', $id_razon_social)
+                                ->where('id_razon_social', $institucion->id_razon_social)
                                 ->first();
       $nro_comprobante = intval($comprobante->numero_comprobante) + 1;
       $comprobante->numero_comprobante = $nro_comprobante;
@@ -313,8 +315,10 @@ class HerramientasController extends Controller
       /* Print a "Hello world" receipt" */
       $printer = new Escpos($connector);
       $printer -> setJustification(Escpos::JUSTIFY_CENTER);
-      $printer -> text("Corporacion Educativa J. Soria S.C.R.L.\n");
-      $printer -> text("RUC: 20490041339\n");
+      //$printer -> text("Corporacion Educativa J. Soria S.C.R.L.\n");
+      //$printer -> text("RUC: 20490041339\n");
+      $printer -> text($institucion->razon_social . "\n");
+      $printer -> text("RUC: " . $institucion->ruc . "\n");
       $printer -> text("Jr. Quillabamba N°110\n");
       $printer -> text("Santa Ana - La Convención Cusco\n");
       $printer -> text("=======================================\n");
@@ -486,8 +490,10 @@ class HerramientasController extends Controller
 
       $printer = new Escpos($connector);
       $printer -> setJustification(Escpos::JUSTIFY_CENTER);
-      $printer -> text("Corporacion Educativa J. Soria S.C.R.L.\n");
-      $printer -> text("RUC: 20490041339\n");
+      //$printer -> text("Corporacion Educativa J. Soria S.C.R.L.\n");
+      //$printer -> text("RUC: 20490041339\n");
+      $printer -> text($institucion->razon_social . "\n");
+      $printer -> text("RUC: " . $institucion->ruc . "\n");
       $printer -> text("Jr. Quillabamba N°110\n");
       $printer -> text("Santa Ana - La Convención Cusco\n");
       $printer -> text("=======================================\n");
