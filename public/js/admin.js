@@ -122,22 +122,26 @@ $('#form-listar-actividades #btn-listar-actividades').click(function (e) {
   if ($id_detalle_institucion != "") {
     var ruta = 'actividades/listar/' + $id_detalle_institucion;
     $('#tabla-listar-actividades tbody').empty();
-
-    $.get(ruta, function (data) {
-      if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            var fila = "<tr>";
-            fila += "<td class='hidden'>" + data[i].id + "</td>";
-            fila += "<td>" + data[i].nombre + "</td>";
-            fila += "<td>" + data[i].monto + "</td>";
-            fila += "<td><a href='#modal-editar-actividad' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
-            fila += "</tr>";
-            $('#tabla-listar-actividades tbody').append(fila);
-        };
-      } else {
-        $('#tabla-listar-actividades tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
-      }
-    });
+    $('#ajax-loader').fadeIn('fast', function () { 
+      $.get(ruta, function (data) {
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+              var fila = "<tr>";
+              fila += "<td class='hidden'>" + data[i].id + "</td>";
+              fila += "<td>" + data[i].nombre + "</td>";
+              fila += "<td>" + data[i].monto + "</td>";
+              fila += "<td><a href='#modal-editar-actividad' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
+              fila += "</tr>";
+              $('#tabla-listar-actividades tbody').append(fila);
+          };
+        } else {
+          $('#tabla-listar-actividades tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+        }
+      })     
+      .always(function () {
+        $('#ajax-loader').fadeOut('slow');
+      });
+    });    
   } else {
     swal({
       title : '¡Atención!',
@@ -389,23 +393,27 @@ $('#form-listar-matriculas #btn-listar-matriculas').click(function (e) {
   if ($id_institucion != "" && $anio != "" ) {
     var ruta = 'matriculas/' + $id_institucion + '/' + $anio;
     $('#tabla-lista-matriculas tbody').empty();
-
-    $.get(ruta, function (data) {
-      if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            var fila = "<tr>";
-            fila += "<td class='hidden matricula-id'>" + data[i].id + "</td>";
-            fila += "<td>" + data[i].nombre + "</td>";
-            fila += "<td>" + data[i].nombre_division + "</td>";
-            fila += "<td>" + data[i].monto + "</td>";
-            fila += "<td><a href='#modal-editar-matricula' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a><label class='checkbox checkbox-inline'><input type='checkbox'><i class='input-helper'></i>Seleccionar</label></td>";
-            fila += "</tr>";
-            $('#tabla-lista-matriculas tbody').append(fila);
-        };
-      } else {
-        $('#tabla-lista-matriculas tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
-      }
-    });
+    $('#ajax-loader').fadeIn('fast', function () {      
+      $.get(ruta, function (data) {
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+              var fila = "<tr>";
+              fila += "<td class='hidden matricula-id'>" + data[i].id + "</td>";
+              fila += "<td>" + data[i].nombre + "</td>";
+              fila += "<td>" + data[i].nombre_division + "</td>";
+              fila += "<td>" + data[i].monto + "</td>";
+              fila += "<td><a href='#modal-editar-matricula' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a><label class='checkbox checkbox-inline'><input type='checkbox'><i class='input-helper'></i>Seleccionar</label></td>";
+              fila += "</tr>";
+              $('#tabla-lista-matriculas tbody').append(fila);
+          };
+        } else {
+          $('#tabla-lista-matriculas tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+        }
+      })
+      .always(function () {
+        $('#ajax-loader').fadeOut('slow');
+      });
+    });    
   } else {
     swal({
       title : '¡Atención!',
@@ -550,15 +558,9 @@ $('#btn-deshabilitar-matriculas').click(function (e) {
           data : {
             estado : '0',
             operacion : 'estado'
-          },
-          beforeSend : function () {
-            debug('Antes de enviar');
-            $('#ajax-loader').fadeIn('slow');
-          },
-          fail : function () {
-            $('#ajax-loader').fadeOut('slow', function () {
-              resultado = false;
-            });            
+          },          
+          fail : function () {            
+            resultado = false;                        
           }
         }));
       };
@@ -675,15 +677,9 @@ $('#btn-crear-pensiones').click(function (e) {
                     fecha_fin : fecha_fin,
                     destino : '0',
                     id_detalle_institucion : $id_detalle_institucion
-                  },
-                  beforeSend : function () {
-                    debug('Antes de enviar');
-                    $('#ajax-loader').fadeIn('slow');
-                  },
+                  },                  
                   fail : function () {
-                    $('#ajax-loader').fadeOut('slow', function () {
-                      resultado = false;
-                    });                    
+                    resultado = false;
                   }
                 }));
               };
@@ -718,15 +714,9 @@ $('#btn-crear-pensiones').click(function (e) {
                     fecha_fin : pension_fin,
                     destino : '0',
                     id_detalle_institucion : $id_detalle_institucion
-                  },
-                  beforeSend : function () {
-                    debug('Antes de enviar');
-                    $('#ajax-loader').fadeIn('slow');
-                  },
+                  },                  
                   fail : function () {
-                    $('#ajax-loader').fadeOut('slow', function () {
-                      resultado = false;
-                    });                    
+                    resultado = false;                    
                   }
                 }));
               };
@@ -807,22 +797,26 @@ $('#form-listar-pensiones #btn-listar-pensiones').click(function (e) {
   if ($id_detalle_institucion != "" && $anio != "" ) {
     var ruta = 'pensiones/' + $id_detalle_institucion + '/' + $anio;
     $('#tabla-listar-pensiones tbody').empty();
-
-    $.get(ruta, function (data) {
-      if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            var fila = "<tr>";
-            fila += "<td class='hidden pension-id'>" + data[i].id + "</td>";
-            fila += "<td>" + data[i].nombre + "</td>";
-            fila += "<td>" + data[i].monto + "</td>";
-            fila += "<td><a href='#modal-editar-pension' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
-            fila += "</tr>";
-            $('#tabla-listar-pensiones tbody').append(fila);
-        };
-      } else {
-        $('#tabla-listar-pensiones tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
-      }
-    });
+    $('#ajax-loader').fadeIn('fast', function () {      
+      $.get(ruta, function (data) {
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+              var fila = "<tr>";
+              fila += "<td class='hidden pension-id'>" + data[i].id + "</td>";
+              fila += "<td>" + data[i].nombre + "</td>";
+              fila += "<td>" + data[i].monto + "</td>";
+              fila += "<td><a href='#modal-editar-pension' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
+              fila += "</tr>";
+              $('#tabla-listar-pensiones tbody').append(fila);
+          };
+        } else {
+          $('#tabla-listar-pensiones tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+        }
+      })
+      .always(function () {
+        $('#ajax-loader').fadeOut('slow');
+      });
+    });    
   } else {
     swal({
       title : '¡Atención!',
@@ -944,28 +938,32 @@ $('#form-lista-c-ordinarios #btn-lista-c-ordinarios').click(function (e) {
   if ($id_institucion != "") {
     var ruta = 'ordinarios/listar/' + $id_institucion;
     $('#tabla-lista-c-ordinarios tbody').empty();
-
-    $.get(ruta, function (data) {
-      if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            var fila = "<tr>";
-            fila += "<td class='hidden'>" + data[i].id + "</td>";
-            fila += "<td>" + data[i].nombre + "</td>";
-            fila += "<td>" + data[i].monto + "</td>";
-            if (data[i].estado == 1) {
-              fila += "<td>Habilitado</td>";
-            } else {
-              fila += "<td>Deshabilitado</td>";
-            }
-            fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn bgm-amber m-r-20' ";
-            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
-            fila += "</tr>";
-            $('#tabla-lista-c-ordinarios tbody').append(fila);
-        };
-      } else {
-        $('#tabla-lista-c-ordinarios tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
-      }
-    });
+    $('#ajax-loader').fadeIn('fast', function () {      
+      $.get(ruta, function (data) {
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+              var fila = "<tr>";
+              fila += "<td class='hidden'>" + data[i].id + "</td>";
+              fila += "<td>" + data[i].nombre + "</td>";
+              fila += "<td>" + data[i].monto + "</td>";
+              if (data[i].estado == 1) {
+                fila += "<td>Habilitado</td>";
+              } else {
+                fila += "<td>Deshabilitado</td>";
+              }
+              fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+              fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
+              fila += "</tr>";
+              $('#tabla-lista-c-ordinarios tbody').append(fila);
+          };
+        } else {
+          $('#tabla-lista-c-ordinarios tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+        }
+      })
+      .always(function () {
+        $('#ajax-loader').fadeOut('slow');
+      });
+    });    
   } else {
     swal({
       title : '¡Atención!',
@@ -1114,27 +1112,32 @@ $('#form-listar-c-otros #btn-listar-c-otros').click(function (e) {
     var ruta = 'otros/listar/' + $id_institucion;
     $('#tabla-listar-c-otros tbody').empty();
 
-    $.get(ruta, function (data) {
-      if (data.length > 0) {
-        for (var i = 0; i < data.length; i++) {
-            var fila = "<tr>";
-            fila += "<td class='hidden'>" + data[i].id + "</td>";
-            fila += "<td>" + data[i].nombre + "</td>";
-            fila += "<td>" + data[i].monto + "</td>";
-            if (data[i].estado == 1) {
-              fila += "<td>Habilitado</td>";
-            } else {
-              fila += "<td>Deshabilitado</td>";
-            }
-            fila += "<td><a href='#modal-editar-c-otro' data-toggle='modal' class='btn bgm-amber m-r-20' ";
-            fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
-            fila += "</tr>";
-            $('#tabla-listar-c-otros tbody').append(fila);
-        };
-      } else {
-        $('#tabla-listar-c-otros tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
-      }
-    });
+    $('#ajax-loader').fadeIn('fast', function () {      
+      $.get(ruta, function (data) {
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+              var fila = "<tr>";
+              fila += "<td class='hidden'>" + data[i].id + "</td>";
+              fila += "<td>" + data[i].nombre + "</td>";
+              fila += "<td>" + data[i].monto + "</td>";
+              if (data[i].estado == 1) {
+                fila += "<td>Habilitado</td>";
+              } else {
+                fila += "<td>Deshabilitado</td>";
+              }
+              fila += "<td><a href='#modal-editar-c-otro' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+              fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
+              fila += "</tr>";
+              $('#tabla-listar-c-otros tbody').append(fila);
+          };
+        } else {
+          $('#tabla-listar-c-otros tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+        }
+      })
+      .always(function () {
+        $('#ajax-loader').fadeOut('slow');
+      });
+    });    
   } else {
     swal({
       title : '¡Atención!',
@@ -1183,9 +1186,9 @@ $('#modal-editar-c-otro #modal-guardar').click(function () {
       estado : $estado,
     },
     beforeSend : function () {
-          debug('Antes de enviar');
-          $('#ajax-loader').fadeIn('slow');
-        },
+      debug('Antes de enviar');
+      $('#ajax-loader').fadeIn('slow');
+    },
     success : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
         swal({
@@ -1271,33 +1274,38 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
     $('#tabla-ingresos-cajera tbody').empty();
     $('#id_cajera_retirar').val($id_cajera);
     var ruta = 'retirar/' + $('#id_cajera').val() + "";
-
-    $.get(ruta, function (response, state) {
-      var monto_no_retirado = 0;
-      var monto_por_retirar = 0;
-      for (var i = 0; i < response.length; i++) {
-        var monto = response[i].saldo - response[i].descuento;
-        if (response[i].estado_retiro == 0) {
-          monto_no_retirado += monto;
-        } else if (response[i].estado_retiro == 1) {
-          monto_por_retirar += monto;
-        }
-        var fila = "<tr>";
-        fila += "<td class='hidden id_cobro'>" + response[i].id + "</td>";
-        fila += "<td>" + response[i].fecha_hora_ingreso + "</td>";
-        fila += "<td>" + response[i].nombre + "</td>";
-        if (response[i].estado_retiro == 0) {
-          fila += "<td><span class='p-5'>No retirado</span></td>";
-        } else if (response[i].estado_retiro == 1) {
-          fila += "<td><span class='bgm-orange c-white p-5'>Por retirar</span></td>";
-        }
-        fila += "<td class='text-right'>" + monto.toFixed(2) + "</td>";
-        fila += "</tr>";
-        $('#tabla-ingresos-cajera tbody').append(fila);
-      };
-      $('#cobros-no-retirados').html(monto_no_retirado.toFixed(2));
-      $('#cobros-por-retirar').html(monto_por_retirar.toFixed(2));
-    });
+    
+    $('#ajax-loader').fadeIn('fast', function () {      
+      $.get(ruta, function (response, state) {
+        var monto_no_retirado = 0;
+        var monto_por_retirar = 0;
+        for (var i = 0; i < response.length; i++) {
+          var monto = response[i].saldo - response[i].descuento;
+          if (response[i].estado_retiro == 0) {
+            monto_no_retirado += monto;
+          } else if (response[i].estado_retiro == 1) {
+            monto_por_retirar += monto;
+          }
+          var fila = "<tr>";
+          fila += "<td class='hidden id_cobro'>" + response[i].id + "</td>";
+          fila += "<td>" + response[i].fecha_hora_ingreso + "</td>";
+          fila += "<td>" + response[i].nombre + "</td>";
+          if (response[i].estado_retiro == 0) {
+            fila += "<td><span class='p-5'>No retirado</span></td>";
+          } else if (response[i].estado_retiro == 1) {
+            fila += "<td><span class='bgm-orange c-white p-5'>Por retirar</span></td>";
+          }
+          fila += "<td class='text-right'>" + monto.toFixed(2) + "</td>";
+          fila += "</tr>";
+          $('#tabla-ingresos-cajera tbody').append(fila);
+        };
+        $('#cobros-no-retirados').html(monto_no_retirado.toFixed(2));
+        $('#cobros-por-retirar').html(monto_por_retirar.toFixed(2));
+      })
+      .always(function () {
+        $('#ajax-loader').fadeOut('slow');
+      });
+    });    
     $('#card-ingresos-admin.js-toggle').slideDown();
   } else {
     sweet_alert('¡Atención!', 'Debe de seleccionar una cajera.', 'warning');

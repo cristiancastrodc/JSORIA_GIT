@@ -5,69 +5,73 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
   var $codigo = $('#form-buscar-deudas #codigo').val();
 
   var ruta = '/cajera/buscar/deudas/' + $codigo;
+  $('#ajax-loader').fadeIn('fast', function () {
+    $.get(ruta, function(response) {
+      if (response['tipo'] == 'warning') {
+        sweet_alert('¡ATENCIÓN!', response['mensaje'], 'warning');
+      } else if (response['tipo'] == 'hay_deuda_extr'){
+          $('#card-deudas-alumno').slideUp('fast');
+          $('#tabla-pagos-pendientes > tbody').empty();
+          $('#tabla-categorias-compras > tbody').empty();
+          var deuda = response['deuda'];
+          var cliente = deuda['cliente_extr'];
+          var descripcion = deuda['descripcion_extr'];
+          var monto = deuda['saldo'];
+          var id_deuda = deuda['id'];
 
-  $.get(ruta, function(response) {
-    if (response['tipo'] == 'warning') {
-      sweet_alert('¡ATENCIÓN!', response['mensaje'], 'warning');
-    } else if (response['tipo'] == 'hay_deuda_extr'){
-        $('#card-deudas-alumno').slideUp('fast');
-        $('#tabla-pagos-pendientes > tbody').empty();
-        $('#tabla-categorias-compras > tbody').empty();
-        var deuda = response['deuda'];
-        var cliente = deuda['cliente_extr'];
-        var descripcion = deuda['descripcion_extr'];
-        var monto = deuda['saldo'];
-        var id_deuda = deuda['id'];
+          $("#cliente_extr").html(cliente);
+          $("#descripcion_extr").html(descripcion);
+          $("#monto_extr").html(monto.toFixed(2));
+          $('#id_deuda_extr').val(id_deuda);
+          $('#card-deuda-extraordinaria.js-toggle').slideDown('fast');
+      } else if (response['tipo'] == 'alumno_existe') {
+          $('#card-deuda-extraordinaria.js-toggle').slideUp('fast');
+          var nombre_alumno = response[0].nombres + ' ' + response[0].apellidos;
+          var nro_documento = response[0].nro_documento;
+          $('#nro_documento').val(nro_documento);
+          $('#nombre-alumno').html(nombre_alumno);
+          var nombre_institucion = response[1].nombre;
+          var id_institucion = response[1].id;
+          $('#id_institucion').val(id_institucion);
+          $('#nombre-institucion').html(nombre_institucion);
 
-        $("#cliente_extr").html(cliente);
-        $("#descripcion_extr").html(descripcion);
-        $("#monto_extr").html(monto.toFixed(2));
-        $('#id_deuda_extr').val(id_deuda);
-        $('#card-deuda-extraordinaria.js-toggle').slideDown('fast');
-    } else if (response['tipo'] == 'alumno_existe') {
-        $('#card-deuda-extraordinaria.js-toggle').slideUp('fast');
-        var nombre_alumno = response[0].nombres + ' ' + response[0].apellidos;
-        var nro_documento = response[0].nro_documento;
-        $('#nro_documento').val(nro_documento);
-        $('#nombre-alumno').html(nombre_alumno);
-        var nombre_institucion = response[1].nombre;
-        var id_institucion = response[1].id;
-        $('#id_institucion').val(id_institucion);
-        $('#nombre-institucion').html(nombre_institucion);
+          $('#tabla-pagos-pendientes tbody').empty();
+          for (var i = 0; i < response[2].length; i++) {
+            var fila = "<tr>";
+            fila += "<td class='hidden id'>" + response[2][i].id + "</td>";
+            fila += "<td class='hidden destino'>" + response[2][i].destino + "</td>";
+            fila += "<td class='nombre'>" + response[2][i].nombre + "</td>";
 
-        $('#tabla-pagos-pendientes tbody').empty();
-        for (var i = 0; i < response[2].length; i++) {
-          var fila = "<tr>";
-          fila += "<td class='hidden id'>" + response[2][i].id + "</td>";
-          fila += "<td class='hidden destino'>" + response[2][i].destino + "</td>";
-          fila += "<td class='nombre'>" + response[2][i].nombre + "</td>";
+            monto = parseFloat(response[2][i].saldo) - parseFloat(response[2][i].descuento);
+            fila += "<td class='text-right monto'>" + monto.toFixed(2) + "</td>";
 
-          monto = parseFloat(response[2][i].saldo) - parseFloat(response[2][i].descuento);
-          fila += "<td class='text-right monto'>" + monto.toFixed(2) + "</td>";
+            fila += "<td><label class='checkbox checkbox-inline'><input type='checkbox' class='selected'><i class='input-helper'></i> Seleccionar</label></td>";
+            fila += "</tr>";
 
-          fila += "<td><label class='checkbox checkbox-inline'><input type='checkbox' class='selected'><i class='input-helper'></i> Seleccionar</label></td>";
-          fila += "</tr>";
+            $('#tabla-pagos-pendientes tbody').append(fila);
+          };
 
-          $('#tabla-pagos-pendientes tbody').append(fila);
-        };
+          $('#tabla-categorias-compras tbody').empty();
+          for (var i = 0; i < response[3].length; i++) {
+            var fila = "<tr class='" + response[3][i].id + "'>";
+            fila += "<td class='hidden id'>" + response[3][i].id + "</td>";
+            fila += "<td class='hidden destino'>" + response[3][i].destino + "</td>";
+            fila += "<td><div class='fg-line'><input type='text' class='form-control text-right cantidad' value='0' onkeyup='calcularImporte(" + response[3][i].id + ", this.value)'></div></td>";
+            fila += "<td class='nombre'>" + response[3][i].nombre + "</td>";
+            fila += "<td><input type='text' class='form-control text-right monto disabled' disabled value='" + response[3][i].monto + "' /></td>";
+            fila += "<td><input type='text' class='form-control text-right importe disabled' disabled /></td>";
+            fila += "</tr>";
 
-        $('#tabla-categorias-compras tbody').empty();
-        for (var i = 0; i < response[3].length; i++) {
-          var fila = "<tr class='" + response[3][i].id + "'>";
-          fila += "<td class='hidden id'>" + response[3][i].id + "</td>";
-          fila += "<td class='hidden destino'>" + response[3][i].destino + "</td>";
-          fila += "<td><div class='fg-line'><input type='text' class='form-control text-right cantidad' value='0' onkeyup='calcularImporte(" + response[3][i].id + ", this.value)'></div></td>";
-          fila += "<td class='nombre'>" + response[3][i].nombre + "</td>";
-          fila += "<td><input type='text' class='form-control text-right monto disabled' disabled value='" + response[3][i].monto + "' /></td>";
-          fila += "<td><input type='text' class='form-control text-right importe disabled' disabled /></td>";
-          fila += "</tr>";
+            $('#tabla-categorias-compras tbody').append(fila);
+          };
 
-          $('#tabla-categorias-compras tbody').append(fila);
-        };
-
-        debug(response, false);
-        $('#card-deudas-alumno.js-toggle').slideDown();
-    };
+          debug(response, false);
+          $('#card-deudas-alumno.js-toggle').slideDown();
+      };
+    })
+    .always(function () {
+      $('#ajax-loader').fadeOut('slow');
+    });
   });
 });
 /*** Fin de Buscar Deudas de Alumno o Deuda Extraordinaria ***/
@@ -253,9 +257,9 @@ $('#modal-confirmar-autorizacion #modal-guardar').click(function () {
       retiro : $id,
     },
     beforeSend : function () {
-          debug('Antes de enviar');
-          $('#ajax-loader').fadeIn('slow');
-        },
+      debug('Antes de enviar');
+      $('#ajax-loader').fadeIn('slow');
+    },
     success : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
         debug(data, false);
@@ -296,14 +300,20 @@ function procesarComprobanteBoleta ($tipo) {
       id_pagos : $id_pagos,
       id_compras : $id_compras,
     },
+    beforeSend : function () {
+      debug('Antes de enviar');
+      $('#ajax-loader').fadeIn('slow');
+    },
     success : function (data) {
-      debug(data, false);
-      swal({
-        title : '¡Éxito!',
-        text :  data.mensaje,
-        type : 'success',
-      }, function () {
-        document.location.reload();
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        swal({
+          title : '¡Éxito!',
+          text :  data.mensaje,
+          type : 'success',
+        }, function () {
+          document.location.reload();
+        });
       });
     },
     error : function (data) {
@@ -349,7 +359,6 @@ $('#btn-comprobante-extr').click(function(e) {
           document.location.reload();
         });
       });
-
     },
     error : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
