@@ -48,7 +48,7 @@ $('#form-crear-actividad #btn-crear-actividad').click(function (e) {
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
         resultado = false;
-      });      
+      });
     },
     error : function (msg) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -70,7 +70,7 @@ $('#form-crear-actividad #btn-crear-actividad').click(function (e) {
         });
 
         $boton.html('Guardar');
-      });     
+      });
     }
   }));
 
@@ -122,7 +122,7 @@ $('#form-listar-actividades #btn-listar-actividades').click(function (e) {
   if ($id_detalle_institucion != "") {
     var ruta = 'actividades/listar/' + $id_detalle_institucion;
     $('#tabla-listar-actividades tbody').empty();
-    $('#ajax-loader').fadeIn('fast', function () { 
+    $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (data) {
         if (data.length > 0) {
           for (var i = 0; i < data.length; i++) {
@@ -137,11 +137,11 @@ $('#form-listar-actividades #btn-listar-actividades').click(function (e) {
         } else {
           $('#tabla-listar-actividades tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
         }
-      })     
+      })
       .always(function () {
         $('#ajax-loader').fadeOut('slow');
       });
-    });    
+    });
   } else {
     swal({
       title : '¡Atención!',
@@ -196,7 +196,7 @@ $('#modal-editar-actividad #modal-guardar').click(function () {
         }, function(){
             reloadTablaActividades($modal);
         });
-      });      
+      });
     },
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -208,7 +208,7 @@ $('#modal-editar-actividad #modal-guardar').click(function () {
         }, function(){
           console.log('fail');
         });
-      });      
+      });
     },
     error : function (msg) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -220,7 +220,7 @@ $('#modal-editar-actividad #modal-guardar').click(function () {
 
         $('#modal-error #message').html(err_list);
         $('#modal-error').fadeIn();
-      });      
+      });
     }
   });
 });
@@ -333,13 +333,13 @@ $('#btn-crear-matricula').click(function (e) {
             fail : function () {
               $('#ajax-loader').fadeOut('slow', function () {
                 resultado = false;
-              });              
+              });
             },
             error : function (msg) {
               $('#ajax-loader').fadeOut('slow', function () {
                 errors++;
                 $boton.html('Guardar');
-              });              
+              });
             }
           }));
         };
@@ -393,7 +393,7 @@ $('#form-listar-matriculas #btn-listar-matriculas').click(function (e) {
   if ($id_institucion != "" && $anio != "" ) {
     var ruta = 'matriculas/' + $id_institucion + '/' + $anio;
     $('#tabla-lista-matriculas tbody').empty();
-    $('#ajax-loader').fadeIn('fast', function () {      
+    $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (data) {
         if (data.length > 0) {
           for (var i = 0; i < data.length; i++) {
@@ -413,7 +413,7 @@ $('#form-listar-matriculas #btn-listar-matriculas').click(function (e) {
       .always(function () {
         $('#ajax-loader').fadeOut('slow');
       });
-    });    
+    });
   } else {
     swal({
       title : '¡Atención!',
@@ -468,7 +468,7 @@ $('#modal-editar-matricula #modal-guardar').click(function () {
         }, function(){
             reloadTablaMatriculas($modal);
         });
-      });      
+      });
     },
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -480,7 +480,7 @@ $('#modal-editar-matricula #modal-guardar').click(function () {
         }, function(){
             console.log('fail');
         });
-      });      
+      });
     },
     error : function (msg) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -492,7 +492,7 @@ $('#modal-editar-matricula #modal-guardar').click(function () {
 
         $('#modal-error #message').html(err_list);
         $('#modal-error').fadeIn();
-      });      
+      });
     }
   });
 });
@@ -558,9 +558,9 @@ $('#btn-deshabilitar-matriculas').click(function (e) {
           data : {
             estado : '0',
             operacion : 'estado'
-          },          
-          fail : function () {            
-            resultado = false;                        
+          },
+          fail : function () {
+            resultado = false;
           }
         }));
       };
@@ -677,7 +677,7 @@ $('#btn-crear-pensiones').click(function (e) {
                     fecha_fin : fecha_fin,
                     destino : '0',
                     id_detalle_institucion : $id_detalle_institucion
-                  },                  
+                  },
                   fail : function () {
                     resultado = false;
                   }
@@ -714,9 +714,9 @@ $('#btn-crear-pensiones').click(function (e) {
                     fecha_fin : pension_fin,
                     destino : '0',
                     id_detalle_institucion : $id_detalle_institucion
-                  },                  
+                  },
                   fail : function () {
-                    resultado = false;                    
+                    resultado = false;
                   }
                 }));
               };
@@ -797,7 +797,7 @@ $('#form-listar-pensiones #btn-listar-pensiones').click(function (e) {
   if ($id_detalle_institucion != "" && $anio != "" ) {
     var ruta = 'pensiones/' + $id_detalle_institucion + '/' + $anio;
     $('#tabla-listar-pensiones tbody').empty();
-    $('#ajax-loader').fadeIn('fast', function () {      
+    $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (data) {
         if (data.length > 0) {
           for (var i = 0; i < data.length; i++) {
@@ -816,7 +816,7 @@ $('#form-listar-pensiones #btn-listar-pensiones').click(function (e) {
       .always(function () {
         $('#ajax-loader').fadeOut('slow');
       });
-    });    
+    });
   } else {
     swal({
       title : '¡Atención!',
@@ -867,7 +867,7 @@ $('#modal-editar-pension #modal-guardar').click(function () {
         }, function(){
             reloadTablaPension($modal);
         });
-      });      
+      });
     },
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -879,7 +879,7 @@ $('#modal-editar-pension #modal-guardar').click(function () {
         }, function(){
             console.log('fail');
         });
-      });      
+      });
     },
     error : function (msg) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -891,7 +891,7 @@ $('#modal-editar-pension #modal-guardar').click(function () {
 
         $('#modal-error #message').html(err_list);
         $('#modal-error').fadeIn();
-      });      
+      });
     }
   });
 });
@@ -938,7 +938,7 @@ $('#form-lista-c-ordinarios #btn-lista-c-ordinarios').click(function (e) {
   if ($id_institucion != "") {
     var ruta = 'ordinarios/listar/' + $id_institucion;
     $('#tabla-lista-c-ordinarios tbody').empty();
-    $('#ajax-loader').fadeIn('fast', function () {      
+    $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (data) {
         if (data.length > 0) {
           for (var i = 0; i < data.length; i++) {
@@ -963,7 +963,7 @@ $('#form-lista-c-ordinarios #btn-lista-c-ordinarios').click(function (e) {
       .always(function () {
         $('#ajax-loader').fadeOut('slow');
       });
-    });    
+    });
   } else {
     swal({
       title : '¡Atención!',
@@ -1036,7 +1036,7 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
         }, function(){
             reloadTablaCobroOrdinario($modal);
         });
-      });      
+      });
     },
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -1048,7 +1048,7 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
         }, function(){
             console.log('fail');
         });
-      });      
+      });
     },
     error : function (msg) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -1060,7 +1060,7 @@ $('#modal-editar-c-ordinario #modal-guardar').click(function () {
 
         $('#modal-error #message').html(err_list);
         $('#modal-error').fadeIn();
-      });      
+      });
     }
   });
 });
@@ -1112,7 +1112,7 @@ $('#form-listar-c-otros #btn-listar-c-otros').click(function (e) {
     var ruta = 'otros/listar/' + $id_institucion;
     $('#tabla-listar-c-otros tbody').empty();
 
-    $('#ajax-loader').fadeIn('fast', function () {      
+    $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (data) {
         if (data.length > 0) {
           for (var i = 0; i < data.length; i++) {
@@ -1137,7 +1137,7 @@ $('#form-listar-c-otros #btn-listar-c-otros').click(function (e) {
       .always(function () {
         $('#ajax-loader').fadeOut('slow');
       });
-    });    
+    });
   } else {
     swal({
       title : '¡Atención!',
@@ -1199,7 +1199,7 @@ $('#modal-editar-c-otro #modal-guardar').click(function () {
         }, function(){
             reloadTablaOtrosCobros($modal);
         });
-      });      
+      });
     },
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -1211,7 +1211,7 @@ $('#modal-editar-c-otro #modal-guardar').click(function () {
         }, function(){
             console.log('fail');
         });
-      });      
+      });
     },
     error : function (msg) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -1223,7 +1223,7 @@ $('#modal-editar-c-otro #modal-guardar').click(function () {
 
         $('#modal-error #message').html(err_list);
         $('#modal-error').fadeIn();
-      });      
+      });
     }
   });
 });
@@ -1274,8 +1274,8 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
     $('#tabla-ingresos-cajera tbody').empty();
     $('#id_cajera_retirar').val($id_cajera);
     var ruta = 'retirar/' + $('#id_cajera').val() + "";
-    
-    $('#ajax-loader').fadeIn('fast', function () {      
+
+    $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (response, state) {
         var monto_no_retirado = 0;
         var monto_por_retirar = 0;
@@ -1305,7 +1305,7 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
       .always(function () {
         $('#ajax-loader').fadeOut('slow');
       });
-    });    
+    });
     $('#card-ingresos-admin.js-toggle').slideDown();
   } else {
     sweet_alert('¡Atención!', 'Debe de seleccionar una cajera.', 'warning');
@@ -1357,7 +1357,7 @@ $('#btn-retirar-ingresos').click(function (e) {
         debug("Error del servidor.");
         debug(data, false);
         sweet_alert('Ocurrió algo inesperado', 'No se pudo procesar la petición.', 'warning', 'reload');
-      });      
+      });
     }
   })
 });

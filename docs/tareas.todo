@@ -1,0 +1,108 @@
+Variables:
+ ☐ main-color: #091b43
+ ☐ accent-color: #F58634
+Generales:
+ ☐ Quitar logo de ULP del inicio de sesión. @high
+ ☐ Quitar logo de ULP del menú lateral. @high
+ ☐ Agregar ícono de J. Soria al header. @high
+ ☐ Agregar marca y versión de software en el footer. @low
+ ☐ Agregar card-header a todos los módulos con color de fondo main-color. @critical
+ ☐ Cambiar los títulos a minúsculas y color blanco. @critical
+ ☐ Cambiar color de botón principal a accent-color. @critical
+ ☐ Cambiar color de header a accent-color. @critical
+ ☐ Limitar intentos de login a tres. @low
+ ☐ Códigos de error en las peticiones AJAX. @low
+ ☐ Nueva hoja de Excel para la importación de datos. @critical
+ ☐ Cambiar a Material Icons. @low @low
+Admin:
+ ☐ Reporte de acciones de usuarios. @low
+ ☐ Verificar que para cada modulo, restringir opciones de acuerdo a sus permisos. @high
+ ☐ Módulo: Modificar/Lista de Cobros extraordinarios creados. @critical
+ ☐ Módulo: Importador de datos. @low
+ ☐ Configuración de porcentaje de descuento para pensiones. @low
+  Actividades:
+   ☐ Dividir en pantallas de Creación y Administración. @low
+   ☐ Revisar procesamiento de Creación. @critical
+   ☐ Cambiar diseño Botones Guardar, Buscar y Guardar del modal de Editar actividad. @critical
+   ☐ Al Buscar el loader aparece atras del modal de editar. @critical
+  Matrículas:
+   ☐ Reanalizar y rehacer módulo (integrar con Pensiones y con Secretaria-Matricular). @critical @critical
+  Pensiones:
+   ☐ Reanalizar y rehacer módulo (integrar con Matrículas). @critical @critical
+  Cobros:
+    Ordinarios:
+     ☐ Dividir en pantallas de Creación y Administración. @low
+     ☐ Revisar procesamiento de Creación. @critical
+     ☐ Cambiar diseño Botones Guardar, Buscar y Guardar del modal de Editar cobro. @critical
+     ☐ Al Buscar el loader aparece atras del modal de editar. @critical
+    Extraordinarios:
+     ☐ Revisar procesamiento de Creación. @critical
+     ☐ Cambiar diseño Boton Guardar. @critical
+    Otros:
+     ☐ Dividir en pantallas de Creación y Administración. @low
+     ☐ Revisar procesamiento de Creación. @critical
+     ☐ Cambiar diseño Botones Guardar, Buscar y Guardar del modal de Editar cobro. @critical
+     ☐ Al Buscar el loader aparece atras del modal de editar. @critical
+  Usuarios:
+    ☐ Dividir en pantallas de Creación y Administración. @low
+    ☐ Revisar procesamiento de Creación. @critical
+    ☐ Cambiar diseño de Botones. @critical
+  Autorizar descuentos:
+    ☐ Cambiar diseño de Botón Autorizar. @critical
+    ☐ Revisar procesamiento de Creación. @critical
+    ☐ Impresión de autorización. @low
+  Retiro:
+    ☐ Revisar módulo. @critical
+    ☐ Al Buscar el loader aparece atras del modal de editar. @critical
+  Reportes:
+    ☐ Revisar funcionalidad de cada reporte. @critical
+    ☐ Revisar procesamiento para todos los reportes. @critical
+    ☐ Rediseñar PDF. @high
+Secretaria:
+ ☐ Cambiar diseño de botones. @critical
+ ☐ Revisar procesamiento. @critical
+ ☐ Reporte: Alumnos Deudores. @critical
+ ☐ Reporte: Reporte de deudas por grados. @critical
+ ☐ Mostrar institucion del alumno en todos los procesos donde se le involucre. @critical
+ Nuevo Alumno:
+  ☐ Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres. @high
+ Matricular:
+  ☐ Reanalizar y rehacer módulo (integrar con Matrículas y Pensiones). @critical @critical
+ Modificar deuda:
+  ☐ No aparece la pelotita del loader. @high
+ Autorizar descuento:
+  ☐ Al Buscar el loader aparece atras del modal de editar. @critical
+Tesorera:
+ ☐ Cambiar diseño de botones. @critical
+ ☐ Revisar procesamiento. @critical
+ Registrar egreso:
+  ☐ Debe haber campos para: razon social de la empresa, nombre de la persona a quien se dio el dinero. @critical @critical
+  ☐ Debe de haber un tipo de comprobante "Comprobante de Egreso". @critical
+  ☐ Al registrar egreso con tipo comprobante de pago, no debe ser autoincremental, debe permitir el ingreso del numero
+ Modificar Egreso:
+  ☐ Reanalizar y rehacer módulo. @critical @critical
+    ☐ Egresos solo se pueden modificar dentro de 30 dias calendario. @critical @critical
+ Rubros:
+  ☐ Reanalizar y rehacer módulo. @critical @critical
+  ☐ Reordenar pantalla. @low
+ Retiro:
+  ☐ Revisar módulo. @critical
+  ☐ No aparece la pelotita del loader. @high
+  ☐ Mostrar numeros de comprobante de ingresos. @critical
+ Reportes:
+    ☐ Revisar funcionalidad de cada reporte. @critical
+    ☐ Revisar procesamiento para todos los reportes. @critical
+    ☐ Rediseñar PDF. @high
+    ☐ Reporte de lista de ingresos debe mostrar las sgts categorias: Matriculas, Pensiones, Actividades, Extraordinarios y todos los conceptos de con_factor, sin_factor y multiples. @critical
+    ☐ Reporte de Ingresos y Egresos debe mostrar solo instituciones autorizadas y ser multiseleccion de estas. @critical
+Cajera:
+ ☐ Cambiar diseño de botones. @critical
+ ☐ Revisar procesamiento. @critical
+  Cobro:
+   ☐ Reanalizar y rehacer módulo. @critical @critical
+     ☐ Al registrar un cobro, se debe registrar el numero de comprobante en el ingreso. @critical @critical
+     ☐ Para realizar un cobro, el alumno no debe estar necesariamente matriculado. @critical
+  Otros cobros:
+   ☐ Reanalizar y rehacer módulo. @critical @critical
+  Reporte:
+   ☐ Agregar selector de fecha en el reporte. @critical @critical

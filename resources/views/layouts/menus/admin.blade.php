@@ -39,6 +39,6 @@
                 <li><a href="{!!URL::to('/admin/reportes/CuentaAlumno')!!}">Cuenta de Alumno</a></li>
             </ul>
           </li>
-          <li><a href="{!!URL::to('/admin/configuracion')!!}">
+          <!-- li><a href="{!!URL::to('/admin/configuracion')!!}">
             <i class="zmdi zmdi-settings"></i> Configuración</a>
-          </li>
+          </li-->

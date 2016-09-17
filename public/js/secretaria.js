@@ -6,7 +6,7 @@ $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
   var nombres_alumno = "";
   var apellidos_alumno = "";
 
-  $('#ajax-loader').fadeIn('fast', function () { 
+  $('#ajax-loader').fadeIn('fast', function () {
     $.get(ruta, function (response, state) {
 
       if (response['mensaje']) {
@@ -27,13 +27,13 @@ $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
 
         $('.js-toggle').slideDown('fast');
       }
-    })    
+    })
     .always(function () {
       $('#ajax-loader').fadeOut('slow');
     });
   });
 
-  
+
 });
 
 $('#form-matricular #id_institucion').change(function (event) {
@@ -88,7 +88,7 @@ $('#form-matricular #btn-matricular').click(function (e) {
         }, function(){
             document.location.reload();
           });
-      });      
+      });
     },
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -100,8 +100,8 @@ $('#form-matricular #btn-matricular').click(function (e) {
         }, function(){
             document.location.reload();
           });
-      });  
-      
+      });
+
     }
   })
 });
@@ -185,11 +185,11 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
             $('.js-toggle').slideDown('fast');
         }
       }
-    })      
+    })
     .always(function () {
       $('#ajax-loader').fadeOut('slow');
     });
-  });  
+  });
 });
 
 function calcularImporte (id, value) {
@@ -217,7 +217,7 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
 
   $('#tabla-deudas-alumno tbody').empty();
 
-  $('#ajax-loader').fadeIn('fast', function () { 
+  $('#ajax-loader').fadeIn('fast', function () {
     $.get(ruta, function (response, state) {
       if (response['mensaje']) {
         swal({
@@ -258,13 +258,13 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
         $('.js-toggle').slideDown('fast');
       }
 
-    })     
+    })
     .always(function () {
       $('#ajax-loader').fadeOut('slow');
     });
   });
 
-  
+
 });
 
 /*** Listar deudas de actividades de alumno ***/
@@ -314,11 +314,11 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
 
         $('.js-toggle').slideDown('fast');
       }
-    })      
+    })
     .always(function () {
       $('#ajax-loader').fadeOut('slow');
     });
-  });  
+  });
 });
 
 /*** Amortizar deudas de un alumno ***/
@@ -331,7 +331,7 @@ $('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
   var apellidos_alumno = "";
 
   $('#tabla-deudasAmortizacion-alumno tbody').empty();
-  $('#ajax-loader').fadeIn('fast', function () { 
+  $('#ajax-loader').fadeIn('fast', function () {
     $.get(ruta, function (response, state) {
       if (response['mensaje']) {
         swal({
@@ -368,11 +368,11 @@ $('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
 
         $('.js-toggle').slideDown('fast');
       }
-    })    
+    })
     .always(function () {
       $('#ajax-loader').fadeOut('slow');
     });
-  });  
+  });
 });
 
 /*** Inicio de Agregar Deuda a Alumno ***/
@@ -479,14 +479,14 @@ $('#btn-cancelar-deuda-actividad').click(function(e) {
           debug(data.mensaje);
           sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
         });
-        
+
       },
       fail : function (data) {
         $('#ajax-loader').fadeOut('slow', function () {
           debug('Error en la eliminacion de la actividad.');
           debug(data, false);
           sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la eliminacion de la actividad, inténtelo de nuevo más tarde.', 'warning', 'reload');
-        });        
+        });
       }
     });
   } else{
@@ -556,14 +556,14 @@ $('#btn-autorizar-descuento').click(function(e) {
           sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
           }
         });
-        
+
       },
       fail : function (data) {
         $('#ajax-loader').fadeOut('slow', function () {
           debug('Error en el proceso de elimar y/o descontar de la deuda.');
           debug(data, false);
           sweet_alert('Ocurrió algo inesperado', 'Hubo un error en el proceso de elimar y/o descontar de la deuda, inténtelo de nuevo más tarde.', 'warning', 'reload');
-        });        
+        });
       }
     });
   };
@@ -616,7 +616,7 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
             //reloadTablaActividades($modal);
         });
       });
-      
+
     },
     error : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
@@ -629,7 +629,7 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
           console.log('fail');
         });
       });
-      
+
     },
   });
 

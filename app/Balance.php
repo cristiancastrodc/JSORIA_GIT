@@ -76,7 +76,7 @@ class Balance extends Model {
     $ingresos = Retiro::join('deuda_ingreso', 'retiro.id', '=', 'deuda_ingreso.id_retiro')
                       ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
                       ->select('deuda_ingreso.fecha_hora_ingreso as fecha_item', DB::raw("'s/c' as denominacion"), DB::raw("'s/n' as numero_comprobante"), 'categoria.nombre as descripcion', DB::raw('jsoria_deuda_ingreso.saldo - jsoria_deuda_ingreso.descuento as ingreso'), DB::raw("0 as egreso"), DB::raw("'bg-success' as class"))
-                      ->whereDate('retiro.fecha_hora', '=', $fecha)
+                      ->whereDate('retiro.fecha_hora_creacion', '=', $fecha)
                       ->where('retiro.id_usuario', $id_tesorera)
                       ->where('retiro.estado', 1)
                       ->union($egresos)

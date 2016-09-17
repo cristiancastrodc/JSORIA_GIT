@@ -31,7 +31,7 @@ class RetirosController extends Controller
       $retiro = Retiro::join('usuario', 'retiro.id_usuario', '=', 'usuario.id')
                       ->where('retiro.id_cajera','=',$id_cajera)
                       ->where('retiro.estado','=','0')
-                      ->select('retiro.id','retiro.monto','retiro.fecha_hora','usuario.nombres','usuario.apellidos')
+                      ->select('retiro.id','retiro.monto','retiro.fecha_hora_creacion','usuario.nombres','usuario.apellidos')
                       ->get();
       return view('cajera.retiros.index', compact('retiro'));
     }
@@ -68,7 +68,7 @@ class RetirosController extends Controller
             if ($crearRetiro) {
               $retiro = Retiro::create([
                           'id_usuario' => Auth::user()->id,
-                          'fecha_hora' => date('Y-m-d H:i:s'),
+                          'fecha_hora_creacion' => date('Y-m-d H:i:s'),
                           'id_cajera' => $request->id_cajera
                         ]);
               $crearRetiro = false;
@@ -163,8 +163,12 @@ class RetirosController extends Controller
 
         if(\Hash::check($pass , $contra)){
           /** Actualizar el estado del retiro **/
+          $fecha_hora_retiro = date('Y-m-d H:i:s');
           Retiro::where('id', '=', $retiro)
-                ->Update(['estado' => '1']);
+                ->Update([
+                  'estado' => '1',
+                  'fecha_hora_retiro' => $fecha_hora_retiro
+                ]);
           /** Actualizar el estado de los cobros asociados al retiro **/
           Deuda_Ingreso::where('id_retiro', $retiro)
                        ->update(['estado_retiro' => '2']);

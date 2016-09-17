@@ -186,7 +186,7 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
     $('#tabla-ingresos-cajera tbody').empty();
     var ruta = 'retirar/' + $('#id_cajera').val() + "";
 
-    $('#ajax-loader').fadeIn('fast', function () {      
+    $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (response, state) {
         var monto_no_retirado = 0;
         var monto_por_retirar = 0;
@@ -273,7 +273,7 @@ $('#btn-retirar-ingresos').click(function (e) {
         sweet_alert('Ocurrió algo inesperado', 'No se pudo procesar la petición.', 'warning', 'reload');
       });
     }
-  });  
+  });
 });
 /*** Fin de Retirar Ingresos ***/
 
@@ -332,7 +332,7 @@ $('#modal-editar-rubro #modal-guardar').click(function () {
         }, function(){
           debug('Hubo un error en la petición AJAX.');
         });
-      });      
+      });
     },
     error : function (msg) {
       var err_list = '<ul>';
@@ -391,7 +391,7 @@ $('#tabla-listar-rubro').on('click', '.eliminar-rubro', function(e) {
       $('#ajax-loader').fadeIn('slow');
     },
     success : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {  
+      $('#ajax-loader').fadeOut('slow', function () {
       //debug(data, false);
         if (data.tipo == 'exito') {
           swal({
@@ -549,7 +549,7 @@ $('#btn-modificar-egreso').click(function(e) {
             }, function () {
               var ruta = '/tesorera/egresos';
               window.location = ruta;
-            });            
+            });
           });
         },
         fail : function (data) {
@@ -557,7 +557,7 @@ $('#btn-modificar-egreso').click(function(e) {
             debug('Error en la modificación del egreso.');
             debug(data, false);
             sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la creación del egreso, inténtelo de nuevo más tarde.', 'warning');
-          });      
+          });
         },
       });
     } else{
@@ -615,7 +615,7 @@ $('#tabla-listar-egresos').on('click', '.eliminar-egreso', function(e) {
             });
           };
         });
-        
+
       },
       fail : function (data) {
         $('#ajax-loader').fadeOut('slow', function () {
@@ -717,7 +717,7 @@ $('#btn-crear-rubro').click(function(e) {
         }, function () {
           document.location.reload();
         });
-      });      
+      });
     }
   });
 });
