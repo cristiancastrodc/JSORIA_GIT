@@ -2,7 +2,7 @@ Variables:
  ☐ main-color: #091b43
  ☐ accent-color: #F58634
 Generales:
- ☐ Quitar logo de ULP del inicio de sesión. @high
+ ✔ Quitar logo de ULP del inicio de sesión. @high @done (16-09-18 05:18)
  ☐ Quitar logo de ULP del menú lateral. @high
  ☐ Agregar ícono de J. Soria al header. @high
  ☐ Agregar marca y versión de software en el footer. @low
@@ -76,12 +76,12 @@ Tesorera:
  ☐ Cambiar diseño de botones. @critical
  ☐ Revisar procesamiento. @critical
  Registrar egreso:
-  ☐ Debe haber campos para: razon social de la empresa, nombre de la persona a quien se dio el dinero. @critical @critical
-  ☐ Debe de haber un tipo de comprobante "Comprobante de Egreso". @critical
-  ☐ Al registrar egreso con tipo comprobante de pago, no debe ser autoincremental, debe permitir el ingreso del numero
+  ✔ Debe haber campos para: razon social de la empresa, nombre de la persona a quien se dio el dinero. @critical @critical @done (16-09-18 11:56)
+  ✔ Debe de haber un tipo de comprobante "Comprobante de Egreso". @critical @done (16-09-18 11:55)
+  ✔ Al registrar egreso con tipo comprobante de pago, no debe ser autoincremental, debe permitir el ingreso del numero @done (16-09-18 05:45)
  Modificar Egreso:
-  ☐ Reanalizar y rehacer módulo. @critical @critical
-    ☐ Egresos solo se pueden modificar dentro de 30 dias calendario. @critical @critical
+  ✔ Reanalizar y rehacer módulo. @critical @critical @done (16-09-18 11:56)
+    ✔ Egresos solo se pueden modificar dentro de 30 dias calendario. @critical @critical @done (16-09-18 16:58)
  Rubros:
   ☐ Reanalizar y rehacer módulo. @critical @critical
   ☐ Reordenar pantalla. @low

@@ -26,7 +26,7 @@
                 <div class="col-sm-6">
                     <div class="fg-line">
                         <div class="dtp-container fg-line">
-                            <input type='text' class="form-control date-picker" placeholder="Elija la fecha" name="fecha_egresos" id="fecha_egresos">
+                            <input type='text' class="form-control" placeholder="Elija la fecha" name="fecha_egresos" id="fecha_egresos">
                         </div>
                     </div>
                 </div>
@@ -65,4 +65,11 @@
 
 @section('scripts')
   <script src="{{ asset('js/tesorera.js') }}"></script>
+  <script>
+    $('#fecha_egresos').datetimepicker({
+          format: 'YYYY/MM/DD',
+          locale : 'es',
+          minDate : moment().subtract(30, 'days')
+    });
+  </script>
 @endsection
