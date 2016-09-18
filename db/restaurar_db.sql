@@ -7,6 +7,17 @@ VALUES ('Institución Educativa J. Soria', '1', 'Corporación Educativa J-Soria 
        ('Universidad Líder Peruana', '2', 'Universidad Privada Líder Peruana S.A.C.', '20564356035', 'Jr. Quillabamba N° 110 - Quillabamba');
 
 
+/********** TABLA USUARIO **********/
+TRUNCATE jsoria_usuario;
+INSERT INTO jsoria_usuario(dni, nombres, apellidos, tipo, usuario_login, password)
+VALUES ('12324432', 'Jeronimo', 'Soria Mormontoy', 'Administrador', 'admin','123456');
+
+/********** TABLA COMPROBANTE **********/
+TRUNCATE jsoria_comprobante;
+INSERT INTO jsoria_comprobante(tipo, numero_comprobante, id_razon_social)
+VALUES ('comprobante', '0','1');
+
+
 - Institucion: Todo
 - Detalle Institucion: Todo
 - Grado: Todo
