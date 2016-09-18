@@ -148,3 +148,10 @@ Route::get('tesorera/reportes/EgresosTotales', 'AdminReporteEgresosTotales@index
 Route::resource('secretaria/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales');
 
 Route::get('tesorera/reportes/Saldo', 'TesoreraReporteSaldo@index');
+/*** Rutas temporales (inhabilitar luego de utilizar) ***/
+/*
+Route::get('temp', function ()
+{
+  return view('temp.one');
+});
+*/
