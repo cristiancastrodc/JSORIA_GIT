@@ -26,8 +26,9 @@ class EgresoCreateRequest extends Request
         return [
             'id_institucion' => 'required|numeric',
             'tipo_comprobante' => 'required|numeric',
-            'numero_comprobante' => 'required|numeric',
+            'numero_comprobante' => 'required',
             'fecha_egreso' => 'required|date_format:Y/m/d',
+            'responsable' => 'required',
         ];
     }
 }

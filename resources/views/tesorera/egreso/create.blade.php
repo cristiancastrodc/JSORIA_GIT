@@ -39,7 +39,8 @@
                   <option value="1">Boleta</option>
                   <option value="2">Factura</option>
                   <option value="3">Comprobante de Pago</option>
-                  <option value="4">Recibo por Honorario</option>
+                  <option value="4">Comprobante de Egreso</option>
+                  <option value="5">Recibo por Honorario</option>
                 </select>
               </div>
             </div>
@@ -50,7 +51,7 @@
                       <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off">
                   </div>
               </div>
-            </div>
+            </div>                       
             <div class="form-group">
               <label for="fecha" class="col-sm-3 control-label">Fecha</label>
               <div class="col-sm-9">
@@ -61,6 +62,22 @@
                 </div>
               </div>
             </div>
+            <div class="form-group" id="form-group-razon-social">
+              <label for="razon_social" class="col-sm-3 control-label">Razon Social</label>
+              <div class="col-sm-9">
+                  <div class="fg-line">
+                      <input type="text" class="form-control input-sm" id="razon_social" name="razon_social" placeholder="Razon Social" autocomplete="off">
+                  </div>
+              </div>
+            </div> 
+            <div class="form-group" id="form-group-razon-social">
+              <label for="responsable" class="col-sm-3 control-label">Responsable</label>
+              <div class="col-sm-9">
+                  <div class="fg-line">
+                      <input type="text" class="form-control input-sm" id="responsable" name="responsable" placeholder="Responsable" autocomplete="off">
+                  </div>
+              </div>
+            </div> 
             <div class="form-group">
               <div id="egreso">
                 <h4>Añadir detalles de egreso</h4>

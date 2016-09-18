@@ -52,11 +52,11 @@
               <label for="numero_comprobante" class="col-sm-3 control-label">Número</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                    @if ($egreso->tipo_comprobante == '3')
+                    <!--@if ($egreso->tipo_comprobante == '3')
                       <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" disabled value="{{ str_pad($egreso->numero_comprobante, 6, '0', STR_PAD_LEFT) }}">
-                    @else
+                    @else-->
                       <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off" value="{{ $egreso->numero_comprobante }}">
-                    @endif
+                    <!--@endif-->
                   </div>
               </div>
             </div>
@@ -70,6 +70,22 @@
                 </div>
               </div>
             </div>
+            <div class="form-group">
+              <label for="razon_social" class="col-sm-3 control-label">Razon Social</label>
+              <div class="col-sm-9">
+                  <div class="fg-line">
+                      <input type="text" class="form-control input-sm" id="razon_social" name="razon_social" placeholder="Razon Social" autocomplete="off" value="{{ $egreso->razon_social }}">
+                  </div>
+              </div>
+            </div> 
+            <div class="form-group">
+              <label for="responsable" class="col-sm-3 control-label">Responsable</label>
+              <div class="col-sm-9">
+                  <div class="fg-line">
+                      <input type="text" class="form-control input-sm" id="responsable" name="responsable" placeholder="Responsable" autocomplete="off" value="{{ $egreso->responsable }}">
+                  </div>
+              </div>
+            </div> 
             <div class="form-group">
             <div class="table-responsive">
               <table class="table" id="tabla-resumen-egresos">

@@ -3,7 +3,6 @@
 }
 body.login-content::before {
   background: url(../img/logo-soria-mini.png) right top no-repeat,
-              url(../img/ulp-logo-mini.png) left top no-repeat,
               url(../img/front.jpg) center 60% / cover no-repeat;
 }
 .profile-menu > a {

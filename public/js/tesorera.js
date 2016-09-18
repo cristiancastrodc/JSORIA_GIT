@@ -2,15 +2,15 @@
 $('#form-registrar-egreso-tesorera #tipo_comprobante').change(function (event){
 	var seleccionado = $('#form-registrar-egreso-tesorera #tipo_comprobante').val();
 
-	if (seleccionado == 3) {
+	/*if (seleccionado == 3) {
 		$('#numero_comprobante').prop('disabled', true);
     $('#numero_comprobante').val('cp');
 		$('#form-group-nro-comprobante').slideUp();
-	} else {
+	} else {*/
 		$('#numero_comprobante').prop('disabled', false);
     $('#numero_comprobante').val('');
 		$('#form-group-nro-comprobante').slideDown();
-	}
+	//}
 });
 
 $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
@@ -104,8 +104,10 @@ $('#btn-guardar-egreso').click(function(e) {
   var $tipo_comprobante = $('#tipo_comprobante').val();
   var $numero_comprobante = $('#numero_comprobante').val();
   var $fecha_egreso = $('#fecha_egreso').val();
+  var $razon_social = $('#razon_social').val();
+  var $responsable = $('#responsable').val();
 
-  if ($id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "") {
+  if ($id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "" && $responsable != "") {
     debug('Maestro OK. Comprobar detalle.');
     var $filas_detalle = $('#tabla-resumen-egresos > tbody > tr');
 
@@ -139,6 +141,8 @@ $('#btn-guardar-egreso').click(function(e) {
           tipo_comprobante : $tipo_comprobante,
           numero_comprobante : $numero_comprobante,
           fecha_egreso : $fecha_egreso,
+          razon_social : $razon_social,
+          responsable : $responsable,
           detalle_egreso : detalle_egreso,
         },
         beforeSend : function () {
@@ -443,25 +447,29 @@ $('#btn-buscar-egresos').click(function(e) {
               var fila = "<tr>";
               fila += "<td class='hidden egreso-id'>" + data[i].id + "</td>";
               fila += "<td>" + data[i].nombre + "</td>";
+              //fila += "<td>" + data[i].tipo_comprobante + "</td>";
               switch(data[i].tipo_comprobante) {
-                case '1':
+                case 1:
                   fila += "<td>Boleta</td>";
                   break;
-                case '2':
+                case 2:
                   fila += "<td>Factura</td>";
                   break;
-                case '3':
+                case 3:
                   fila += "<td>Comprobante de Pago</td>";
                   break;
-                case '4':
+                case 4:
+                  fila += "<td>Comprobante de Egreso</td>";
+                  break;
+                case 5:
                   fila += "<td>Recibo por Honorarios</td>";
                   break;
               };
-              if (data[i].tipo_comprobante == 3) {
+              /*if (data[i].tipo_comprobante == 3) {
                 fila += "<td class='text-right'>" + pad(data[i].numero_comprobante, 6) + "</td>";
-              } else{
+              } else{*/
                 fila += "<td class='text-right'>" + data[i].numero_comprobante + "</td>";
-              };
+              //};
               fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn bgm-amber waves-effect'><i class='zmdi zmdi-edit'></i></a>";
               fila += "<a class='btn btn-danger waves-effect eliminar-egreso'><i class='zmdi zmdi-delete'></i></a></td>";
               fila += "</tr>";
@@ -494,8 +502,10 @@ $('#btn-modificar-egreso').click(function(e) {
   var $tipo_comprobante = $('#tipo_comprobante').val();
   var $numero_comprobante = $('#numero_comprobante').val();
   var $fecha_egreso = $('#fecha_egreso').val();
+  var $razon_social = $('#razon_social').val();
+  var $responsable = $('#responsable').val();
 
-  if ($id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "") {
+  if ($id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "" && $responsable != "") {
     debug('Maestro OK. Comprobar detalle.');
     var $filas_detalle = $('#tabla-resumen-egresos > tbody > tr');
 
@@ -652,24 +662,27 @@ function reloadTablaEgresos () {
             fila += "<td class='hidden egreso-id'>" + data[i].id + "</td>";
             fila += "<td>" + data[i].nombre + "</td>";
             switch(data[i].tipo_comprobante) {
-              case '1':
+              case 1:
                 fila += "<td>Boleta</td>";
                 break;
-              case '2':
+              case 2:
                 fila += "<td>Factura</td>";
                 break;
-              case '3':
+              case 3:
                 fila += "<td>Comprobante de Pago</td>";
                 break;
-              case '4':
+              case 4:
+                fila += "<td>Comprobante de Egreso</td>";
+                break;
+               case 5 :
                 fila += "<td>Recibo por Honorarios</td>";
                 break;
             };
-            if (data[i].tipo_comprobante == 3) {
+            /*if (data[i].tipo_comprobante == 3) {
               fila += "<td class='text-right'>" + pad(data[i].numero_comprobante, 6) + "</td>";
-            } else{
+            } else{*/
               fila += "<td class='text-right'>" + data[i].numero_comprobante + "</td>";
-            };
+            //};
             fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn bgm-amber waves-effect'><i class='zmdi zmdi-edit'></i></a>";
             fila += "<a class='btn btn-danger waves-effect eliminar-egreso'><i class='zmdi zmdi-delete'></i></a></td>";
             fila += "</tr>";

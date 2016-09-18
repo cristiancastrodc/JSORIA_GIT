@@ -15,7 +15,7 @@ class Egreso extends Model
    *
    * @var array
    */
-  protected $fillable = ['tipo_comprobante', 'numero_comprobante', 'fecha', 'id_institucion', 'id_tesorera', 'fecha_registro'];
+  protected $fillable = ['tipo_comprobante', 'numero_comprobante', 'fecha', 'id_institucion', 'id_tesorera', 'fecha_registro', 'razon_social', 'responsable'];
 
   /*** Custom ***/
   public $timestamps = false;

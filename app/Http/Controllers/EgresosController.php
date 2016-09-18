@@ -100,6 +100,8 @@ class EgresosController extends Controller
         } else if ($egreso->tipo_comprobante == '3') {
             $comprobante = 'Comprobante de Pago';
         } else if ($egreso->tipo_comprobante == '4') {
+            $comprobante = 'Comprobante de Egreso';
+        } else if ($egreso->tipo_comprobante == '5') {
             $comprobante = 'Recibo por Honorarios';
         }
 
@@ -149,7 +151,9 @@ class EgresosController extends Controller
             $tipo_comprobante = $request->tipo_comprobante;
             $numero_comprobante = 0;
             $fecha_egreso = $request->fecha_egreso;
-            if ($tipo_comprobante == "3") {
+            $razon_social = $request->razon_social;
+            $responsable = $request->responsable;
+            /*if ($tipo_comprobante == "3") {
                 $egreso = Egreso::where("tipo_comprobante", 3)
                           ->select("numero_comprobante")
                           ->orderBy('numero_comprobante', 'desc')
@@ -159,9 +163,9 @@ class EgresosController extends Controller
                 } else {
                     $numero_comprobante = 1;
                 }
-            } else {
+            } else {*/
                 $numero_comprobante = $request->numero_comprobante;
-            }
+            //}
 
             $fecha_registro = date('Y-m-d H:i:s');
             $id_egreso = Egreso::create([
@@ -171,6 +175,8 @@ class EgresosController extends Controller
                 "id_institucion" => $id_institucion,
                 "id_tesorera" => Auth::user()->id,
                 "fecha_registro" => $fecha_registro,
+                "razon_social" => $razon_social,
+                "responsable" => $responsable,
             ])->id;
 
             $detalle_egreso = $request->detalle_egreso;
@@ -189,11 +195,11 @@ class EgresosController extends Controller
                 $monto_total += $detalle['monto'];
             }
             $response = array('mensaje' => 'Egreso creado exitosamente.');
-            if ($tipo_comprobante == "3") {
+            /*if ($tipo_comprobante == "3") {
                 $response["nro_resultado"] = $numero_comprobante;
-            } else {
+            } else {*/
                 $response["nro_resultado"] = "";
-            }
+            //}
 
             /** Registrar el egreso en la tabla de Balance **/
             $registro = Balance::where('fecha', date('Y-m-d'))
@@ -239,12 +245,14 @@ class EgresosController extends Controller
             $tipo_comprobante = $request->tipo_comprobante;
             $numero_comprobante = $request->numero_comprobante;
             $fecha_egreso = $request->fecha_egreso;
+            $razon_social = $request->razon_social;
+            $responsable = $request->responsable;
 
             $egreso = Egreso::find($id_egreso);
             $egreso->id_institucion = $id_institucion;
-            if ($tipo_comprobante != '3') {
+            //if ($tipo_comprobante != '3') {
                 $egreso->numero_comprobante = $numero_comprobante;
-            }
+            //}
             $egreso->fecha = $fecha_egreso;
             $egreso->save();
 
