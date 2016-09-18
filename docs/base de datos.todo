@@ -1,0 +1,8 @@
+Categoría:
+ ☐ Cambiar atributo nombre por denominacion.
+ ☐ Analizar atributos fecha_inicio y fecha_fin.
+Detalle Egreso:
+ ☐ Cambiar la clave primaria a un id correlativo.
+Deuda Ingreso:
+ ☐ Separar en dos tablas: Deuda e Ingreso.
+
