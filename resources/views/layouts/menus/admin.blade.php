@@ -2,12 +2,15 @@
           <li><a href="{!!URL::to('/admin/actividades')!!}">
             <i class="zmdi zmdi-assignment"></i> Actividades</a>
           </li>
-          <li><a href="{!!URL::to('/admin/matriculas')!!}">
+          <li><a href="{{ url('/admin/matricula/crear') }}">
+            <i class="zmdi zmdi-assignment"></i> Crear Matrícula</a>
+          </li>
+          <!-- li><a href="{!!URL::to('/admin/matriculas')!!}">
             <i class="zmdi zmdi-collection-text"></i> Matriculas</a>
           </li>
           <li><a href="{!!URL::to('/admin/pensiones')!!}">
             <i class="zmdi zmdi-calendar"></i> Pensiones</a>
-          </li>
+          </li-->
           <li class="sub-menu">
             <a href="#"><i class="zmdi zmdi-money-box"></i> Cobros</a>
             <ul>

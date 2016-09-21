@@ -14,6 +14,7 @@ Generales:
  ☐ Códigos de error en las peticiones AJAX. @low
  ☐ Nueva hoja de Excel para la importación de datos. @critical
  ☐ Cambiar a Material Icons. @low @low
+ ☐ Añadir clase hoverable a todos los cards. @low
 Admin:
  ☐ Reporte de acciones de usuarios. @low
  ☐ Verificar que para cada modulo, restringir opciones de acuerdo a sus permisos. @high

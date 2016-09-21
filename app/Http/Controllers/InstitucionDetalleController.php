@@ -115,4 +115,11 @@ class InstitucionDetalleController extends Controller
         }
     }
 
+    /*
+     * Retorna la colección de divisiones para poblar los select (html)
+     */
+    public function detalleInstitucionParaSelect($id_institucion)
+    {
+        return InstitucionDetalle::divisionesParaSelect($id_institucion);
+    }
 }

@@ -26,7 +26,10 @@ Route::post('perfil/guardar', 'UserGeneralController@guardarPerfil');
 /*** Rutas para administrador ***/
 Route::resource('admin/usuarios','UsersController');
 Route::resource('admin/actividades','ActividadesController');
+/*
 Route::resource('admin/matriculas','MatriculasController');
+*/
+Route::get('admin/matricula/crear', 'MatriculasController@crearMatricula');
 Route::resource('admin/pensiones','PensionesController');
 Route::resource('admin/cobros/ordinarios','CobrosOrdinariosController');
 Route::resource('admin/cobros/extraordinarios','CobrosExtraordinariosController');
@@ -41,6 +44,8 @@ Route::get('admin/cobros/ordinarios/listar/{id_institucion}', 'CobrosOrdinariosC
 Route::get('admin/cobros/otros/listar/{id_institucion}', 'OtrosCobrosController@listaCobros');
 Route::get('admin/retirar/{id_cajera}', 'RetirosController@retiroAdmin');
 Route::post('admin/retirar/actualizar', 'RetirosController@store');
+Route::get('admin/divisiones_select/{id_institucion}', 'InstitucionDetalleController@detalleInstitucionParaSelect');
+Route::post('admin/matricula/guardar', 'MatriculasController@guardarMatricula');
 /* Reportes */
 Route::get('admin/reporte/balance_ingresos_egresos',
   ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);

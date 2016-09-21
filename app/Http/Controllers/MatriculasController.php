@@ -126,4 +126,48 @@ class MatriculasController extends Controller
             return view('errors.403');
         }
     }
+
+    /**
+     * Mostrar el módulo para crear una matrícula conjuntamente con sus pensiones.
+     */
+    public function crearMatricula()
+    {
+        return view('admin.matricula.crear');
+    }
+
+    /**
+     * Almacenar la matrícula junto con las pensiones
+     */
+    public function guardarMatricula(Request $request)
+    {
+        $id_institucion = $request->input('id_institucion');
+        // Datos de Matricula
+        $matricula = $request->input('matricula');
+        $matricula_concepto = $matricula['concepto'];
+        $matricula_fecha_inicio = $matricula['fecha_inicio'];
+        $matricula_fecha_fin = $matricula['fecha_fin'];
+        // Datos de Pensiones
+        $pensiones = $request->input('pensiones');
+        $pensiones_mes_inicio = $pensiones['mes_inicio'];
+        $pensiones_mes_fin = $pensiones['mes_fin'];
+        // Montos
+        $divisiones = $request->input('divisiones');
+        // Crear matrícula y pensiones
+        foreach ($divisiones as $division) {
+            // Crear la matrícula
+            $id_matricula = Categoria::create([
+                                'nombre' => $matricula_concepto,
+                                'monto' => $division['monto_matricula'],
+                                'tipo' => 'matricula',
+                                'estado' => '1',
+                                'fecha_inicio' => $matricula_fecha_inicio,
+                                'fecha_fin' => $matricula_fecha_fin,
+                                'destino' => '0',
+                                'id_detalle_institucion' => $division['id'],
+                            ])->id;
+            // TODO: Crear las pensiones
+        };
+        return $montos;
+    }
+
 }
