@@ -16,7 +16,7 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-10">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2>Buscar Egresos</h2>

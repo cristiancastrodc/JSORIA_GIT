@@ -9,7 +9,7 @@ Generales:
  ✔ Agregar card-header a todos los módulos con color de fondo main-color. @critical @done (16-09-22 11:30)
  ✔ Cambiar los títulos a minúsculas y color blanco. @critical @done (16-09-22 11:30)
  ✔ Cambiar color de botón principal a accent-color. @critical @done (16-09-22 11:29)
- ☐ Cambiar color de header a accent-color. @critical
+ ✔ Cambiar color de header a accent-color. @critical @done (16-09-22 15:07)
  ☐ Limitar intentos de login a tres. @low
  ☐ Códigos de error en las peticiones AJAX. @low
  ☐ Nueva hoja de Excel para la importación de datos. @critical
@@ -68,7 +68,7 @@ Secretaria:
  Nuevo Alumno:
   ☐ Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres. @high
  Matricular:
-  ☐ Reanalizar y rehacer módulo (integrar con Matrículas y Pensiones). @critical @critical
+  ✔ Reanalizar y rehacer módulo (integrar con Matrículas y Pensiones). @critical @critical @done (16-09-22 15:06)
  Modificar deuda:
   ☐ No aparece la pelotita del loader. @high
  Autorizar descuento:

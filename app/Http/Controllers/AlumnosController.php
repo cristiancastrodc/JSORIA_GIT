@@ -137,6 +137,7 @@ class AlumnosController extends Controller
 
             $hoy = date('Y-m-d');
             $pensiones = Categoria::where('tipo', '=', 'pension')
+                                  ->where('id_matricula', '=', $id_matricula)
                                   ->where('estado', '=', 1)
                                   ->where('id_detalle_institucion', '=', $id_detalle_institucion)
                                   ->where('fecha_fin','>=', $hoy)
