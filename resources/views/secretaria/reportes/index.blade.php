@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>REPORTE DE CUENTA DE ALUMNO</h1>
-
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -18,7 +16,10 @@
 
   <div class="row">
     <div class="col-md-8">
-      <div class="card">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Cuenta de Alumno</h2>
+        </div>
         <div class="card-body card-padding" >
           {!!Form::open(['route' => 'secretaria.reportes.procesar.store','class' => 'form-horizontal', 'method' => 'POST'])!!}
             <div class="form-group">

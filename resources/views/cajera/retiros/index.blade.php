@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>RETIROS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,8 +16,11 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
-      <div class="card">
+    <div class="col-md-10">
+      <div class="card  hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Retiros</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-retiros'])!!}
           <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">

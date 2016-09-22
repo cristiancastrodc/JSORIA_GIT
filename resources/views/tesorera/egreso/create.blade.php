@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>REGISTRAR EGRESO</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -18,7 +17,10 @@
 
   <div class="row">
     <div class="col-md-10">
-      <div class="card">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Nuevo Egreso</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
             <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
@@ -30,7 +32,7 @@
                     <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
                   @endforeach
                 </select>
-              </div>
+              </div>  
             </div>
             <div class="form-group">
               <label for="tipo_comprobante" class="col-sm-3 control-label">Tipo de comprobante</label>
@@ -101,7 +103,7 @@
                   </div>
                 </div>
                 <div class="col-sm-3">
-                  <button class="btn bgm-blue-soria btn-block" id="btn-detalle-egreso-agregar">Agregar</button>
+                  <button class="btn accent-color btn-block" id="btn-detalle-egreso-agregar">Agregar</button>
                 </div>
               </div>
             </div>
@@ -125,7 +127,7 @@
                                   </div>
                                 </div>
                                 <div class="col-sm-5">
-                                  <button class="btn btn-primary waves-effect" id="btn_nuevo_rubro">Agregar</button>
+                                  <button class="btn accent-color waves-effect" id="btn_nuevo_rubro">Agregar</button>
                                 </div>
                             </div>
                         </div>
@@ -139,10 +141,10 @@
               <table class="table" id="tabla-resumen-egresos">
                 <thead>
                   <tr>
-                    <th class="warning c-white">Descripcion</th>
-                    <th class="warning c-white">Rubro</th>
-                    <th class="warning c-white">Monto (S/)</th>
-                    <th class="warning c-white">.</th>
+                    <th class="accent-color c-white">Descripcion</th>
+                    <th class="accent-color c-white">Rubro</th>
+                    <th class="accent-color c-white">Monto (S/)</th>
+                    <th class="accent-color c-white">.</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -152,7 +154,7 @@
             </div>
             <div class="form-group">
               <div class="row m-t-10">
-                <div class="col-sm-offset-9 col-sm-3"><button class="btn btn-warning waves-effect btn-block" id="btn-guardar-egreso">Guardar Egreso</button></div>
+                <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-guardar-egreso">Guardar Egreso</button></div>
               </div>
             </div>
           {!!Form::close()!!}

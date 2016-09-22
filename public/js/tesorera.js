@@ -363,7 +363,7 @@ function reloadTablaRubros (modal_rubro, origen = "") {
         var fila = "<tr>";
         fila += "<td class='rubro-id'>" + data[i].id + "</td>";
         fila += "<td>" + data[i].nombre + "</td>";
-        fila += "<td><a href='#modal-editar-rubro' data-toggle='modal' class='btn bgm-amber' data-id=" + data[i].id + " data-nombre="+ data[i].nombre +"><i class='zmdi zmdi-edit'></i></a>";
+        fila += "<td><a href='#modal-editar-rubro' data-toggle='modal' class='btn accent-color' data-id=" + data[i].id + " data-nombre="+ data[i].nombre +"><i class='zmdi zmdi-edit'></i></a>";
         fila += "<a class='btn btn-danger waves-effect eliminar-rubro' data-toggle='tooltip' data-placement='top' data-original-title='Eliminar'><i class='zmdi zmdi-delete'></i></a></td>";
         fila += "</tr>";
         $('#tabla-listar-rubro tbody').append(fila);
@@ -470,7 +470,7 @@ $('#btn-buscar-egresos').click(function(e) {
               } else{*/
                 fila += "<td class='text-right'>" + data[i].numero_comprobante + "</td>";
               //};
-              fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn bgm-amber waves-effect'><i class='zmdi zmdi-edit'></i></a>";
+              fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn accent-color waves-effect'><i class='zmdi zmdi-edit'></i></a>";
               fila += "<a class='btn btn-danger waves-effect eliminar-egreso'><i class='zmdi zmdi-delete'></i></a></td>";
               fila += "</tr>";
               $('#tabla-listar-egresos tbody').append(fila);
@@ -683,7 +683,7 @@ function reloadTablaEgresos () {
             } else{*/
               fila += "<td class='text-right'>" + data[i].numero_comprobante + "</td>";
             //};
-            fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn bgm-amber waves-effect'><i class='zmdi zmdi-edit'></i></a>";
+            fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn accent-color waves-effect'><i class='zmdi zmdi-edit'></i></a>";
             fila += "<a class='btn btn-danger waves-effect eliminar-egreso'><i class='zmdi zmdi-delete'></i></a></td>";
             fila += "</tr>";
             $('#tabla-listar-egresos tbody').append(fila);

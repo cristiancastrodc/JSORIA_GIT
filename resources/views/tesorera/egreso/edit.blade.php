@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>MODIFICAR EGRESO</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -18,7 +17,10 @@
 
   <div class="row">
     <div class="col-md-10">
-      <div class="card">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Modificar Egreso</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-modificar-egreso-tesorera'])!!}
             <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
@@ -91,9 +93,9 @@
               <table class="table" id="tabla-resumen-egresos">
                 <thead>
                   <tr>
-                    <th class="warning c-white">Descripcion</th>
-                    <th class="warning c-white">Rubro</th>
-                    <th class="warning c-white">Monto (S/)</th>
+                    <th class="accent-color c-white">Descripcion</th>
+                    <th class="accent-color c-white">Rubro</th>
+                    <th class="accent-color c-white">Monto (S/)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -128,7 +130,7 @@
             </div>
             <div class="form-group">
               <div class="row m-t-10">
-                <div class="col-sm-offset-9 col-sm-3"><button class="btn btn-warning waves-effect btn-block" id="btn-modificar-egreso">Modificar Egreso</button></div>
+                <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-modificar-egreso">Modificar Egreso</button></div>
               </div>
             </div>
           {!!Form::close()!!}

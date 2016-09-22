@@ -5,8 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>ADMINISTRAR OTROS COBROS</h1>
-
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -18,8 +16,8 @@
 
   <div class="row">
     <div class="col-md-5">
-      <div class="card">
-        <div class="card-header">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
           <h2>Nuevo Cobro</h2>
         </div>
         <div class="card-body card-padding">
@@ -73,15 +71,17 @@
                 </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-warning pull-right waves-effect">Guardar</button>
+              <div class="col-sm-6 col-sm-offset-6">
+                <button class="btn btn-block accent-color waves-effect m-t-10">Guardar</button>
+              </div>
             </div>
           {!!Form::close()!!}
         </div>
       </div>
     </div>
     <div class="col-md-7">
-      <div class="card">
-        <div class="card-header">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
           <h2>Lista de Otros Cobros</h2>
         </div>
         <div class="card-body card-padding">
@@ -98,22 +98,24 @@
               </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary waves-effect pull-right" id="btn-listar-c-otros">Buscar</button>
+              <div class="col-sm-4 col-sm-offset-8">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-listar-c-otros">Buscar</button>
+              </div>
             </div>
           {!!Form::close()!!}
         </div>
       </div>
-      <div class="card">
+      <div class="card hoverable">
         <div class="card-body card-padding">
           <div class="table-responsive">
             <table id="tabla-listar-c-otros" class="table table-striped">
                 <thead>
                     <tr>
                         <th class="hidden">Id</th>
-                        <th class="warning c-white">Concepto</th>
-                        <th class="warning c-white">Monto</th>
-                        <th class="warning c-white">Estado</th>
-                        <th class="warning c-white">Acciones</th>
+                        <th class="accent-color c-white">Concepto</th>
+                        <th class="accent-color c-white">Monto</th>
+                        <th class="accent-color c-white">Estado</th>
+                        <th class="accent-color c-white">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

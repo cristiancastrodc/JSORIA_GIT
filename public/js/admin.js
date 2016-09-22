@@ -130,7 +130,7 @@ $('#form-listar-actividades #btn-listar-actividades').click(function (e) {
               fila += "<td class='hidden'>" + data[i].id + "</td>";
               fila += "<td>" + data[i].nombre + "</td>";
               fila += "<td>" + data[i].monto + "</td>";
-              fila += "<td><a href='#modal-editar-actividad' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
+              fila += "<td><a href='#modal-editar-actividad' data-toggle='modal' class='btn accent-color m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
               fila += "</tr>";
               $('#tabla-listar-actividades tbody').append(fila);
           };
@@ -239,7 +239,7 @@ function reloadTablaActividades (modal_actividad) {
             fila += "<td class='hidden'>" + data[i].id + "</td>";
             fila += "<td>" + data[i].nombre + "</td>";
             fila += "<td>" + data[i].monto + "</td>";
-            fila += "<td><a href='#modal-editar-actividad' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
+            fila += "<td><a href='#modal-editar-actividad' data-toggle='modal' class='btn accent-color m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
             fila += "</tr>";
             $('#tabla-listar-actividades tbody').append(fila);
         };
@@ -402,7 +402,7 @@ $('#form-listar-matriculas #btn-listar-matriculas').click(function (e) {
               fila += "<td>" + data[i].nombre + "</td>";
               fila += "<td>" + data[i].nombre_division + "</td>";
               fila += "<td>" + data[i].monto + "</td>";
-              fila += "<td><a href='#modal-editar-matricula' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a><label class='checkbox checkbox-inline'><input type='checkbox'><i class='input-helper'></i>Seleccionar</label></td>";
+              fila += "<td><a href='#modal-editar-matricula' data-toggle='modal' class='btn accent-color m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a><label class='checkbox checkbox-inline'><input type='checkbox'><i class='input-helper'></i>Seleccionar</label></td>";
               fila += "</tr>";
               $('#tabla-lista-matriculas tbody').append(fila);
           };
@@ -513,7 +513,7 @@ function reloadTablaMatriculas (modal_matricula) {
             fila += "<td>" + data[i].nombre + "</td>";
             fila += "<td>" + data[i].nombre_division + "</td>";
             fila += "<td>" + data[i].monto + "</td>";
-            fila += "<td><a href='#modal-editar-matricula' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a><label class='checkbox checkbox-inline'><input type='checkbox'><i class='input-helper'></i>Seleccionar</label></td>";
+            fila += "<td><a href='#modal-editar-matricula' data-toggle='modal' class='btn accent-color m-r-20' data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a><label class='checkbox checkbox-inline'><input type='checkbox'><i class='input-helper'></i>Seleccionar</label></td>";
             fila += "</tr>";
             $('#tabla-lista-matriculas tbody').append(fila);
         };
@@ -805,7 +805,7 @@ $('#form-listar-pensiones #btn-listar-pensiones').click(function (e) {
               fila += "<td class='hidden pension-id'>" + data[i].id + "</td>";
               fila += "<td>" + data[i].nombre + "</td>";
               fila += "<td>" + data[i].monto + "</td>";
-              fila += "<td><a href='#modal-editar-pension' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
+              fila += "<td><a href='#modal-editar-pension' data-toggle='modal' class='btn accent-color m-r-20' data-id='" + data[i].id + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
               fila += "</tr>";
               $('#tabla-listar-pensiones tbody').append(fila);
           };
@@ -911,7 +911,7 @@ function reloadTablaPension (modal_pension) {
             fila += "<td class='hidden pension-id'>" + data[i].id + "</td>";
             fila += "<td>" + data[i].nombre + "</td>";
             fila += "<td>" + data[i].monto + "</td>";
-            fila += "<td><a href='#modal-editar-pension' data-toggle='modal' class='btn bgm-amber m-r-20' data-id='" + data[i].id + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
+            fila += "<td><a href='#modal-editar-pension' data-toggle='modal' class='btn accent-color m-r-20' data-id='" + data[i].id + "' data-monto='" + data[i].monto + "'><i class='zmdi zmdi-edit'></i></a></td>";
             fila += "</tr>";
             $('#tabla-listar-pensiones tbody').append(fila);
         };
@@ -951,7 +951,7 @@ $('#form-lista-c-ordinarios #btn-lista-c-ordinarios').click(function (e) {
               } else {
                 fila += "<td>Deshabilitado</td>";
               }
-              fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+              fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn accent-color m-r-20' ";
               fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
               fila += "</tr>";
               $('#tabla-lista-c-ordinarios tbody').append(fila);
@@ -1084,7 +1084,7 @@ function reloadTablaCobroOrdinario (modal_cobro) {
             } else {
               fila += "<td>Deshabilitado</td>";
             }
-            fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+            fila += "<td><a href='#modal-editar-c-ordinario' data-toggle='modal' class='btn accent-color m-r-20' ";
             fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
             fila += "</tr>";
             $('#tabla-lista-c-ordinarios tbody').append(fila);
@@ -1125,7 +1125,7 @@ $('#form-listar-c-otros #btn-listar-c-otros').click(function (e) {
               } else {
                 fila += "<td>Deshabilitado</td>";
               }
-              fila += "<td><a href='#modal-editar-c-otro' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+              fila += "<td><a href='#modal-editar-c-otro' data-toggle='modal' class='btn accent-color m-r-20' ";
               fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
               fila += "</tr>";
               $('#tabla-listar-c-otros tbody').append(fila);
@@ -1247,7 +1247,7 @@ function reloadTablaOtrosCobros (modal_cobro) {
             } else {
               fila += "<td>Deshabilitado</td>";
             }
-            fila += "<td><a href='#modal-editar-c-otro' data-toggle='modal' class='btn bgm-amber m-r-20' ";
+            fila += "<td><a href='#modal-editar-c-otro' data-toggle='modal' class='btn accent-color m-r-20' ";
             fila += "data-id='" + data[i].id + "' data-nombre='" + data[i].nombre + "' data-monto='" + data[i].monto + "' data-estado='" + data[i].estado + "' data-tipo='" + data[i].tipo + "'><i class='zmdi zmdi-edit'></i> Editar</a></td>";
             fila += "</tr>";
             $('#tabla-listar-c-otros tbody').append(fila);

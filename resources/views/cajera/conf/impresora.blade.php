@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>CONFIGURACIÓN DE IMPRESORA</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,8 +16,11 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
-      <div class="card">
+    <div class="col-md-10">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Configurar Impresora</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal'])!!}
           <input type="hidden" id="_token" value="{{ csrf_token() }}">
@@ -32,8 +34,8 @@
           </div>
           <div class="form-group">
             <div class="row">
-              <div class="col-sm-6 col-sm-offset-6">
-                <button class="btn bgm-blue-soria btn-block m-t-10" id="btn-guardar-conf-impresora"> Guardar Configuración</button>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn accent-color btn-block m-t-10" id="btn-guardar-conf-impresora"> Guardar Configuración</button>
               </div>
             </div>
           </div>

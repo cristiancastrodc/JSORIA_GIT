@@ -4,13 +4,14 @@
 @endsection
 
 @section('content')
-  <h1>EDITAR USUARIO</h1>
-
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
-      <div class="card">
+    <div class="col-md-10">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Editar Usuario</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::model($user, ['route' => ['admin.usuarios.update',$user->id], 'method' => 'PUT', 'class' => 'form-horizontal'])!!}
             <div class="form-group">
@@ -70,7 +71,9 @@
               </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-warning waves-effect pull-right">Guardar</button>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn btn-block accent-color waves-effect m-t-10">Guardar</button>
+              </div>
             </div>
           {!!Form::close()!!}
         </div>

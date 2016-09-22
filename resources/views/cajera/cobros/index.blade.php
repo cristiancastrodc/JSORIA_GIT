@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>OTROS CONCEPTOS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,8 +16,11 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-12">
-      <div class="card">
+    <div class="col-md-10">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Cobros</h2>
+        </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-striped" id="tabla-cobros-multiples">
@@ -102,10 +104,10 @@
               </div>
               @if ($tipo_impresora == 'matricial')
                 <div class="col-sm-3">
-                  <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="boleta"> Boleta</button>
+                  <button class="btn accent-color btn-block m-t-10 btn-cobro-multiple" id="boleta"> Boleta</button>
                 </div>
                 <div class="col-sm-3">
-                  <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="factura"> Factura</button>
+                  <button class="btn accent-color btn-block m-t-10 btn-cobro-multiple" id="factura"> Factura</button>
                 </div>
               @endif
             </div>

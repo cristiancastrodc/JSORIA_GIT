@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>BUSCAR EGRESOS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -18,7 +17,10 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Buscar Egresos</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal'])!!}
             <div class="form-group">
@@ -31,25 +33,27 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                  <button class="btn bgm-blue-soria waves_effect btn-block" id="btn-buscar-egresos">Buscar</button>
+                  <button class="btn accent-color waves_effect btn-block" id="btn-buscar-egresos">Buscar</button>
                 </div>
             </div>
           {!!Form::close()!!}
         </div>
       </div>
-      <div class="card js-toggle" id="card-lista-egresos">
-        <div class="card-body card-padding">
-          <h4>Lista de Egresos</h4>
+      <div class="card js-toggle hoverable" id="card-lista-egresos">
+        <div class="card-header main-color ch-alt">
+          <h2>Egresos</h2>
+        </div>
+        <div class="card-body card-padding">                    
           <div class="table-responsive">
             {!! Form::open() !!}
             <input type="hidden" id="_token" value="{{ csrf_token() }}">
             <table class="table table-bordered" id="tabla-listar-egresos">
               <thead>
                 <tr>
-                  <th class="warning c-white">Institución</th>
-                  <th class="warning c-white">Tipo de Comprobante</th>
-                  <th class="warning c-white">Número de Comprobante</th>
-                  <th class="warning c-white">Acciones</th>
+                  <th class="accent-color c-white">Institución</th>
+                  <th class="accent-color c-white">Tipo de Comprobante</th>
+                  <th class="accent-color c-white">Número de Comprobante</th>
+                  <th class="accent-color c-white">Acciones</th>
                 </tr>
               </thead>
               <tbody>

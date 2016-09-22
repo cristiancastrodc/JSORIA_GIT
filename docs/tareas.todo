@@ -6,15 +6,15 @@ Generales:
  ☐ Quitar logo de ULP del menú lateral. @high
  ☐ Agregar ícono de J. Soria al header. @high
  ☐ Agregar marca y versión de software en el footer. @low
- ☐ Agregar card-header a todos los módulos con color de fondo main-color. @critical
- ☐ Cambiar los títulos a minúsculas y color blanco. @critical
- ☐ Cambiar color de botón principal a accent-color. @critical
+ ✔ Agregar card-header a todos los módulos con color de fondo main-color. @critical @done (16-09-22 11:30)
+ ✔ Cambiar los títulos a minúsculas y color blanco. @critical @done (16-09-22 11:30)
+ ✔ Cambiar color de botón principal a accent-color. @critical @done (16-09-22 11:29)
  ☐ Cambiar color de header a accent-color. @critical
  ☐ Limitar intentos de login a tres. @low
  ☐ Códigos de error en las peticiones AJAX. @low
  ☐ Nueva hoja de Excel para la importación de datos. @critical
  ☐ Cambiar a Material Icons. @low @low
- ☐ Añadir clase hoverable a todos los cards. @low
+ ✔ Añadir clase hoverable a todos los cards. @low @done (16-09-22 11:29)
 Admin:
  ☐ Reporte de acciones de usuarios. @low
  ☐ Verificar que para cada modulo, restringir opciones de acuerdo a sus permisos. @high
@@ -38,7 +38,7 @@ Admin:
      ☐ Al Buscar el loader aparece atras del modal de editar. @critical
     Extraordinarios:
      ☐ Revisar procesamiento de Creación. @critical
-     ☐ Cambiar diseño Boton Guardar. @critical
+     ✔ Cambiar diseño Boton Guardar. @critical @done (16-09-22 11:33)
     Otros:
      ☐ Dividir en pantallas de Creación y Administración. @low
      ☐ Revisar procesamiento de Creación. @critical
@@ -47,9 +47,9 @@ Admin:
   Usuarios:
     ☐ Dividir en pantallas de Creación y Administración. @low
     ☐ Revisar procesamiento de Creación. @critical
-    ☐ Cambiar diseño de Botones. @critical
+    ✔ Cambiar diseño de Botones. @critical @done (16-09-22 11:34)
   Autorizar descuentos:
-    ☐ Cambiar diseño de Botón Autorizar. @critical
+    ✔ Cambiar diseño de Botón Autorizar. @critical @done (16-09-22 11:34)
     ☐ Revisar procesamiento de Creación. @critical
     ☐ Impresión de autorización. @low
   Retiro:
@@ -60,7 +60,7 @@ Admin:
     ☐ Revisar procesamiento para todos los reportes. @critical
     ☐ Rediseñar PDF. @high
 Secretaria:
- ☐ Cambiar diseño de botones. @critical
+ ✔ Cambiar diseño de botones. @critical @done (16-09-22 11:34)
  ☐ Revisar procesamiento. @critical
  ☐ Reporte: Alumnos Deudores. @critical
  ☐ Reporte: Reporte de deudas por grados. @critical
@@ -74,7 +74,7 @@ Secretaria:
  Autorizar descuento:
   ☐ Al Buscar el loader aparece atras del modal de editar. @critical
 Tesorera:
- ☐ Cambiar diseño de botones. @critical
+ ✔ Cambiar diseño de botones. @critical @done (16-09-22 11:35)
  ☐ Revisar procesamiento. @critical
  Registrar egreso:
   ✔ Debe haber campos para: razon social de la empresa, nombre de la persona a quien se dio el dinero. @critical @critical @done (16-09-18 11:56)

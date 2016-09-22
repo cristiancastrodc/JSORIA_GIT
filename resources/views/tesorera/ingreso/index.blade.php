@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>RETIRAR INGRESOS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,8 +16,11 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-12">
-      <div class="card">
+    <div class="col-md-10">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Retiro</h2>
+        </div>
         <div class="card-body card-padding">
           {!! Form::open(['class' => 'form-horizontal', 'id' => 'form-ingresos-cajera']) !!}
             <div class="form-group">
@@ -33,13 +35,13 @@
             </div>
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
-                <button class="btn btn-block bgm-blue-soria waves-effect m-t-10" id="btn-ingresos-cajera">Buscar</button>
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-ingresos-cajera">Buscar</button>
               </div>
             </div>
           {!! Form::close() !!}
         </div>
       </div>
-      <div class="card js-toggle" id="card-ingresos-admin">
+      <div class="card js-toggle hoverable" id="card-ingresos-admin">
         <div class="card-body card-padding">
           {!! Form::open(['class' => 'form-horizontal']) !!}
             <input type="hidden" value="{{ csrf_token() }}" id="_token">
@@ -49,10 +51,10 @@
                 <thead>
                   <tr>
                     <th class="hidden">Id</th>
-                    <th class="bgm-blue-soria c-white">Fecha de Ingreso</th>
-                    <th class="bgm-blue-soria c-white">Concepto</th>
-                    <th class="bgm-blue-soria c-white">Estado</th>
-                    <th class="bgm-blue-soria c-white">Monto (S/)</th>
+                    <th class="accent-color c-white">Fecha de Ingreso</th>
+                    <th class="accent-color c-white">Concepto</th>
+                    <th class="accent-color c-white">Estado</th>
+                    <th class="accent-color c-white">Monto (S/)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -71,7 +73,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
-                <button class="btn btn-block bgm-blue-soria waves-effect m-t-10" id="btn-retirar-ingresos">Retirar</button>
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-retirar-ingresos">Retirar</button>
               </div>
             </div>
           {!! Form::close() !!}

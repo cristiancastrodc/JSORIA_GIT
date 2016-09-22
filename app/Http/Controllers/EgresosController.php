@@ -232,51 +232,56 @@ class EgresosController extends Controller
     /*** Listar egresos filtrando por fecha ***/
     public function listarEgresosPorFecha(Request $request)
     {
-            $egresos = Egreso::egresosPorFecha($request->fecha_egreso);
-            return response()->json($egresos);
+      /*$fecha_i = $request->fecha_egreso;
+      $fecha_f = date('Y-m-d');
+      $dias = (strtotime($fecha_i)-strtotime($fecha_f))/86400;
+      $dias   = abs($dias); $dias = floor($dias);   
+      return $dias;*/
+      $egresos = Egreso::egresosPorFecha($request->fecha_egreso);
+      return response()->json($egresos);
     }
 
     /*** Actualizar un Egreso ***/
     public function actualizar(Request $request, $id_egreso)
     {
-        if ($request->ajax()) {
-            $id_egreso = $request->id_egreso;
-            $id_institucion = $request->id_institucion;
-            $tipo_comprobante = $request->tipo_comprobante;
-            $numero_comprobante = $request->numero_comprobante;
-            $fecha_egreso = $request->fecha_egreso;
-            $razon_social = $request->razon_social;
-            $responsable = $request->responsable;
+      if ($request->ajax()) {
+          $id_egreso = $request->id_egreso;
+          $id_institucion = $request->id_institucion;
+          $tipo_comprobante = $request->tipo_comprobante;
+          $numero_comprobante = $request->numero_comprobante;
+          $fecha_egreso = $request->fecha_egreso;
+          $razon_social = $request->razon_social;
+          $responsable = $request->responsable;
 
-            $egreso = Egreso::find($id_egreso);
-            $egreso->id_institucion = $id_institucion;
-            //if ($tipo_comprobante != '3') {
-                $egreso->numero_comprobante = $numero_comprobante;
-            //}
-            $egreso->fecha = $fecha_egreso;
-            $egreso->save();
+          $egreso = Egreso::find($id_egreso);
+          $egreso->id_institucion = $id_institucion;
+          //if ($tipo_comprobante != '3') {
+              $egreso->numero_comprobante = $numero_comprobante;
+          //}
+          $egreso->fecha = $fecha_egreso;
+          $egreso->save();
 
-            $detalle_egreso = $request->detalle_egreso;
+          $detalle_egreso = $request->detalle_egreso;
 
-            foreach ($detalle_egreso as $detalle) {
-                DetalleEgreso::where('id_egreso', $id_egreso)
-                ->where('nro_detalle_egreso', $detalle['nro_detalle_egreso'])
-                ->update([
-                    'id_rubro' => $detalle['id_rubro'],
-                    'descripcion' => $detalle['descripcion'],
-                    'monto' => $detalle['monto']
-                ]);
-            }
+          foreach ($detalle_egreso as $detalle) {
+              DetalleEgreso::where('id_egreso', $id_egreso)
+              ->where('nro_detalle_egreso', $detalle['nro_detalle_egreso'])
+              ->update([
+                  'id_rubro' => $detalle['id_rubro'],
+                  'descripcion' => $detalle['descripcion'],
+                  'monto' => $detalle['monto']
+              ]);
+          }
 
-            return response()->json(['mensaje' => 'Egreso actualizado exitosamente.']);
-        }
+          return response()->json(['mensaje' => 'Egreso actualizado exitosamente.']);
+      }
     }
 
     public function egresoRubroCrear(Request $request){
-        $nombre = $request['nombre'];
-        Rubro::create([
-            'nombre' => $nombre
-        ]);
-        return response()->json(['mensaje' => 'Rubro creado']);
+      $nombre = $request['nombre'];
+      Rubro::create([
+          'nombre' => $nombre
+      ]);
+      return response()->json(['mensaje' => 'Rubro creado']);
     }
 }

@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>AUTORIZAR AMORTIZACIÓN</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,8 +16,11 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="card">
+        <div class="card-header main-color ch-alt">
+          <h2>Amortizar Deuda</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-amortizar-alumno'])!!}
             <div class="form-group">
@@ -30,8 +32,8 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="pull-right">
-                <button class="btn btn-warning waves-effect" id="btn-buscar-alumno">Buscar</button>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-buscar-alumno">Buscar</button>
               </div>
             </div>
           {!!Form::close()!!}

@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>AGREGAR DEUDA</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,8 +16,11 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-9">
-      <div class="card">
+    <div class="col-md-10">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Agregar Deuda</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-categorias-alumno'])!!}
             <div class="form-group">
@@ -30,15 +32,15 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="pull-right">
-                <button class="btn btn-warning waves-effect" id="btn-buscar-alumno">Buscar</button>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-buscar-alumno">Buscar</button>
               </div>
             </div>
           {!!Form::close()!!}
         </div>
       </div>
       <div class="card js-toggle">
-        <div class="card">
+        <div class="card">           
           <div class="card-body card-padding">
             <h3 class="text-uppercase"><span id="nombre-alumno"></span></h3>
             {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-agregar-deuda-alumno'])!!}
@@ -62,8 +64,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="pull-right">
-                  <button class="btn btn-warning waves-effect" id="btn-agregar-deuda">Guardar</button>
+                <div class="col-sm-3 col-sm-offset-9">
+                  <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-agregar-deuda">Guardar</button>
                 </div>
               </div>
             {!!Form::close()!!}

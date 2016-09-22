@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-  <h1>ADMINISTRAR RUBROS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -22,9 +21,9 @@
 
   <div class="row">
     <div class="col-md-5">
-      <div class="card">
-        <div class="card-header">
-          <h2>Nuevo Rubro</h2>
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Crear Rubro</h2>
         </div>
         <div class="card-body card-padding">
           <form class="form-horizontal">
@@ -38,16 +37,18 @@
               </div>
             </div>
             <div class="form-group">
-              <button id="btn-crear-rubro" class="btn btn-warning waves-effect pull-right">Guardar</button>
+              <div class="col-sm-6 col-sm-offset-6">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-crear-rubro">Guardar</button>
+              </div>
             </div>
           </form>
         </div>
       </div>
     </div>
     <div class="col-md-7">
-      <div class="card">
-        <div class="card-header">
-          <h2>Lista de Rubros</h2>
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Listar Rubros</h2>
         </div>
         <div class="card-body card-padding">
           <div class="table-responsive">
@@ -56,9 +57,9 @@
             <table id="tabla-listar-rubro" class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="warning c-white">Id</th>
-                        <th class="warning c-white">Rubro</th>
-                        <th class="warning c-white">Acciones</th>
+                        <th class="accent-color c-white">Id</th>
+                        <th class="accent-color c-white">Rubro</th>
+                        <th class="accent-color c-white">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

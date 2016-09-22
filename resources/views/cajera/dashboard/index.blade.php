@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>COBROS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -18,7 +17,10 @@
 
   <div class="row">
     <div class="col-md-10">
-      <div class="card">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Cobros</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-buscar-deudas'])!!}
             <input type="hidden" id="tipo-impresora" value="{{ $tipo_impresora }}">
@@ -30,7 +32,7 @@
                   </div>
               </div>
               <div class="col-sm-3">
-                <button class="btn btn-warning waves-effect" id="btn-buscar-deudas">Buscar</button>
+                <button class="btn accent-color btn-block waves-effect" id="btn-buscar-deudas">Buscar</button>
               </div>
             </div>
           {!!Form::close()!!}

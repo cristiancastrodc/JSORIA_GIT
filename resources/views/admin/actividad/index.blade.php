@@ -5,12 +5,14 @@
 @endsection
 
 @section('content')
-  <h1>ADMINISTRAR ACTIVIDADES</h1>
-
   @if(Session::has('message'))
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{Session::get('message')}}
+    <div class="row">
+      <div class="col-sm-10">
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{Session::get('message')}}
+        </div>        
+      </div>
     </div>
   @endif
 
@@ -18,8 +20,8 @@
 
   <div class="row">
     <div class="col-md-5">
-      <div class="card">
-        <div class="card-header">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
           <h2>Crear Actividad</h2>
         </div>
         <div class="card-body card-padding">
@@ -63,16 +65,20 @@
                 </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-warning waves-effect pull-right" id="btn-crear-actividad">Guardar</button>
+              <div class="col-sm-6 col-sm-offset-6">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-crear-actividad">Guardar</button>
+              </div>              
             </div>
           {!!Form::close()!!}
         </div>
       </div>
     </div>
     <div class="col-md-7">
-      <div class="card">
-        <div class="card-header">
+      <div class="card hoverable">        
+        <div class="card-header main-color ch-alt">
           <h2>Buscar Actividades</h2>
+        </div>
+        <div class="card-header">
           {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-listar-actividades'))!!}
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
@@ -92,7 +98,9 @@
               </div>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary waves-effect pull-right" id="btn-listar-actividades">Buscar</button>
+              <div class="col-sm-4 col-sm-offset-8">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-listar-actividades">Buscar</button>
+              </div> 
             </div>
           {!!Form::close()!!}
         </div>
@@ -102,9 +110,9 @@
                 <thead>
                     <tr>
                         <th class="hidden">Id</th>
-                        <th class="warning c-white">Actividad</th>
-                        <th class="warning c-white">Monto</th>
-                        <th class="warning c-white">Acciones</th>
+                        <th class="c-white accent-color">Actividad</th>
+                        <th class="c-white accent-color">Monto</th>
+                        <th class="c-white accent-color">Acciones</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
