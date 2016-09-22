@@ -5,13 +5,13 @@ use JSoria\Http\Requests\UserRequest;
 use JSoria\Http\Requests\UserCreateRequest;
 use JSoria\Http\Requests\UserUpdateRequest;
 use JSoria\Http\Controllers\Controller;
-use JSoria\User;
-use JSoria\Permiso;
 use Redirect;
 use Session;
-
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use JSoria\User;
+use JSoria\Permiso;
+use JSoria\UsuarioImpresora;
 
 class UsersController extends Controller {
 
@@ -74,6 +74,14 @@ class UsersController extends Controller {
 			Permiso::create([
 				'id_institucion' => $permiso,
 				'id_usuario' => $user_id,
+				]);
+		}
+		// Crear la impresora para la cajera
+		if ($request['tipo'] == 'Cajera') {
+			UsuarioImpresora::create([
+				'id_cajera' => $user_id,
+				'tipo_impresora' => 'matricial',
+				'nombre_impresora' => 'Matricial',
 				]);
 		}
 
