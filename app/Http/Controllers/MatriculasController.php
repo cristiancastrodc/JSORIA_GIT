@@ -3,12 +3,10 @@
 namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\MatriculaCreateRequest;
 use JSoria\Http\Requests\MatriculaUpdateRequest;
 use JSoria\Http\Controllers\Controller;
-
 use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
 
@@ -140,34 +138,74 @@ class MatriculasController extends Controller
      */
     public function guardarMatricula(Request $request)
     {
-        $id_institucion = $request->input('id_institucion');
-        // Datos de Matricula
-        $matricula = $request->input('matricula');
-        $matricula_concepto = $matricula['concepto'];
-        $matricula_fecha_inicio = $matricula['fecha_inicio'];
-        $matricula_fecha_fin = $matricula['fecha_fin'];
-        // Datos de Pensiones
-        $pensiones = $request->input('pensiones');
-        $pensiones_mes_inicio = $pensiones['mes_inicio'];
-        $pensiones_mes_fin = $pensiones['mes_fin'];
-        // Montos
-        $divisiones = $request->input('divisiones');
-        // Crear matrícula y pensiones
-        foreach ($divisiones as $division) {
-            // Crear la matrícula
-            $id_matricula = Categoria::create([
-                                'nombre' => $matricula_concepto,
-                                'monto' => $division['monto_matricula'],
-                                'tipo' => 'matricula',
-                                'estado' => '1',
-                                'fecha_inicio' => $matricula_fecha_inicio,
-                                'fecha_fin' => $matricula_fecha_fin,
-                                'destino' => '0',
-                                'id_detalle_institucion' => $division['id'],
-                            ])->id;
-            // TODO: Crear las pensiones
-        };
-        return $montos;
+        $resultado = 'true';
+        try {
+            $id_institucion = $request->input('id_institucion');
+            // Datos de Matricula
+            $matricula = $request->input('matricula');
+            $matricula_concepto = $matricula['concepto'];
+            $matricula_fecha_inicio = $matricula['fecha_inicio'];
+            $matricula_fecha_fin = $matricula['fecha_fin'];
+            // Datos de Pensiones
+            $pensiones = $request->input('pensiones');
+            $pensiones_concepto = $pensiones['concepto'];
+            $pensiones_mes_inicio = $pensiones['mes_inicio'];
+            $tokens = explode('/', $pensiones_mes_inicio);
+            $mes_inicio = $tokens[0];
+            $anio_inicio = $tokens[1];
+            $inicio = intval($anio_inicio) * 100 + intval($mes_inicio);
+            $pensiones_mes_fin = $pensiones['mes_fin'];
+            $tokens = explode('/', $pensiones_mes_fin);
+            $mes_fin = $tokens[0];
+            $anio_fin = $tokens[1];
+            $fin = intval($anio_fin) * 100 + intval($mes_fin);
+            // Montos
+            $divisiones = $request->input('divisiones');
+            // Crear matrícula y pensiones
+            $cuenta = 0;
+            foreach ($divisiones as $division) {
+                $inicio = intval($anio_inicio) * 100 + intval($mes_inicio);
+                // Crear la matrícula
+                $id_matricula = Categoria::create([
+                                    'nombre' => $matricula_concepto,
+                                    'monto' => $division['monto_matricula'],
+                                    'tipo' => 'matricula',
+                                    'estado' => '1',
+                                    'fecha_inicio' => $matricula_fecha_inicio,
+                                    'fecha_fin' => $matricula_fecha_fin,
+                                    'destino' => '0',
+                                    'id_detalle_institucion' => $division['id'],
+                                ])->id;
+                // TODO: Crear las pensiones
+                $meses2 = array(0, 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+                while ($inicio <= $fin) {
+                    $mes = substr($inicio, -2);
+                    $anio = substr($inicio, 0, 4);
+                    $cat_concepto = $pensiones_concepto . ' ' . $meses2[intval($mes)] . ' ' . $anio;
+                    $cat_fecha_inicio = $anio . '-' . $mes . '-01';
+                    $cat_fecha_fin = date('Y-m-t', strtotime($cat_fecha_inicio));
+                    Categoria::create([
+                        'nombre' => $cat_concepto,
+                        'monto' => $division['monto_pensiones'],
+                        'tipo' => 'pension',
+                        'estado' => '1',
+                        'fecha_inicio' => $cat_fecha_inicio,
+                        'fecha_fin' => $cat_fecha_fin,
+                        'destino' => '0',
+                        'id_detalle_institucion' => $division['id'],
+                        'id_matricula' => $id_matricula,
+                        ]);
+                    if (intval($mes) == 12) {
+                        $inicio += 89;
+                    } else {
+                        $inicio += 1;
+                    }
+                };
+            };
+        } catch (Exception $e) {
+            $resultado = 'false';
+        }
+        return $resultado;
     }
 
 }

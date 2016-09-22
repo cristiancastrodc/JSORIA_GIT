@@ -10,7 +10,7 @@ class Categoria extends Model
 {
   protected $table = 'categoria';
 
-  protected $fillable = ['nombre', 'monto', 'tipo', 'estado', 'fecha_inicio', 'fecha_fin', 'destino', 'id_detalle_institucion'];
+  protected $fillable = ['nombre', 'monto', 'tipo', 'estado', 'fecha_inicio', 'fecha_fin', 'destino', 'id_detalle_institucion', 'id_matricula'];
 
   /*** Custom ***/
   public $timestamps = false;
