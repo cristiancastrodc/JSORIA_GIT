@@ -52,9 +52,9 @@
                     <thead>
                         <tr>
                           <th class="hidden">Id</th>
-                          <th class="danger c-white">Concepto</th>
-                          <th class="danger c-white">Monto (S/)</th>
-                          <th class="danger c-white">seleccionar</th>
+                          <th class="accent-color c-white">Concepto</th>
+                          <th class="accent-color c-white">Monto (S/)</th>
+                          <th class="accent-color c-white">seleccionar</th>
                         </tr>
                     </thead>
                     <tbody>                      
@@ -63,8 +63,8 @@
               </div>                
             </div>  
             <div class="form-group">
-              <div class="pull-right">
-                <button class="btn btn-warning waves-effect" id="btn-cancelar-deuda-actividad">Cancelar Deudas</button>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-cancelar-deuda-actividad">Cancelar Deudas</button>
               </div>
             </div>
           {!!Form::close()!!}   

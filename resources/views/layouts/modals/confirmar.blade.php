@@ -26,7 +26,7 @@
             </div>
             <div class="modal-footer">
                 <a class="btn btn-link" data-dismiss="modal">Cerrar</a>
-                <a class="btn btn-danger" id="modal-guardar">Autorizar</a>
+                <a class="btn accent-color" id="modal-guardar">Autorizar</a>
             </div>
         </div>
     </div>

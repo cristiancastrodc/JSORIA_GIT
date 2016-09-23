@@ -27,10 +27,10 @@
               <thead>
                   <tr>
                       <th class="hidden">Id</th>
-                      <th class="warning c-white">Nombre</th>
-                      <th class="warning c-white">Institución</th>
-                      <th class="warning c-white">Monto</th>
-                      <th class="warning c-white">¿Seleccionar?</th>
+                      <th class="accent-color c-white">Nombre</th>
+                      <th class="accent-color c-white">Institución</th>
+                      <th class="accent-color c-white">Monto</th>
+                      <th class="accent-color c-white">¿Seleccionar?</th>
                   </tr>
               </thead>
               <tbody>
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <div class="card">
+      <div class="card hoverable">
         <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal'])!!}
           <input type="hidden" id="_token" value="{{ csrf_token() }}">
@@ -100,14 +100,14 @@
           <div class="form-group">
             <div class="row p-r-15">
               <div class="col-sm-3 col-sm-offset-3">
-                <button class="btn bgm-blue-soria btn-block m-t-10 btn-cobro-multiple" id="comprobante"> Comprobante</button>
+                <button class="btn third-color btn-block m-t-10 btn-cobro-multiple" id="comprobante"> Comprobante</button>
               </div>
               @if ($tipo_impresora == 'matricial')
                 <div class="col-sm-3">
                   <button class="btn accent-color btn-block m-t-10 btn-cobro-multiple" id="boleta"> Boleta</button>
                 </div>
                 <div class="col-sm-3">
-                  <button class="btn accent-color btn-block m-t-10 btn-cobro-multiple" id="factura"> Factura</button>
+                  <button class="btn fourth-color btn-block m-t-10 btn-cobro-multiple" id="factura"> Factura</button>
                 </div>
               @endif
             </div>

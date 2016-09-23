@@ -28,10 +28,10 @@
             <table class="table table-bordered" id="retiros">
               <thead>
                 <tr>
-                <th class="warning c-white" type="hidden" >id</th>
-                  <th class="warning c-white">Fecha - Hora</th>
-                  <th class="warning c-white">Tesorera</th>
-                  <th class="warning c-white">Monto (S/)</th>
+                  <th class="accent-color c-white" type="hidden" >id</th>
+                  <th class="accent-color c-white">Fecha - Hora</th>
+                  <th class="accent-color c-white">Tesorera</th>
+                  <th class="accent-color c-white">Monto (S/)</th>
                 </tr>
               </thead>
               <tbody>
@@ -42,7 +42,7 @@
                     <td>{{$ingreso->nombres . '  '.$ingreso->apellidos}}</td>
                     <td>{{$ingreso->monto}}</td>
                     <td>
-                      <a href='#modal-confirmar-autorizacion' data-toggle='modal' class='btn bgm-amber' data-id="{{ $ingreso->id }}"><i class='zmdi zmdi-edit'> Confirmar</i></a>
+                      <a href='#modal-confirmar-autorizacion' data-toggle='modal' class='btn third-color' data-id="{{ $ingreso->id }}"><i class='zmdi zmdi-edit'> Confirmar</i></a>
                     </td>
                   </tr>
                 @endforeach

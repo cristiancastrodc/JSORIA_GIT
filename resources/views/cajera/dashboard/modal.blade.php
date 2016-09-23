@@ -31,8 +31,8 @@
                   <thead>
                       <tr>
                           <th class="hidden">Id</th>
-                          <th class="warning c-white">Concepto</th>
-                          <th class="warning c-white">Monto (S/)</th>
+                          <th class="accent-color c-white">Concepto</th>
+                          <th class="accent-color c-white">Monto (S/)</th>
                       </tr>
                   </thead>
                   <tbody></tbody>
