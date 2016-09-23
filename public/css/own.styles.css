@@ -123,3 +123,11 @@ form .form-group:last-child {
     margin-top: 200px;
   }
 }
+.third-color {
+  background-color: #f5b134 !important;
+  color: #FFF !important;
+}
+.fourth-color {
+  background-color: #ef3341 !important;
+  color: #FFF !important;
+}

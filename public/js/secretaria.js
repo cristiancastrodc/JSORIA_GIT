@@ -360,7 +360,7 @@ $('#form-amortizar-alumno #btn-buscar-alumno').click(function (e) {
           fila += "<td class='hidden'>" + $id + "</td>";
           fila += "<td>" + $deuda + "</td>";
           fila += "<td class='text-right'>" + $monto + "</td>";
-          fila += "<td><a href='#modal-crear-amortizacion' data-toggle='modal' class='btn accent-color m-r-20' data-id='" + $id + "' data-deuda='" + $deuda + "' data-saldo='" + $monto + "'><i class='zmdi zmdi-edit'></i> Amortizar</a></td>";
+          fila += "<td><a href='#modal-crear-amortizacion' data-toggle='modal' class='btn third-color m-r-20' data-id='" + $id + "' data-deuda='" + $deuda + "' data-saldo='" + $monto + "'><i class='zmdi zmdi-dns'></i> </a></td>";
           //fila += "<td><button class='btn bgm-lightgreen waves-effect'>Amortizar</button></td>";
 
           $('#tabla-deudasAmortizacion-alumno tbody').append(fila);

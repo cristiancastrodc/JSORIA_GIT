@@ -52,10 +52,10 @@
                       <thead>
                           <tr>
                             <th class="hidden">Id</th>
-                            <th class="danger c-white">Concepto</th>
-                            <th class="danger c-white">Monto Unitario (S/)</th>
-                            <th class="danger c-white">Factor / Cantidad</th>
-                            <th class="danger c-white">Total (S/)</th>
+                            <th class="accent-color c-white">Concepto</th>
+                            <th class="accent-color c-white">Monto Unitario (S/)</th>
+                            <th class="accent-color c-white">Factor / Cantidad</th>
+                            <th class="accent-color c-white">Total (S/)</th>
                           </tr>
                       </thead>
                       <tbody>

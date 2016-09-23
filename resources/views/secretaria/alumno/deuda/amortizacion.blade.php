@@ -54,8 +54,9 @@
                         <thead>
                             <tr>
                               <th class="hidden">Id</th>
-                              <th class="danger c-white">Concepto</th>
-                              <th class="danger c-white">Monto (S/)</th>
+                              <th class="accent-color c-white">Concepto</th>
+                              <th class="accent-color c-white">Monto (S/)</th>
+                              <th class="accent-color c-white">Acción</th>
                             </tr>
                         </thead>
                         <tbody>

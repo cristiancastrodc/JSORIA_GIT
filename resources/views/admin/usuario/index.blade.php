@@ -121,9 +121,9 @@
                     <td>{{$user->apellidos}}</td>
                     <td>{{$user->tipo}}</td>
                     <td>
-                      {!!link_to_route('admin.usuarios.edit', $title = 'Editar', $parameters = $user->id, $attributes = ['class' => 'btn btn-info waves-effect', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Modificar'])!!}
+                      {!!link_to_route('admin.usuarios.edit', $title = '', $parameters = $user->id, $attributes = ['class' => 'btn third-color zmdi zmdi-edit', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Modificar'])!!}
                       {!!Form::open(['route' => ['admin.usuarios.destroy', $user->id], 'method' => 'DELETE', 'class' => 'inline-form'])!!}
-                        <button type="submit" class="btn btn-danger waves-effect" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"><i class="zmdi zmdi-delete"></i></button>
+                        <button type="submit" class="btn fourth-color waves-effect" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"><i class="zmdi zmdi-delete"></i></button>
                       {!!Form::close()!!}
                     </td>
                   </tr>

@@ -44,7 +44,7 @@
             </div>
             <div class="modal-footer">
                 <a class="btn btn-link" data-dismiss="modal">Cerrar</a>
-                <a class="btn btn-danger" id="modal-guardar">Guardar</a>
+                <a class="btn accent-color" id="modal-guardar">Guardar</a>
             </div>
         </div>
     </div>

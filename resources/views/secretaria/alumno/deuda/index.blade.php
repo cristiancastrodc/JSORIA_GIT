@@ -53,10 +53,10 @@
                     <thead>
                         <tr>
                           <th class="hidden">Id</th>
-                          <th class="danger c-white">Deuda</th>
-                          <th class="danger c-white">Monto (S/)</th>
-                          <th class="danger c-white">Descuento (S/)</th>
-                          <th class="danger c-white">¿Anular?</th>
+                          <th class="accent-color c-white">Deuda</th>
+                          <th class="accent-color c-white">Monto (S/)</th>
+                          <th class="accent-color c-white">Descuento (S/)</th>
+                          <th class="accent-color c-white">¿Anular?</th>
                         </tr>
                     </thead>
                     <tbody>

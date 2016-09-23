@@ -38,7 +38,7 @@
           {!!Form::close()!!}
         </div>
       </div>
-      <div class="card js-toggle" id="card-deudas-alumno">
+      <div class="card js-toggle hoverable" id="card-deudas-alumno">
         <div class="card-header">
           <h3><span id="nombre-alumno" class="text-uppercase"></span></h3>
           <h4><span id="nombre-institucion"></span></h4>
@@ -55,9 +55,9 @@
               <thead>
                   <tr>
                       <th class="hidden">Id</th>
-                      <th class="warning c-white">Concepto</th>
-                      <th class="warning c-white">Monto (S/)</th>
-                      <th class="warning c-white">Acciones</th>
+                      <th class="accent-color c-white">Concepto</th>
+                      <th class="accent-color c-white">Monto (S/)</th>
+                      <th class="accent-color c-white">Acciones</th>
                   </tr>
               </thead>
               <tbody>
@@ -71,10 +71,10 @@
                 <thead>
                     <tr>
                         <th class="hidden">Id</th>
-                        <th class="warning c-white">Cantidad</th>
-                        <th class="warning c-white">Concepto</th>
-                        <th class="warning c-white">Monto Unit. (S/)</th>
-                        <th class="warning c-white">Importe</th>
+                        <th class="accent-color c-white">Cantidad</th>
+                        <th class="accent-color c-white">Concepto</th>
+                        <th class="accent-color c-white">Monto Unit. (S/)</th>
+                        <th class="accent-color c-white">Importe</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,11 +83,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-12">
-              <button class="btn btn-warning pull-right waves-effect" id="btn-finalizar-pago">
-                FINALIZAR
-              </button>
-            </div>
+            <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-finalizar-pago">Finalizar</button>
+              </div>            
           </div>
         </div>
       </div>
@@ -95,7 +93,7 @@
         <div class="card-header">
           <h3><span id="cliente_extr" class="text-uppercase"></span></h3>
         </div>
-        <div class="card-body card-padding">
+        <div class="card-body card-padding  hoverable">
           <form class="form-horizontal" role="form">
             <input type="hidden" id="_token-extr" value="{{ csrf_token() }}">
             <input type="hidden" id="id_deuda_extr">
@@ -127,11 +125,11 @@
             <div class="form-group">
               <div class="col-sm-12">
                 <div class="pull-right">
-                  <button class="btn btn-gray waves-effect cobro_extr">Cancelar</button>
-                  <button class="btn bgm-green waves-effect" id="btn-comprobante-extr">Comprobante</button>
+                  <button class="btn  btn-link waves-effect cobro_extr">Cancelar</button>
+                  <button class="btn third-color waves-effect" id="btn-comprobante-extr">Comprobante</button>
                   @if ($tipo_impresora == 'matricial')
-                    <button class="btn bgm-indigo waves-effect" id="btn-boleta-extr">Boleta</button>
-                    <button class="btn bgm-red waves-effect" id="btn-factura-extr">Factura</button>
+                    <button class="btn accent-color waves-effect" id="btn-boleta-extr">Boleta</button>
+                    <button class="btn fourth-color waves-effect" id="btn-factura-extr">Factura</button>
                   @endif
                 </div>
               </div>
