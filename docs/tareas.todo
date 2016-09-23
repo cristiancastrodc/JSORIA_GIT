@@ -1,20 +1,18 @@
 Variables:
    main-color: #091b43
    accent-color: #F58634
+   third: #F5B134
+   fourth: #EF3341
 Generales:
- ✔ Quitar logo de ULP del inicio de sesión. @high @done (16-09-18 05:18)
  ☐ Quitar logo de ULP del menú lateral. @high
  ☐ Agregar ícono de J. Soria al header. @high
  ☐ Agregar marca y versión de software en el footer. @low
- ✔ Agregar card-header a todos los módulos con color de fondo main-color. @critical @done (16-09-22 11:30)
- ✔ Cambiar los títulos a minúsculas y color blanco. @critical @done (16-09-22 11:30)
- ✔ Cambiar color de botón principal a accent-color. @critical @done (16-09-22 11:29)
- ✔ Cambiar color de header a accent-color. @critical @done (16-09-22 15:07)
  ☐ Limitar intentos de login a tres. @low
  ☐ Códigos de error en las peticiones AJAX. @low
  ☐ Nueva hoja de Excel para la importación de datos. @critical
  ☐ Cambiar a Material Icons. @low @low
- ✔ Añadir clase hoverable a todos los cards. @low @done (16-09-22 11:29)
+ ☐ Cambiar tablas que estén dentro de los card. @low
+ ☐ Cambiar mensaje de sesión (alertas) a 10 columnas. @low
 Admin:
  ☐ Reporte de acciones de usuarios. @low
  ☐ Verificar que para cada modulo, restringir opciones de acuerdo a sus permisos. @high
@@ -27,9 +25,9 @@ Admin:
    ☐ Cambiar diseño Botones Guardar, Buscar y Guardar del modal de Editar actividad. @critical
    ☐ Al Buscar el loader aparece atras del modal de editar. @critical
   Matrículas:
-   ✔ Reanalizar y rehacer módulo (integrar con Pensiones y con Secretaria-Matricular). @critical @critical @done (16-09-22 15:18)
+   ☐ Módulo para editar matrículas.
   Pensiones:
-   ✔ Reanalizar y rehacer módulo (integrar con Matrículas). @critical @critical @done (16-09-22 15:18)
+   ☐ Módulo para editar pensiones.
   Cobros:
     Ordinarios:
      ☐ Dividir en pantallas de Creación y Administración. @low
@@ -38,7 +36,6 @@ Admin:
      ☐ Al Buscar el loader aparece atras del modal de editar. @critical
     Extraordinarios:
      ☐ Revisar procesamiento de Creación. @critical
-     ✔ Cambiar diseño Boton Guardar. @critical @done (16-09-22 11:33)
     Otros:
      ☐ Dividir en pantallas de Creación y Administración. @low
      ☐ Revisar procesamiento de Creación. @critical
@@ -47,9 +44,7 @@ Admin:
   Usuarios:
     ☐ Dividir en pantallas de Creación y Administración. @low
     ☐ Revisar procesamiento de Creación. @critical
-    ✔ Cambiar diseño de Botones. @critical @done (16-09-22 11:34)
   Autorizar descuentos:
-    ✔ Cambiar diseño de Botón Autorizar. @critical @done (16-09-22 11:34)
     ☐ Revisar procesamiento de Creación. @critical
     ☐ Impresión de autorización. @low
   Retiro:
@@ -60,7 +55,6 @@ Admin:
     ☐ Revisar procesamiento para todos los reportes. @critical
     ☐ Rediseñar PDF. @high
 Secretaria:
- ✔ Cambiar diseño de botones. @critical @done (16-09-22 11:34)
  ☐ Revisar procesamiento. @critical
  ☐ Reporte: Alumnos Deudores. @critical
  ☐ Reporte: Reporte de deudas por grados. @critical
@@ -68,24 +62,17 @@ Secretaria:
  Nuevo Alumno:
   ☐ Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres. @high
  Matricular:
-  ✔ Reanalizar y rehacer módulo (integrar con Matrículas y Pensiones). @critical @critical @done (16-09-22 15:06)
  Modificar deuda:
   ☐ No aparece la pelotita del loader. @high
  Autorizar descuento:
   ☐ Al Buscar el loader aparece atras del modal de editar. @critical
 Tesorera:
- ✔ Cambiar diseño de botones. @critical @done (16-09-22 11:35)
  ☐ Revisar procesamiento. @critical
  Registrar egreso:
-  ✔ Debe haber campos para: razon social de la empresa, nombre de la persona a quien se dio el dinero. @critical @critical @done (16-09-18 11:56)
-  ✔ Debe de haber un tipo de comprobante "Comprobante de Egreso". @critical @done (16-09-18 11:55)
-  ✔ Al registrar egreso con tipo comprobante de pago, no debe ser autoincremental, debe permitir el ingreso del numero @done (16-09-18 05:45)
  Modificar Egreso:
-  ✔ Reanalizar y rehacer módulo. @critical @critical @done (16-09-18 11:56)
-    ✔ Egresos solo se pueden modificar dentro de 30 dias calendario. @critical @critical @done (16-09-18 16:58)
  Rubros:
-  ☐ Reanalizar y rehacer módulo. @critical @critical
-  ☐ Reordenar pantalla. @low
+  ✔ Reanalizar y rehacer módulo. @critical @critical @started(16-09-22 15:47) @done (16-09-22 19:33) @lasted(3:46)
+  ✔ Reordenar pantalla. @low @done (16-09-22 19:33)
  Retiro:
   ☐ Revisar módulo. @critical
   ☐ No aparece la pelotita del loader. @high
@@ -107,3 +94,26 @@ Cajera:
    ☐ Reanalizar y rehacer módulo. @critical @critical
   Reporte:
    ☐ Agregar selector de fecha en el reporte. @critical @critical
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ Añadir usuario impresora a la creación de cajeras. @done (16-09-22 15:43) @project(Admin / Usuarios)
+ ✔ Reanalizar y rehacer módulo (integrar con Pensiones y con Secretaria-Matricular). @critical @critical @done (16-09-22 15:18) @project(Admin / Matrículas)
+ ✔ Reanalizar y rehacer módulo (integrar con Matrículas). @critical @critical @done (16-09-22 15:18) @project(Admin / Pensiones)
+ ✔ Cambiar color de header a accent-color. @critical @done (16-09-22 15:07) @project(Generales)
+ ✔ Reanalizar y rehacer módulo (integrar con Matrículas y Pensiones). @critical @critical @done (16-09-22 15:06) @project(Secretaria / Matricular)
+ ✔ Cambiar diseño de botones. @critical @done (16-09-22 11:35) @project(Tesorera)
+ ✔ Cambiar diseño de botones. @critical @done (16-09-22 11:34) @project(Secretaria)
+ ✔ Cambiar diseño de Botón Autorizar. @critical @done (16-09-22 11:34) @project(Admin / Autorizar descuentos)
+ ✔ Cambiar diseño de Botones. @critical @done (16-09-22 11:34) @project(Admin / Usuarios)
+ ✔ Cambiar diseño Boton Guardar. @critical @done (16-09-22 11:33) @project(Admin / Cobros / Extraordinarios)
+ ✔ Cambiar los títulos a minúsculas y color blanco. @critical @done (16-09-22 11:30) @project(Generales)
+ ✔ Agregar card-header a todos los módulos con color de fondo main-color. @critical @done (16-09-22 11:30) @project(Generales)
+ ✔ Cambiar color de botón principal a accent-color. @critical @done (16-09-22 11:29) @project(Generales)
+ ✔ Añadir clase hoverable a todos los cards. @low @done (16-09-22 11:29) @project(Generales)
+ ✔ Egresos solo se pueden modificar dentro de 30 dias calendario. @critical @critical @done (16-09-18 16:58) @project(Tesorera / Modificar Egreso)
+ ✔ Reanalizar y rehacer módulo. @critical @critical @done (16-09-18 11:56) @project(Tesorera / Modificar Egreso)
+ ✔ Debe haber campos para: razon social de la empresa, nombre de la persona a quien se dio el dinero. @critical @critical @done (16-09-18 11:56) @project(Tesorera / Registrar egreso)
+ ✔ Debe de haber un tipo de comprobante "Comprobante de Egreso". @critical @done (16-09-18 11:55) @project(Tesorera / Registrar egreso)
+ ✔ Al registrar egreso con tipo comprobante de pago, no debe ser autoincremental, debe permitir el ingreso del numero @done (16-09-18 05:45) @project(Tesorera / Registrar egreso)
+ ✔ Quitar logo de ULP del inicio de sesión. @high @done (16-09-18 05:18) @project(Generales)

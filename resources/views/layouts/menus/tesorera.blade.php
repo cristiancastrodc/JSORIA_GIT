@@ -6,7 +6,7 @@
               <li><a href="{!!URL::to('/tesorera/egresos')!!}">Modificar</a></li>
             </ul>
           </li>
-          <li><a href="{!!URL::to('/tesorera/rubro/fixed_listar')!!}">
+          <li><a href="{{ url('/tesorera/administrar/rubros/') }}">
             <i class="zmdi zmdi-tag"></i> Rubros</a>
           </li>
           <li><a href="{!!URL::to('/tesorera/ingresos')!!}">

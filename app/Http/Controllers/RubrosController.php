@@ -167,4 +167,63 @@ class RubrosController extends Controller
             return response()->json($rubros);
         }
     }
+
+    /**
+     * Retorna la vista de administración de los rubros
+     */
+    public function administrarRubros()
+    {
+        $rubros = Rubro::all();
+        return view('tesorera.rubro.administrar', ['rubros' => $rubros]);
+    }
+
+    /**
+     * Almacena un nuevo rubro
+     */
+    public function crearRubro(Request $request)
+    {
+        Rubro::create([
+            'nombre' => $request['rubro']
+            ]);
+        Session::flash('message-class', 'success');
+        Session::flash('message','Rubro creado.');
+        return Redirect::back();
+    }
+
+    /**
+     * Actualiza un rubro
+     */
+    public function actualizarRubro(Request $request, $id_rubro)
+    {
+        try {
+            $rubro = Rubro::find($id_rubro);
+            $rubro->nombre = $request['nombre'];
+            $rubro->save();
+
+            Session::flash('message-class', 'success');
+            Session::flash('message','Rubro actualizado.');
+
+            return response()->json(['resultado' => true, 'mensaje' => 'Rubro actualizado.']);
+        } catch (Exception $e) {
+            return response()->json(['resultado' => false]);
+        }
+    }
+
+    /**
+     * Elimina un rubro
+     */
+    public function eliminarRubro($id_rubro)
+    {
+        $detalles = DetalleEgreso::where('id_rubro', $id_rubro)->get();
+        if ($detalles->isEmpty()) {
+            Rubro::destroy($id_rubro);
+            Session::flash('message-class', 'success');
+            Session::flash('message','Rubro eliminado.');
+            return Redirect::back();
+        } else {
+            Session::flash('message-class', 'danger');
+            Session::flash('message','No se puede eliminar el rubro. Existen egresos asociados.');
+            return Redirect::back();
+        }
+    }
 }
