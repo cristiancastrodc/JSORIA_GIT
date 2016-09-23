@@ -13,6 +13,7 @@ app.controller('matriculaController', function ($scope, $http) {
     fecha_fin : null
   };
   $scope.pensiones = {
+    concepto : 'Pensión',
     mes_inicio : null,
     mes_fin : null
   };
@@ -25,7 +26,9 @@ app.controller('matriculaController', function ($scope, $http) {
       $scope.divisiones = response;
     });
   };
-  $scope.crearMatriculaPensiones = function () {
+  $scope.procesando = false;
+  $scope.crearMatriculaPensiones = function (argument) {
+    $scope.procesando = true;
     var url = '/admin/matricula/guardar';
     $http({
       method: 'POST',
@@ -39,7 +42,24 @@ app.controller('matriculaController', function ($scope, $http) {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
     .then(function successCallback(response) {
-      console.log(response);
+      if (response.data == 'true') {
+        debug('Las pensiones fueron creadas');
+        swal({
+          title: "Éxito!",
+          text: "Matrícula y pensiones creadas correctamente.",
+          type: "success"
+        }, function () {
+          document.location.reload();
+        });
+      } else {
+        swal({
+          title: "Error",
+          text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+          type: "warning"
+        }, function () {
+          document.location.reload();
+        });
+      }
     }, function errorCallback(response) {
       console.log('error');
     });

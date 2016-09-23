@@ -76,6 +76,16 @@
               <div class="card-hr"></div>
               <h4>Datos de Pensiones</h4>
               <div class="form-group">
+                <label for="concepto_pensiones" class="control-label col-sm-3">Concepto</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <div class="dtp-container fg-line">
+                      <input type="text" id="concepto_pensiones" name="concepto_pensiones" class="form-control" placeholder="Concepto" ng-model="pensiones.concepto">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
                 <label for="mes_inicio_pension" class="col-sm-3 control-label">Mes Inicial</label>
                 <div class="col-sm-9">
                   <div class="fg-line">
@@ -114,7 +124,12 @@
               </table>
               <div class="form-group">
                 <div class="col-sm-3 col-sm-offset-9">
-                  <a class="btn btn-block waves-effect m-t-15 accent-color" ng-click="crearMatriculaPensiones()">Guardar</a>
+                  <button type="button" class="btn btn-block waves-effect m-t-15 accent-color" ng-click="crearMatriculaPensiones()" ng-disabled="procesando">
+                    <span ng-hide="procesando">Guardar</span>
+                    <span ng-show="procesando">
+                      <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
+                    </span>                    
+                  </button>
                 </div>
               </div>
             </form>

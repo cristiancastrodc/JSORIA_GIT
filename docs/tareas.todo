@@ -1,6 +1,6 @@
 Variables:
- ☐ main-color: #091b43
- ☐ accent-color: #F58634
+   main-color: #091b43
+   accent-color: #F58634
 Generales:
  ☐ Quitar logo de ULP del menú lateral. @high
  ☐ Agregar ícono de J. Soria al header. @high
@@ -20,7 +20,9 @@ Admin:
    ☐ Revisar procesamiento de Creación. @critical
    ☐ Al Buscar el loader aparece atras del modal de editar. @critical
   Matrículas:
+   ✔ Reanalizar y rehacer módulo (integrar con Pensiones y con Secretaria-Matricular). @critical @critical @done (16-09-22 15:18)
   Pensiones:
+   ✔ Reanalizar y rehacer módulo (integrar con Matrículas). @critical @critical @done (16-09-22 15:18)
   Cobros:
     Ordinarios:
      ☐ Dividir en pantallas de Creación y Administración. @low
