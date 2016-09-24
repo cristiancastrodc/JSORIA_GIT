@@ -42,6 +42,9 @@
         </div>
       </div>
       <div class="card js-toggle hoverable" id="card-ingresos-admin">
+        <div class="card-header main-color ch-alt">
+          <h2>Ingresos</h2>
+        </div>
         <div class="card-body card-padding">
           {!! Form::open(['class' => 'form-horizontal']) !!}
             <input type="hidden" value="{{ csrf_token() }}" id="_token">
@@ -51,7 +54,8 @@
                 <thead>
                   <tr>
                     <th class="hidden">Id</th>
-                    <th class="accent-color c-white">Fecha de Ingreso</th>
+                    <th class="accent-color c-white">Fecha Hora</th>
+                    <th class="accent-color c-white">Documento</th>
                     <th class="accent-color c-white">Concepto</th>
                     <th class="accent-color c-white">Estado</th>
                     <th class="accent-color c-white">Monto (S/)</th>
@@ -59,13 +63,13 @@
                 </thead>
                 <tbody>
                 </tbody>
-                <tfoot class="text-right bgm-orange c-white">
+                <tfoot class="text-right accent-color">
                   <tr>
-                    <td colspan="3">TOTAL NO RETIRADO (S/)</td>
+                    <td colspan="4">TOTAL NO RETIRADO (S/)</td>
                     <td id="cobros-no-retirados"></td>
                   </tr>
                   <tr>
-                    <td colspan="3">TOTAL POR RETIRAR (S/)</td>
+                    <td colspan="4">TOTAL POR RETIRAR (S/)</td>
                     <td id="cobros-por-retirar"></td>
                   </tr>
                 </tfoot>

@@ -204,6 +204,7 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
           var fila = "<tr>";
           fila += "<td class='hidden id_cobro'>" + response[i].id + "</td>";
           fila += "<td>" + response[i].fecha_hora_ingreso + "</td>";
+          fila += "<td>" + response[i].documento + "</td>";
           fila += "<td>" + response[i].nombre + "</td>";
           if (response[i].estado_retiro == 0) {
             fila += "<td><span class='p-5'>No retirado</span></td>";

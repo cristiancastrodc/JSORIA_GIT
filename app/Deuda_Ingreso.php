@@ -3,6 +3,7 @@
 namespace JSoria;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Deuda_Ingreso extends Model
 {
@@ -43,7 +44,7 @@ class Deuda_Ingreso extends Model
               $query->where('retiro.id_usuario', $id_tesorera)
                     ->orWhereNull('retiro.id');
            })
-           ->select('deuda_ingreso.id', 'deuda_ingreso.fecha_hora_ingreso', 'categoria.nombre', 'deuda_ingreso.estado_retiro', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
+           ->select('deuda_ingreso.id', 'deuda_ingreso.fecha_hora_ingreso', DB::raw("CONCAT(jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as documento"), 'categoria.nombre', 'deuda_ingreso.estado_retiro', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
            ->get();
   }
 
@@ -52,7 +53,20 @@ class Deuda_Ingreso extends Model
    */
   public static function deudasPorGrado($id_grado = '')
   {
-    
+    /*
+select A.nro_documento,
+       alumno = A.nombres + ' ' + A.apellidos,
+       C.nombre,
+       monto = D.saldo - D.descuento
+from deuda_ingreso D
+  inner join alumno A
+  on D.id_alumno = A.nro_documento
+  inner join categoria C
+  on D.id_categori = C.id
+where estado_pago = '0'
+  and A.id_grado = @id_grado
+  and A.estado = '1'
+      */
   }
 
 }
