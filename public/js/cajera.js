@@ -146,18 +146,29 @@ $('#btn-finalizar-pago').click(function (e) {
   } else{
     $modal.find('#tabla-resumen tbody').append(fila_resumen);
     $modal.find('#tabla-resumen tbody').append("<tr><td class='text-right'><b>TOTAL:</b></td><td class='text-right'>"  + total + "</td></tr>");
-    var botones = "<button type='button' class='btn btn-link' data-dismiss='modal'>CANCELAR</button><button id='btn-comprobante' class='btn btn-default bgm-indigo'>COMPROBANTE</button>";
+    var botones = "<button type='button' class='btn btn-link waves-effect' data-dismiss='modal'>CANCELAR</button><button id='btn-comprobante' class='btn btn-default bgm-indigo waves-effect'>COMPROBANTE</button>";
     if (!destino_externo && tipo_impresora == 'matricial') {
-      botones += "<button type='button' class='btn bgm-orange btn-md' id='btn-boleta'>BOLETA</button><button type='button' class='btn bgm-green btn-md' id='btn-factura'>FACTURA</button>";
+      botones += "<button type='button' class='btn bgm-orange btn-md waves-effect' id='btn-boleta'>BOLETA</button><button type='button' class='btn bgm-green btn-md waves-effect' id='btn-factura'>FACTURA</button>";
     }
-    $modal.find('.modal-footer').html(botones);
+    $modal.find('#botones-footer').html(botones);
     $modal.modal('show');
   };
 });
 
 $('#modal-resumen-pago').on('click', '#btn-comprobante', function(e) {
   e.preventDefault();
+  var $id_institucion = $('#id_institucion').val();
+  debug($id_institucion);
+  var ruta = '/cajera/comprobante/' + $id_institucion + '/comprobante';
+  $.get(ruta, function(data) {
+    $modal.find('#serie_comprobante').html(data.serie);
+    $modal.find('#numero_comprobante').val(data.numero);
+    $modal.find('#tipo_comprobante').val('comprobante');
+    $('#datos-comprobante').slideDown();
+  });
+});
 
+$('#btn-guardar-cobro').click(function(event) {
   procesarComprobanteBoleta('comprobante');
 });
 
@@ -224,11 +235,59 @@ $('#modal-resumen-pago').on('click', '#btn-factura', function(e) {
   });
 });
 
+function procesarComprobanteBoleta ($tipo) {
+  debug('Procesar Comprobante / Boleta');
+  var $id_institucion = $('#id_institucion').val();
+  var $nro_documento = $('#nro_documento').val();
+  var $token = $('#_token').val();
+  var $id_pagos = $("#id_pagos").val();
+  var $id_compras = $("#id_compras").val();
+  var $tipo_comprobante = $("#tipo_comprobante").val();
+  var $serie_comprobante = $("#serie_comprobante").html();
+  var $numero_comprobante = $("#numero_comprobante").val();
 
-/*** Inicio de Procesar guardado del cobro ***/
-function procesarGuardarTransaccion ($modal) {
+  $.ajax({
+    url: '/cajera/cobro/guardar',
+    headers: {'X-CSRF-TOKEN' : $token},
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      tipo : $tipo,
+      id_institucion: $id_institucion,
+      nro_documento : $nro_documento,
+      id_pagos : $id_pagos,
+      id_compras : $id_compras,
+      tipo_comprobante : $tipo_comprobante,
+      serie_comprobante : $serie_comprobante,
+      numero_comprobante : $numero_comprobante,
+    },
+    beforeSend : function () {
+      debug('Antes de enviar');
+      $('#ajax-loader').fadeIn('slow');
+    },
+    success : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        swal({
+          title : '¡Éxito!',
+          text :  data.mensaje,
+          type : 'success',
+        }, function () {
+          document.location.reload();
+        });
+      });
+    },
+    error : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        var error = '202';
+        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error, 'error');
+      });
+    },
+  });
 }
-/*** Fin de Procesar guardado del cobro ***/
+/*** Fin de Procesar Pago ***/
+
 $('#modal-confirmar-autorizacion').on('shown.bs.modal', function (e) {
   var $boton = $(e.relatedTarget);
   var id = $boton.data('id');
@@ -236,6 +295,7 @@ $('#modal-confirmar-autorizacion').on('shown.bs.modal', function (e) {
   var $modal = $(this);
   $modal.find('#modal-id').val(id);
 });
+
 
 $('#modal-confirmar-autorizacion #modal-guardar').click(function () {
   var $modal = $('#modal-confirmar-autorizacion');
@@ -279,53 +339,6 @@ $('#modal-confirmar-autorizacion #modal-guardar').click(function () {
     }
   });
 });
-
-function procesarComprobanteBoleta ($tipo) {
-  debug('Procesar Comprobante / Boleta');
-  var $id_institucion = $('#id_institucion').val();
-  var $nro_documento = $('#nro_documento').val();
-  var $token = $('#_token').val();
-  var $id_pagos = $("#id_pagos").val();
-  var $id_compras = $("#id_compras").val();
-
-  $.ajax({
-    url: '/cajera/cobro/guardar',
-    headers: {'X-CSRF-TOKEN' : $token},
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      tipo : $tipo,
-      id_institucion: $id_institucion,
-      nro_documento : $nro_documento,
-      id_pagos : $id_pagos,
-      id_compras : $id_compras,
-    },
-    beforeSend : function () {
-      debug('Antes de enviar');
-      $('#ajax-loader').fadeIn('slow');
-    },
-    success : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        debug(data, false);
-        swal({
-          title : '¡Éxito!',
-          text :  data.mensaje,
-          type : 'success',
-        }, function () {
-          document.location.reload();
-        });
-      });
-    },
-    error : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        debug(data, false);
-        var error = '202';
-        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error, 'error');
-      });
-    },
-  });
-}
-/*** Fin de Procesar Pago ***/
 
 /*** Inicio de Procesar pago Extra ***/
 $('#btn-comprobante-extr').click(function(e) {

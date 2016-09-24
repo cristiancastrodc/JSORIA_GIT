@@ -3,12 +3,13 @@
 namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
+use Config;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
-
 use JSoria\Alumno;
 use JSoria\Categoria;
+use JSoria\Comprobante;
 use JSoria\Deuda_Ingreso;
 use JSoria\Institucion;
 use JSoria\InstitucionDetalle;
@@ -16,8 +17,6 @@ use JSoria\Permiso;
 use JSoria\UsuarioImpresora;
 use JSoria\Http\Controllers\HerramientasController;
 
-use Auth;
-use Config;
 
 class CobrosController extends Controller
 {
@@ -200,6 +199,9 @@ class CobrosController extends Controller
                 $pago->estado_pago = 1;
                 $pago->fecha_hora_ingreso = $fecha_hora_ingresos;
                 $pago->id_cajera = Auth::user()->id;
+                $pago->tipo_comprobante = $request['tipo_comprobante'];
+                $pago->serie_comprobante = $request['serie_comprobante'];
+                $pago->numero_comprobante = $request['numero_comprobante'];
                 $pago->save();
 
                 $categoria = Categoria::find($pago->id_categoria);
@@ -223,6 +225,9 @@ class CobrosController extends Controller
                     'id_alumno' => $nro_documento,
                     'id_cajera' => Auth::user()->id,
                     'fecha_hora_ingreso' => $fecha_hora_ingresos,
+                    'tipo_comprobante' => $request['tipo_comprobante'],
+                    'serie_comprobante' => $request['serie_comprobante'],
+                    'numero_comprobante' => $request['numero_comprobante'],
                 ]);
 
                 $categoria = Categoria::find($compras[$i]);
@@ -231,6 +236,11 @@ class CobrosController extends Controller
                 $concepto = array($categoria->nombre, $monto);
                 array_push($pagos, $concepto);
             }
+
+            /*
+             * TODO: Actualizar datos del correlativo
+             * Enviar serie y numero a los metodos de imprimir, quitar el aumento del correlativo interior
+            */
 
             $alumno = Alumno::find($nro_documento);
             $nombre_completo = strtoupper($alumno->nombres . " " . $alumno->apellidos);
@@ -358,5 +368,20 @@ class CobrosController extends Controller
 
         return response()->json(['mensaje' => $mensaje]);
       }
+    }
+
+    /**
+    * Buscar Deudas de Alumno o Pago único
+    **/
+    public function buscarComprobante($id_institucion, $tipo_comprobante)
+    {
+      $tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
+      $datos_comprobante = Comprobante::datosComprobante($tipo_comprobante, $tipo_impresora, $id_institucion);
+      $numero = str_pad(intval($datos_comprobante->numero_comprobante) + 1, $datos_comprobante->pad_izquierda, '0', STR_PAD_LEFT);
+
+      return response()->json([
+        'serie' => $datos_comprobante->serie,
+        'numero' => $numero
+        ]);
     }
 }

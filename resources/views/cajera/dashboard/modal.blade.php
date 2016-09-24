@@ -4,45 +4,69 @@
       <div class="modal-header">
         <h4 class="modal-title">Resumen de pago</h4>
       </div>
-      <div class="modal-body">
-        <form class="form-horizontal">
-          <?php if (Config::get('config.usar_facturas')): ?>
+      <form class="form-horizontal">
+        <div class="modal-body">
+            <?php if (Config::get('config.usar_facturas')): ?>
+              <div class="form-group">
+                <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line"><input type="text" class="form-control" id="razon_social" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="direccion" class="control-label col-sm-3">Dirección:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line"><input type="text" class="form-control" id="direccion" placeholder="Solo ingresar en caso de factura"></div>
+                </div>
+              </div>
+            <?php endif ?>
+            <div class="table-responsive">
+                <table id="tabla-resumen" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="hidden">Id</th>
+                            <th class="accent-color c-white">Concepto</th>
+                            <th class="accent-color c-white">Monto (S/)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <!-- /cajera/imprimir -->
+          <div id="botones-footer"></div>
+          <div id="datos-comprobante" class="text-left" style="display:none">
+            <h4>Datos de comprobante</h4>
+            <input type="hidden" id="tipo_comprobante">
             <div class="form-group">
-              <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
+              <label class="control-label col-sm-3"><strong>Serie</strong></label>
               <div class="col-sm-9">
-                <div class="fg-line"><input type="text" class="form-control" id="ruc_cliente" placeholder="Solo ingresar en caso de factura"></div>
+                <p class="form-control-static" id="serie_comprobante"></p>
               </div>
             </div>
             <div class="form-group">
-              <label for="razon_social" class="control-label col-sm-3">Razón Social:</label>
+              <label for="numero_comprobante" class="control-label col-sm-3"><strong>Número</strong></label>
               <div class="col-sm-9">
-                <div class="fg-line"><input type="text" class="form-control" id="razon_social" placeholder="Solo ingresar en caso de factura"></div>
+                <div class="fg-line">
+                  <input type="text" class="form-control" id="numero_comprobante" name="numero_comprobante">
+                </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="direccion" class="control-label col-sm-3">Dirección:</label>
-              <div class="col-sm-9">
-                <div class="fg-line"><input type="text" class="form-control" id="direccion" placeholder="Solo ingresar en caso de factura"></div>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button type="button" class="btn btn-block main-color waves-effect" id="btn-guardar-cobro">Guardar</button>
               </div>
             </div>
-          <?php endif ?>
-          <div class="table-responsive">
-              <table id="tabla-resumen" class="table table-striped">
-                  <thead>
-                      <tr>
-                          <th class="hidden">Id</th>
-                          <th class="accent-color c-white">Concepto</th>
-                          <th class="accent-color c-white">Monto (S/)</th>
-                      </tr>
-                  </thead>
-                  <tbody></tbody>
-              </table>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <!-- /cajera/imprimir -->
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

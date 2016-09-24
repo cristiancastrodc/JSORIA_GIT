@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeUserPrinterColumnsToNullable extends Migration
+class AddPrinterToComprobante extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,8 @@ class ChangeUserPrinterColumnsToNullable extends Migration
      */
     public function up()
     {
-        Schema::table('usuario_impresora', function($table)
-        {
-            /*
-            $table->string('tipo_impresora', 20)->nullable()->change();
-            $table->string('nombre_impresora', 50)->nullable()->change();
-            */
+        Schema::table('comprobante', function (Blueprint $table) {
+            $table->string('tipo_impresora', 20)->nullable();
         });
     }
 
@@ -28,6 +24,8 @@ class ChangeUserPrinterColumnsToNullable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('comprobante', function (Blueprint $table) {
+            //
+        });
     }
 }
