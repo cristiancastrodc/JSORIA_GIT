@@ -132,7 +132,7 @@ class HerramientasController extends Controller
       unlink($file);
   }
 
-  public static function imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total, $nombre_impresora)
+  public static function imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total, $nombre_impresora, $serie_comprobante, $nro_comprobante)
   {
     try {
       $alumno_grado = Alumno::find($nro_documento);
@@ -142,12 +142,14 @@ class HerramientasController extends Controller
                                 ->where('grado.id', $alumno_grado)
                                 ->first();
       $fecha = date('d/m/Y H:i:s');
+      /*
       $comprobante = Comprobante::where('tipo', 'comprobante')
                                 ->where('id_razon_social', $institucion->id_razon_social)
                                 ->first();
       $nro_comprobante = intval($comprobante->numero_comprobante) + 1;
       $comprobante->numero_comprobante = $nro_comprobante;
       $comprobante->save();
+      */
       $monto_total = number_format($monto_total, 2);
       $letras = NumeroALetras::convertir($monto_total, 'soles', 'centimos');
 
@@ -167,7 +169,8 @@ class HerramientasController extends Controller
       $printer -> text("=======================================\n");
       $printer -> text($institucion->nombre . "\n");
       $printer -> text($fecha . "\n");
-      $printer -> text("Ticket Nro. " . str_pad($nro_comprobante, 6, '0', STR_PAD_LEFT) . "\n");
+      //$printer -> text("Ticket Nro. " . str_pad($nro_comprobante, 6, '0', STR_PAD_LEFT) . "\n");
+      $printer -> text("Ticket Nro. " . $serie_comprobante . "-" . $nro_comprobante . "\n");
       $printer -> text("=======================================\n");
       $printer -> setJustification(Escpos::JUSTIFY_LEFT);
       $printer -> text('Nro. de Documento: ' . $nro_documento . "\n");
@@ -295,16 +298,18 @@ class HerramientasController extends Controller
       unlink($file);
   }
 
-  public static function imprimirComprobanteTicketeraExtr($nombre_completo, $descripcion, $monto_total, $institucion, $nombre_impresora)
+  public static function imprimirComprobanteTicketeraExtr($nombre_completo, $descripcion, $monto_total, $institucion, $nombre_impresora, $nro_comprobante)
   {
     try {
       $fecha = date('d/m/Y H:i:s');
+      /*
       $comprobante = Comprobante::where('tipo', 'comprobante')
                                 ->where('id_razon_social', $institucion->id_razon_social)
                                 ->first();
       $nro_comprobante = intval($comprobante->numero_comprobante) + 1;
       $comprobante->numero_comprobante = $nro_comprobante;
       $comprobante->save();
+      */
       $monto_total = number_format($monto_total, 2);
       $letras = NumeroALetras::convertir($monto_total, 'soles', 'centimos');
 
@@ -324,7 +329,8 @@ class HerramientasController extends Controller
       $printer -> text("=======================================\n");
       //$printer -> text($institucion->nombre . "\n");
       $printer -> text($fecha . "\n");
-      $printer -> text("Ticket Nro. " . str_pad($nro_comprobante, 6, '0', STR_PAD_LEFT) . "\n");
+      //$printer -> text("Ticket Nro. " . str_pad($nro_comprobante, 6, '0', STR_PAD_LEFT) . "\n");
+      $printer -> text("Ticket Nro. " . $nro_comprobante . "\n");
       $printer -> text("=======================================\n");
       $printer -> setJustification(Escpos::JUSTIFY_LEFT);
       $printer -> text('Cliente: ' . $nombre_completo . "\n");
@@ -465,7 +471,7 @@ class HerramientasController extends Controller
       unlink($file);
   }
 
-  public static function imprimirComprobanteTicketeraMultiple($dni, $nombre, $categoria, $nombre_impresora)
+  public static function imprimirComprobanteTicketeraMultiple($dni, $nombre, $categoria, $nombre_impresora, $nro_comprobante)
   {
     try {
       $fecha = date('d/m/Y H:i:s');
@@ -473,7 +479,7 @@ class HerramientasController extends Controller
                                 ->where('detalle_institucion.id', $categoria->id_detalle_institucion)
                                 ->first();
       $id_razon_social = $institucion->id_razon_social;
-
+      /*
       $comprobante = Comprobante::where('tipo', 'comprobante')
                                 ->where('id_razon_social', $id_razon_social)
                                 ->first();
@@ -481,6 +487,7 @@ class HerramientasController extends Controller
       $nro_comprobante = intval($comprobante->numero_comprobante) + 1;
       $comprobante->numero_comprobante = $nro_comprobante;
       $comprobante->save();
+      */
       $monto_total = number_format($categoria->monto, 2);
       $letras = NumeroALetras::convertir($monto_total, 'soles', 'centimos');
 
@@ -499,7 +506,8 @@ class HerramientasController extends Controller
       $printer -> text("=======================================\n");
       //$printer -> text($institucion->nombre . "\n");
       $printer -> text($fecha . "\n");
-      $printer -> text("Ticket Nro. " . str_pad($nro_comprobante, 6, '0', STR_PAD_LEFT) . "\n");
+      //$printer -> text("Ticket Nro. " . str_pad($nro_comprobante, 6, '0', STR_PAD_LEFT) . "\n");
+      $printer -> text("Ticket Nro. " . $nro_comprobante . "\n");
       $printer -> text("=======================================\n");
       $printer -> setJustification(Escpos::JUSTIFY_LEFT);
       $printer -> text('Cliente: ' . $nombre . "\n");

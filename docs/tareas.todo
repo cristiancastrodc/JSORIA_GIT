@@ -85,8 +85,9 @@ Cajera:
  ☐ Revisar procesamiento. @critical
   Cobro:
    ☐ Reanalizar y rehacer módulo. @critical @critical @started(16-09-22 22:40)
-     ☐ Al registrar un cobro, se debe registrar el numero de comprobante en el ingreso. @critical @critical
+     ✔ Al registrar un cobro, se debe registrar el numero de comprobante en el ingreso. @critical @critical @done (16-09-24 06:27)
      ☐ Para realizar un cobro, el alumno no debe estar necesariamente matriculado. @critical
+   ☐ Para factura en la impresora matricial, solicitar razon social, ruc y direccion.
   Otros cobros:
    ☐ Reanalizar y rehacer módulo. @critical @critical
   Reporte:

@@ -161,6 +161,7 @@ $('#modal-resumen-pago').on('click', '#btn-comprobante', function(e) {
   debug($id_institucion);
   var ruta = '/cajera/comprobante/' + $id_institucion + '/comprobante';
   $.get(ruta, function(data) {
+    $modal = $('#modal-resumen-pago');
     $modal.find('#serie_comprobante').html(data.serie);
     $modal.find('#numero_comprobante').val(data.numero);
     $modal.find('#tipo_comprobante').val('comprobante');
@@ -168,74 +169,45 @@ $('#modal-resumen-pago').on('click', '#btn-comprobante', function(e) {
   });
 });
 
-$('#btn-guardar-cobro').click(function(event) {
-  procesarComprobanteBoleta('comprobante');
-});
-
 $('#modal-resumen-pago').on('click', '#btn-boleta', function(e) {
   e.preventDefault();
-
-  procesarComprobanteBoleta('boleta');
+  var $id_institucion = $('#id_institucion').val();
+  debug($id_institucion);
+  var ruta = '/cajera/comprobante/' + $id_institucion + '/boleta';
+  $.get(ruta, function(data) {
+    $modal = $('#modal-resumen-pago');
+    $modal.find('#serie_comprobante').html(data.serie);
+    $modal.find('#numero_comprobante').val(data.numero);
+    $modal.find('#tipo_comprobante').val('boleta');
+    $('#datos-comprobante').slideDown();
+  });
 });
 
 $('#modal-resumen-pago').on('click', '#btn-factura', function(e) {
   e.preventDefault();
-
   var $id_institucion = $('#id_institucion').val();
-  var $nro_documento = $('#nro_documento').val();
-  var $ruc_cliente = $('#ruc_cliente').val();
-  var $razon_social = $('#razon_social').val();
-  var $direccion = $('#direccion').val();
-  var $token = $('#_token').val();
-  var $id_pagos = $("#id_pagos").val();
-  var $id_compras = $("#id_compras").val();
-
-  $.ajax({
-    url: '/cajera/cobro/guardar',
-    headers: {'X-CSRF-TOKEN' : $token},
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      tipo: 'factura',
-      id_institucion: $id_institucion,
-      nro_documento : $nro_documento,
-      ruc_cliente : $ruc_cliente,
-      razon_social : $razon_social,
-      direccion : $direccion,
-      id_pagos : $id_pagos,
-      id_compras : $id_compras,
-    },
-    beforeSend : function () {
-          debug('Antes de enviar');
-          $('#ajax-loader').fadeIn('slow');
-        },
-    success : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        swal({
-        title : '¡Éxito!',
-        text :  data.mensaje,
-        type : 'success',
-        }, function () {
-          document.location.reload();
-        });
-      });
-    },
-    error : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        var error = '203';
-        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
-      });
-    },
-    complete : function (data, textStatus) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        debug(data, false);
-        debug(textStatus);
-      });
-    }
+  debug($id_institucion);
+  var ruta = '/cajera/comprobante/' + $id_institucion + '/factura';
+  $.get(ruta, function(data) {
+    $modal = $('#modal-resumen-pago');
+    $modal.find('#serie_comprobante').html(data.serie);
+    $modal.find('#numero_comprobante').val(data.numero);
+    $modal.find('#tipo_comprobante').val('factura');
+    $('#datos-comprobante').slideDown();
   });
 });
 
-function procesarComprobanteBoleta ($tipo) {
+$('#btn-guardar-cobro').click(function(event) {
+  $modal = $('#modal-resumen-pago');
+  $tipo_comprobante = $modal.find('#tipo_comprobante').val();
+  if ($tipo_comprobante == 'factura') {
+    procesarFactura();
+  } else {
+    procesarComprobanteBoleta();
+  }
+});
+
+function procesarComprobanteBoleta () {
   debug('Procesar Comprobante / Boleta');
   var $id_institucion = $('#id_institucion').val();
   var $nro_documento = $('#nro_documento').val();
@@ -252,7 +224,6 @@ function procesarComprobanteBoleta ($tipo) {
     type: 'POST',
     dataType: 'json',
     data: {
-      tipo : $tipo,
       id_institucion: $id_institucion,
       nro_documento : $nro_documento,
       id_pagos : $id_pagos,
@@ -286,6 +257,67 @@ function procesarComprobanteBoleta ($tipo) {
     },
   });
 }
+
+function procesarFactura() {
+  var $id_institucion = $('#id_institucion').val();
+  var $nro_documento = $('#nro_documento').val();
+  var $ruc_cliente = $('#ruc_cliente').val();
+  var $razon_social = $('#razon_social').val();
+  var $direccion = $('#direccion').val();
+  var $token = $('#_token').val();
+  var $id_pagos = $("#id_pagos").val();
+  var $id_compras = $("#id_compras").val();
+  var $tipo_comprobante = $("#tipo_comprobante").val();
+  var $serie_comprobante = $("#serie_comprobante").html();
+  var $numero_comprobante = $("#numero_comprobante").val();
+
+  $.ajax({
+    url: '/cajera/cobro/guardar',
+    headers: {'X-CSRF-TOKEN' : $token},
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      id_institucion: $id_institucion,
+      nro_documento : $nro_documento,
+      ruc_cliente : $ruc_cliente,
+      razon_social : $razon_social,
+      direccion : $direccion,
+      id_pagos : $id_pagos,
+      id_compras : $id_compras,
+      tipo_comprobante : $tipo_comprobante,
+      serie_comprobante : $serie_comprobante,
+      numero_comprobante : $numero_comprobante,
+    },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
+    success : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
+        title : '¡Éxito!',
+        text :  data.mensaje,
+        type : 'success',
+        }, function () {
+          document.location.reload();
+        });
+      });
+    },
+    error : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        var error = '203';
+        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+      });
+    },
+    complete : function (data, textStatus) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        debug(textStatus);
+      });
+    }
+  });
+}
+
 /*** Fin de Procesar Pago ***/
 
 $('#modal-confirmar-autorizacion').on('shown.bs.modal', function (e) {

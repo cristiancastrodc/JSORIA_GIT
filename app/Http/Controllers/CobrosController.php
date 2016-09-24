@@ -194,14 +194,18 @@ class CobrosController extends Controller
             $monto_total = 0;
             $fecha_hora_ingresos = date("Y-m-d H:i:s");
 
+            $tipo_comprobante = $request['tipo_comprobante'];
+            $serie_comprobante = $request['serie_comprobante'];
+            $numero_comprobante = $request['numero_comprobante'];
+
             foreach ($deudas as $deuda) {
                 $pago = Deuda_Ingreso::find($deuda);
                 $pago->estado_pago = 1;
                 $pago->fecha_hora_ingreso = $fecha_hora_ingresos;
                 $pago->id_cajera = Auth::user()->id;
-                $pago->tipo_comprobante = $request['tipo_comprobante'];
-                $pago->serie_comprobante = $request['serie_comprobante'];
-                $pago->numero_comprobante = $request['numero_comprobante'];
+                $pago->tipo_comprobante = $tipo_comprobante;
+                $pago->serie_comprobante = $serie_comprobante;
+                $pago->numero_comprobante = $numero_comprobante;
                 $pago->save();
 
                 $categoria = Categoria::find($pago->id_categoria);
@@ -225,9 +229,9 @@ class CobrosController extends Controller
                     'id_alumno' => $nro_documento,
                     'id_cajera' => Auth::user()->id,
                     'fecha_hora_ingreso' => $fecha_hora_ingresos,
-                    'tipo_comprobante' => $request['tipo_comprobante'],
-                    'serie_comprobante' => $request['serie_comprobante'],
-                    'numero_comprobante' => $request['numero_comprobante'],
+                    'tipo_comprobante' => $tipo_comprobante,
+                    'serie_comprobante' => $serie_comprobante,
+                    'numero_comprobante' => $numero_comprobante,
                 ]);
 
                 $categoria = Categoria::find($compras[$i]);
@@ -237,10 +241,13 @@ class CobrosController extends Controller
                 array_push($pagos, $concepto);
             }
 
-            /*
-             * TODO: Actualizar datos del correlativo
-             * Enviar serie y numero a los metodos de imprimir, quitar el aumento del correlativo interior
-            */
+            $id_razon_social = Institucion::find($request['id_institucion'])->id_razon_social;
+            $comprobante = Comprobante::where('tipo', $tipo_comprobante)
+                                      ->where('serie', $serie_comprobante)
+                                      ->where('id_razon_social', $id_razon_social)
+                                      ->first();
+            $comprobante->numero_comprobante = intval($numero_comprobante);
+            $comprobante->save();
 
             $alumno = Alumno::find($nro_documento);
             $nombre_completo = strtoupper($alumno->nombres . " " . $alumno->apellidos);
@@ -249,9 +256,9 @@ class CobrosController extends Controller
 
             $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
             if ($usuario_impresora->tipo_impresora == 'matricial') {
-                if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
+                if ($tipo_comprobante == 'comprobante' || $tipo_comprobante == 'boleta') {
                     HerramientasController::imprimirBoletaCompMatricial($nro_documento, $nombre_completo, $pagos, $monto_total, $usuario_impresora->nombre_impresora);
-                } elseif ($request['tipo'] == 'factura') {
+                } elseif ($tipo_comprobante == 'factura') {
                   if (Config::get('config.usar_facturas')) {
                     HerramientasController::imprimirFacturaMatricial($nro_documento, $nombre_completo, $pagos, $monto_total, $request['ruc_cliente'], $request['razon_social'], $request['direccion'], $usuario_impresora->nombre_impresora);
                   } else {
@@ -259,8 +266,8 @@ class CobrosController extends Controller
                   }
                 };
             } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
-                if ($request['tipo'] == 'comprobante') {
-                    HerramientasController::imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total, $usuario_impresora->nombre_impresora);
+                if ($tipo_comprobante == 'comprobante') {
+                    HerramientasController::imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total, $usuario_impresora->nombre_impresora, $serie_comprobante, $numero_comprobante);
                 } else {
                     $mensaje = 'Pagos de alumno actualizados. Puede girar la boleta/factura manualmente.';
                 }
