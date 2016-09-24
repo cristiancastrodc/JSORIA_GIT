@@ -46,4 +46,13 @@ class Deuda_Ingreso extends Model
            ->select('deuda_ingreso.id', 'deuda_ingreso.fecha_hora_ingreso', 'categoria.nombre', 'deuda_ingreso.estado_retiro', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
            ->get();
   }
+
+  /**
+   * Devuelve la lista de alumnos por grado/semestre con sus respectivas deudas
+   */
+  public static function deudasPorGrado($id_grado = '')
+  {
+    
+  }
+
 }

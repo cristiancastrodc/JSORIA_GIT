@@ -16,7 +16,7 @@ Generales:
 Admin:
  ☐ Reporte de acciones de usuarios. @low
  ☐ Verificar que para cada modulo, restringir opciones de acuerdo a sus permisos. @high
- ☐ Módulo: Modificar/Lista de Cobros extraordinarios creados. @critical
+ ☐ Módulo: Modificar/Lista de Cobros extraordinarios creados. @low
  ☐ Módulo: Importador de datos. @low
  ☐ Configuración de porcentaje de descuento para pensiones. @low
   Actividades:

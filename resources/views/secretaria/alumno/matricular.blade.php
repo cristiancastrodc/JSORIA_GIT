@@ -81,11 +81,9 @@
               </div>
             </div>            
             <div class="form-group">
-              <div class="pull-right">
-                <div class="col-sm-12">
-                  <button class="btn accent-color waves-effect" id="btn-matricular">Matricular</button>
-                </div>
-              </div>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-matricular">Matricular</button>
+              </div>              
             </div>
           {!!Form::close()!!}
         </div>

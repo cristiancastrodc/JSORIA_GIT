@@ -106,6 +106,9 @@ Route::post('secretaria/alumno/deudas/crear','AlumnosController@agregarDeudasAlu
 Route::post('secretaria/alumno/deudas/eliminar_actividad','AlumnosController@EliminarDeudaActividad');
 Route::post('secretaria/alumno/deudas/eliminar_descontar_deuda','AlumnosController@EliminarDescontarDeuda');
 Route::post('secretaria/alumno/amortizarDeuda','AlumnosController@CrearAmortizacion');
+// Reportes
+Route::get('secretaria/generar/reporte/deudas_por_grado', 'ReportesSecretariaController@deudasPorGrado');
+Route::get('secretaria/procesar/reporte/deudas_por_grado', 'ReportesSecretariaController@procesarDeudasPorGrado');
 
 /*** Rutas de reportes ***/
 /**/

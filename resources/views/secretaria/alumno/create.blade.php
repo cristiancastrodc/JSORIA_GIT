@@ -28,14 +28,14 @@
               <div class="col-sm-9">
                 <select class="selectpicker" name="tipo_documento" id="tipo_documento" title='Seleccione'>
                   <option value="DNI">DNI</option>
-                  <option value="PARTIDA DE NACIMIENTO">PARTIDA DE NACIMIENTO</option>
+                  <option value="PARTIDA DE NACIMIENTO">CODIGO DE ESTUDIANTE</option>
                   <option value="CARNET DE EXTRANJERIA">CARNET DE EXTRANJERIA</option>
                   <option value="OTRO">OTRO</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label for="dni" class="col-sm-3 control-label">Némero de Documento</label>
+              <label for="dni" class="col-sm-3 control-label">Número de Documento</label>
               <div class="col-sm-9">
                   <div class="fg-line">
                       <input type="text" class="form-control input-sm" id="nro_documento" name="nro_documento" placeholder="Documento de Alumno" >
