@@ -167,6 +167,7 @@ INSERT INTO jsoria_permisos(id_institucion, id_usuario) VALUES
 ('4', '2');
 /********** TABLA COMPROBANTE **********/
 -- Comprobante: Un comprobante para los C.P. emitidos por la ticketera
+/*
 INSERT INTO jsoria_comprobante(tipo, serie, numero_comprobante, id_razon_social) VALUES
 ('comprobante', 'C001', 0, '1'),
 ('comprobante', 'C002', 0, '1'),
@@ -175,6 +176,7 @@ INSERT INTO jsoria_comprobante(tipo, serie, numero_comprobante, id_razon_social)
 ('boleta', 'B001', 0, '2'),
 ('factura', 'F001', 0, '1'),
 ('factura', 'F001', 0, '2');
+*/
 /********** TABLA TIPO COMPROBANTE **********/
 INSERT INTO jsoria_tipo_comprobante(id, denominacion) VALUES
 ('1', 'Boleta'),

@@ -1,14 +1,12 @@
 <?php namespace JSoria\Http\Controllers;
 
+use Auth;
+use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-
+use JSoria\Balance;
 use JSoria\Usuario;
 use JSoria\UsuarioImpresora;
-
-use Auth;
 
 class DashboardController extends Controller {
 
@@ -19,12 +17,19 @@ class DashboardController extends Controller {
 
   public function escritorio()
   {
-    $usuario = Auth::user();
-    if ($usuario->tipo != 'Cajera') {
-      return view('layouts.dashboard');
-    } else {
+    $tipo = strtolower(Auth::user()->tipo);
+    if ($tipo == 'tesorera') {
+      $balance = Balance::where('id_tesorera', Auth::user()->id)->first();
+      if ($balance) {
+        return view('layouts.dashboard');
+      } else {
+        return view('tesorera.inicial.index');
+      }
+    } else if ($tipo == 'cajera') {
       $tipo_impresora = UsuarioImpresora::find($usuario->id)->tipo_impresora;
       return view('cajera.dashboard.index', compact('tipo_impresora'));
+    } else {
+      return view('layouts.dashboard');
     }
   }
 

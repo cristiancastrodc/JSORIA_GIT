@@ -164,4 +164,24 @@ class ConfiguracionController extends Controller
         Session::flash('message', 'Datos de comprobante correctamente creados.');
         return Redirect::to('admin/comprobante/crear');
     }
+
+    /**
+     * Registra el saldo inicial para una tesorera
+     */
+    public function registrarSaldoInicial(Request $request)
+    {
+        $fecha = date('Y-m-d');
+        date_sub($fecha, date_interval_create_from_date_string('1 days'));
+        /*
+echo date_format($fecha, 'Y-m-d');
+
+        Balance::create([
+            'fecha' => 
+            'id_tesorera' => 
+            'ingresos' => 
+            'egresos' => 
+        ]);
+*/
+        return $fecha;
+    }
 }

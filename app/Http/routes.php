@@ -72,6 +72,7 @@ Route::get('tesorera/administrar/rubros', 'RubrosController@administrarRubros');
 Route::post('tesorera/administrar/rubros/crear', 'RubrosController@crearRubro');
 Route::get('tesorera/administrar/rubros/actualizar/{id_rubro}', 'RubrosController@actualizarRubro');
 Route::get('tesorera/administrar/rubros/eliminar/{id_rubro}', 'RubrosController@eliminarRubro');
+Route::post('tesorera/saldo_inicial/crear', 'ConfiguracionController@registrarSaldoInicial');
 /* Reportes */
 Route::get('tesorera/reporte/balance_ingresos_egresos', 'ReportesTesoreraController@balanceIngresosEgresos');
 
