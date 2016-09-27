@@ -46,6 +46,8 @@ Route::get('admin/retirar/{id_cajera}', 'RetirosController@retiroAdmin');
 Route::post('admin/retirar/actualizar', 'RetirosController@store');
 Route::get('admin/divisiones_select/{id_institucion}', 'InstitucionDetalleController@detalleInstitucionParaSelect');
 Route::post('admin/matricula/guardar', 'MatriculasController@guardarMatricula');
+Route::get('admin/comprobante/crear', 'ConfiguracionController@definirComprobantes');
+Route::post('admin/comprobante/guardar', 'ConfiguracionController@guardarComprobante');
 /* Reportes */
 Route::get('admin/reporte/balance_ingresos_egresos',
   ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);

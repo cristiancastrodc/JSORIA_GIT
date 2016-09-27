@@ -2,13 +2,14 @@
 
 namespace JSoria\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
-
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
-
+use JSoria\Comprobante;
 use JSoria\UsuarioImpresora;
-use Auth;
+use Redirect;
+use Session;
 
 class ConfiguracionController extends Controller
 {
@@ -133,5 +134,34 @@ class ConfiguracionController extends Controller
                 return response()->json(['mensaje' => 'Se creó la configuración de impresora.']);
             }
         }
+    }
+
+    /**
+     * Muestra la interfaz para la definición de comprobantes
+     */
+    public function definirComprobantes()
+    {
+        return view('admin.comprobantes.series');
+    }
+
+    /**
+     * Guarda los datos de un comprobante
+     */
+    public function guardarComprobante(Request $request)
+    {
+        $tipo = $request["tipo_comprobante"];
+        $serie = $request["serie_comprobante"];
+        $numero_comprobante = intval($request["numero_comprobante"]);
+        $pad_izquierda = strlen($request["numero_comprobante"]);
+        $id_institucion = strlen($request["id_institucion"]);
+        Comprobante::create([
+            'tipo' => $tipo,
+            'serie' => $serie,
+            'numero_comprobante' => $numero_comprobante,
+            'pad_izquierda' => $pad_izquierda,
+            'id_institucion' => $id_institucion,
+            ]);
+        Session::flash('message', 'Datos de comprobante correctamente creados.');
+        return Redirect::to('admin/comprobante/crear');
     }
 }

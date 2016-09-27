@@ -9,7 +9,7 @@ class Comprobante extends Model
 {
   protected $table = 'comprobante';
 
-  protected $fillable = ['numero_comprobante'];
+  protected $fillable = ['tipo', 'serie', 'numero_comprobante', 'pad_izquierda', 'id_institucion'];
 
   public $timestamps = false;
 
