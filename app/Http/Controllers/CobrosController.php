@@ -167,7 +167,8 @@ class CobrosController extends Controller
                 if ($deuda) {
                   if ($deuda->cliente_extr != null && $deuda->descripcion_extr != null) {
                     if ($deuda->estado_pago == '0') {
-                      return response()->json(['mensaje' => 'Existe deuda extraordinaria', 'deuda' => $deuda, 'tipo' => 'hay_deuda_extr']);
+                      $id_institucion = Categoria::institucionDeCategoria($deuda->id_categoria)->id_institucion;
+                      return response()->json(['mensaje' => 'Existe deuda extraordinaria', 'deuda' => $deuda, 'tipo' => 'hay_deuda_extr', 'id_institucion' => $id_institucion]);
                     } else {
                       return response()->json(['mensaje' => 'La deuda ya fue cancelada', 'tipo' => 'warning']);
                     }
@@ -378,7 +379,7 @@ class CobrosController extends Controller
     }
 
     /**
-    * Buscar Deudas de Alumno o Pago único
+    * Buscar los datos del comprobante y del número correlativo
     **/
     public function buscarComprobante($id_institucion, $tipo_comprobante)
     {
@@ -390,5 +391,13 @@ class CobrosController extends Controller
         'serie' => $datos_comprobante->serie,
         'numero' => $numero
         ]);
+    }
+
+    /**
+     * Muestra la interfaz para generar ingresos (cobrar)
+     */
+    public function generarIngreso()
+    {
+      return view('cajera.ingresos.index');
     }
 }

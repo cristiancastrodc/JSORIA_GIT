@@ -128,7 +128,7 @@
                     <span ng-hide="procesando">Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
-                    </span>                    
+                    </span>
                   </button>
                 </div>
               </div>

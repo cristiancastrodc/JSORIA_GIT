@@ -77,4 +77,12 @@ class Categoria extends Model
                     ->select('categoria.id as id', 'categoria.nombre as categoria', 'categoria.monto as monto', 'categoria.destino as destino', 'institucion.nombre as institucion')
                     ->get();
   }
+
+  public static function institucionDeCategoria($id_categoria)
+  {
+    return Categoria::join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                    ->where('categoria.id', $id_categoria)
+                    ->select('detalle_institucion.id_institucion')
+                    ->first();
+  }
 }

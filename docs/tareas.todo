@@ -13,12 +13,18 @@ Generales:
  ☐ Cambiar a Material Icons. @low @low
  ☐ Cambiar tablas que estén dentro de los card. @low
  ☐ Cambiar mensaje de sesión (alertas) a 10 columnas. @low
+ ☐ Para todos los usuarios: módulo de búsqueda de alumnos.
+ ☐ Secretaria y Administrador: Reporte de historial de alumno con selección del período.
+ ☐ Secretaria y Administrador: El reporte de cuenta de alumno debe de mostrar las deudas con su período asociado.
+ ☐ Reportes exportar a Excel.
 Admin:
  ☐ Reporte de acciones de usuarios. @low
  ☐ Verificar que para cada modulo, restringir opciones de acuerdo a sus permisos. @high
  ☐ Módulo: Modificar/Lista de Cobros extraordinarios creados. @low
  ☐ Módulo: Importador de datos. @low
  ☐ Configuración de porcentaje de descuento para pensiones. @low
+ ☐ Módulo para definición de Series de Comprobantes de Pago. @high
+ ☐ Quitar la configuración para el uso de facturas.
   Actividades:
    ☐ Dividir en pantallas de Creación y Administración. @low
    ☐ Revisar procesamiento de Creación. @critical
@@ -41,6 +47,7 @@ Admin:
   Usuarios:
     ☐ Dividir en pantallas de Creación y Administración. @low
     ☐ Revisar procesamiento de Creación. @critical
+    ☐ Otorgar permisos de uso de módulos. @low
   Autorizar descuentos:
     ☐ Revisar procesamiento de Creación. @critical
     ☐ Impresión de autorización. @low
@@ -51,11 +58,13 @@ Admin:
     ☐ Revisar funcionalidad de cada reporte. @critical
     ☐ Revisar procesamiento para todos los reportes. @critical
     ☐ Rediseñar PDF. @high
+    ☐ Reporte de lista de ingresos por cajera.
 Secretaria:
  ☐ Revisar procesamiento. @critical
  ☐ Reporte: Alumnos Deudores. @critical
  ☐ Reporte: Reporte de deudas por grados. @critical
  ☐ Mostrar institucion del alumno en todos los procesos donde se le involucre. @critical
+ ☐ Quitar módulo de amortizaiones.
  Nuevo Alumno:
   ☐ Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres. @high
  Matricular:
@@ -65,12 +74,11 @@ Secretaria:
   ☐ Al Buscar el loader aparece atras del modal de editar. @critical
 Tesorera:
  ☐ Revisar procesamiento. @critical
+ ☐ Módulo para el registro del saldo inicial.
  Registrar egreso:
  Modificar Egreso:
    ☐ al eliminar egreso el loader aparece detras del mensaje. @critical   
  Rubros:
-  ✔ Reanalizar y rehacer módulo. @critical @critical @started(16-09-22 15:47) @done (16-09-22 19:33) @lasted(3:46)
-  ✔ Reordenar pantalla. @low @done (16-09-22 19:33)
  Retiro:
   ☐ Revisar módulo. @critical
   ☐ No aparece la pelotita del loader. @high
@@ -85,25 +93,33 @@ Cajera:
  ☐ Revisar procesamiento. @critical
   Cobro:
    ☐ Reanalizar y rehacer módulo. @critical @critical @started(16-09-22 22:40)
-     ✔ Al registrar un cobro, se debe registrar el numero de comprobante en el ingreso. @critical @critical @done (16-09-24 06:27)
      ☐ Para realizar un cobro, el alumno no debe estar necesariamente matriculado. @critical
+     ☐ Se puede realizar cobros parciales (amortizaciones) de deudas.
+     ☐ Formato de impresión debe de tener una línea para la firma.
    ☐ Para factura en la impresora matricial, solicitar razon social, ruc y direccion.
   Otros cobros:
    ☐ Reanalizar y rehacer módulo. @critical @critical
+  Retiro:
+   ☐ Añadir detalle de retiro. @low
   Reporte:
    ☐ Agregar selector de fecha en el reporte. @critical @critical
+   ☐ El reporte debe de mostrar los datos de los comprobantes.
+   ☐ Reporte de lista de ingresos con filtro de fechas inicial y final y con modelo detallado o agrupado.
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
- ✔ Añadir usuario impresora a la creación de cajeras. @done (16-09-22 15:43) @project(Admin / Usuarios)
- ✔ Reanalizar y rehacer módulo (integrar con Pensiones y con Secretaria-Matricular). @critical @critical @done (16-09-22 15:18) @project(Admin / Matrículas)
- ✔ Reanalizar y rehacer módulo (integrar con Matrículas). @critical @critical @done (16-09-22 15:18) @project(Admin / Pensiones)
- ✔ Cambiar diseño Botones Guardar, Buscar y Guardar del modal de Editar actividad. @critical @done (16-09-22 18:41) @project(Admin / Actividades)
+ ✔ Al registrar un cobro, se debe registrar el numero de comprobante en el ingreso. @critical @critical @done (16-09-24 06:27) @project(Cajera / Cobro)
+ ✔ Reordenar pantalla. @low @done (16-09-22 19:33) @project(Tesorera / Rubros)
+ ✔ Reanalizar y rehacer módulo. @critical @critical @started(16-09-22 15:47) @done (16-09-22 19:33) @lasted(3:46) @project(Tesorera / Rubros)
  ✔ Cambiar diseño de botones. @critical @done (16-09-22 18:42) @project(Cajera)
+ ✔ Cambiar diseño Botones Guardar, Buscar y Guardar del modal de Editar actividad. @critical @done (16-09-22 18:41) @project(Admin / Actividades)
+ ✔ Añadir usuario impresora a la creación de cajeras. @done (16-09-22 15:43) @project(Admin / Usuarios)
  ✔ Reanalizar y rehacer módulo (integrar con Pensiones y con Secretaria-Matricular). @critical @critical @done (16-09-22 15:33) @project(Admin / Matrículas)
  ✔ Reanalizar y rehacer módulo (integrar con Matrículas). @critical @critical @done (16-09-22 15:33) @project(Admin / Pensiones)
  ✔ Cambiar diseño Botones Guardar, Buscar y Guardar del modal de Editar cobro. @critical @done (16-09-22 15:32) @project(Admin / Cobros / Ordinarios)
  ✔ Cambiar diseño Botones Guardar, Buscar y Guardar del modal de Editar cobro. @critical @done (16-09-22 15:31) @project(Admin / Cobros / Otros)
+ ✔ Reanalizar y rehacer módulo (integrar con Pensiones y con Secretaria-Matricular). @critical @critical @done (16-09-22 15:18) @project(Admin / Matrículas)
+ ✔ Reanalizar y rehacer módulo (integrar con Matrículas). @critical @critical @done (16-09-22 15:18) @project(Admin / Pensiones)
  ✔ Cambiar color de header a accent-color. @critical @done (16-09-22 15:07) @project(Generales)
  ✔ Reanalizar y rehacer módulo (integrar con Matrículas y Pensiones). @critical @critical @done (16-09-22 15:06) @project(Secretaria / Matricular)
  ✔ Cambiar diseño de botones. @critical @done (16-09-22 11:35) @project(Tesorera)

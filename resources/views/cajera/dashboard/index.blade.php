@@ -89,18 +89,31 @@
           </div>
         </div>
       </div>
-      <div class="card js-toggle" id="card-deuda-extraordinaria">
-        <div class="card-header">
-          <h3><span id="cliente_extr" class="text-uppercase"></span></h3>
+      <div class="card js-toggle hoverable" id="card-deuda-extraordinaria">
+        <div class="card-header main-color ch-alt">
+          <h2>Cobrar</h2>
         </div>
-        <div class="card-body card-padding  hoverable">
+        <div class="card-body card-padding">
           <form class="form-horizontal" role="form">
             <input type="hidden" id="_token-extr" value="{{ csrf_token() }}">
             <input type="hidden" id="id_deuda_extr">
             <div class="form-group">
-              <div class="col-sm-2"><h4>Concepto:</h4></div>
-              <div class="col-sm-8"><span id="descripcion_extr"></span></div>
-              <div class="col-sm-2">S/ <span id="monto_extr"></span></div>
+              <label class="control-label col-sm-3">Cliente</label>
+              <div class="col-sm-9">
+                <p class="form-control-static"><span id="cliente_extr" class="text-uppercase"></span></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3">Concepto</label>
+              <div class="col-sm-9">
+                <p class="form-control-static"><span id="descripcion_extr"></span></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3">Monto</label>
+              <div class="col-sm-9">
+                <p class="form-control-static">S/ <span id="monto_extr"></span></p>
+              </div>
             </div>
             @if ($tipo_impresora == 'matricial')
               <div class="form-group">
@@ -125,12 +138,35 @@
             <div class="form-group">
               <div class="col-sm-12">
                 <div class="pull-right">
-                  <button class="btn  btn-link waves-effect cobro_extr">Cancelar</button>
-                  <button class="btn third-color waves-effect" id="btn-comprobante-extr">Comprobante</button>
+                  <button type="button" class="btn btn-link waves-effect cobro_extr">Cancelar</button>
+                  <button type="button" class="btn third-color waves-effect" id="btn-comprobante-extr">Comprobante</button>
                   @if ($tipo_impresora == 'matricial')
-                    <button class="btn accent-color waves-effect" id="btn-boleta-extr">Boleta</button>
-                    <button class="btn fourth-color waves-effect" id="btn-factura-extr">Factura</button>
+                    <button type="button" class="btn accent-color waves-effect" id="btn-boleta-extr">Boleta</button>
+                    <button type="button" class="btn fourth-color waves-effect" id="btn-factura-extr">Factura</button>
                   @endif
+                </div>
+              </div>
+            </div>
+            <div id="datos-comprobante-extr" style="display: none;">
+              <h4>Datos de comprobante</h4>
+              <input type="hidden" id="tipo-comprobante-extr">
+              <div class="form-group">
+                <label class="control-label col-sm-3">Serie</label>
+                <div class="col-sm-9">
+                  <p class="form-control-static" id="serie-comprobante-extr"></p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="numero-comprobante-extr" class="control-label col-sm-3">Número</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" class="form-control" id="numero-comprobante-extr" name="numero-comprobante-extr">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-3 col-sm-offset-9">
+                  <button type="button" class="btn accent-color btn-block waves-effect" id="btn-guardar-cobro-extr">Guardar</button>
                 </div>
               </div>
             </div>

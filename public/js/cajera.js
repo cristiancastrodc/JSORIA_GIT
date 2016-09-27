@@ -18,7 +18,9 @@ $('#form-buscar-deudas #btn-buscar-deudas').click(function (e) {
           var descripcion = deuda['descripcion_extr'];
           var monto = deuda['saldo'];
           var id_deuda = deuda['id'];
+          var id_institucion = response['id_institucion'];
 
+          $('#id_institucion').val(id_institucion);
           $("#cliente_extr").html(cliente);
           $("#descripcion_extr").html(descripcion);
           $("#monto_extr").html(monto.toFixed(2));
@@ -320,103 +322,17 @@ function procesarFactura() {
 
 /*** Fin de Procesar Pago ***/
 
-$('#modal-confirmar-autorizacion').on('shown.bs.modal', function (e) {
-  var $boton = $(e.relatedTarget);
-  var id = $boton.data('id');
-
-  var $modal = $(this);
-  $modal.find('#modal-id').val(id);
-});
-
-
-$('#modal-confirmar-autorizacion #modal-guardar').click(function () {
-  var $modal = $('#modal-confirmar-autorizacion');
-  var $id = $('#modal-id').val();
-  var $pass = $('#contrasenia').val();
-  var $token = $('#modal-token').val();
-  debug($id);
-  debug($pass);
-
-  var ruta = '/cajera/retiro/confirmacion';
-
-  $.ajax({
-    url: ruta,
-    headers : { 'X-CSRF-TOKEN' : $token },
-    type : 'POST',
-    dataType : 'json',
-    data : {
-      pass : $pass,
-      retiro : $id,
-    },
-    beforeSend : function () {
-      debug('Antes de enviar');
-      $('#ajax-loader').fadeIn('slow');
-    },
-    success : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        debug(data, false);
-        if (data.tipo == 'error') {
-           sweet_alert('¡Error!', data.mensaje, 'error');
-        } else {
-          sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
-        }
-      });
-    },
-    fail : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        debug('Error en el proceso de realizar retiro.');
-        debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'inténtelo de nuevo más tarde.', 'warning', 'reload');
-      });
-    }
-  });
-});
-
 /*** Inicio de Procesar pago Extra ***/
 $('#btn-comprobante-extr').click(function(e) {
   e.preventDefault();
-  debug('Presionado boton de Compr. Extr.');
-
-  var id_deuda_extr = $('#id_deuda_extr').val();
-  var ruta = '/cajera/cobro/extraordinario/guardar';
-  var $token = $('#_token').val();
-
-  $.ajax({
-    url: ruta,
-    headers: {'X-CSRF-TOKEN' : $token},
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      id_deuda_extr: id_deuda_extr,
-      tipo: 'comprobante',
-    },
-    beforeSend : function () {
-          debug('Antes de enviar');
-          $('#ajax-loader').fadeIn('slow');
-        },
-    success : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        swal({
-          title : '¡Éxito!',
-          text :  data.mensaje,
-          type : 'success',
-        }, function () {
-          document.location.reload();
-        });
-      });
-    },
-    error : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        var error = '203';
-        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
-      });
-    },
-    complete : function (data, textStatus) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        debug(data, false);
-        debug(textStatus);
-      });
-    }
+  var $id_institucion = $('#id_institucion').val();
+  debug($id_institucion);
+  var ruta = '/cajera/comprobante/' + $id_institucion + '/comprobante';
+  $.get(ruta, function(data) {
+    $('#serie-comprobante-extr').html(data.serie);
+    $('#numero-comprobante-extr').val(data.numero);
+    $('#tipo-comprobante-extr').val('comprobante');
+    $('#datos-comprobante-extr').slideDown();
   });
 });
 
@@ -433,54 +349,58 @@ $('#btn-factura-extr').click(function(e) {
 
   var id_deuda_extr = $('#id_deuda_extr').val();
 });
-/*** Fin de Procesar pago Extra ***/
 
-/*** Inicio de Configuracion de Impresora ***/
-$('#btn-guardar-conf-impresora').click(function (e) {
+$('#btn-guardar-cobro-extr').click(function(e) {
   e.preventDefault();
+  var $tipo_comprobante = $('#tipo-comprobante-extr').val();
+  if ($tipo_comprobante == 'factura') {
+    // TODO
+  } else {
+    var id_deuda_extr = $('#id_deuda_extr').val();
+    var ruta = '/cajera/cobro/extraordinario/guardar';
+    var $token = $('#_token').val();
 
-  var $tipo_impresora = $('#tipo_impresora').val();
-  var ruta = '/cajera/configuracion/impresora/guardar';
-  var $token = $('#_token').val();
-
-  $.ajax({
-    url: ruta,
-    headers: {'X-CSRF-TOKEN' : $token},
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      tipo_impresora: $tipo_impresora,
-    },
-    beforeSend : function () {
-          debug('Antes de enviar');
-          $('#ajax-loader').fadeIn('slow');
-        },
-    success : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        swal({
-          title : '¡Éxito!',
-          text :  data.mensaje,
-          type : 'success',
-        }, function () {
-          document.location.reload();
+    $.ajax({
+      url: ruta,
+      headers: {'X-CSRF-TOKEN' : $token},
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        id_deuda_extr: id_deuda_extr,
+        tipo: $tipo_comprobante,
+        /** TODO: enviar datos de comprobante **/
+      },
+      beforeSend : function () {
+            debug('Antes de enviar');
+            $('#ajax-loader').fadeIn('slow');
+          },
+      success : function (data) {
+        $('#ajax-loader').fadeOut('slow', function () {
+          swal({
+            title : '¡Éxito!',
+            text :  data.mensaje,
+            type : 'success',
+          }, function () {
+            document.location.reload();
+          });
         });
-      });
-
-    },
-    error : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        var error = 'NN';
-        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
-      });
-    },
-    complete : function (data, textStatus) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        debug(data, false);
-        debug(textStatus);
-      });
-    }
-  });
+      },
+      error : function (data) {
+        $('#ajax-loader').fadeOut('slow', function () {
+          var error = '203';
+          sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+        });
+      },
+      complete : function (data, textStatus) {
+        $('#ajax-loader').fadeOut('slow', function () {
+          debug(data, false);
+          debug(textStatus);
+        });
+      }
+    });
+  }
 });
+/*** Fin de Procesar pago Extra ***/
 
 /*** Inicio de Registro e Impresión de cobro múltiple ***/
 $('#comprobante.btn-cobro-multiple').click(function(e) {
@@ -709,3 +629,104 @@ $('#factura.btn-cobro-multiple').click(function(e) {
   };
 });
 /*** Fin de Registro e Impresión de cobro múltiple ***/
+
+/*** Inicio de autorización de retiro ***/
+$('#modal-confirmar-autorizacion').on('shown.bs.modal', function (e) {
+  var $boton = $(e.relatedTarget);
+  var id = $boton.data('id');
+
+  var $modal = $(this);
+  $modal.find('#modal-id').val(id);
+});
+
+$('#modal-confirmar-autorizacion #modal-guardar').click(function () {
+  var $modal = $('#modal-confirmar-autorizacion');
+  var $id = $('#modal-id').val();
+  var $pass = $('#contrasenia').val();
+  var $token = $('#modal-token').val();
+  debug($id);
+  debug($pass);
+
+  var ruta = '/cajera/retiro/confirmacion';
+
+  $.ajax({
+    url: ruta,
+    headers : { 'X-CSRF-TOKEN' : $token },
+    type : 'POST',
+    dataType : 'json',
+    data : {
+      pass : $pass,
+      retiro : $id,
+    },
+    beforeSend : function () {
+      debug('Antes de enviar');
+      $('#ajax-loader').fadeIn('slow');
+    },
+    success : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        if (data.tipo == 'error') {
+           sweet_alert('¡Error!', data.mensaje, 'error');
+        } else {
+          sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
+        }
+      });
+    },
+    fail : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug('Error en el proceso de realizar retiro.');
+        debug(data, false);
+        sweet_alert('Ocurrió algo inesperado', 'inténtelo de nuevo más tarde.', 'warning', 'reload');
+      });
+    }
+  });
+});
+/*** Fin de autorización de retiro ***/
+
+/*** Inicio de Configuracion de Impresora ***/
+$('#btn-guardar-conf-impresora').click(function (e) {
+  e.preventDefault();
+
+  var $tipo_impresora = $('#tipo_impresora').val();
+  var ruta = '/cajera/configuracion/impresora/guardar';
+  var $token = $('#_token').val();
+
+  $.ajax({
+    url: ruta,
+    headers: {'X-CSRF-TOKEN' : $token},
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      tipo_impresora: $tipo_impresora,
+    },
+    beforeSend : function () {
+          debug('Antes de enviar');
+          $('#ajax-loader').fadeIn('slow');
+        },
+    success : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        swal({
+          title : '¡Éxito!',
+          text :  data.mensaje,
+          type : 'success',
+        }, function () {
+          document.location.reload();
+        });
+      });
+
+    },
+    error : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        var error = 'NN';
+        sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
+      });
+    },
+    complete : function (data, textStatus) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        debug(data, false);
+        debug(textStatus);
+      });
+    }
+  });
+});
+/*** Fin de Configuracion de Impresora ***/
