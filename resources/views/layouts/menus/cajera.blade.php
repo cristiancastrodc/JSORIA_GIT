@@ -14,6 +14,6 @@
 <li><a href="{!!URL::to('/cajera/reporte/procesar')!!}" target="_blank">
   <i class="zmdi zmdi-chart"></i> Reporte</a>
 </li>
-<li><a href="{{ url('/cajera/generar/ingreso') }}">
+<!--li><a href="{{ url('/cajera/generar/ingreso') }}">
   <i class="zmdi zmdi-chart"></i> Cobros (Nuevo)</a>
-</li>
+</li-->

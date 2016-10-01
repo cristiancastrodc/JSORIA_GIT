@@ -102,7 +102,7 @@
                   </div>
                   <div class="form-group">
                     <div class="col-sm-3 col-sm-offset-9">
-                      <button class="btn accent-color btn-block waves-effect" type="submit">Buscar</button>
+                      <button class="btn accent-color btn-block waves-effect" type="submit">Guardar</button>
                     </div>
                   </div>
                 </form>

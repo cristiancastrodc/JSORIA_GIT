@@ -85,7 +85,7 @@
           <div class="row">
             <div class="col-sm-3 col-sm-offset-9">
                 <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-finalizar-pago">Finalizar</button>
-              </div>            
+              </div>
           </div>
         </div>
       </div>

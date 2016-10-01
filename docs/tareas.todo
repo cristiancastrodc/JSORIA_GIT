@@ -23,7 +23,7 @@ Admin:
  ☐ Módulo: Modificar/Lista de Cobros extraordinarios creados. @low
  ☐ Módulo: Importador de datos. @low
  ☐ Configuración de porcentaje de descuento para pensiones. @low
- ☐ Módulo para definición de Series de Comprobantes de Pago. @high
+ ✔ Módulo para definición de Series de Comprobantes de Pago. @high @done (16-09-29 23:36)
  ☐ Quitar la configuración para el uso de facturas.
   Actividades:
    ☐ Dividir en pantallas de Creación y Administración. @low
@@ -74,7 +74,7 @@ Secretaria:
   ☐ Al Buscar el loader aparece atras del modal de editar. @critical
 Tesorera:
  ☐ Revisar procesamiento. @critical
- ☐ Módulo para el registro del saldo inicial.
+ ✔ Módulo para el registro del saldo inicial. @done (16-09-29 23:37)
  Registrar egreso:
  Modificar Egreso:
    ☐ al eliminar egreso el loader aparece detras del mensaje. @critical   

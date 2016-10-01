@@ -148,7 +148,7 @@ class CobrosController extends Controller
                           $descuento = $id_institucion == "3" && $hoy <= $fecha_fin ? floatval($deuda->saldo) * 0.11 : $descuento;
                           $descuento = $id_institucion == "4" && $hoy <= $fecha_fin ? floatval($deuda->saldo) * 0.15 : $descuento;
                           $deuda->descuento = $descuento;
-                          $deuda->save();
+                          //$deuda->save();
                       }
                   }
 
@@ -242,10 +242,11 @@ class CobrosController extends Controller
                 array_push($pagos, $concepto);
             }
 
-            $id_razon_social = Institucion::find($request['id_institucion'])->id_razon_social;
+            //$id_razon_social = Institucion::find($request['id_institucion'])->id_razon_social;
             $comprobante = Comprobante::where('tipo', $tipo_comprobante)
                                       ->where('serie', $serie_comprobante)
-                                      ->where('id_razon_social', $id_razon_social)
+                                      ->where('id_institucion', $request['id_institucion'])
+                                      //->where('id_razon_social', $id_razon_social)
                                       ->first();
             $comprobante->numero_comprobante = intval($numero_comprobante);
             $comprobante->save();
@@ -253,8 +254,8 @@ class CobrosController extends Controller
             $alumno = Alumno::find($nro_documento);
             $nombre_completo = strtoupper($alumno->nombres . " " . $alumno->apellidos);
 
-            $mensaje = 'Pagos de alumno correctamente actualizados.';
-
+            $mensaje = 'Pagos de alumno correctamente actualizados. Puede girar manualmente el comprobante.';
+            /*
             $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
             if ($usuario_impresora->tipo_impresora == 'matricial') {
                 if ($tipo_comprobante == 'comprobante' || $tipo_comprobante == 'boleta') {
@@ -273,7 +274,7 @@ class CobrosController extends Controller
                     $mensaje = 'Pagos de alumno actualizados. Puede girar la boleta/factura manualmente.';
                 }
             }
-
+            */
             return response()->json(['mensaje' => $mensaje]);
         }
     }
@@ -383,14 +384,32 @@ class CobrosController extends Controller
     **/
     public function buscarComprobante($id_institucion, $tipo_comprobante)
     {
-      $tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
-      $datos_comprobante = Comprobante::datosComprobante($tipo_comprobante, $tipo_impresora, $id_institucion);
+      //$tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
+      $comprobantes = Comprobante::seriesComprobante($tipo_comprobante, $id_institucion);
+      foreach ($comprobantes as $comprobante) {
+        $comprobante->numero_comprobante = str_pad(intval($comprobante->numero_comprobante) + 1, $comprobante->pad_izquierda, '0', STR_PAD_LEFT);
+      }
+      /*
       $numero = str_pad(intval($datos_comprobante->numero_comprobante) + 1, $datos_comprobante->pad_izquierda, '0', STR_PAD_LEFT);
-
       return response()->json([
         'serie' => $datos_comprobante->serie,
         'numero' => $numero
         ]);
+      */
+      return response()->json($comprobantes);
+    }
+
+    /**
+    * Buscar el número correspondiente a la serie seleccionada
+    **/
+    public function buscarNumeroComprobante($id_institucion, $tipo_comprobante, $serie_comprobante)
+    {
+      $comprobante = Comprobante::where('id_institucion', $id_institucion)
+                                ->where('tipo', $tipo_comprobante)
+                                ->where('serie', $serie_comprobante)
+                                ->first();
+      $numero_comprobante = str_pad(intval($comprobante->numero_comprobante) + 1, $comprobante->pad_izquierda, '0', STR_PAD_LEFT);
+      return response()->json(['numero_comprobante' => $numero_comprobante]);
     }
 
     /**

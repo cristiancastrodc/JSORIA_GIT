@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
+use JSoria\Balance;
 use JSoria\Comprobante;
 use JSoria\UsuarioImpresora;
 use Redirect;
@@ -170,18 +171,17 @@ class ConfiguracionController extends Controller
      */
     public function registrarSaldoInicial(Request $request)
     {
-        $fecha = date('Y-m-d');
-        date_sub($fecha, date_interval_create_from_date_string('1 days'));
-        /*
-echo date_format($fecha, 'Y-m-d');
+        $date = new \DateTime();
+        $date->add(\DateInterval::createFromDateString('yesterday'));
+        $fecha = $date->format('Y-m-d');
 
         Balance::create([
-            'fecha' => 
-            'id_tesorera' => 
-            'ingresos' => 
-            'egresos' => 
+            'fecha' => $fecha,
+            'id_tesorera' => Auth::user()->id,
+            'ingresos' => floatval($request['saldo_inicial']),
         ]);
-*/
-        return $fecha;
+
+        Session::flash('message-success', 'Saldo inicial correctamente creado. Ahora puede utilizar el sistema.');
+        return Redirect::to('escritorio');
     }
 }

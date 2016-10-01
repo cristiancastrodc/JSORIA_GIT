@@ -48,7 +48,8 @@
             <div class="form-group">
               <label class="control-label col-sm-3"><strong>Serie</strong></label>
               <div class="col-sm-9">
-                <p class="form-control-static" id="serie_comprobante"></p>
+                <select class="selectpicker" name="serie_comprobante" id="serie_comprobante" title="Seleccione">
+                </select>
               </div>
             </div>
             <div class="form-group">

@@ -90,7 +90,12 @@
     </aside>
     <section id="content">
       <div class="container">
-        @include('messages.alert')
+        <div class="row">
+          <div class="col-sm-10">
+            @include('messages.alert')
+            @include('messages.success')
+          </div>
+        </div>
         <!-- Contenido -->
         @yield('content')
       </div>

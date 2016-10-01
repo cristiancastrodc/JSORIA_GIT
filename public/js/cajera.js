@@ -162,11 +162,21 @@ $('#modal-resumen-pago').on('click', '#btn-comprobante', function(e) {
   var $id_institucion = $('#id_institucion').val();
   debug($id_institucion);
   var ruta = '/cajera/comprobante/' + $id_institucion + '/comprobante';
+  var $series = $('#serie_comprobante');
+  $series.empty();
   $.get(ruta, function(data) {
+    debug(data, false);
+    for (var i = 0; i < data.length; i++) {
+      var opcion = "<option>" + data[i].serie + "</option>";
+      $series.append(opcion);
+    };
+    $series.selectpicker('refresh');
+    $modal.find('#tipo_comprobante').val('comprobante');
+    /*
     $modal = $('#modal-resumen-pago');
     $modal.find('#serie_comprobante').html(data.serie);
     $modal.find('#numero_comprobante').val(data.numero);
-    $modal.find('#tipo_comprobante').val('comprobante');
+    */
     $('#datos-comprobante').slideDown();
   });
 });
@@ -176,11 +186,21 @@ $('#modal-resumen-pago').on('click', '#btn-boleta', function(e) {
   var $id_institucion = $('#id_institucion').val();
   debug($id_institucion);
   var ruta = '/cajera/comprobante/' + $id_institucion + '/boleta';
+  var $series = $('#serie_comprobante');
+  $series.empty();
   $.get(ruta, function(data) {
+    debug(data, false);
+    for (var i = 0; i < data.length; i++) {
+      var opcion = "<option>" + data[i].serie + "</option>";
+      $series.append(opcion);
+    };
+    $series.selectpicker('refresh');
+    $modal.find('#tipo_comprobante').val('boleta');
+    /*
     $modal = $('#modal-resumen-pago');
     $modal.find('#serie_comprobante').html(data.serie);
     $modal.find('#numero_comprobante').val(data.numero);
-    $modal.find('#tipo_comprobante').val('boleta');
+    */
     $('#datos-comprobante').slideDown();
   });
 });
@@ -190,12 +210,33 @@ $('#modal-resumen-pago').on('click', '#btn-factura', function(e) {
   var $id_institucion = $('#id_institucion').val();
   debug($id_institucion);
   var ruta = '/cajera/comprobante/' + $id_institucion + '/factura';
+  var $series = $('#serie_comprobante');
+  $series.empty();
   $.get(ruta, function(data) {
+    debug(data, false);
+    for (var i = 0; i < data.length; i++) {
+      var opcion = "<option>" + data[i].serie + "</option>";
+      $series.append(opcion);
+    };
+    $series.selectpicker('refresh');
+    $modal.find('#tipo_comprobante').val('factura');
+    /*
     $modal = $('#modal-resumen-pago');
     $modal.find('#serie_comprobante').html(data.serie);
     $modal.find('#numero_comprobante').val(data.numero);
-    $modal.find('#tipo_comprobante').val('factura');
+    */
     $('#datos-comprobante').slideDown();
+  });
+});
+
+$('#serie_comprobante').change(function (e) {
+  $('#numero_comprobante').val();
+  var $id_institucion = $('#id_institucion').val();
+  var $tipo_comprobante = $('#tipo_comprobante').val();
+  var $serie = $('#serie_comprobante').val();
+  var ruta = '/cajera/comprobante/' + $id_institucion + '/' + $tipo_comprobante + '/' + $serie;
+  $.get(ruta, function (response, state) {
+    $('#numero_comprobante').val(response.numero_comprobante);
   });
 });
 
@@ -217,7 +258,7 @@ function procesarComprobanteBoleta () {
   var $id_pagos = $("#id_pagos").val();
   var $id_compras = $("#id_compras").val();
   var $tipo_comprobante = $("#tipo_comprobante").val();
-  var $serie_comprobante = $("#serie_comprobante").html();
+  var $serie_comprobante = $("#serie_comprobante").val();
   var $numero_comprobante = $("#numero_comprobante").val();
 
   $.ajax({
@@ -270,7 +311,7 @@ function procesarFactura() {
   var $id_pagos = $("#id_pagos").val();
   var $id_compras = $("#id_compras").val();
   var $tipo_comprobante = $("#tipo_comprobante").val();
-  var $serie_comprobante = $("#serie_comprobante").html();
+  var $serie_comprobante = $("#serie_comprobante").val();
   var $numero_comprobante = $("#numero_comprobante").val();
 
   $.ajax({

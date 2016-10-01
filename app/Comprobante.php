@@ -16,8 +16,9 @@ class Comprobante extends Model
   /**
    * Recupera los datos del comprobante
    */
-  public static function datosComprobante($tipo_comprobante, $tipo_impresora, $id_institucion)
+  public static function seriesComprobante($tipo_comprobante, $id_institucion)
   {
+    /*
     $id_razon_social = Institucion::find($id_institucion)->id_razon_social;
     if ($tipo_comprobante != 'comprobante') {
       return Comprobante::where('tipo', $tipo_comprobante)
@@ -29,6 +30,11 @@ class Comprobante extends Model
                         ->where('serie', $serie)
                         ->where('id_razon_social', $id_razon_social)
                         ->first();
-    }    
+    }
+    */
+    return Comprobante::where('tipo', $tipo_comprobante)
+                      ->where('id_institucion', $id_institucion)
+                      ->select('serie', 'pad_izquierda', 'numero_comprobante')
+                      ->get();
   }
 }
