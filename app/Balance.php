@@ -3,11 +3,10 @@
 namespace JSoria;
 
 use Illuminate\Database\Eloquent\Model;
-
-use JSoria\Egreso;
-use JSoria\Retiro;
-
 use DB;
+use JSoria\Egreso;
+use JSoria\IngresoTesorera;
+use JSoria\Retiro;
 
 class Balance extends Model {
   protected $table = 'balance';
@@ -73,6 +72,9 @@ class Balance extends Model {
                      ->select('egreso.fecha_registro as fecha_item', 'tipo_comprobante.denominacion', 'egreso.numero_comprobante', 'detalle_egreso.descripcion', DB::raw("0 as ingreso"), 'detalle_egreso.monto as egreso', DB::raw("'bg-danger' as class"))
                      ->whereDate('egreso.fecha_registro', '=', $fecha)
                      ->where('egreso.id_tesorera', $id_tesorera);
+    $adicionales = IngresoTesorera::where('id_tesorera', $id_tesorera)
+                                  ->whereDate('created_at', '=', $fecha)
+                                  ->select('created_at as fecha_item', DB::raw("'s/d' as denominacion"), DB::raw("'s/d' as numero_comprobante"), DB::raw("'Ingreso Adicional' as descripcion"), 'monto as ingreso', DB::raw('0 as egreso'), DB::raw("'bg-success' as class"));
     $ingresos = Retiro::join('deuda_ingreso', 'retiro.id', '=', 'deuda_ingreso.id_retiro')
                       ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
                       ->select('deuda_ingreso.fecha_hora_ingreso as fecha_item', 'deuda_ingreso.tipo_comprobante as denominacion', DB::raw("CONCAT(jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as numero_comprobante"), 'categoria.nombre as descripcion', DB::raw('jsoria_deuda_ingreso.saldo - jsoria_deuda_ingreso.descuento as ingreso'), DB::raw("0 as egreso"), DB::raw("'bg-success' as class"))
@@ -80,6 +82,7 @@ class Balance extends Model {
                       ->where('retiro.id_usuario', $id_tesorera)
                       ->where('retiro.estado', 1)
                       ->union($egresos)
+                      ->union($adicionales)
                       ->orderBy('fecha_item')
                       ->get();
     return $ingresos;

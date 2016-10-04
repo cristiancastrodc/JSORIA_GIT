@@ -17,6 +17,7 @@ Generales:
  ☐ Secretaria y Administrador: Reporte de historial de alumno con selección del período.
  ☐ Secretaria y Administrador: El reporte de cuenta de alumno debe de mostrar las deudas con su período asociado.
  ☐ Reportes exportar a Excel.
+ ☐ Módulo para la búsqueda de alumno por palabras clave.
 Admin:
  ☐ Reporte de acciones de usuarios. @low
  ☐ Verificar que para cada modulo, restringir opciones de acuerdo a sus permisos. @high
@@ -25,6 +26,7 @@ Admin:
  ☐ Configuración de porcentaje de descuento para pensiones. @low
  ✔ Módulo para definición de Series de Comprobantes de Pago. @high @done (16-09-29 23:36)
  ☐ Quitar la configuración para el uso de facturas.
+ ☐ Rehacer los módulos de matrícula y pensiones.
   Actividades:
    ☐ Dividir en pantallas de Creación y Administración. @low
    ☐ Revisar procesamiento de Creación. @critical
@@ -38,6 +40,7 @@ Admin:
      ☐ Dividir en pantallas de Creación y Administración. @low
      ☐ Revisar procesamiento de Creación. @critical
      ☐ Al Buscar el loader aparece atras del modal de editar. @critical
+     ☐ Al listar los cobros debe de poder seleccionar varias instituciones.
     Extraordinarios:
      ☐ Revisar procesamiento de Creación. @critical
     Otros:
@@ -59,25 +62,34 @@ Admin:
     ☐ Revisar procesamiento para todos los reportes. @critical
     ☐ Rediseñar PDF. @high
     ☐ Reporte de lista de ingresos por cajera.
+    ☐ Lista de ingresos: usuario que realizó el cobro.
+    ☐ Cuenta de Alumno: mostrar estado de pago (pendiente - pagado).
+    ☐ Cuenta de Alumno: cambiar Total -> Total inversión.
+    ☐ Cuenta de Alumno: mostrar fecha de vencimiento de los pagos.
 Secretaria:
  ☐ Revisar procesamiento. @critical
  ☐ Reporte: Alumnos Deudores. @critical
  ☐ Reporte: Reporte de deudas por grados. @critical
  ☐ Mostrar institucion del alumno en todos los procesos donde se le involucre. @critical
  ☐ Quitar módulo de amortizaiones.
+ ☐ Módulo para registrar las matrículas antiguas de un alumno con los pagos que se han realizado en un período seleccionado.
  Nuevo Alumno:
   ☐ Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres. @high
  Matricular:
+  ☐ Mostrar reporte con las deudas generadas. El Total debe de decir Total Inversión.
  Modificar deuda:
   ☐ No aparece la pelotita del loader. @high
  Autorizar descuento:
   ☐ Al Buscar el loader aparece atras del modal de editar. @critical
+ Cierre de ciclo:
+  ☐ El módulo debe de ser automático.
 Tesorera:
  ☐ Revisar procesamiento. @critical
  ✔ Módulo para el registro del saldo inicial. @done (16-09-29 23:37)
+ ✔ Módulo para el registro de ingreso sin retiro de caja. @done (16-10-04 05:02)
  Registrar egreso:
  Modificar Egreso:
-   ☐ al eliminar egreso el loader aparece detras del mensaje. @critical   
+   ☐ al eliminar egreso el loader aparece detras del mensaje. @critical
  Rubros:
  Retiro:
   ☐ Revisar módulo. @critical
@@ -96,7 +108,10 @@ Cajera:
      ☐ Para realizar un cobro, el alumno no debe estar necesariamente matriculado. @critical
      ☐ Se puede realizar cobros parciales (amortizaciones) de deudas.
      ☐ Formato de impresión debe de tener una línea para la firma.
+     ☐ La impresión debe de ser por navegador.
+     ☐ Al realizar el cobro, se puede realizar directamente una amortización (pago parcial).
    ☐ Para factura en la impresora matricial, solicitar razon social, ruc y direccion.
+   ☐ Al realizar un pago, si aún está en período de descuento, puede amortizar con descuento, caso contrario el monto vuelve a ser el total original sin descuento.
   Otros cobros:
    ☐ Reanalizar y rehacer módulo. @critical @critical
   Retiro:
