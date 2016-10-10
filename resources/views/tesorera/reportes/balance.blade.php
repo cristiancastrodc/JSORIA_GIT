@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Balance de Ingresos y Egresos</title>
   <link rel="stylesheet" href="{{ asset('css/reportes.css') }}">
 </head>
 <body>
-  <header>
+  <div class="header">
     <h1>BALANCE DE INGRESOS Y EGRESOS</h1>
-    <div class="date">Fecha: {{ $fecha }}</div>
+    <div class="text-right">Fecha: {{ $fecha }}</div>
     <hr>
-  </header>
-  <main>
-    <h2>RESUMEN</h2>
-    <table class="bordered">
-      <thead>
-        <tr class="text-center"><td>Saldo anterior ({{ $balance->fecha }})</td><td>Ingresos</td><td>Egresos</td><td>Saldo Actual</td></tr>
-      </thead>
-      <tbody>
-        <tr class="text-right"><td>{{ $balance->saldo_anterior }}</td><td>{{ $balance->ingresos }}</td><td>{{ $balance->egresos }}</td><td>{{ $balance->saldo_actual }}</td></tr>
-      </tbody>
-    </table>
+  </div>
+  <div class="footer">
+    Página <span class="pagenum"></span>
+  </div>
+  <h2>RESUMEN</h2>
+  <table class="bordered">
+    <thead>
+      <tr class="text-center"><td>Saldo anterior ({{ $balance->fecha }})</td><td>Ingresos</td><td>Egresos</td><td>Saldo Actual</td></tr>
+    </thead>
+    <tbody>
+      <tr class="text-right"><td>{{ $balance->saldo_anterior }}</td><td>{{ $balance->ingresos }}</td><td>{{ $balance->egresos }}</td><td>{{ $balance->saldo_actual }}</td></tr>
+    </tbody>
+  </table>
     <h2>DETALLADO</h2>
     <table class="bordered">
       <thead>
@@ -44,6 +46,5 @@
         @endforeach
       </tbody>
     </table>
-  </main>
 </body>
 </html>
