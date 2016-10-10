@@ -8,6 +8,7 @@ use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Egreso;
+use DB;
 
 class AdminReporteEgresosRubro extends Controller
 {
@@ -49,7 +50,7 @@ class AdminReporteEgresosRubro extends Controller
                             ->where('id_institucion','=',$id_institucion)
                             ->whereBetween('fecha_registro',[$fecha_inicio,$fecha_fin])
                             ->groupBy('nombre','id_rubro')
-                            ->select('nombre','monto')
+                            ->select('nombre',DB::raw('Sum(monto) as montos'))
                             ->get();
 
         switch ($id_institucion) {

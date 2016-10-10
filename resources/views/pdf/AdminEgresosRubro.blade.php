@@ -23,11 +23,11 @@
       <?php $i=1;$total=0;?>
           @foreach($datas as $data)
       <tr>
-      <td><?php echo $i?></td>
+      <td><?php echo $i;?></td>
       <td>{{$data['nombre']}}
       </td>
-      <td>{{$data['monto']}}
-      <?php $total=$total+$data['monto']?>        
+      <td>{{$data['montos']}}
+      <?php $total=$total+$data['montos'];?>        
       </td>
     </tr>
     <?php $i++; ?>

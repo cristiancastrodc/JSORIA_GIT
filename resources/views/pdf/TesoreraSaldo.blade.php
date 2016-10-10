@@ -23,7 +23,7 @@
       <?php $i=1;$total=0;?>
       @foreach($datas as $data)
       <tr>
-      <td><?php echo $i?></td>
+      <td><?php echo $i;?></td>
       <td>{{$data['nombres'] . '&nbsp;' . $data['apellidos']}}
       </td>
       <td>{{$data['cliente_extr']}}        
@@ -31,7 +31,7 @@
       <td>{{$data['nombre']}}
       </td>
       <td>{{$data['saldo'] - $data['descuento']}}
-      <?php $total=$total+$data['saldo'] - $data['descuento']?>       
+      <?php $total=$total+$data['saldo'] - $data['descuento'];?>       
       </td>
     </tr>
     <?php $i++; ?>
