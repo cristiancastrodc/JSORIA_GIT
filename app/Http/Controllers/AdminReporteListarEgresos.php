@@ -81,8 +81,8 @@ class AdminReporteListarEgresos extends Controller
             $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
                                 ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
                                 ->where('id_institucion','=',$id_institucion)
-                                ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-                                ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                                ->whereBetween('fecha_registro',[$fecha_inicio,$fecha_fin])
+                                ->select('tipo_comprobante','numero_comprobante','nombre','monto', 'fecha_registro')
                                 ->get();
             }
             else
@@ -92,8 +92,8 @@ class AdminReporteListarEgresos extends Controller
                                 ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
                                 ->where('id_institucion','=',$id_institucion)
                                 ->where('detalle_egreso.id_rubro','=',$id_rubro)
-                                ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
-                                ->select('tipo_comprobante','numero_comprobante','nombre','monto')
+                                ->whereBetween('fecha_registro',[$fecha_inicio,$fecha_fin])
+                                ->select('tipo_comprobante','numero_comprobante','nombre','monto', 'fecha_registro')
                                 ->get();
             }
 //        }            

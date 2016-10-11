@@ -25,9 +25,19 @@
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
             <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
             <div class="form-group">
+              <label for="fecha" class="col-sm-3 control-label">Fecha de Registro</label>
+              <div class="col-sm-9">
+                <div class="fg-line">
+                  <div class="dtp-container fg-line">
+                    <input type='text' class="form-control date-picker" placeholder="Elija la fecha" name="fecha_registro" id="fecha_registro">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir...'>
+                <select class="selectpicker" name="id_institucion" id="id_institucion" title="Institución">
                   @foreach($permisos as $permiso)
                     <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
                   @endforeach
@@ -37,7 +47,7 @@
             <div class="form-group">
               <label for="tipo_comprobante" class="col-sm-3 control-label">Tipo de comprobante</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="tipo_comprobante" id="tipo_comprobante" title='Elegir...'>
+                <select class="selectpicker" name="tipo_comprobante" id="tipo_comprobante" title="Tipo Comprobante">
                   <option value="1">Boleta</option>
                   <option value="2">Factura</option>
                   <option value="3">Comprobante de Pago</option>
@@ -55,7 +65,7 @@
               </div>
             </div>                       
             <div class="form-group">
-              <label for="fecha" class="col-sm-3 control-label">Fecha</label>
+              <label for="fecha" class="col-sm-3 control-label">Fecha del Comprobante</label>
               <div class="col-sm-9">
                 <div class="fg-line">
                   <div class="dtp-container fg-line">

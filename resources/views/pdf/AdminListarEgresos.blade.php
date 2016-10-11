@@ -14,7 +14,7 @@
   <table >
     <thead>
       <tr>
-        <td>#</td>
+        <td>Fecha</td>
         <td>Tipo Comprobante</td>
         <td>Nro Comprobante</td>
         <td>Rubro</td>
@@ -25,7 +25,6 @@
       <?php $i=1;$total=0.00;?>
           @foreach($datas as $data)
       <tr>
-      <td><?php echo $i?></td>
       <?php 
         switch ($data['tipo_comprobante']) {
           case 1:
@@ -35,15 +34,20 @@
             $data['tipo_comprobante']='Factura';
             break;
           case 3:
-            $data['tipo_comprobante']='Comprobante Pago';
-            break;          
+            $data['tipo_comprobante']='Comprobante de Pago';
+            break;
           case 4:
+            $data['tipo_comprobante']='Comprobante de Egreso';
+            break;          
+          case 5:
             $data['tipo_comprobante']='Recibo por Honorarios';
             break;          
           default:            
             break;
         };
       ?>      
+      <td>{{$data['fecha_registro']}}
+      </td>
       <td>{{$data['tipo_comprobante']}}
       </td>
       <td>{{$data['numero_comprobante']}}
@@ -51,7 +55,7 @@
       <td>{{$data['nombre']}}
       </td>
       <td>{{$data['monto']}}
-      <?php $total=$total+$data['monto']?>            
+      <?php $total=$total+$data['monto']; ?>            
       </td>
     </tr>
     <?php $i++; ?>

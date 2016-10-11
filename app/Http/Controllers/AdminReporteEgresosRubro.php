@@ -47,7 +47,7 @@ class AdminReporteEgresosRubro extends Controller
         $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
                             ->join('rubro','detalle_egreso.id_rubro','=','rubro.id')
                             ->where('id_institucion','=',$id_institucion)
-                            ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                            ->whereBetween('fecha_registro',[$fecha_inicio,$fecha_fin])
                             ->groupBy('nombre','id_rubro')
                             ->select('nombre','monto')
                             ->get();

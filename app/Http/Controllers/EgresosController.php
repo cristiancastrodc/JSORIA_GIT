@@ -147,6 +147,7 @@ class EgresosController extends Controller
     public function crearEgreso(EgresoCreateRequest $request)
     {
         if ($request->ajax()) {
+            $fecha_registro = $request->fecha_registro;
             $id_institucion = $request->id_institucion;
             $tipo_comprobante = $request->tipo_comprobante;
             $numero_comprobante = 0;
@@ -167,7 +168,7 @@ class EgresosController extends Controller
                 $numero_comprobante = $request->numero_comprobante;
             //}
 
-            $fecha_registro = date('Y-m-d H:i:s');
+            //$fecha_registro = date('Y-m-d H:i:s');
             $id_egreso = Egreso::create([
                 "tipo_comprobante" => $tipo_comprobante,
                 "numero_comprobante" => $numero_comprobante,
