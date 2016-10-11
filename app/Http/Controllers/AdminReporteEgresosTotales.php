@@ -53,21 +53,21 @@ class AdminReporteEgresosTotales extends Controller
             case 'dias':
                 $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
                                     ->where('id_institucion','=',$id_institucion)
-                                    ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                    ->whereBetween('fecha_registro',[$fecha_inicio,$fecha_fin])
                                     ->groupBy(DB::raw('date(fecha)'))
                                     ->get([DB::raw('date(fecha) as fecha1'),DB::raw('Sum(monto) as montos')]);
                 break;
             case 'mes':
                 $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
                                     ->where('id_institucion','=',$id_institucion)
-                                    ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                    ->whereBetween('fecha_registro',[$fecha_inicio,$fecha_fin])
                                     ->groupBy(DB::raw('month(fecha)'),DB::raw('year(fecha)'))
                                     ->get([DB::raw('month(fecha) as fecha1'),DB::raw('year(fecha) as fecha2'),DB::raw('Sum(monto) as montos')]);
                 break;
             case 'anio':
                 $datas = Egreso::join('detalle_egreso','id','=','detalle_egreso.id_egreso')
                                     ->where('id_institucion','=',$id_institucion)
-                                    ->whereBetween('fecha',[$fecha_inicio,$fecha_fin])
+                                    ->whereBetween('fecha_registro',[$fecha_inicio,$fecha_fin])
                                     ->groupBy(DB::raw('year(fecha)'))
                                     ->get([DB::raw('year(fecha) as fecha1'),DB::raw('Sum(monto) as montos')]);
                 break;                

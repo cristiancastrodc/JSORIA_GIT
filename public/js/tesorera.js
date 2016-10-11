@@ -100,6 +100,7 @@ $('#btn-guardar-egreso').click(function(e) {
   e.preventDefault();
   debug('Boton Guardar Egreso presionado.');
 
+  var $fecha_registro = $('#fecha_registro').val();
   var $id_institucion = $('#id_institucion').val();
   var $tipo_comprobante = $('#tipo_comprobante').val();
   var $numero_comprobante = $('#numero_comprobante').val();
@@ -107,7 +108,7 @@ $('#btn-guardar-egreso').click(function(e) {
   var $razon_social = $('#razon_social').val();
   var $responsable = $('#responsable').val();
 
-  if ($id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "" && $responsable != "") {
+  if ($fecha_registro != "" && $id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "" && $responsable != "") {
     debug('Maestro OK. Comprobar detalle.');
     var $filas_detalle = $('#tabla-resumen-egresos > tbody > tr');
 
@@ -137,6 +138,7 @@ $('#btn-guardar-egreso').click(function(e) {
         type: 'POST',
         dataType: 'json',
         data : {
+          fecha_registro : $fecha_registro,
           id_institucion : $id_institucion,
           tipo_comprobante : $tipo_comprobante,
           numero_comprobante : $numero_comprobante,
