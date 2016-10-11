@@ -20,18 +20,7 @@ class CajeraReporteCobros extends Controller
      */
     public function index()
     {
-        $fecha = date('d-m-Y H:i:s');
-        $archivo = 'Reporte de Ingresos-' . date('dmYHis');
-
-        $ingresos = Deuda_Ingreso::cajeraIngresosPorDia(Auth::user()->id, date('Y-m-d'));
-        $total = 0;
-        foreach ($ingresos as $ingreso) {
-            $total += floatval($ingreso->monto);
-        }
-        $view = \View::make('pdf.CajeraCobros', ['ingresos' => $ingresos, 'fecha' => $fecha, 'total' => number_format($total, 2)])->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view); //->setPaper('a4', 'landscape');
-        return $pdf->stream($archivo);
+         return view('cajera.reportes.ingresos');
     }
 
 
@@ -54,7 +43,19 @@ class CajeraReporteCobros extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$fecha = date('d-m-Y H:i:s');
+        $fecha = $request['fecha'];
+        $archivo = 'Reporte de Ingresos-' . $fecha;
+
+        $ingresos = Deuda_Ingreso::cajeraIngresosPorDia(Auth::user()->id, $fecha);
+        $total = 0;
+        foreach ($ingresos as $ingreso) {
+            $total += floatval($ingreso->monto);
+        }
+        $view = \View::make('pdf.CajeraCobros', ['ingresos' => $ingresos, 'fecha' => $fecha, 'total' => number_format($total, 2)])->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view); //->setPaper('a4', 'landscape');
+        return $pdf->stream($archivo);
     }
 
     /**

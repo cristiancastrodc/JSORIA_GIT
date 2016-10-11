@@ -2,12 +2,12 @@
 <html lang="es">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Lista de Cobros del Dia</title>
+  <title>Lista de Cobros</title>
   <link rel="stylesheet" href="{{ asset('css/reportes.css') }}">
 </head>
 <body>
   <div class="header">
-    <h1>LISTA DE COBROS DEL DÍA</h1>
+    <h1>LISTA DE COBROS</h1>
     <div class="text-right">Fecha: {{ $fecha }}</div>
   </div>
   <div class="footer">
