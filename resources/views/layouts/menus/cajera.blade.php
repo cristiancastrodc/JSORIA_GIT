@@ -11,7 +11,7 @@
 <li><a href="{!!URL::to('/cajera/configuracion/impresora')!!}">
   <i class="zmdi zmdi-print"></i> Configuracion de Impresora</a>
 </li>
-<li><a href="{!!URL::to('/cajera/reporte/procesar')!!}" target="_blank">
+<li><a href="{!!URL::to('/cajera/reporte/procesar')!!}">
   <i class="zmdi zmdi-chart"></i> Reporte</a>
 </li>
 <!--li><a href="{{ url('/cajera/generar/ingreso') }}">

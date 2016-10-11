@@ -22,9 +22,6 @@ class CajeraReporteCobros extends Controller
     {
          return view('cajera.reportes.ingresos');
     }
-
-
-
     /**
      * Show the form for creating a new resource.
      *
