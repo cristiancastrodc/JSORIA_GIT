@@ -20,7 +20,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-otros-reportes','route' => 'cajera.reporte.procesar_reporte.store','method' => 'POST'))!!}
+         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-otros-reportes','route' => 'cajera.reporte.generar','method' => 'POST'))!!}
             <div class="form-group">
               <label for="fecha" class="col-sm-3 control-label">Fecha:</label>
                 <div class="col-sm-9">

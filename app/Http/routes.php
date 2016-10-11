@@ -151,7 +151,8 @@ Route::get('admin/reportes/CuentaAlumno','AdminReporteCuentaAlumno@index');
 Route::resource('admin/reportes/CuentaAlumno/procesar','AdminReporteCuentaAlumno');
 
 Route::get('cajera/reporte/procesar','CajeraReporteCobros@index');
-Route::resource('cajera/reporte/procesar_reporte','CajeraReporteCobros@store');
+Route::post('cajera/reporte/generar',
+  ['as' => 'cajera.reporte.generar', 'uses' => 'CajeraReporteCobros@generar']);
 
 Route::get('tesorera/reportes/ListaIngresos', 'AdminReporteListarIngresos@index');
 Route::resource('tesorera/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
