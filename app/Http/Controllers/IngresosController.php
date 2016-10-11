@@ -125,7 +125,7 @@ class IngresosController extends Controller
                           ->where('id_tesorera', $id_tesorera)
                           ->first();
         if ($balance) {
-            $balance->ingresos += $monto_total;
+            $balance->ingresos += $monto;
             $balance->save();
         }
         else {

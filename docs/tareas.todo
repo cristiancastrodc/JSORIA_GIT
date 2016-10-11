@@ -95,6 +95,8 @@ Tesorera:
   ☐ Revisar módulo. @critical
   ☐ No aparece la pelotita del loader. @high
   ☐ Mostrar numeros de comprobante de ingresos. @critical
+ Ingresos adicionales:
+  ☐ Filtrar instituciones de acuerdo a los permisos de la tesorera.
  Reportes:
     ☐ Revisar funcionalidad de cada reporte. @critical
     ☐ Revisar procesamiento para todos los reportes. @critical

@@ -11,31 +11,30 @@ use JSoria\Categoria;
 use Carbon\Carbon;
 use DB;
 use Auth;
+use JSoria\Deuda_Ingreso;
+
 class CajeraReporteCobros extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Reporte de ingresos por día para un usuario cajera
      */
     public function index()
     {
-        $today= Carbon::now();
-        $today=$today->toDateString();
-        $id_cajera=Auth::user()->id;
+        $fecha = date('d-m-Y H:i:s');
+        $archivo = 'Reporte de Ingresos-' . date('dmYHis');
 
-        $datas = Categoria::join('deuda_ingreso','categoria.id','=','deuda_ingreso.id_categoria')
-                            ->leftJoin('alumno','deuda_ingreso.id_alumno','=','alumno.nro_documento')
-                            ->where('estado_pago','=',1)
-                            ->where(DB::raw('date(fecha_hora_ingreso)'),'=',$today)
-                            ->where('id_cajera','=',$id_cajera)
-                            ->select(DB::raw('date(fecha_hora_ingreso) as Fecha'),'alumno.nombres','alumno.apellidos','deuda_ingreso.cliente_extr','categoria.nombre','deuda_ingreso.saldo','deuda_ingreso.descuento')
-                            ->get();   
-        $view =  \View::make('pdf.CajeraCobros', compact('datas','today'))->render();
+        $ingresos = Deuda_Ingreso::cajeraIngresosPorDia(Auth::user()->id, date('Y-m-d'));
+        $total = 0;
+        foreach ($ingresos as $ingreso) {
+            $total += floatval($ingreso->monto);
+        }
+        $view = \View::make('pdf.CajeraCobros', ['ingresos' => $ingresos, 'fecha' => $fecha, 'total' => number_format($total, 2)])->render();
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        return $pdf->stream('CajeraCobros');                          
+        $pdf->loadHTML($view); //->setPaper('a4', 'landscape');
+        return $pdf->stream($archivo);
     }
+
+
 
     /**
      * Show the form for creating a new resource.

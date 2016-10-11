@@ -69,4 +69,26 @@ where estado_pago = '0'
       */
   }
 
+  /**
+   * Devuelve la lista de ingresos de un día para una cajera
+   */
+  public static function cajeraIngresosPorDia($id_cajera, $fecha)
+  {
+    return Deuda_Ingreso::join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                        ->leftJoin('alumno', 'deuda_ingreso.id_alumno', '=', 'alumno.nro_documento')
+                        ->join('grado', 'alumno.id_grado', '=', 'grado.id')
+                        ->join('detalle_institucion', 'grado.id_detalle', '=', 'detalle_institucion.id')
+                        ->where('estado_pago', 1)
+                        ->whereDate('fecha_hora_ingreso', '=', $fecha)
+                        ->where('id_cajera', $id_cajera)
+                        ->select(
+                          'fecha_hora_ingreso as fecha',
+                          DB::raw("IFNULL(CONCAT(jsoria_alumno.nombres, ' ', jsoria_alumno.apellidos), jsoria_deuda_ingreso.cliente_extr) as cliente"),
+                          DB::raw("CONCAT(jsoria_grado.nombre_grado, ' ', jsoria_detalle_institucion.nombre_division) as grado"),
+                          'categoria.nombre as categoria',
+                          DB::raw("CONCAT(jsoria_deuda_ingreso.tipo_comprobante, '-', jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as comprobante"),
+                          DB::raw('jsoria_deuda_ingreso.saldo - jsoria_deuda_ingreso.descuento as monto'))
+                        ->orderBy('fecha_hora_ingreso', 'asc')
+                        ->get();
+  }
 }
