@@ -24,10 +24,10 @@
         <div class="card-body card-padding">
           {!!Form::open(array('route' => 'admin.autorizacion.store', 'class' => 'form-horizontal', 'method' => 'POST'))!!}
             <div class="form-group">
-              <label for="dni" class="col-sm-3 control-label">Alumno</label>
+              <label for="dni" class="col-sm-3 control-label">Documento del Alumno</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="nro_documento" name="nro_documento" placeholder="Documeto de alumno">
+                      <input type="text" class="form-control input-sm" id="nro_documento" name="nro_documento" placeholder="Ingrese DNI o Código de alumno">
                   </div>
               </div>
             </div>

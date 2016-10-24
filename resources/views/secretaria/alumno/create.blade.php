@@ -26,7 +26,7 @@
             <div class="form-group">
               <label for="tipo_documento" class="col-sm-3 control-label">Tipo Documeno</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="tipo_documento" id="tipo_documento" title='Seleccione'>
+                <select class="selectpicker" name="tipo_documento" id="tipo_documento" title='Seleccione Tipo de Documento'>
                   <option value="DNI">DNI</option>
                   <option value="PARTIDA DE NACIMIENTO">CODIGO DE ESTUDIANTE</option>
                   <option value="CARNET DE EXTRANJERIA">CARNET DE EXTRANJERIA</option>

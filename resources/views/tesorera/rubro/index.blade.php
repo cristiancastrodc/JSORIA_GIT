@@ -32,7 +32,7 @@
               <label for="nombre" class="col-sm-3 control-label">Rubro</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control" id="nombre_rubro" name="nombre" placeholder="Rubro">
+                      <input type="text" class="form-control" id="nombre_rubro" name="nombre" placeholder="Nombre del Rubro">
                   </div>
               </div>
             </div>

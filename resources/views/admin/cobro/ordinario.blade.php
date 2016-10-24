@@ -25,11 +25,10 @@
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir...'>
+                <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir Institución'>
                   <option value="1">I.E. J. Soria</option>
                   <option value="2">CEBA Konrad Adenahuer</option>
                   <option value="3">I.S.T. Urusayhua</option>
-                  <option value="4">ULP</option>
                 </select>
               </div>
             </div>
@@ -101,7 +100,7 @@
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir...'>
+                <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir Institución'>
                   <option value="1">I.E. J. Soria</option>
                   <option value="2">CEBA Konrad Adenahuer</option>
                   <option value="3">I.S.T. Urusayhua</option>

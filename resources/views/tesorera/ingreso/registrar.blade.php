@@ -31,11 +31,10 @@
             <div class="form-group">
               <label for="id_institucion" class="control-label col-sm-3">Institución</label>
               <div class="col-sm-9">
-                <select name="id_institucion" id="id_institucion" class="selectpicker" title="Seleccione">
+                <select name="id_institucion" id="id_institucion" class="selectpicker" title="Seleccione Institución">
                   <option value="1">I.E. J. Soria</option>
                   <option value="2">CEBA Konrad Adenauer</option>
                   <option value="3">I.S.T. Urusayhua</option>
-                  <option value="4">Universidad Privada Líder Peruana</option>
                 </select>
               </div>
             </div>

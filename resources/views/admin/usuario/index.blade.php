@@ -63,11 +63,10 @@
               <div class="col-sm-9">
                 <div class="fg-line">
                   <div class="select">
-                    <select class="chosen" multiple data-placeholder="Elegir..." id="permisos" name="permisos[]">
+                    <select class="chosen" multiple data-placeholder="Elegir Institucion(es)" id="permisos" name="permisos[]">
                       <option value="1">I.E. J. Soria</option>
                       <option value="2">CEBA Konrad Adenahuer</option>
                       <option value="3">I.S.T. Urusayhua</option>
-                      <option value="4">ULP</option>
                     </select>
                   </div>
                 </div>

@@ -26,7 +26,7 @@
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Seleccionar Cajera:</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="id_cajera" id="id_cajera" title='Seleccione'>
+                <select class="selectpicker" name="id_cajera" id="id_cajera" title='Seleccione Cajera'>
                   @foreach ($cajeras as $cajera)
                     <option value="{{ $cajera->id }}">{{ $cajera->nombres }} {{ $cajera->apellidos }}</option>
                   @endforeach

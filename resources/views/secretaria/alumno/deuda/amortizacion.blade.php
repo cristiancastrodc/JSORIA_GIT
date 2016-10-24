@@ -27,7 +27,7 @@
               <label for="dni" class="col-sm-3 control-label">Alumno</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="nro_documento" name="nro_documento" placeholder="Documento de Alumno">
+                      <input type="text" class="form-control input-sm" id="nro_documento" name="nro_documento" placeholder="Ingrese DNI o Código del Alumno">
                   </div>
               </div>
             </div>

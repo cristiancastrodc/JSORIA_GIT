@@ -26,7 +26,7 @@
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir...'>
+                <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir Institucion'>
                   @foreach($permisos as $permiso)
                     <option value="{{ $permiso->id }}">{{$permiso->nombre}}</option>
                   @endforeach

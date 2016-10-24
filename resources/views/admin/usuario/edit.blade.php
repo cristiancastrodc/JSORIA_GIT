@@ -50,7 +50,7 @@
               {!!Form::label('permisos[]', 'Nuevos Permisos',['class' => 'col-sm-3 control-label'])!!}
               <div class="col-sm-9">
                 <div class="fg-line">
-                  {!!Form::select('permisos[]', array('1' => 'I.E. J. Soria', '2' => 'CEBA Konrad Adenahuer', '3' => 'I.S.T. Urusayhua', '4' => 'ULP'), null, ['class' => 'chosen', 'multiple' => 'multiple', 'data-placeholder' => 'Elegir...'])!!}
+                  {!!Form::select('permisos[]', array('1' => 'I.E. J. Soria', '2' => 'CEBA Konrad Adenahuer', '3' => 'I.S.T. Urusayhua'), null, ['class' => 'chosen', 'multiple' => 'multiple', 'data-placeholder' => 'Elegir Institucion(es)'])!!}
                 </div>
               </div>
             </div>
