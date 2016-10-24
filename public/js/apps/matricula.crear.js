@@ -10,7 +10,8 @@ app.controller('matriculaController', function ($scope, $http) {
   $scope.matricula = {
     concepto : '',
     fecha_inicio : null,
-    fecha_fin : null
+    fecha_fin : null,
+    periodo : ''
   };
   $scope.pensiones = {
     concepto : 'Pensión',
@@ -18,6 +19,8 @@ app.controller('matriculaController', function ($scope, $http) {
     mes_fin : null
   };
   $scope.divisiones = [];
+  $scope.periodo = '';
+  $scope.definir_fechas = false;
   // Funciones
   $scope.recuperarDetalle = function () {
     // Recuperar el detalle de la Institucion
@@ -38,6 +41,8 @@ app.controller('matriculaController', function ($scope, $http) {
        matricula : $scope.matricula,
        pensiones : $scope.pensiones,
        divisiones : $scope.divisiones,
+       periodo : $scope.periodo,
+       definir_fechas : $scope.definir_fechas,
       }),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -54,7 +59,7 @@ app.controller('matriculaController', function ($scope, $http) {
       } else {
         swal({
           title: "Error",
-          text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.",
+          text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos. Excepción: " + response.data,
           type: "warning"
         }, function () {
           document.location.reload();

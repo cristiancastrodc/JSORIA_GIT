@@ -7,7 +7,7 @@
 @section('content')
   @if(Session::has('message'))
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-10">
       <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -33,12 +33,32 @@
                 <label for="id_institucion" class="control-label col-sm-3">Institución</label>
                 <div class="col-sm-9">
                   <select name="id_institucion" id="id_institucion" class="selectpicker" title="Seleccione" ng-model="id_institucion" ng-change="recuperarDetalle()">
-                    <option value="">Seleccione</option>
+                    <option value="">Seleccione institución</option>
                     <option value="1">I.E. J. Soria</option>
                     <option value="2">CEBA Konrad Adenauer</option>
                     <option value="3">I.S.T. Urusayhua</option>
                     <option value="4">Universidad Privada Líder Peruana</option>
                   </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="periodo" class="control-label col-sm-3">Período:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" id="periodo" name="periodo" class="form-control" placeholder="Ingrese el período. Ejemplo: 2016 - I." ng-model="periodo">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="definir_fechas" class="control-label col-sm-3">Definir Fechas:</label>
+                <div class="col-sm-9">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="definir_fechas" name="definir_fechas" ng-model="definir_fechas">
+                      <i class="input-helper"></i>
+                      Marque esta opción si desea definir las fechas para la matrícula y las pensiones. En caso contrario, estas fechas serán definidas por el usuario Secretaria.
+                    </label>
+                  </div>
                 </div>
               </div>
               <div class="card-hr"></div>
@@ -53,22 +73,24 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="fecha_inicio_matricula" class="col-sm-3 control-label">Fecha Inicio</label>
-                <div class="col-sm-9">
-                  <div class="fg-line">
-                    <div class="dtp-container fg-line">
-                      <input type='text' class="form-control date-picker" placeholder="Fecha Inicial" name="fecha_inicio_matricula" id="fecha_inicio_matricula" ng-model="matricula.fecha_inicio">
+              <div ng-show="definir_fechas">
+                <div class="form-group">
+                  <label for="fecha_inicio_matricula" class="col-sm-3 control-label">Fecha Inicio</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <div class="dtp-container fg-line">
+                        <input type='text' class="form-control date-picker" placeholder="Fecha Inicial" name="fecha_inicio_matricula" id="fecha_inicio_matricula" ng-model="matricula.fecha_inicio">
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="fecha_fin_matricula" class="col-sm-3 control-label">Fecha Fin</label>
-                <div class="col-sm-9">
-                  <div class="fg-line">
-                    <div class="dtp-container fg-line">
-                      <input type='text' class="form-control date-picker" placeholder="Fecha Final" name="fecha_fin_matricula" id="fecha_fin_matricula" ng-model="matricula.fecha_fin">
+                <div class="form-group">
+                  <label for="fecha_fin_matricula" class="col-sm-3 control-label">Fecha Fin</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <div class="dtp-container fg-line">
+                        <input type='text' class="form-control date-picker" placeholder="Fecha Final" name="fecha_fin_matricula" id="fecha_fin_matricula" ng-model="matricula.fecha_fin">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -85,22 +107,24 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="mes_inicio_pension" class="col-sm-3 control-label">Mes Inicial</label>
-                <div class="col-sm-9">
-                  <div class="fg-line">
-                    <div class="dtp-container fg-line">
-                      <input type='text' class="form-control month-picker" placeholder="Mes Inicial" name="mes_inicio_pension" id="mes_inicio_pension" ng-model="pensiones.mes_inicio">
+              <div ng-show="definir_fechas">
+                <div class="form-group">
+                  <label for="mes_inicio_pension" class="col-sm-3 control-label">Mes Inicial</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <div class="dtp-container fg-line">
+                        <input type='text' class="form-control month-picker" placeholder="Mes Inicial" name="mes_inicio_pension" id="mes_inicio_pension" ng-model="pensiones.mes_inicio">
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="mes_fin_pension" class="col-sm-3 control-label">Mes Final</label>
-                <div class="col-sm-9">
-                  <div class="fg-line">
-                    <div class="dtp-container fg-line">
-                      <input type='text' class="form-control month-picker" placeholder="Mes Final" name="mes_fin_pension" id="mes_fin_pension" ng-model="pensiones.mes_fin">
+                <div class="form-group">
+                  <label for="mes_fin_pension" class="col-sm-3 control-label">Mes Final</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <div class="dtp-container fg-line">
+                        <input type='text' class="form-control month-picker" placeholder="Mes Final" name="mes_fin_pension" id="mes_fin_pension" ng-model="pensiones.mes_fin">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -108,17 +132,36 @@
               <div class="card-hr"></div>
               <table class="table table-bordered">
                 <tr class="accent-color">
+                  <td></td>
                   <td>Nivel / Carrera</td>
                   <td>Monto Matrícula</td>
                   <td>Monto Pensiones</td>
+                  <td ng-show="id_institucion == 3"></td>
                 </tr>
                 <tr ng-repeat="detalle in divisiones">
+                  <td>
+                    <div class="checkbox table-checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="detalle.seleccionar" value="{@ detalle.seleccionar @}">
+                        <i class="input-helper"></i>
+                      </label>
+                    </div>
+                  </td>
                   <td>{@ detalle.nombre_division @}</td>
                   <td>
-                    <input type="text" class="form-control text-right" value="{@ detalle.monto_matricula @}" ng-model="detalle.monto_matricula">
+                    <input type="text" class="form-control table-input text-right" value="{@ detalle.monto_matricula @}" ng-model="detalle.monto_matricula" ng-disabled="!detalle.seleccionar">
                   </td>
                   <td class="text-right">
-                    <input type="text" class="form-control text-right" value="{@ detalle.monto_pensiones @}" ng-model="detalle.monto_pensiones">
+                    <input type="text" class="form-control table-input text-right" value="{@ detalle.monto_pensiones @}" ng-model="detalle.monto_pensiones" ng-disabled="!detalle.seleccionar">
+                  </td>
+                  <td ng-show="id_institucion == 3">
+                    <div class="checkbox table-checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="detalle.crear_ingresantes" value="{@ detalle.crear_ingresantes @}" ng-disabled="!detalle.seleccionar">
+                        <i class="input-helper"></i>
+                        Crear conceptos para 1er Semestre.
+                      </label>
+                    </div>
                   </td>
                 </tr>
               </table>
