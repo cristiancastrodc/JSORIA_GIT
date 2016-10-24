@@ -131,3 +131,9 @@ form .form-group:last-child {
   background-color: #ef3341 !important;
   color: #FFF !important;
 }
+.table-input {
+  border-bottom: 0;
+}
+.table-checkbox {
+  margin-top: 0 !important;
+}
