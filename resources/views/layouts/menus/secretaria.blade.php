@@ -10,6 +10,9 @@
     <li><a href="{!!URL::to('/secretaria/alumno/deudas/amortizacion')!!}">Autorizar Amortización</a></li>
   </ul>
 </li>
+<li><a href="{{ url('/secretaria/periodo/programar') }}">
+  <i class="zmdi zmdi-close-circle-o"></i> Programar Períodos</a>
+</li>
 <li><a href="{!!URL::to('/secretaria/ciclo/cerrar')!!}">
   <i class="zmdi zmdi-close-circle-o"></i> Cerrar Ciclo</a>
 </li>

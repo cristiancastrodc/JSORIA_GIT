@@ -22,13 +22,13 @@ Route::get('logout', 'LogController@logout');
 /*** Ruta para Modificar Perfil ***/
 Route::get('perfil', 'UserGeneralController@actualizarPerfil');
 Route::post('perfil/guardar', 'UserGeneralController@guardarPerfil');
+// Ruta para obtener las instituciones de un usuario
+Route::get('usuario/instituciones', 'UserGeneralController@institucionesUsuario');
 
 /*** Rutas para administrador ***/
 Route::resource('admin/usuarios','UsersController');
 Route::resource('admin/actividades','ActividadesController');
-/*
-Route::resource('admin/matriculas','MatriculasController');
-*/
+// Route::resource('admin/matriculas','MatriculasController');
 Route::get('admin/matricula/crear', 'MatriculasController@crearMatricula');
 Route::resource('admin/pensiones','PensionesController');
 Route::resource('admin/cobros/ordinarios','CobrosOrdinariosController');
@@ -116,6 +116,9 @@ Route::post('secretaria/alumno/amortizarDeuda','AlumnosController@CrearAmortizac
 // Reportes
 Route::get('secretaria/generar/reporte/deudas_por_grado', 'ReportesSecretariaController@deudasPorGrado');
 Route::get('secretaria/procesar/reporte/deudas_por_grado', 'ReportesSecretariaController@procesarDeudasPorGrado');
+Route::get('secretaria/periodo/programar', 'MatriculasController@programarPeriodos');
+Route::post('secretaria/periodo/crear', 'MatriculasController@crearMatriculaPensiones');
+Route::get('secretaria/matriculas/recuperar/{id_institucion}', 'MatriculasController@recuperarMatriculas');
 
 /*** Rutas de reportes ***/
 /**/

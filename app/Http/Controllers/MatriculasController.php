@@ -16,7 +16,8 @@ class MatriculasController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('admin');
+    $this->middleware('admin', ['except' => ['programarPeriodos', 'recuperarMatriculas', 'crearMatriculaPensiones']]);
+    $this->middleware('Secretaria', ['only' => ['programarPeriodos', 'recuperarMatriculas', 'crearMatriculaPensiones']]);
   }
 
   /**
@@ -243,6 +244,101 @@ class MatriculasController extends Controller
             }
           }
         }
+      }
+    } catch (\Exception $e) {
+      $resultado = $e->getMessage();
+    }
+    return $resultado;
+  }
+
+  /**
+   * Mostrar la vista para programar los períodos
+   */
+  public function programarPeriodos()
+  {
+    return view('secretaria.matricula.programar');
+  }
+
+  /**
+   * Mostrar la vista para programar los períodos
+   */
+  public function recuperarMatriculas($id_institucion)
+  {
+    return CategoriaTemp::categoriasParaProgramar($id_institucion);
+  }
+
+  /**
+   * Mostrar la vista para programar los períodos
+   */
+  public function crearMatriculaPensiones(Request $request)
+  {
+    $resultado = 'true';
+    try {
+      // Recuperar los datos
+      $matriculas = $request->input('matriculas');
+      foreach ($matriculas as $matricula) {
+        // -- Datos de Matricula
+        $matricula_concepto = $matricula['concepto_matricula'];
+        $matricula_fecha_inicio = $matricula['fecha_inicial'];
+        $matricula_fecha_fin = $matricula['fecha_final'];
+        // Datos de Pensiones
+        $pensiones_concepto = $matricula['concepto_pension'];
+        // -- Mes inicial
+        $pensiones_mes_inicio = $matricula['mes_inicial_pension'];
+        $tokens = explode('/', $pensiones_mes_inicio);
+        $mes_inicio = $tokens[0];
+        $anio_inicio = $tokens[1];
+        $inicio = intval($anio_inicio) * 100 + intval($mes_inicio);
+        // -- Mes final
+        $pensiones_mes_fin = $matricula['mes_final_pension'];
+        $tokens = explode('/', $pensiones_mes_fin);
+        $mes_fin = $tokens[0];
+        $anio_fin = $tokens[1];
+        $fin = intval($anio_fin) * 100 + intval($mes_fin);
+        // Crear matrícula y pensiones
+        $cuenta = 0;
+        // Crear la matrícula
+        $id_matricula = Categoria::create([
+                            'nombre' => $matricula_concepto,
+                            'monto' => $matricula['monto_matricula'],
+                            'tipo' => 'matricula',
+                            'estado' => '1',
+                            'fecha_inicio' => $matricula_fecha_inicio,
+                            'fecha_fin' => $matricula_fecha_fin,
+                            'destino' => '0',
+                            'id_detalle_institucion' => $matricula['id_detalle_institucion'],
+                            'periodo' => $matricula['periodo'],
+                        ])->id;
+        // Crear las pensiones
+        $meses2 = array(0, 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto' , 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
+        while ($inicio <= $fin) {
+          $mes = substr($inicio, -2);
+          $anio = substr($inicio, 0, 4);
+          $cat_concepto = $pensiones_concepto . ' ' . $meses2[intval($mes)] . ' ' . $anio;
+          $cat_fecha_inicio = $anio . '-' . $mes . '-01';
+          $cat_fecha_fin = date('Y-m-t', strtotime($cat_fecha_inicio));
+          Categoria::create([
+              'nombre' => $cat_concepto,
+              'monto' => $matricula['monto_pension'],
+              'tipo' => 'pension',
+              'estado' => '1',
+              'fecha_inicio' => $cat_fecha_inicio,
+              'fecha_fin' => $cat_fecha_fin,
+              'destino' => '0',
+              'id_detalle_institucion' => $matricula['id_detalle_institucion'],
+              'id_matricula' => $id_matricula,
+              'periodo' => $matricula['periodo'],
+              ]);
+          if (intval($mes) == 12) {
+              $inicio += 89;
+          } else {
+              $inicio += 1;
+          }
+        }
+        // Actualizar el estado de la categoría temporal
+        $categoria_temp = CategoriaTemp::find($matricula['id']);
+        $categoria_temp->estado = 1;
+        $categoria_temp->save();
       }
     } catch (\Exception $e) {
       $resultado = $e->getMessage();

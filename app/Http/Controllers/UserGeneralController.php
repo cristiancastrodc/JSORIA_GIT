@@ -3,11 +3,10 @@
 namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
-
-use Auth;
+use JSoria\Permiso;
 use JSoria\User;
 
 class UserGeneralController extends Controller
@@ -114,5 +113,13 @@ class UserGeneralController extends Controller
             }
             return response()->json(['mensaje' => $mensaje, 'tipo' => $tipo]);
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function institucionesUsuario()
+    {
+        return Permiso::institucionesUsuario(Auth::user()->id);
     }
 }

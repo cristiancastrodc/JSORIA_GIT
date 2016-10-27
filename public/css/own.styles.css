@@ -137,3 +137,17 @@ form .form-group:last-child {
 .table-checkbox {
   margin-top: 0 !important;
 }
+.collection {
+  border: 1px solid #E0E0E0;
+  border-radius: 2px;
+}
+.collection a.collection-item {
+  display: block;
+  transition: .25s;
+  padding: 10px 20px;
+  border-bottom: 1px solid #E0E0E0;
+  color: #000000;
+}
+.collection a.collection-item:hover {
+  background-color: #DDD;
+}
