@@ -37,4 +37,13 @@ class InstitucionDetalle extends Model
                                ->select('id', 'nombre_division',  DB::raw('0 as monto_matricula'), DB::raw('0 as monto_pensiones'))
                                ->get();
     }
+    /*
+     * Retorna el detalle de una institución.
+     */
+    public static function detalleInstitucion($id_institucion)
+    {
+      return InstitucionDetalle::where('id_institucion','=', $id_institucion)
+                               ->where('nombre_division', '<>', 'Todo')
+                               ->get();
+    }
 }

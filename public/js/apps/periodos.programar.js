@@ -50,11 +50,11 @@ app.controller('periodosController', function ($scope, $http) {
   };
   // Opciones para los calendarios respectivos
   $scope.dateOptions1 = {
-    formatYear: 'yyyy',
-    startingDay: 1
+    formatYear : 'yyyy',
+    startingDay : 1,
   };
   $scope.dateOptions2 = {
-    minMode: 'month'
+    minMode: 'month',
   };
   // Crear las categorías
   $scope.procesando = false;

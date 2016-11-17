@@ -24,5 +24,12 @@ class Grado extends Model
   {
     return Grado::where('id_detalle','=',$id_detalle_institucion)->get();
   }
+    /*
+     * Retorna los grados de un detalle institución.
+     */
+    public static function grados($id_detalle_institucion)
+    {
+      return Grado::where('id_detalle', $id_detalle_institucion)
+                  ->get();
+    }
 }
-

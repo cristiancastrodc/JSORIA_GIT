@@ -16,8 +16,8 @@ class MatriculasController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('admin', ['except' => ['programarPeriodos', 'recuperarMatriculas', 'crearMatriculaPensiones']]);
-    $this->middleware('Secretaria', ['only' => ['programarPeriodos', 'recuperarMatriculas', 'crearMatriculaPensiones']]);
+    $this->middleware('admin', ['except' => ['programarPeriodos', 'recuperarMatriculas', 'crearMatriculaPensiones', 'recuperarPensiones']]);
+    $this->middleware('Secretaria', ['only' => ['programarPeriodos', 'recuperarMatriculas', 'crearMatriculaPensiones', 'recuperarPensiones']]);
   }
 
   /**
@@ -344,5 +344,18 @@ class MatriculasController extends Controller
       $resultado = $e->getMessage();
     }
     return $resultado;
+  }
+  /**
+   * Retorna las pensiones asociadas a una matrícula
+   */
+  public function recuperarPensiones($id_matricula)
+  {
+    $pensiones = Categoria::pensionesDeMatricula($id_matricula);
+    if ($pensiones) {
+      foreach ($pensiones as $pension) {
+        $pension['seleccionada'] = true;
+      }
+    }
+    return $pensiones;
   }
 }

@@ -3,10 +3,10 @@
 namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
-
+use JSoria\Categoria;
+use JSoria\Grado;
 use JSoria\InstitucionDetalle;
 
 class InstitucionDetalleController extends Controller
@@ -14,7 +14,6 @@ class InstitucionDetalleController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-      
     }
     /**
      * Display a listing of the resource.
@@ -121,5 +120,28 @@ class InstitucionDetalleController extends Controller
     public function detalleInstitucionParaSelect($id_institucion)
     {
         return InstitucionDetalle::divisionesParaSelect($id_institucion);
+    }
+    /*
+     * Retorna el detalle de una institución.
+     */
+    public function detalleInstitucion($id_institucion)
+    {
+      return InstitucionDetalle::detalleInstitucion($id_institucion);
+    }
+    /*
+     * Retorna los grados y matrículas correspondientes a un detalle institución.
+     */
+    public function recuperarGradosYMatriculas($id_detalle)
+    {
+      // Recuperar los grados
+      $grados = Grado::grados($id_detalle);
+      $fecha = date('Y-m-d');
+      $matriculas = Categoria::matriculasActivas($id_detalle, $fecha);
+      $respuesta = array(
+        'grados' => $grados,
+        'matriculas' => $matriculas,
+        'fecha' => $fecha
+      );
+      return $respuesta;
     }
 }

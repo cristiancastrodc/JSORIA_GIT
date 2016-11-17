@@ -397,7 +397,7 @@ class AlumnosController extends Controller
             $Autorizado = Autorizacion::where('id_alumno','=',$nro_documento)
                                     ->where('rd','=',$resolucion)
                                     ->first();
-            
+
             if ($Autorizado) {
 
                 if ($Autorizado->estado == 0 && $Autorizado->fecha_limite >= date('Y-m-d')) {
@@ -427,11 +427,11 @@ class AlumnosController extends Controller
             } else {
                 return response()->json(['mensaje' => 'No Existe ninguna autorizacion para el alumno.', 'tipo' => 'error']);
             }
-            
+
         }
     }
 
-    /*** Crear Amortizacion***/  
+    /*** Crear Amortizacion***/
     public function CrearAmortizacion(Request $request)
     {
 
@@ -443,7 +443,7 @@ class AlumnosController extends Controller
         $id_categoria = $Deuda->id_categoria;
         $monto = $request->monto;
         $saldo = $Deuda->saldo-$monto;
-        
+
 
         /* Actualizar saldo del id */
             Deuda_Ingreso::where('id', '=', $id)
@@ -461,5 +461,80 @@ class AlumnosController extends Controller
         ]);
             //return response()->json($request->all());
         }
+    }
+    /**
+     * Retorna los datos del alumno para la creación de la matrícula.
+     */
+    public function datosAlumnoParaMatricula($nro_documento)
+    {
+      $resultado = 'true';
+      $alertar = 'false';
+      $mensaje = [];
+      $alumno = Alumno::datosAlumno($nro_documento);
+      if ($alumno) {
+        if ($alumno->estado == 1) {
+          $alertar = 'true';
+          $mensaje['titulo']= 'Advertencia';
+          $mensaje['contenido'] = 'El alumno ya se encuentra matriculado.';
+        }
+      } else {
+        $resultado = 'false';
+        $alertar = 'true';
+        $mensaje['titulo'] = 'Error';
+        $mensaje['contenido'] = 'No se encuentra registrado el documento del alumno.';
+      }
+      $respuesta = array(
+        'resultado' => $resultado,
+        'alertar' => $alertar,
+        'mensaje' => $mensaje,
+        'alumno' => $alumno
+      );
+      return $respuesta;
+    }
+    /**
+     * Almacena los pagos de matrícula y pensiones para un alumno
+     */
+    public function crearMatricula(Request $request)
+    {
+      // Variables iniciales
+      $resultado = 'true';
+      $mensaje = [];
+      try {
+        // Recuperar parámetros enviados
+        $nro_documento = $request->input('nro_documento');
+        $id_grado = $request->input('id_grado');
+        $matricula = $request->input('matricula');
+        $pensiones = $request->input('pensiones');
+        // Recuperar alumno y actualizar datos
+        $alumno = Alumno::find($nro_documento);
+        $alumno->estado = 1;
+        $alumno->id_grado = $id_grado;
+        $alumno->id_matricula = $matricula['id'];
+        $alumno->save();
+        // Crear deuda de matrícula
+        Deuda_Ingreso::create([
+          'saldo' => $matricula['monto'],
+          'id_categoria' => $matricula['id'],
+          'id_alumno' => $nro_documento,
+        ]);
+        // Crear deuda de pensiones
+        foreach ($pensiones as $pension) {
+          Deuda_Ingreso::create([
+            'saldo' => $pension['monto'],
+            'id_categoria' => $pension['id'],
+            'id_alumno' => $nro_documento,
+          ]);
+        }
+      } catch (Exception $e) {
+        $resultado = 'false';
+        $mensaje['titulo'] = 'Error';
+        $mensaje['contenido'] = $e->getMessage();
+      }
+      // Retornar respuesta
+      $respuesta = array(
+        'resultado' => $resultado,
+        'mensaje' => $mensaje,
+      );
+      return $respuesta;
     }
 }

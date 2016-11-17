@@ -3,7 +3,7 @@
   <a href=""><i class="zmdi zmdi-pin-account"></i> Alumnos</a>
   <ul>
     <li><a href="{!!URL::to('/secretaria/alumnos/create')!!}">Nuevo</a></li>
-    <li><a href="{!!URL::to('/secretaria/alumno/matricular')!!}">Crear Matrícula</a></li>
+    <li><a href="{{ url('/secretaria/alumno/matricular') }}">Crear Matrícula</a></li>
     <li><a href="{!!URL::to('/secretaria/alumno/deudas/agregar')!!}">Añadir Deuda</a></li>
     <li><a href="{!!URL::to('/secretaria/alumno/deudas/listar')!!}">Modificar Deudas</a></li>
     <li><a href="{!!URL::to('/secretaria/alumno/deudas/cancelar')!!}">Cancelar Deuda de Actividad</a></li>

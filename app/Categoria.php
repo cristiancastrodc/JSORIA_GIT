@@ -85,4 +85,22 @@ class Categoria extends Model
                     ->select('detalle_institucion.id_institucion')
                     ->first();
   }
+  /**
+   * Retorna las matrículas activas para un detalle institución
+   */
+  public static function matriculasActivas($id_detalle_institucion, $fecha)
+  {
+    return Categoria::where('tipo', 'matricula')
+                    ->where('fecha_fin', '>=', $fecha)
+                    ->where('id_detalle_institucion', $id_detalle_institucion)
+                    ->get();
+  }
+  /**
+   * Retorna las pensiones asociadas a una matrícula
+   */
+  public static function pensionesDeMatricula($id_matricula)
+  {
+    return Categoria::where('id_matricula', $id_matricula)
+                    ->get();
+  }
 }

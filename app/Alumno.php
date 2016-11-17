@@ -3,7 +3,7 @@
 namespace JSoria;
 
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 use JSoria\Grado;
 
 class Alumno extends Model
@@ -45,5 +45,12 @@ class Alumno extends Model
            ->where('grado.id_detalle','=', $id_detalle_institucion)
            ->select('alumno.nro_documento')
            ->get();
+  }
+  /**
+   * Retorna los datos de un alumno específico.
+   */
+  public static function datosAlumno($nro_documento)
+  {
+    return Alumno::find($nro_documento);
   }
 }

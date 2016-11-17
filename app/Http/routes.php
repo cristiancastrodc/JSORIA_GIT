@@ -11,24 +11,23 @@
 |
 */
 
-/*** Ruta para el index ***/
+// Rutas generales
+# Ruta para el index
 Route::get('/', 'FrontController@index');
-/*** Ruta para el escritorio ***/
+# Ruta para el escritorio
 Route::get('escritorio', 'DashboardController@escritorio');
-/*** Ruta para el Login ***/
+# Ruta para el Login
 Route::resource('log','LogController');
-/*** Ruta para Cerrar Sesión ***/
+# Ruta para Cerrar Sesión
 Route::get('logout', 'LogController@logout');
-/*** Ruta para Modificar Perfil ***/
+# Ruta para Modificar Perfil
 Route::get('perfil', 'UserGeneralController@actualizarPerfil');
 Route::post('perfil/guardar', 'UserGeneralController@guardarPerfil');
-// Ruta para obtener las instituciones de un usuario
+# Ruta para obtener las instituciones de un usuario
 Route::get('usuario/instituciones', 'UserGeneralController@institucionesUsuario');
-
-/*** Rutas para administrador ***/
+// Rutas para el administrador
 Route::resource('admin/usuarios','UsersController');
 Route::resource('admin/actividades','ActividadesController');
-// Route::resource('admin/matriculas','MatriculasController');
 Route::get('admin/matricula/crear', 'MatriculasController@crearMatricula');
 Route::resource('admin/pensiones','PensionesController');
 Route::resource('admin/cobros/ordinarios','CobrosOrdinariosController');
@@ -48,14 +47,31 @@ Route::get('admin/divisiones_select/{id_institucion}', 'InstitucionDetalleContro
 Route::post('admin/matricula/guardar', 'MatriculasController@guardarMatricula');
 Route::get('admin/comprobante/crear', 'ConfiguracionController@definirComprobantes');
 Route::post('admin/comprobante/guardar', 'ConfiguracionController@guardarComprobante');
-/* Reportes */
+# Reportes
 Route::get('admin/reporte/balance_ingresos_egresos',
   ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);
 Route::post('admin/reporte/balance_ingresos_egresos/procesar',
   ['as' => 'admin.reporte.balance_ingresos_egresos.procesar', 'uses' => 'ReportesAdminController@balanceIngresosEgresosProcesar']);
-
-/***********************************************************************************/
-/*** Rutas para tesorera ***/
+Route::get('admin/reportes/ListaIngresos','AdminReporteListarIngresos@index');
+Route::resource('admin/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
+Route::get('admin/categorias/{id_detalle_institucion}', 'CategoriasController@categoriasDivision');
+Route::get('admin/reportes/IngresosCategoria','AdminReporteIngresosCategoria@index');
+Route::resource('admin/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria');
+Route::get('admin/reportes/IngresosTotales','AdminReporteIngresosTotales@index');
+Route::resource('admin/reportes/IngresosTotales/procesar','AdminReporteIngresosTotales');
+Route::get('admin/reportes/ListaEgresos','AdminReporteListarEgresos@index');
+Route::resource('admin/reportes/ListaEgresos/procesar','AdminReporteListarEgresos');
+Route::get('admin/rubros','RubrosController@listaRubros');
+Route::get('admin/reportes/EgresosRubro','AdminReporteEgresosRubro@index');
+Route::resource('admin/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
+Route::get('admin/reportes/EgresosTotales','AdminReporteEgresosTotales@index');
+Route::resource('admin/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales');
+Route::get('admin/reportes/AlumnosDeudores','AdminReporteAlumnosDeudores@index');
+Route::resource('admin/reportes/AlumnosDeudores/procesar','AdminReporteAlumnosDeudores');
+Route::get('admin/grados/{id_detalle_institucion}','GradosController@gradosDivision');
+Route::get('admin/reportes/CuentaAlumno','AdminReporteCuentaAlumno@index');
+Route::resource('admin/reportes/CuentaAlumno/procesar','AdminReporteCuentaAlumno');
+// Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
 Route::resource('tesorera/ingresos','IngresosController');
@@ -75,11 +91,23 @@ Route::get('tesorera/administrar/rubros/eliminar/{id_rubro}', 'RubrosController@
 Route::post('tesorera/saldo_inicial/crear', 'ConfiguracionController@registrarSaldoInicial');
 Route::get('tesorera/registrar/ingresos', 'IngresosController@ingresosAdicionales');
 Route::post('tesorera/registrar/ingresos/guardar', 'IngresosController@registrarIngresosAdicionales');
-/* Reportes */
+# Reportes
 Route::get('tesorera/reporte/balance_ingresos_egresos', 'ReportesTesoreraController@balanceIngresosEgresos');
-
-/***********************************************************************************/
-/*** Rutas para cajera ***/
+Route::get('tesorera/reportes/ListaIngresos', 'AdminReporteListarIngresos@index');
+Route::resource('tesorera/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
+Route::get('tesorera/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
+Route::get('tesorera/reportes/IngresosCategoria', 'AdminReporteIngresosCategoria@index');
+Route::resource('tesorera/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria');
+Route::get('tesorera/reportes/IngresosTotales', 'AdminReporteIngresosTotales@index');
+Route::resource('tesorera/reportes/IngresosTotales/procesar','AdminReporteIngresosTotales');
+Route::get('tesorera/reportes/ListaEgresos', 'AdminReporteListarEgresos@index');
+Route::resource('tesorera/reportes/ListaEgresos/procesar','AdminReporteListarEgresos');
+Route::get('tesorera/rubros','RubrosController@listaRubros');
+Route::get('tesorera/reportes/EgresosRubro', 'AdminReporteEgresosRubro@index');
+Route::resource('tesorera/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
+Route::get('tesorera/reportes/EgresosTotales', 'AdminReporteEgresosTotales@index');
+Route::get('tesorera/reportes/Saldo', 'TesoreraReporteSaldo@index');
+// Rutas para cajera
 Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');
 Route::get('cajera/buscar/deudas/{codigo}', 'CobrosController@buscarDeudas');
@@ -92,8 +120,11 @@ Route::post('cajera/cobro/multiple/guardar', 'CobrosController@guardarCobroMulti
 Route::get('cajera/comprobante/{id_institucion}/{tipo_comprobante}', 'CobrosController@buscarComprobante');
 Route::get('cajera/comprobante/{id_institucion}/{tipo_comprobante}/{serie_comprobante}', 'CobrosController@buscarNumeroComprobante');
 Route::get('cajera/generar/ingreso', 'CobrosController@generarIngreso');
-
-/*** Rutas para secretaria ***/
+# Reportes
+Route::get('cajera/reporte/procesar','CajeraReporteCobros@index');
+Route::post('cajera/reporte/generar',
+  ['as' => 'cajera.reporte.generar', 'uses' => 'CajeraReporteCobros@generar']);
+// Rutas para secretaria
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
 Route::get('secretaria/alumno/{dni}', 'AlumnosController@datosAlumno');
@@ -113,70 +144,19 @@ Route::post('secretaria/alumno/deudas/crear','AlumnosController@agregarDeudasAlu
 Route::post('secretaria/alumno/deudas/eliminar_actividad','AlumnosController@EliminarDeudaActividad');
 Route::post('secretaria/alumno/deudas/eliminar_descontar_deuda','AlumnosController@EliminarDescontarDeuda');
 Route::post('secretaria/alumno/amortizarDeuda','AlumnosController@CrearAmortizacion');
-// Reportes
+Route::get('secretaria/matricular/alumno/{nro_documento}/datos', 'AlumnosController@datosAlumnoParaMatricula');
+Route::get('secretaria/matricular/institucion/{id_institucion}/detalle', 'InstitucionDetalleController@detalleInstitucion');
+Route::get('secretaria/matricular/detalle_institucion/{id_detalle}/grados_matriculas', 'InstitucionDetalleController@recuperarGradosYMatriculas');
+Route::get('secretaria/matricular/matricula/{id_matricula}/pensiones', 'MatriculasController@recuperarPensiones');
+Route::post('secretaria/matricular/crear', 'AlumnosController@crearMatricula');
+# Reportes
 Route::get('secretaria/generar/reporte/deudas_por_grado', 'ReportesSecretariaController@deudasPorGrado');
 Route::get('secretaria/procesar/reporte/deudas_por_grado', 'ReportesSecretariaController@procesarDeudasPorGrado');
 Route::get('secretaria/periodo/programar', 'MatriculasController@programarPeriodos');
 Route::post('secretaria/periodo/crear', 'MatriculasController@crearMatriculaPensiones');
 Route::get('secretaria/matriculas/recuperar/{id_institucion}', 'MatriculasController@recuperarMatriculas');
-
-/*** Rutas de reportes ***/
-/**/
-//Route::get('secretaria/reportes', 'PdfController@index');
-//Route::post('secretaria/reportes/procesar', 'PdfController@invoice');
 Route::get('secretaria/reportes', 'AdminReporteCuentaAlumno@index');
 Route::resource('secretaria/reportes/procesar','AdminReporteCuentaAlumno');
-
-Route::get('admin/reportes/ListaIngresos','AdminReporteListarIngresos@index');
-Route::resource('admin/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
-Route::get('admin/categorias/{id_detalle_institucion}', 'CategoriasController@categoriasDivision');
-
-Route::get('admin/reportes/IngresosCategoria','AdminReporteIngresosCategoria@index');
-Route::resource('admin/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria');
-Route::get('admin/reportes/IngresosTotales','AdminReporteIngresosTotales@index');
-Route::resource('admin/reportes/IngresosTotales/procesar','AdminReporteIngresosTotales');
-
-Route::get('admin/reportes/ListaEgresos','AdminReporteListarEgresos@index');
-Route::resource('admin/reportes/ListaEgresos/procesar','AdminReporteListarEgresos');
-Route::get('admin/rubros','RubrosController@listaRubros');
-
-Route::get('admin/reportes/EgresosRubro','AdminReporteEgresosRubro@index');
-Route::resource('admin/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
-
-Route::get('admin/reportes/EgresosTotales','AdminReporteEgresosTotales@index');
-Route::resource('admin/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales');
-
-Route::get('admin/reportes/AlumnosDeudores','AdminReporteAlumnosDeudores@index');
-Route::resource('admin/reportes/AlumnosDeudores/procesar','AdminReporteAlumnosDeudores');
-Route::get('admin/grados/{id_detalle_institucion}','GradosController@gradosDivision');
-
-Route::get('admin/reportes/CuentaAlumno','AdminReporteCuentaAlumno@index');
-Route::resource('admin/reportes/CuentaAlumno/procesar','AdminReporteCuentaAlumno');
-
-Route::get('cajera/reporte/procesar','CajeraReporteCobros@index');
-Route::post('cajera/reporte/generar',
-  ['as' => 'cajera.reporte.generar', 'uses' => 'CajeraReporteCobros@generar']);
-
-Route::get('tesorera/reportes/ListaIngresos', 'AdminReporteListarIngresos@index');
-Route::resource('tesorera/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
-Route::get('tesorera/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
-Route::get('tesorera/reportes/IngresosCategoria', 'AdminReporteIngresosCategoria@index');
-Route::resource('tesorera/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria');
-Route::get('tesorera/reportes/IngresosTotales', 'AdminReporteIngresosTotales@index');
-Route::resource('tesorera/reportes/IngresosTotales/procesar','AdminReporteIngresosTotales');
-Route::get('tesorera/reportes/ListaEgresos', 'AdminReporteListarEgresos@index');
-Route::resource('tesorera/reportes/ListaEgresos/procesar','AdminReporteListarEgresos');
-Route::get('tesorera/rubros','RubrosController@listaRubros');
-Route::get('tesorera/reportes/EgresosRubro', 'AdminReporteEgresosRubro@index');
-Route::resource('tesorera/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro');
-Route::get('tesorera/reportes/EgresosTotales', 'AdminReporteEgresosTotales@index');
 Route::resource('secretaria/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales');
-
-Route::get('tesorera/reportes/Saldo', 'TesoreraReporteSaldo@index');
-/*** Rutas temporales (inhabilitar luego de utilizar) ***/
-/*
-Route::get('temp', function ()
-{
-  return view('temp.one');
-});
-*/
+// Rutas temporales (inhabilitar luego de utilizar)
+# Route::get('temp', function () { return view('temp.one'); });
