@@ -55,7 +55,7 @@
                   <tr>
                     <th class="hidden">Id</th>
                     <th class="accent-color c-white">Fecha Hora</th>
-                    <th class="accent-color c-white">Documento</th>
+                    <th class="accent-color c-white">Documento de Pago</th>
                     <th class="accent-color c-white">Concepto</th>
                     <th class="accent-color c-white">Estado</th>
                     <th class="accent-color c-white">Monto (S/)</th>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h1>ACTUALIZAR PERFIL DE USUARIO</h1>
+  
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -18,7 +18,10 @@
 
   <div class="row">
     <div class="col-md-10">
-      <div class="card">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Actualizar Perfil de Usuario</h2>
+        </div>
         <div class="card-body card-padding">
           <form class="form-horizontal">
             <input type="hidden" id="_token" value="{{ csrf_token() }}">
