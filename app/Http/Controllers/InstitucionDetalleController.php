@@ -144,4 +144,16 @@ class InstitucionDetalleController extends Controller
       );
       return $respuesta;
     }
+    /*
+     * Retorna las matrículas correspondientes a un detalle institución
+     */
+    public function recuperarMatriculas($id_detalle)
+    {
+      // Recuperar los grados
+      $matriculas = Categoria::matriculasParaCerrar($id_detalle);
+      $respuesta = array(
+        'matriculas' => $matriculas
+      );
+      return $respuesta;
+    }
 }

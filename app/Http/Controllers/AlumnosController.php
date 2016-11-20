@@ -16,9 +16,11 @@ use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
 use JSoria\Grado;
 use JSoria\InstitucionDetalle;
+use JSoria\Institucion;
 use Redirect;
 use Session;
 use Auth;
+use Crypt;
 
 class AlumnosController extends Controller
 {
@@ -499,6 +501,8 @@ class AlumnosController extends Controller
       // Variables iniciales
       $resultado = 'true';
       $mensaje = [];
+      # Lista de categorías separadas por comas
+      $categorias = [];
       try {
         // Recuperar parámetros enviados
         $nro_documento = $request->input('nro_documento');
@@ -517,8 +521,11 @@ class AlumnosController extends Controller
           'id_categoria' => $matricula['id'],
           'id_alumno' => $nro_documento,
         ]);
+        # Actualizar la lista de categorías
+        array_push($categorias, $matricula['id']);
         // Crear deuda de pensiones
         foreach ($pensiones as $pension) {
+          array_push($categorias, $pension['id']);
           Deuda_Ingreso::create([
             'saldo' => $pension['monto'],
             'id_categoria' => $pension['id'],
@@ -530,11 +537,45 @@ class AlumnosController extends Controller
         $mensaje['titulo'] = 'Error';
         $mensaje['contenido'] = $e->getMessage();
       }
+      $ruta = '/secretaria/matricular/reporte/' . Crypt::encrypt(implode(',', $categorias)) . '/' . $nro_documento . '/' . $id_grado;
       // Retornar respuesta
       $respuesta = array(
         'resultado' => $resultado,
         'mensaje' => $mensaje,
+        'ruta' => $ruta,
       );
       return $respuesta;
+    }
+    /**
+     * Almacena los pagos de matrícula y pensiones para un alumno
+     */
+    public function reporteMatricula($categorias_encriptadas, $nro_documento, $id_grado)
+    {
+      $categorias_array = explode(',', Crypt::decrypt($categorias_encriptadas));
+      $categorias = Categoria::whereIn('id', $categorias_array)->get();
+      $total = 0;
+      foreach ($categorias as $categoria) {
+        $total += $categoria->monto;
+      }
+      $total = number_format($total, 2);
+      $alumno = Alumno::datosAlumno($nro_documento);
+      $grado = Grado::find($id_grado);
+      $detalle = InstitucionDetalle::find($grado->id_detalle);
+      $institucion = Institucion::find($detalle->id_institucion);
+      $matricula = $institucion->nombre . ' - ' . $detalle->nombre_division . ' - ' . $grado->nombre_grado;
+
+      #tesorera.reportes.balance
+      $archivo = 'Reporte de Matrícula de Alumno';
+      $fecha = date('d-m-Y');
+      $view = \View::make('secretaria.alumno.reporte', [
+        'categorias' => $categorias,
+        'alumno' => $alumno->nombres . ' '. $alumno->apellidos,
+        'matricula' => $matricula,
+        'fecha' => $fecha,
+        'total' => $total,
+        ])->render();
+      $pdf = \App::make('dompdf.wrapper');
+      $pdf->loadHTML($view);
+      return $pdf->stream($archivo);
     }
 }

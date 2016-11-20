@@ -128,10 +128,13 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
     .then(function successCallback(response) {
       if (response.data.resultado == 'true') {
         swal({
-          title: "Éxito!",
-          text: "Matrícula y pensiones creadas correctamente.",
-          type: "success"
-        }, function () {
+          title : "Éxito!",
+          text : "Matrícula y pensiones creadas correctamente.",
+          type : "success",
+          confirmButtonText: "Aceptar",
+          closeOnConfirm: false,
+        }, function (isConfirm) {
+          window.open(response.data.ruta)
           document.location.reload();
         });
       } else {

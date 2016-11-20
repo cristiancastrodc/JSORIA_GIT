@@ -104,7 +104,6 @@
                     <td>Concepto</td>
                     <td>Período</td>
                     <td>Monto</td>
-                    <td ng-show="id_institucion == 3"></td>
                   </tr>
                   <tr ng-repeat="pension in pensiones">
                     <td>

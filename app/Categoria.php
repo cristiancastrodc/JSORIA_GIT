@@ -93,6 +93,7 @@ class Categoria extends Model
     return Categoria::where('tipo', 'matricula')
                     ->where('fecha_fin', '>=', $fecha)
                     ->where('id_detalle_institucion', $id_detalle_institucion)
+                    ->where('estado', 1)
                     ->get();
   }
   /**
@@ -101,6 +102,16 @@ class Categoria extends Model
   public static function pensionesDeMatricula($id_matricula)
   {
     return Categoria::where('id_matricula', $id_matricula)
+                    ->get();
+  }
+  /**
+   * Retorna las matrículas que contienen por lo menos un alumno
+   */
+  public static function matriculasParaCerrar($id_detalle_institucion)
+  {
+    return Categoria::where('tipo', 'matricula')
+                    ->where('id_detalle_institucion', $id_detalle_institucion)
+                    ->where('estado', 1)
                     ->get();
   }
 }
