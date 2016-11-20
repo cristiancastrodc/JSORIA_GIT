@@ -31,6 +31,9 @@
 <li><a href="{!!URL::to('/admin/ingresos')!!}">
   <i class="zmdi zmdi-money"></i> Retiro</a>
 </li>
+<li><a href="{{ url('admin/configuracion') }}">
+  <i class="zmdi zmdi-money"></i> Definir Descuentos</a>
+</li>
 <li class="sub-menu">
   <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
   <ul>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 use JSoria\Balance;
+use JSoria\Configuracion;
 use JSoria\Comprobante;
 use JSoria\UsuarioImpresora;
 use Redirect;
@@ -183,5 +184,31 @@ class ConfiguracionController extends Controller
 
         Session::flash('message-success', 'Saldo inicial correctamente creado. Ahora puede utilizar el sistema.');
         return Redirect::to('escritorio');
+    }
+    /**
+     * Muestra la interfaz para realizar la configuración del sistema
+     */
+    public function configuracionEmpresa()
+    {
+      $dia_limite_descuento = Configuracion::where('variable', 'dia_limite_descuento')->first();
+      $porcentaje_descuento = Configuracion::where('variable', 'porcentaje_descuento')->first();
+      return view('admin.configuracion.index', [
+        'dia_limite_descuento' => $dia_limite_descuento->valor,
+        'porcentaje_descuento' => $porcentaje_descuento->valor,
+        ]);
+    }
+    /**
+     * Almacena la configuración del sistema
+     */
+    public function guardarConfiguracionEmpresa(Request $request)
+    {
+      $dia_limite = Configuracion::where('variable', 'dia_limite_descuento')->first();
+      $dia_limite->valor = $request->dia_limite_descuento;
+      $dia_limite->save();
+      $porcentaje_descuento = Configuracion::where('variable', 'porcentaje_descuento')->first();
+      $porcentaje_descuento->valor = $request->porcentaje_descuento;
+      $porcentaje_descuento->save();
+
+      return redirect()->back()->with('message', 'Configuracion actualizada.')->withInput();
     }
 }

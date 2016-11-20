@@ -47,6 +47,8 @@ Route::get('admin/divisiones_select/{id_institucion}', 'InstitucionDetalleContro
 Route::post('admin/matricula/guardar', 'MatriculasController@guardarMatricula');
 Route::get('admin/comprobante/crear', 'ConfiguracionController@definirComprobantes');
 Route::post('admin/comprobante/guardar', 'ConfiguracionController@guardarComprobante');
+Route::get('admin/configuracion', 'ConfiguracionController@configuracionEmpresa');
+Route::post('admin/configuracion/guardar', 'ConfiguracionController@guardarConfiguracionEmpresa');
 # Reportes
 Route::get('admin/reporte/balance_ingresos_egresos',
   ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);
