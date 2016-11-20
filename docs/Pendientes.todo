@@ -5,12 +5,10 @@
  ☐ Cajera: La impresión debe de ser por navegador. @critical @critical
  ☐ Cajera: Para factura en la impresora matricial, solicitar razon social, ruc y direccion y configuracion de impresora.?? @critical @critical
  ☐ Cajera:Al realizar un pago, si aún está en período de descuento, puede amortizar con descuento, caso contrario el monto vuelve a ser el total original sin descuento. @critical @critical
+
  ☐ Quitar la configuración para el uso de facturas.  @critical
- ☐ Crear modulo para otorgar permisos de uso de módulos (roles).   @critical @critical
+ ☐ Admin - Crear modulo para otorgar permisos de uso de módulos (roles).   @critical @critical
  ☐ Para todos los usuarios: módulo de búsqueda de alumnos.  @critical @critical
- ☐ Rehacer Modulo de cerrar ciclo, escoger matriculas deseadas. @critical @critical
- ☐ Secretaria: Módulo para registrar las deudas antiguas de un alumno con los pagos que se han realizado en un período seleccionado. @critical @critical
- ☐ Secretaria Matricular: Mostrar reporte con las deudas generadas. El Total debe de decir Total Inversión. @critical @critical
  ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
  ☐ Reportes exportar a Excel. @critical @critical
 
@@ -70,6 +68,9 @@
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Secretaria: Módulo para registrar las deudas antiguas de un alumno con los pagos que se han realizado en un período seleccionado. @critical @critical @done (16-11-20 12:12)
+ ✔ Secretaria Matricular: Mostrar reporte con las deudas generadas. El Total debe de decir Total Inversión. @critical @critical @done (16-11-20 10:17)
+ ✔ Rehacer Modulo de cerrar ciclo, escoger matriculas deseadas. @critical @critical @done (16-11-20 10:16)
  ✔ Secretaria: Modulo para asignar fechas de matricula.  @critical @critical @done (16-10-27 06:05)
  ✔ Tesorera Retiro: Mostrar numeros de comprobante de ingresos. @critical @critical      @done (16-10-26 11:19) 
  ✔ Secretaria: Quitar módulo de amortizaiones. @critical @critical @done (16-10-26 10:54)

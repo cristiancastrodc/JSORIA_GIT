@@ -32,15 +32,15 @@
                   @endforeach
                 </select>
               </div>
-            </div> 
-            <div class="form-group">
-              <div class="pull-right">
-                <button type="submit" class="btn accent-color waves-effect" formtarget="_blank">Generar PDF</button>
-              </div>
-              <div class="col-sm-2 col-sm-offset-8">
-                <button type="submit" class="btn bgm-blue-soria waves-effect" formtarget="_blank">Generar Excel</button>
-              </div>
             </div>
+            <div class="form-group">
+              <div class="col-sm-3 col-sm-offset-6">
+                <button type="submit" class="btn btn-block waves-effect m-t-15 accent-color" formtarget="_blank">Generar PDF</button>
+              </div>
+              <div class="col-sm-3">
+                <button type="button" class="btn btn-block waves-effect m-t-15 bgm-blue-soria" formtarget="_blank">Generar Excel</button>
+              </div>
+            </div>            
           {!!Form::close()!!}
         </div>
       </div>
