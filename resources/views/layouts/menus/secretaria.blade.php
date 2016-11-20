@@ -7,6 +7,7 @@
     <li><a href="{!!URL::to('/secretaria/alumno/deudas/agregar')!!}">Añadir Deuda</a></li>
     <li><a href="{!!URL::to('/secretaria/alumno/deudas/listar')!!}">Modificar Deudas</a></li>
     <li><a href="{!!URL::to('/secretaria/alumno/deudas/cancelar')!!}">Cancelar Deuda de Actividad</a></li>
+    <li><a href="{{ url('/secretaria/alumno/deudas/anteriores/agregar') }}">Añadir Deudas Anteriores</a></li>
     <!--li><a href="{!!URL::to('/secretaria/alumno/deudas/amortizacion')!!}">Autorizar Amortización</a></li-->
   </ul>
 </li>

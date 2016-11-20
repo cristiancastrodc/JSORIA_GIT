@@ -153,6 +153,9 @@ Route::get('secretaria/ciclo/cerrar', 'CicloController@index');
 Route::get('secretaria/ciclo/cerrar/institucion/{id_institucion}/detalle', 'InstitucionDetalleController@detalleInstitucion');
 Route::get('secretaria/ciclo/cerrar/detalle_institucion/{id_detalle}/matriculas', 'InstitucionDetalleController@recuperarMatriculas');
 Route::post('secretaria/ciclo/cerrar/guardar', 'CicloController@cerrarCiclo');
+Route::get('secretaria/alumno/deudas/anteriores/agregar', 'AlumnosController@agregarDeudasAnteriores');
+Route::get('secretaria/alumno/deudas/{id_matricula}/categorias', 'MatriculasController@recuperarCategorias');
+Route::post('secretaria/alumno/deudas/anteriores/crear', 'AlumnosController@crearDeudasAnteriores');
 # Reportes
 Route::get('secretaria/generar/reporte/deudas_por_grado', 'ReportesSecretariaController@deudasPorGrado');
 Route::get('secretaria/procesar/reporte/deudas_por_grado', 'ReportesSecretariaController@procesarDeudasPorGrado');

@@ -114,4 +114,13 @@ class Categoria extends Model
                     ->where('estado', 1)
                     ->get();
   }
+  /**
+   * Retorna las categorías asociadas a una matrícula
+   */
+  public static function categoriasDeMatricula($id_matricula)
+  {
+    return Categoria::where('id_matricula', $id_matricula)
+                    ->orWhere('id', $id_matricula)
+                    ->get();
+  }
 }

@@ -578,4 +578,43 @@ class AlumnosController extends Controller
       $pdf->loadHTML($view);
       return $pdf->stream($archivo);
     }
+    /**
+     * Muestra la vista para agregar deudas anteriores de un alumno
+     */
+    public function agregarDeudasAnteriores()
+    {
+      return view('secretaria.alumno.deuda.anteriores');
+    }
+    /**
+     * Crear deudas anteriores para un alumno
+     */
+    public function crearDeudasAnteriores(Request $request)
+    {
+      // Variables iniciales
+      $resultado = 'true';
+      $mensaje = [];
+      try {
+        // Recuperar parámetros enviados
+        $nro_documento = $request->input('nro_documento');
+        $pensiones = $request->input('pensiones');
+        // Crear deuda de pensiones
+        foreach ($pensiones as $pension) {
+          Deuda_Ingreso::create([
+            'saldo' => $pension['monto'],
+            'id_categoria' => $pension['id'],
+            'id_alumno' => $nro_documento,
+          ]);
+        }
+      } catch (Exception $e) {
+        $resultado = 'false';
+        $mensaje['titulo'] = 'Error';
+        $mensaje['contenido'] = $e->getMessage();
+      }
+      // Retornar respuesta
+      $respuesta = array(
+        'resultado' => $resultado,
+        'mensaje' => $mensaje,
+      );
+      return $respuesta;
+    }
 }
