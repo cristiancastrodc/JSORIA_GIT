@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>REPORTE DE BALANCE</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -17,8 +16,11 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-12">
-      <div class="card">
+    <div class="col-md-10">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Reporte De Balance</h2>
+        </div>
         <div class="card-body card-padding">
           {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-admin-balance', 'route' => 'admin.reporte.balance_ingresos_egresos.procesar', 'method' => 'POST'))!!}
             <div class="form-group">
@@ -30,12 +32,13 @@
                   @endforeach
                 </select>
               </div>
-            </div>
+            </div> 
             <div class="form-group">
-              <div class="row p-r-15">
-                <div class="col-sm-3 col-sm-offset-9">
-                  <button type="submit" class="btn bgm-blue-soria btn-block waves-effect" formtarget="_blank">Generar</button>
-                </div>
+              <div class="pull-right">
+                <button type="submit" class="btn accent-color waves-effect" formtarget="_blank">Generar PDF</button>
+              </div>
+              <div class="col-sm-2 col-sm-offset-8">
+                <button type="submit" class="btn bgm-blue-soria waves-effect" formtarget="_blank">Generar Excel</button>
               </div>
             </div>
           {!!Form::close()!!}

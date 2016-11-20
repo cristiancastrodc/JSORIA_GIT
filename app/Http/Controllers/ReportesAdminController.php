@@ -5,6 +5,7 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
+use JSoria\Http\Requests\BalanceGenerarRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Balance;
@@ -98,7 +99,7 @@ class ReportesAdminController extends Controller
     }
 
     /*** Reporte de Balance de Ingresos / Egresos: Procesar ***/
-    public function balanceIngresosEgresosProcesar(Request $request)
+    public function balanceIngresosEgresosProcesar(BalanceGenerarRequest $request)
     {
         $fecha = date('d-m-Y H:i:s');
         $archivo = 'Balance Ingresos Egresos-' . date('dmYHis');

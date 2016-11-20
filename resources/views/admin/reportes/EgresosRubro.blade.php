@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>REPORTE DE EGRESOS AGRUPADOS POR RUBRO</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -18,7 +17,10 @@
 
   <div class="row">
     <div class="col-md-8">
-      <div class="card">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Reporte de Egresos Agrupados por Rubro</h2>
+        </div>
         <div class="card-body card-padding">
          {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-otros-reportes','route' => 'admin.reportes.EgresosRubro.procesar.store','method' => 'POST'))!!}
             <div class="form-group">
@@ -28,7 +30,6 @@
                   <option value="1">I.E. J. Soria</option>
                   <option value="2">CEBA Konrad Adenahuer</option>
                   <option value="3">I.S.T. Urusayhua</option>
-                  <option value="4">ULP</option>
                 </select>
               </div>
             </div>
