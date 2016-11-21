@@ -109,6 +109,9 @@ form .form-group:last-child {
 .m-t-15 {
   margin-top: 15px;
 }
+.m-b-15 {
+  margin-bottom: 15px;
+}
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;

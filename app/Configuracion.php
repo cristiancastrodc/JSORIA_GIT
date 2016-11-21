@@ -11,4 +11,12 @@ class Configuracion extends Model
   protected $fillable = ['valor'];
 
   public $timestamps = false;
+
+  /**
+   * Recuperar variable de configuracion
+   */
+  public static function valor($variable)
+  {
+    return Configuracion::where('variable', $variable)->first()->valor;
+  }
 }

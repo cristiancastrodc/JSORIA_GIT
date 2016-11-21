@@ -26,8 +26,7 @@ class DashboardController extends Controller {
         return view('tesorera.inicial.index');
       }
     } else if ($tipo == 'cajera') {
-      $tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
-      return view('cajera.dashboard.index', compact('tipo_impresora'));
+      return view('cajera.ingresos.index');
     } else {
       return view('layouts.dashboard');
     }

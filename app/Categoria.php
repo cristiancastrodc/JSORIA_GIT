@@ -5,6 +5,8 @@ namespace JSoria;
 use Illuminate\Database\Eloquent\Model;
 
 use Auth;
+use DB;
+use JSoria\InstitucionDetalle;
 
 class Categoria extends Model
 {
@@ -83,7 +85,7 @@ class Categoria extends Model
     return Categoria::join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
                     ->where('categoria.id', $id_categoria)
                     ->select('detalle_institucion.id_institucion')
-                    ->first();
+                    ->first()->id_institucion;
   }
   /**
    * Retorna las matrículas activas para un detalle institución
@@ -121,6 +123,20 @@ class Categoria extends Model
   {
     return Categoria::where('id_matricula', $id_matricula)
                     ->orWhere('id', $id_matricula)
+                    ->get();
+  }
+  /**
+   * Retorna las categorías ordinarias para una institución
+   */
+  public static function categoriasParaInstitucion($id_institucion)
+  {
+    $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
+                                             ->where('nombre_division', '=', 'Todo')
+                                             ->first()->id;
+    return Categoria::where('tipo', '=', 'sin_factor')
+                    ->where('estado', '=', 1)
+                    ->where('id_detalle_institucion','=', $detalle_institucion)
+                    ->select('categoria.*', DB::raw('0 as cantidad'))
                     ->get();
   }
 }

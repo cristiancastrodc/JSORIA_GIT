@@ -37,4 +37,16 @@ class Comprobante extends Model
                       ->select('serie', 'pad_izquierda', 'numero_comprobante')
                       ->get();
   }
+  /**
+   * Actualiza los datos del comprobante
+   */
+  public static function actualizar($id_institucion, $tipo, $serie, $nuevo_numero)
+  {
+    $comprobante = Comprobante::where('tipo', $tipo)
+                              ->where('serie', $serie)
+                              ->where('id_institucion', $id_institucion)
+                              ->first();
+    $comprobante->numero_comprobante = intval($nuevo_numero);
+    $comprobante->save();
+  }
 }

@@ -31,5 +31,14 @@ class Permiso extends Model {
                   ->select('id_institucion', 'institucion.nombre')
                   ->get();
   }
-
+  /**
+   * Devuelve un valor booleano que indica si un usuario está autorizado para una institución.
+   */
+  public static function usuarioEstaAutorizadoInstitucion($id_usuario, $id_institucion)
+  {
+    $permisos = Permiso::where('id_usuario', $id_usuario)
+                       ->where('id_institucion', $id_institucion)
+                       ->get();
+    return !$permisos->isEmpty();
+  }
 }

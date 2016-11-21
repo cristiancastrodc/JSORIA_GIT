@@ -91,4 +91,15 @@ where estado_pago = '0'
                         ->orderBy('fecha_hora_ingreso', 'asc')
                         ->get();
   }
+  /**
+   * Devuelve la lista de deudas de alumno
+   */
+  public static function deudasDeAlumno($nro_documento)
+  {
+    return Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
+                        ->where('deuda_ingreso.id_alumno','=', $nro_documento)
+                        ->where('deuda_ingreso.estado_pago','=', 0)
+                        ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo', 'deuda_ingreso.descuento', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.estado_descuento', 'deuda_ingreso.estado_fraccionam', 'categoria.destino', 'categoria.monto', 'deuda_ingreso.id_categoria')
+                        ->get();
+  }
 }

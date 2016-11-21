@@ -155,7 +155,7 @@ class ConfiguracionController extends Controller
         $serie = $request["serie_comprobante"];
         $numero_comprobante = intval($request["numero_comprobante"]);
         $pad_izquierda = strlen($request["numero_comprobante"]);
-        $id_institucion = strlen($request["id_institucion"]);
+        $id_institucion = $request["id_institucion"];
         Comprobante::create([
             'tipo' => $tipo,
             'serie' => $serie,
@@ -202,10 +202,10 @@ class ConfiguracionController extends Controller
      */
     public function guardarConfiguracionEmpresa(Request $request)
     {
-      $dia_limite = Configuracion::where('variable', 'dia_limite_descuento')->first();
+      $dia_limite = Configuracion::valor('dia_limite_descuento');
       $dia_limite->valor = $request->dia_limite_descuento;
       $dia_limite->save();
-      $porcentaje_descuento = Configuracion::where('variable', 'porcentaje_descuento')->first();
+      $porcentaje_descuento = Configuracion::valor('porcentaje_descuento');
       $porcentaje_descuento->valor = $request->porcentaje_descuento;
       $porcentaje_descuento->save();
 
