@@ -6,12 +6,14 @@
  ☐ Cajera: Para factura en la impresora matricial, solicitar razon social, ruc y direccion y configuracion de impresora.?? @critical @critical
  ☐ Cajera:Al realizar un pago, si aún está en período de descuento, puede amortizar con descuento, caso contrario el monto vuelve a ser el total original sin descuento. @critical @critical
 
+ ☐ Tesorera: en modificar egresos sacar el boton de eliminar.
+ ☐ Cajera: Quitar del menu el item de configuracion de impresora
  ☐ Quitar la configuración para el uso de facturas.  @critical
  ☐ Admin - Crear modulo para otorgar permisos de uso de módulos (roles).   @critical @critical
  ☐ Para todos los usuarios: módulo de búsqueda de alumnos.  @critical @critical
  ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
- ☐ Reportes exportar a Excel. @critical @critical
 
+ ☐ Reportes exportar a Excel. @critical @critical
  ☐ Secretaria y Administrador: Reporte de historial de alumno con selección del período, debe mostrar deudas y pago segun periodo. @critical @critical
  ☐ Secretaria y Administrador: El reporte de cuenta de alumno debe de mostrar las deudas con su período asociado. @critical @critical
  ☐ Admin Reporte: Reporte de lista de ingresos por cajera. @critical @critical
