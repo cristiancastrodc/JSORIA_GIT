@@ -333,6 +333,10 @@ class CobrosController extends Controller
         $ruc = $request->ruc_cliente;
         $razon_social = $request->razon_social;
         $direccion = $request->direccion;
+        $tipo = $request->tipo;
+        $serie = $request->serie;
+        $numero = $request->numero;
+        $id_institucion = $request->id_institucion;
 
         $cliente_extr = '';
         $descripcion_extr = '';
@@ -352,11 +356,17 @@ class CobrosController extends Controller
           'descripcion_extr' => $descripcion_extr,
           'fecha_hora_ingreso' => date('Y-m-d H:i:s'),
           'id_categoria' => $id_categoria,
-          'id_cajera' => Auth::user()->id
+          'id_cajera' => Auth::user()->id,
+          'tipo_comprobante' => $tipo,
+          'serie_comprobante' => $serie,
+          'numero_comprobante' => $numero,
         ]);
+        // Actualizar el comprobante
+        $comprobante = Comprobante::actualizar($id_institucion, $tipo, $serie, $numero);
 
         $mensaje = 'Venta realizada exitosamente.';
 
+        /*
         $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
         if ($usuario_impresora->tipo_impresora == 'matricial') {
           if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
@@ -375,7 +385,7 @@ class CobrosController extends Controller
               $mensaje = 'Venta exitosa. Puede girar la boleta/factura manualmente.';
           }
         }
-
+        */
         return response()->json(['mensaje' => $mensaje]);
       }
     }
@@ -383,7 +393,7 @@ class CobrosController extends Controller
     /**
     * Buscar los datos del comprobante y del número correlativo
     **/
-    public function buscarComprobante($id_institucion, $tipo_comprobante)
+    public function buscarComprobante($id_institucion, $tipo_comprobante, $json = 'false')
     {
       //$tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
       $comprobantes = Comprobante::seriesComprobante($tipo_comprobante, $id_institucion);
@@ -398,7 +408,11 @@ class CobrosController extends Controller
         ]);
       */
       //return response()->json($comprobantes);
-      return $comprobantes;
+      if ($json == 'false') {
+        return $comprobantes;
+      } else {
+        return response()->json($comprobantes);
+      }
     }
 
     /**
@@ -685,6 +699,38 @@ class CobrosController extends Controller
         'letras' => $letras,
         'tipo_comprobante' => $tipo_comprobante,
         'comprobante' => $comprobante,
+        ]);
+    }
+    /**
+     * Imprime el comprobante múltiple
+     */
+    public function imprimirComprobanteMultiple(Request $request)
+    {
+      // Recuperar los valores enviados
+      $fecha_hora = date('Y-m-d H:i:s');
+      $id_categoria = $request->input('id_categoria');
+      $categoria = Categoria::find($id_categoria);
+      $dni = $request->input('dni');
+      $nombre = $request->input('nombre');
+      $ruc = $request->input('ruc');
+      $razon_social = $request->input('razon_social');
+      $direccion = $request->input('direccion');
+      $tipo_comprobante = $request->input('tipo');
+      // Recuperar el total
+      $total = number_format($categoria->monto, 2);
+      $letras = NumeroALetras::convertir($total, 'soles', 'centimos');
+      // Direccionar a la vista
+      return view('cajera.ingresos.comprobante_multiple', [
+        'fecha_hora' => $fecha_hora,
+        'pago' => $categoria,
+        'total' => $total,
+        'letras' => $letras,
+        'tipo_comprobante' => $tipo_comprobante,
+        'dni' => $dni,
+        'nombre' => $nombre,
+        'ruc' => $ruc,
+        'razon_social' => $razon_social,
+        'direccion' => $direccion,
         ]);
     }
 }

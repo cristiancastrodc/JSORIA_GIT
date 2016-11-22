@@ -119,14 +119,15 @@ Route::post('cajera/retiro/confirmacion', 'RetirosController@confirmar');
 Route::get('cajera/configuracion/impresora', 'ConfiguracionController@cajeraImpresora');
 Route::post('cajera/configuracion/impresora/guardar', 'ConfiguracionController@guardarCajeraImpresora');
 Route::post('cajera/cobro/multiple/guardar', 'CobrosController@guardarCobroMultiple');
-Route::get('cajera/comprobante/{id_institucion}/{tipo_comprobante}', 'CobrosController@buscarComprobante');
-Route::get('cajera/comprobante/{id_institucion}/{tipo_comprobante}/{serie_comprobante}', 'CobrosController@buscarNumeroComprobante');
+Route::get('cajera/comprobante/{id_institucion}/{tipo_comprobante}/{json?}', 'CobrosController@buscarComprobante');
+Route::get('cajera/comprobante/numero/{id_institucion}/{tipo_comprobante}/{serie_comprobante}', 'CobrosController@buscarNumeroComprobante');
 Route::get('cajera/generar/ingreso', 'CobrosController@generarIngreso');
 Route::get('cajera/generar/ingreso/buscar/{codigo}', 'CobrosController@buscarDatosParaCobro');
 Route::post('cajera/generar/ingreso/grabar', 'CobrosController@grabarIngreso');
 Route::post('cajera/generar/ingreso/imprimir', 'CobrosController@imprimirComprobante');
 Route::post('cajera/generar/ingreso/grabar_extraordinario', 'CobrosController@grabarIngresoExtraordinario');
 Route::post('cajera/generar/ingreso/imprimir_extraordinario', 'CobrosController@imprimirComprobanteExtraordinario');
+Route::post('cajera/generar/ingreso/imprimir_multiple', 'CobrosController@imprimirComprobanteMultiple');
 # Reportes
 Route::get('cajera/reporte/procesar','CajeraReporteCobros@index');
 Route::post('cajera/reporte/generar',

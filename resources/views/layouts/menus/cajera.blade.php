@@ -8,9 +8,9 @@
 <li><a href="{!!URL::to('/cajera/retiros')!!}">
   <i class="zmdi zmdi-assignment-return"></i> Retiro</a>
 </li>
-<li><a href="{!!URL::to('/cajera/configuracion/impresora')!!}">
+<!-- li><a href="{!!URL::to('/cajera/configuracion/impresora')!!}">
   <i class="zmdi zmdi-print"></i> Configuracion de Impresora</a>
-</li>
+</li-->
 <li><a href="{!!URL::to('/cajera/reporte/procesar')!!}">
   <i class="zmdi zmdi-chart"></i> Reporte</a>
 </li>

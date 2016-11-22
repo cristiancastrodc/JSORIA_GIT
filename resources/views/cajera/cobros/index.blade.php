@@ -4,6 +4,14 @@
   Otros Conceptos
 @endsection
 
+@section('styles')
+  <style>
+    #datos-factura {
+      display: none;
+    }
+  </style>
+@endsection
+
 @section('content')
 
   @if(Session::has('message'))
@@ -39,6 +47,7 @@
                     <td class="hidden id">{{ $categoria->id }}</td>
                     <td class="nombre">{{ $categoria->categoria }}</td>
                     <td class="nombre">{{ $categoria->institucion }}</td>
+                    <td class="hidden id_institucion">{{ $categoria->id_institucion }}</td>
                     <td class="monto text-right">{{ $categoria->monto }}</td>
                     <td class="hidden destino">{{ $categoria->destino }}</td>
                     <td>
@@ -77,7 +86,39 @@
                   </div>
               </div>
           </div>
-          @if ($tipo_impresora == 'matricial')
+          <div class="form-group">
+            <label for="tipo_comprobante" class="control-label col-sm-3">Tipo de Comprobante</label>
+            <div class="col-sm-9">
+              <div class="fg-line">
+                <div class="select">
+                  <select name="tipo_comprobante" id="tipo_comprobante" class="form-control">
+                    <option value="">Seleccione Tipo de Comprobante</option>
+                    <option value="comprobante">Comprobante</option>
+                    <option value="boleta">Boleta</option>
+                    <option value="factura">Factura</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="serie_comprobante" class="control-label col-sm-3">Serie de Comprobante</label>
+            <div class="col-sm-9">
+              <select name="serie_comprobante" id="serie_comprobante" class="form-control selectpicker" title="Seleccione">
+                <option value="">Seleccione Serie</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="numero_comprobante" class="control-label col-sm-3">Número de Comprobante</label>
+            <div class="col-sm-9">
+              <div class="fg-line">
+                <input type="text" name="numero_comprobante" id="numero_comprobante" class="form-control">
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div id="datos-factura">
             <div class="form-group">
                 <label for="ruc_cliente" class="control-label col-sm-3">RUC:</label>
                 <div class="col-sm-9">
@@ -96,20 +137,12 @@
                     <div class="fg-line"><input type="text" class="form-control" id="direccion" placeholder="Solo ingresar en caso de factura"></div>
                 </div>
             </div>
-          @endif
+          </div>
           <div class="form-group">
             <div class="row p-r-15">
-              <div class="col-sm-3 col-sm-offset-3">
-                <button class="btn third-color btn-block m-t-10 btn-cobro-multiple" id="comprobante"> Comprobante</button>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button class="btn third-color btn-block m-t-10" id="btn-cobro-multiple"> Finalizar Cobro</button>
               </div>
-              @if ($tipo_impresora == 'matricial')
-                <div class="col-sm-3">
-                  <button class="btn accent-color btn-block m-t-10 btn-cobro-multiple" id="boleta"> Boleta</button>
-                </div>
-                <div class="col-sm-3">
-                  <button class="btn fourth-color btn-block m-t-10 btn-cobro-multiple" id="factura"> Factura</button>
-                </div>
-              @endif
             </div>
           </div>
           {!!Form::close()!!}
@@ -124,5 +157,5 @@
 @endsection
 
 @section('scripts')
-  <script src="{{ asset('js/cajera.js') }}"></script>
+  <script src="{{ asset('js/cajera.otros_cobros.js') }}"></script>
 @endsection

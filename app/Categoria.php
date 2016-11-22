@@ -76,7 +76,7 @@ class Categoria extends Model
                             ->from('permisos')
                             ->where('id_usuario', Auth::user()->id);
                     })
-                    ->select('categoria.id as id', 'categoria.nombre as categoria', 'categoria.monto as monto', 'categoria.destino as destino', 'institucion.nombre as institucion')
+                    ->select('categoria.id as id', 'categoria.nombre as categoria', 'categoria.monto as monto', 'categoria.destino as destino', 'institucion.nombre as institucion', 'institucion.id as id_institucion')
                     ->get();
   }
 
