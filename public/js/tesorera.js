@@ -336,8 +336,9 @@ $('#btn-buscar-egresos').click(function(e) {
               } else{*/
                 fila += "<td class='text-right'>" + data[i].numero_comprobante + "</td>";
               //};
-              fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn third-color waves-effect'><i class='zmdi zmdi-edit'></i></a>";
-              fila += "<a class='btn fourth-color waves-effect eliminar-egreso'><i class='zmdi zmdi-delete'></i></a></td>";
+              fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn third-color waves-effect'><i class='zmdi zmdi-edit'></i></a> </td>";
+              //fila += "<a class='btn fourth-color waves-effect eliminar-egreso'><i class='zmdi zmdi-delete'></i></a>
+              
               fila += "</tr>";
               $('#tabla-listar-egresos tbody').append(fila);
             };
