@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Auth;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
+use JSoria\Alumno;
 use JSoria\Permiso;
 use JSoria\User;
+use Session;
 
 class UserGeneralController extends Controller
 {
@@ -121,5 +123,16 @@ class UserGeneralController extends Controller
     public function institucionesUsuario()
     {
         return Permiso::institucionesUsuario(Auth::user()->id);
+    }
+    /**
+     * Recibe el texto a buscar
+     */
+    public function buscar(Request $request)
+    {
+      $texto = '%' . $request->texto . '%';
+      $resultado = Alumno::busqueda($texto);
+      $total = $resultado->count();
+      $mensaje = 'Se encontró un total de '. $total . ' resultados.';
+      return view('general.buscar', ['resultado' => $resultado, 'mensaje' => $mensaje]);
     }
 }

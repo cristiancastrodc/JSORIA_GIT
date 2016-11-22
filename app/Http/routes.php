@@ -25,6 +25,7 @@ Route::get('perfil', 'UserGeneralController@actualizarPerfil');
 Route::post('perfil/guardar', 'UserGeneralController@guardarPerfil');
 # Ruta para obtener las instituciones de un usuario
 Route::get('usuario/instituciones', 'UserGeneralController@institucionesUsuario');
+Route::post('usuario/buscar', 'UserGeneralController@buscar');
 // Rutas para el administrador
 Route::resource('admin/usuarios','UsersController');
 Route::resource('admin/actividades','ActividadesController');

@@ -599,6 +599,7 @@ class CobrosController extends Controller
               'id_categoria' => $concepto['id'],
               'id_alumno' => $nro_documento,
               'id_cajera' => Auth::user()->id,
+              'fecha_hora_ingreso' => $fecha_hora_ingreso,
               'tipo_comprobante' => $tipo_comprobante,
               'serie_comprobante' => $comprobante['serie'],
               'numero_comprobante' => $comprobante['numero_comprobante'],

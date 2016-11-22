@@ -39,6 +39,9 @@
       </li>
       <li class="pull-right">
         <ul class="top-menu">
+          <li id="top-search">
+            <a href=""><i class="tm-icon zmdi zmdi-search"></i></a>
+          </li>
           <li id="toggle-width">
             <div class="toggle-switch">
               <input id="tw-switch" type="checkbox" hidden="hidden">
@@ -52,6 +55,16 @@
         </ul>
       </li>
     </ul>
+    <div id="top-search-wrap">
+      <div class="tsw-inner">
+        <i id="top-search-close" class="zmdi zmdi-arrow-left"></i>
+        <form action="{{ url('/usuario/buscar') }}" method="POST">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="text" name="texto">
+          <button type="submit" class="hidden">Buscar</button>
+        </form>
+      </div>
+    </div>
   </header>
   <section id="main" data-layout="layout-1">
     <aside id="sidebar" class="sidebar c-overflow bgm-blue-soria">

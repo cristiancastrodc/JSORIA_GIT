@@ -53,4 +53,17 @@ class Alumno extends Model
   {
     return Alumno::find($nro_documento);
   }
+  /**
+   * Retorna los resultados de una búsqueda
+   */
+  public static function busqueda($texto)
+  {
+    return Alumno::where('nombres', 'like', $texto)
+                 ->orWhere('apellidos', 'like', $texto)
+                 ->leftJoin('grado', 'alumno.id_grado', '=', 'grado.id')
+                 ->leftJoin('detalle_institucion', 'grado.id_detalle', '=', 'detalle_institucion.id')
+                 ->leftJoin('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
+                 ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'institucion.nombre as institucion', 'detalle_institucion.nombre_division as nivel', 'grado.nombre_grado as grado')
+                 ->get();
+  }
 }
