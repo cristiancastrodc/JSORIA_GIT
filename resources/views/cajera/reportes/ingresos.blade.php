@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-  <h1>REPORTE DE COBROS</h1>
 
   @if(Session::has('message'))
     <div class="alert alert-success alert-dismissible" role="alert">
@@ -18,7 +17,10 @@
 
   <div class="row">
     <div class="col-md-8">
-      <div class="card">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>REPORTE DE COBROS</h2>
+        </div>
         <div class="card-body card-padding">
           <form action="{{ url('/cajera/reporte/generar') }}" method="POST" class="form-horizontal">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
