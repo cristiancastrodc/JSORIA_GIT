@@ -19,17 +19,17 @@ class DashboardController extends Controller {
   public function escritorio()
   {
     $tipo = strtolower(Auth::user()->tipo);
+    $modulos = Usuario_Modulos::modulosDeUsuario();
     if ($tipo == 'tesorera') {
       $balance = Balance::where('id_tesorera', Auth::user()->id)->first();
       if ($balance) {
-        return view('layouts.dashboard');
+        return view('layouts.dashboard', ['modulos' => $modulos]);
       } else {
-        return view('tesorera.inicial.index');
+        return view('tesorera.inicial.index', ['modulos' => $modulos]);
       }
     } else if ($tipo == 'cajera') {
-      return view('cajera.ingresos.index');
+      return view('cajera.ingresos.index', ['modulos' => $modulos]);
     } else {
-      $modulos = Usuario_Modulos::modulosDeUsuario();
       return view('layouts.dashboard', ['modulos' => $modulos]);
     }
   }

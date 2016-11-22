@@ -11,6 +11,7 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Autorizacion;
 use Session;
 use Redirect;
+use JSoria\Usuario_Modulos;
 
 class CodigoAutorizacionController extends Controller
 {
@@ -26,7 +27,8 @@ class CodigoAutorizacionController extends Controller
      */
     public function index()
     {
-        return view('admin.autorizacion.index');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('admin.autorizacion.index', ['modulos' => $modulos]);
     }
 
     /**

@@ -9,6 +9,7 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
 use DB;
+use JSoria\Usuario_Modulos;
 
 class AdminReporteIngresosTotales extends Controller
 {
@@ -19,7 +20,8 @@ class AdminReporteIngresosTotales extends Controller
      */
     public function index()
     {
-        return view('admin.reportes.IngresosTotales');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('admin.reportes.IngresosTotales', ['modulos' => $modulos]);
     }
 
     /**

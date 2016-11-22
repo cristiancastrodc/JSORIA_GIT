@@ -10,6 +10,7 @@ use JSoria\Alumno;
 use JSoria\Permiso;
 use JSoria\User;
 use Session;
+use JSoria\Usuario_Modulos;
 
 class UserGeneralController extends Controller
 {
@@ -93,7 +94,8 @@ class UserGeneralController extends Controller
     public function actualizarPerfil()
     {
         $usuario = User::find(Auth::user()->id);
-        return view('general.perfil', compact('usuario'));
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('general.perfil', compact('usuario', 'modulos'));
     }
 
     /*** Guardar perfil de Usuario ***/
@@ -133,6 +135,7 @@ class UserGeneralController extends Controller
       $resultado = Alumno::busqueda($texto);
       $total = $resultado->count();
       $mensaje = 'Se encontró un total de '. $total . ' resultados.';
-      return view('general.buscar', ['resultado' => $resultado, 'mensaje' => $mensaje]);
+      $modulos = Usuario_Modulos::modulosDeUsuario();
+      return view('general.buscar', ['resultado' => $resultado, 'mensaje' => $mensaje, 'modulos' => $modulos]);
     }
 }

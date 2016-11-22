@@ -19,4 +19,11 @@ class Configuracion extends Model
   {
     return Configuracion::where('variable', $variable)->first()->valor;
   }
+  /**
+   * Recuperar configuracion
+   */
+  public static function configuracion($variable)
+  {
+    return Configuracion::where('variable', $variable)->first();
+  }
 }

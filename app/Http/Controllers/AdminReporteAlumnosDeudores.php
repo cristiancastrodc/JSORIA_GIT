@@ -10,6 +10,7 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Categoria;
 use JSoria\InstitucionDetalle;
 use JSoria\Grado;
+use JSoria\Usuario_Modulos;
 
 class AdminReporteAlumnosDeudores extends Controller
 {
@@ -20,7 +21,8 @@ class AdminReporteAlumnosDeudores extends Controller
      */
     public function index()
     {
-        return view('admin.reportes.AlumnosDeudores');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('admin.reportes.AlumnosDeudores', ['modulos' => $modulos]);
     }
 
     /**

@@ -50,7 +50,6 @@ Route::get('admin/comprobante/crear', 'ConfiguracionController@definirComprobant
 Route::post('admin/comprobante/guardar', 'ConfiguracionController@guardarComprobante');
 Route::get('admin/configuracion', 'ConfiguracionController@configuracionEmpresa');
 Route::post('admin/configuracion/guardar', 'ConfiguracionController@guardarConfiguracionEmpresa');
-Route::post('admin/configuracion/guardar', 'ConfiguracionController@guardarConfiguracionEmpresa');
 Route::get('admin/usuario/modulos', 'UsersController@modulosUsuario');
 Route::get('admin/usuario/lista', 'UsersController@listaUsuarios');
 Route::get('admin/usuario/{id_usuario}/modulos', 'UsersController@listaModulosUsuario');

@@ -42,7 +42,8 @@ class UsersController extends Controller {
     /*** Mostrar lista de usuarios ***/
     $users = User::All();
     /*** Mostrar formulario de creacion ***/
-    return view('admin.usuario.index', compact('users'));
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    return view('admin.usuario.index', compact('users', 'modulos'));
   }
 
   /**
@@ -112,7 +113,8 @@ class UsersController extends Controller {
    */
   public function edit($id)
   {
-    return view('admin.usuario.edit', ['user' => $this->user]);
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    return view('admin.usuario.edit', ['user' => $this->user, 'modulos' => $modulos]);
   }
 
   /**
@@ -190,11 +192,13 @@ class UsersController extends Controller {
     $usuario = User::find($id_usuario);
     $tipo = $usuario->tipo;
     $modulos = Modulo::where('tipo_usuario', $tipo)
-                     ->leftJoin('usuario_modulos', 'modulos.id', '=', 'usuario_modulos.id_modulo')
-                     ->select('modulos.id as id_modulo', 'modulos.descripcion', 'usuario_modulos.id as id_aux')
+                     ->select('modulos.id as id_modulo', 'modulos.descripcion')
                      ->get();
     foreach ($modulos as $modulo) {
-      if (empty($modulo->id_aux)) {
+      $aux = Usuario_Modulos::where('id_modulo', $modulo->id_modulo)
+                            ->where('id_usuario', $id_usuario)
+                            ->get();
+      if ($aux->isEmpty()) {
         $modulo->seleccionado = false;
       } else {
         $modulo->seleccionado = true;

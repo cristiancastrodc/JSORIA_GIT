@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use DB;
 use Auth;
 use JSoria\Deuda_Ingreso;
+use JSoria\Usuario_Modulos;
 
 class CajeraReporteCobros extends Controller
 {
@@ -20,7 +21,8 @@ class CajeraReporteCobros extends Controller
      */
     public function index()
     {
-         return view('cajera.reportes.ingresos');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+         return view('cajera.reportes.ingresos', ['modulos' => $modulos]);
     }
     /**
      * Show the form for creating a new resource.

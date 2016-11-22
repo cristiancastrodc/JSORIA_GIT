@@ -58,8 +58,3 @@
     </div>
   </div>
 @endsection
-
-@section('scripts')
-  <script src="{{ asset('js/angular.min.js') }}"></script>
-  <script src="{{ asset('js/apps/matricula.crear.js') }}"></script>
-@endsection

@@ -12,6 +12,7 @@ use JSoria\Balance;
 use JSoria\User;
 
 use NumeroALetras;
+use JSoria\Usuario_Modulos;
 
 class ReportesAdminController extends Controller
 {
@@ -95,7 +96,8 @@ class ReportesAdminController extends Controller
     public function balanceIngresosEgresos()
     {
         $tesoreras = User::getTesoreras();
-        return view('admin.reportes.balance', compact('tesoreras'));
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('admin.reportes.balance', compact('tesoreras', 'modulos'));
     }
 
     /*** Reporte de Balance de Ingresos / Egresos: Procesar ***/

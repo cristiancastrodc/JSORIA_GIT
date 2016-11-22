@@ -13,6 +13,7 @@ use JSoria\Categoria;
 use JSoria\InstitucionDetalle;
 use JSoria\Deuda_Ingreso;
 use JSoria\Alumno;
+use JSoria\Usuario_Modulos;
 
 class ActividadesController extends Controller
 {
@@ -28,7 +29,8 @@ class ActividadesController extends Controller
      */
     public function index()
     {
-        return view('admin.actividad.index');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('admin.actividad.index', ['modulos' => $modulos]);
     }
 
     /**

@@ -13,6 +13,7 @@ use JSoria\Categoria;
 use JSoria\InstitucionDetalle;
 use Redirect;
 use Session;
+use JSoria\Usuario_Modulos;
 
 class CobrosExtraordinariosController extends Controller
 {
@@ -28,7 +29,8 @@ class CobrosExtraordinariosController extends Controller
      */
     public function index()
     {
-        return view('admin.cobro.extraordinario');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('admin.cobro.extraordinario', ['modulos' => $modulos]);
     }
 
     /**

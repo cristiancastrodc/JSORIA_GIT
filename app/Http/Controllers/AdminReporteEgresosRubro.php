@@ -9,6 +9,7 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Egreso;
 use DB;
+use JSoria\Usuario_Modulos;
 
 class AdminReporteEgresosRubro extends Controller
 {
@@ -19,7 +20,8 @@ class AdminReporteEgresosRubro extends Controller
      */
     public function index()
     {
-        return view('admin.reportes.EgresosRubro');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('admin.reportes.EgresosRubro', ['modulos' => $modulos]);
     }
 
     /**

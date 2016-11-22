@@ -10,6 +10,7 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Categoria;
 use JSoria\CategoriaTemp;
 use JSoria\Deuda_Ingreso;
+use JSoria\Usuario_Modulos;
 
 class MatriculasController extends Controller
 {
@@ -27,7 +28,8 @@ class MatriculasController extends Controller
    */
   public function index()
   {
-    return view('admin.matricula.index');
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    return view('admin.matricula.index', ['modulos' => $modulos]);
   }
 
   /**
@@ -75,7 +77,8 @@ class MatriculasController extends Controller
    */
   public function edit($id)
   {
-    return view('admin.usuario.edit', ['user' => $this->user]);
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    return view('admin.usuario.edit', ['user' => $this->user, 'modulos' => $modulos]);
   }
 
   /**
@@ -133,7 +136,8 @@ class MatriculasController extends Controller
    */
   public function crearMatricula()
   {
-    return view('admin.matricula.crear');
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    return view('admin.matricula.crear', ['modulos' => $modulos]);
   }
 
   /**
@@ -256,7 +260,8 @@ class MatriculasController extends Controller
    */
   public function programarPeriodos()
   {
-    return view('secretaria.matricula.programar');
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    return view('secretaria.matricula.programar', ['modulos' => $modulos]);
   }
 
   /**
