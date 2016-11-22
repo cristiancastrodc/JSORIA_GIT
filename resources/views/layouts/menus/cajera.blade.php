@@ -2,7 +2,7 @@
 <li><a href="{!!URL::to('/escritorio')!!}">
   <i class="zmdi zmdi-money-box"></i> Cobrar</a>
 </li>
-<li><a href="{!!URL::to('/cajera/cobros')!!}">
+<li><a href="{!!URL::to('/cajera/cobros')!!}" class="hidden" id="link_otros_cobros">
   <i class="zmdi zmdi-money"></i> Otros Cobros</a>
 </li>
 <li><a href="{!!URL::to('/cajera/retiros')!!}">

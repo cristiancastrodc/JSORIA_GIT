@@ -1,6 +1,5 @@
 
  ☐ Admin - Crear modulo para otorgar permisos de uso de módulos (roles).   @critical @critical
- ☐ Para todos los usuarios: módulo de búsqueda de alumnos.  @critical @critical
  ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
 
  ☐ Reportes exportar a Excel. @critical @critical
@@ -60,6 +59,7 @@
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Para todos los usuarios: módulo de búsqueda de alumnos.  @critical @critical @done (16-11-21 20:36)
  ✔ Tesorera: en modificar egresos sacar el boton de eliminar. @done (16-11-21 18:17)
  ✔ Admin: en usuarios modificar sacar el boton de eliminar @done (16-11-21 18:03)
  ✔ Quitar la configuración para el uso de facturas.  @critical @done (16-11-21 17:50)
