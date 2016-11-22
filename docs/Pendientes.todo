@@ -1,14 +1,4 @@
- ☐ Cajera: Cobros y otros Cobro: Reanalizar y rehacer módulo.  @critical @critical
- ☐ Cajera: Crear modulo para poder realizar cobros parciales (amortizaciones) de deudas.  @critical @critical 
- ☐ Cajera: Para realizar un cobro, el alumno no debe estar necesariamente matriculado. @critical @critical
- ☐ Cajera:Formato de impresión debe de tener una línea para la firma. @critical @critical
- ☐ Cajera: La impresión debe de ser por navegador. @critical @critical
- ☐ Cajera: Para factura en la impresora matricial, solicitar razon social, ruc y direccion y configuracion de impresora.?? @critical @critical
- ☐ Cajera:Al realizar un pago, si aún está en período de descuento, puede amortizar con descuento, caso contrario el monto vuelve a ser el total original sin descuento. @critical @critical
 
- ☐ Tesorera: en modificar egresos sacar el boton de eliminar.
- ☐ Cajera: Quitar del menu el item de configuracion de impresora
- ☐ Quitar la configuración para el uso de facturas.  @critical
  ☐ Admin - Crear modulo para otorgar permisos de uso de módulos (roles).   @critical @critical
  ☐ Para todos los usuarios: módulo de búsqueda de alumnos.  @critical @critical
  ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
@@ -70,6 +60,17 @@
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Tesorera: en modificar egresos sacar el boton de eliminar. @done (16-11-21 18:17)
+ ✔ Admin: en usuarios modificar sacar el boton de eliminar @done (16-11-21 18:03)
+ ✔ Quitar la configuración para el uso de facturas.  @critical @done (16-11-21 17:50)
+ ✔ Cajera: Quitar del menu el item de configuracion de impresora @done (16-11-21 17:50)
+ ✔ Cajera:Formato de impresión debe de tener una línea para la firma. @critical @critical @done (16-11-21 17:49)
+ ✔ Cajera:Al realizar un pago, si aún está en período de descuento, puede amortizar con descuento, caso contrario el monto vuelve a ser el total original sin descuento. @critical @critical @done (16-11-21 17:49)
+ ✔ Cajera: Para realizar un cobro, el alumno no debe estar necesariamente matriculado. @critical @critical @done (16-11-21 17:49)
+ ✔ Cajera: Para factura en la impresora matricial, solicitar razon social, ruc y direccion y configuracion de impresora.?? @critical @critical @done (16-11-21 17:49)
+ ✔ Cajera: La impresión debe de ser por navegador. @critical @critical @done (16-11-21 17:49)
+ ✔ Cajera: Cobros y otros Cobro: Reanalizar y rehacer módulo.  @critical @critical @done (16-11-21 17:49)
+ ✔ Cajera: Crear modulo para poder realizar cobros parciales (amortizaciones) de deudas.  @critical @critical  @done (16-11-21 17:48)
  ✔ Secretaria: Módulo para registrar las deudas antiguas de un alumno con los pagos que se han realizado en un período seleccionado. @critical @critical @done (16-11-20 12:12)
  ✔ Secretaria Matricular: Mostrar reporte con las deudas generadas. El Total debe de decir Total Inversión. @critical @critical @done (16-11-20 10:17)
  ✔ Rehacer Modulo de cerrar ciclo, escoger matriculas deseadas. @critical @critical @done (16-11-20 10:16)

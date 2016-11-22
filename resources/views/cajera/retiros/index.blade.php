@@ -38,7 +38,7 @@
                 @foreach($retiro as $ingreso)
                   <tr>
                     <td type="hidden">{{$ingreso->id}}</td>
-                    <td>{{$ingreso->fecha_hora}}</td>
+                    <td>{{$ingreso->fecha_hora_creacion}}</td>
                     <td>{{$ingreso->nombres . '  '.$ingreso->apellidos}}</td>
                     <td>{{$ingreso->monto}}</td>
                     <td>
