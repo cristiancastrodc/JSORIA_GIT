@@ -1,8 +1,8 @@
 <!-- Administrador -->
-<li><a href="{!!URL::to('/admin/actividades')!!}">
+<li><a href="{!!URL::to('/admin/actividades')!!}" class="hidden" id="link_actividades">
   <i class="zmdi zmdi-assignment"></i> Actividades</a>
 </li>
-<li><a href="{{ url('/admin/matricula/crear') }}">
+<li><a href="{{ url('/admin/matricula/crear') }}" class="hidden" id="link_crear_matricula">
   <i class="zmdi zmdi-assignment"></i> Crear Matrícula</a>
 </li>
 <!-- li><a href="{!!URL::to('/admin/matriculas')!!}">
@@ -14,25 +14,28 @@
 <li class="sub-menu">
   <a href="#"><i class="zmdi zmdi-money-box"></i> Cobros</a>
   <ul>
-      <li><a href="{!!URL::to('/admin/cobros/ordinarios')!!}">Ordinarios</a></li>
-      <li><a href="{!!URL::to('/admin/cobros/extraordinarios')!!}">Extraordinarios</a></li>
-      <li><a href="{!!URL::to('/admin/cobros/otros')!!}">Otros</a></li>
+      <li><a href="{!!URL::to('/admin/cobros/ordinarios')!!}" class="hidden" id="link_cobros_ordinarios">Ordinarios</a></li>
+      <li><a href="{!!URL::to('/admin/cobros/extraordinarios')!!}" class="hidden" id="link_cobros_extraordinarios">Extraordinarios</a></li>
+      <li><a href="{!!URL::to('/admin/cobros/otros')!!}" class="hidden" id="link_otros_cobros">Otros</a></li>
   </ul>
 </li>
-<li><a href="{{ url('/admin/comprobante/crear') }}">
+<li><a href="{{ url('/admin/comprobante/crear') }}" class="hidden" id="link_crear_comprobante">
   <i class="zmdi zmdi-assignment"></i> Definir Comprobantes</a>
 </li>
-<li><a href="{!!URL::to('/admin/usuarios')!!}">
+<li><a href="{!!URL::to('/admin/usuarios')!!}" class="hidden" id="link_usuarios">
   <i class="zmdi zmdi-accounts"></i> Usuarios</a>
 </li>
-<li><a href="{!!URL::to('/admin/autorizacion')!!}">
+<li><a href="{!!URL::to('/admin/autorizacion')!!}" class="hidden" id="link_autorizacion">
   <i class="zmdi zmdi-trending-down"></i> Autorizar Descuentos</a>
 </li>
-<li><a href="{!!URL::to('/admin/ingresos')!!}">
+<li><a href="{!!URL::to('/admin/ingresos')!!}" class="hidden" id="link_ingresos">
   <i class="zmdi zmdi-money"></i> Retiro</a>
 </li>
-<li><a href="{{ url('admin/configuracion') }}">
+<li><a href="{{ url('admin/configuracion') }}" class="hidden" id="link_configuracion">
   <i class="zmdi zmdi-money"></i> Definir Descuentos</a>
+</li>
+<li><a href="{{ url('admin/usuario/modulos') }}" id="link_usuario_modulos">
+  <i class="zmdi zmdi-money"></i> Módulos de Usuario</a>
 </li>
 <li class="sub-menu">
   <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>

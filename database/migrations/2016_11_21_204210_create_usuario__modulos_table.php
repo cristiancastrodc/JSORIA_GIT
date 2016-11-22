@@ -16,9 +16,6 @@ class CreateUsuarioModulosTable extends Migration
             $table->increments('id');
             $table->integer('id_usuario')->nullable;
             $table->integer('id_modulo')->nullable;
-
-            $table->foreign('id_usuario')->references('id')->on('usuario');
-            $table->foreign('id_modulo')->references('id')->on('modulos');
         });
     }
 

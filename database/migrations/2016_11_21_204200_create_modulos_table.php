@@ -14,13 +14,9 @@ class CreateModulosTable extends Migration
     {
         Schema::create('modulos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('url');
-            $table->string('icono')->nullable();
             $table->string('descripcion');
             $table->string('tipo_usuario');
-            $table->integer('id_modulo_padre')->nullable;
-
-            $table->foreign('id_modulo_padre')->references('id')->on('modulos');
+            $table->string('tag_id');
         });
     }
 

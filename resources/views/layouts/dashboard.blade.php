@@ -154,6 +154,11 @@
   {!!Html::script('vendors/farbtastic/farbtastic.min.js')!!}
   {!!Html::script('js/functions.js')!!}
   {!!Html::script('js/global.js')!!}
+  <script>
+    @foreach($modulos as $modulo)
+      $('#{{ $modulo->tag_id }}').removeClass('hidden');
+    @endforeach
+  </script>
   <!-- Scripts adicionales -->
   @yield('scripts')
 </body>

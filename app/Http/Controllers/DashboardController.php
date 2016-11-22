@@ -7,6 +7,7 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Balance;
 use JSoria\Usuario;
 use JSoria\UsuarioImpresora;
+use JSoria\Usuario_Modulos;
 
 class DashboardController extends Controller {
 
@@ -28,8 +29,8 @@ class DashboardController extends Controller {
     } else if ($tipo == 'cajera') {
       return view('cajera.ingresos.index');
     } else {
-      return view('layouts.dashboard');
+      $modulos = Usuario_Modulos::modulosDeUsuario();
+      return view('layouts.dashboard', ['modulos' => $modulos]);
     }
   }
-
 }
