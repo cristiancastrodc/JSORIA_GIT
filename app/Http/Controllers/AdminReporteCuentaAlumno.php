@@ -109,4 +109,27 @@ class AdminReporteCuentaAlumno extends Controller
     {
         //
     }
+    public function procesar(Request $request)
+    {
+        $id_alumno = $request['nro_documento'];
+
+        $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
+                            ->join('alumno','id_alumno','=','alumno.nro_documento')
+                            ->where('estado_pago','=',0)
+                            ->where('id_alumno','=',$id_alumno)
+                            ->select('categoria.nombre','saldo','descuento','alumno.nombres','alumno.apellidos','categoria.id_detalle_institucion')
+                            ->get();
+
+        $id_detalle_institucion = $datas[0]->id_detalle_institucion;
+       
+        $Institucion_alumno = InstitucionDetalle::join('institucion','id_institucion','=','institucion.id')
+                                                ->where('detalle_institucion.id','=',$id_detalle_institucion)
+                                                ->select('detalle_institucion.nombre_division','institucion.nombre')
+                                                ->get();
+
+        $view =  \View::make('pdf.AdminCuentaAlumno', compact('id_alumno','datas','Institucion_alumno'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('AdminCuentaAlumno'); 
+    }
 }

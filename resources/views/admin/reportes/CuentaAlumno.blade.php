@@ -22,7 +22,8 @@
           <h2>Reporte de Cuenta de Alumno</h2>
         </div>
         <div class="card-body card-padding" >
-          {!!Form::open(['route' => 'admin.reportes.CuentaAlumno.procesar.store', 'id' => 'form-otros-reportes','class' => 'form-horizontal', 'method' => 'POST'])!!}
+          <form action="{{ url('/admin/reportes/CuentaAlumno/procesar') }}" class="form-horizontal" method="POST">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
               <label for="nro_documento" class="col-sm-3 control-label">Alumno</label>
               <div class="col-sm-9">
@@ -36,7 +37,7 @@
                 <button type="submit" class="btn btn-warning waves-effect" id="btn-buscar-alumno" formtarget="_blank">Generar</button>
               </div>
             </div>
-          {!!Form::close()!!}
+          </form>
         </div>
       </div>
     </div>

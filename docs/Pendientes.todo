@@ -8,7 +8,6 @@
  ☐ Admin y tesorera Reporte: Reporte de lista de ingresos por cajera. @critical @critical
  ☐ Admin y tesoreraReporte: Lista de ingresos por institucion. @critical @critical
  ☐ Admin y tesorera Reporte: Ingresos Totales. @critical @critical
- ☐ Admin y tesorera Reporte: Balance. @critical @critical
  ☐ Admin y tesorera Reporte: Lista Egresos. @critical @critical
  ☐ Admin y tesorera Reporte: Lista Egresos Agrupados por rubro. @critical @critical
  ☐ Admin y tesorera Reporte: Lista Egresos totales. @critical @critical
@@ -17,7 +16,6 @@
 
  ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
  ☐ Administrador: Crear modulo para editar Matriculas y pensiones. @critical
- ☐ Verificar que para cada modulo, restringir opciones (instituciones) de acuerdo a sus permisos. @critical
 
 
 
@@ -28,6 +26,8 @@
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Admin y tesorera Reporte: Balance. @critical @critical @done (16-11-22 07:33)
+ ✔ Verificar que para cada modulo, restringir opciones (instituciones) de acuerdo a sus permisos. @critical @done (16-11-22 07:32)
  ✔ Admin - Crear modulo para otorgar permisos de uso de módulos (roles).   @critical @critical @done (16-11-22 06:52)
  ✔ Configuración de porcentaje de descuento para pensiones. @low @done (16-11-22 05:23)
  ✔ Cajera:Agregar selector de fecha en el reporte. @critical @critical @done (16-11-22 05:16)

@@ -77,7 +77,8 @@ Route::get('admin/reportes/AlumnosDeudores','AdminReporteAlumnosDeudores@index')
 Route::resource('admin/reportes/AlumnosDeudores/procesar','AdminReporteAlumnosDeudores');
 Route::get('admin/grados/{id_detalle_institucion}','GradosController@gradosDivision');
 Route::get('admin/reportes/CuentaAlumno','AdminReporteCuentaAlumno@index');
-Route::resource('admin/reportes/CuentaAlumno/procesar','AdminReporteCuentaAlumno');
+Route::post('admin/reportes/CuentaAlumno/procesar','AdminReporteCuentaAlumno@procesar');
+
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');

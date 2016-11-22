@@ -149,7 +149,7 @@ return [
 		'Collective\Html\HtmlServiceProvider',
 		//
 		'Barryvdh\DomPDF\ServiceProvider',
-
+		'Maatwebsite\Excel\ExcelServiceProvider',
 	],
 
 	/*
@@ -203,7 +203,7 @@ return [
 		'Html' => 'Collective\Html\HtmlFacade',
 		//
 		'PDF' => 'Barryvdh\DomPDF\Facade',
-
+		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 	],
 
 ];
