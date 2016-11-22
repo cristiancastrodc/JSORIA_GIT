@@ -20,7 +20,8 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-otros-reportes','route' => 'cajera.reporte.generar','method' => 'POST'))!!}
+          <form action="{{ url('/cajera/reporte/generar') }}" method="POST" class="form-horizontal">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
               <label for="fecha" class="col-sm-3 control-label">Fecha:</label>
                 <div class="col-sm-9">
@@ -36,7 +37,7 @@
                 <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-EgresosRubro" formtarget="_blank">Generar</button>
               </div>
             </div>
-          {!!Form::close()!!}
+          </form>
         </div>
       </div>
     </div>

@@ -135,8 +135,11 @@ Route::post('cajera/generar/ingreso/imprimir_extraordinario', 'CobrosController@
 Route::post('cajera/generar/ingreso/imprimir_multiple', 'CobrosController@imprimirComprobanteMultiple');
 # Reportes
 Route::get('cajera/reporte/procesar','CajeraReporteCobros@index');
+/*
 Route::post('cajera/reporte/generar',
   ['as' => 'cajera.reporte.generar', 'uses' => 'CajeraReporteCobros@generar']);
+*/
+Route::post('cajera/reporte/generar', 'CajeraReporteCobros@generar');
 // Rutas para secretaria
 Route::resource('secretaria/alumnos','AlumnosController');
 Route::get('secretaria/alumno/matricular','AlumnosController@matricular');
