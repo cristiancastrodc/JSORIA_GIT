@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 use JSoria\Deuda_Ingreso;
+use JSoria\Usuario_Modulos;
 
 class ReportesSecretariaController extends Controller
 {
@@ -91,7 +92,10 @@ class ReportesSecretariaController extends Controller
      */
     public function deudasPorGrado()
     {
-        return view('secretaria.reportes.deudas');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('secretaria.reportes.deudas', ['modulos' => $modulos]);
+
+        //return view('secretaria.reportes.deudas');
     }
 
     /**

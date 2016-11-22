@@ -17,6 +17,7 @@ use JSoria\Deuda_Ingreso;
 use JSoria\Grado;
 use JSoria\InstitucionDetalle;
 use JSoria\Institucion;
+use JSoria\Usuario_Modulos;
 use Redirect;
 use Session;
 use Auth;
@@ -45,7 +46,9 @@ class AlumnosController extends Controller
      */
     public function create()
     {
-        return view('secretaria.alumno.create');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('secretaria.alumno.create', ['modulos' => $modulos]);
+        //return view('secretaria.alumno.create');
     }
 
     /**
@@ -176,40 +179,53 @@ class AlumnosController extends Controller
     public function matricular()
     {
         $id_usuario = Auth::user()->id;
+        $modulos = Usuario_Modulos::modulosDeUsuario();
 
         $permisos = Permiso::join('institucion', 'permisos.id_institucion', '=', 'institucion.id')
                            ->where('permisos.id_usuario', '=', $id_usuario)
                            ->select('institucion.id', 'institucion.nombre')->get();
 
-        return view('secretaria.alumno.matricular', compact('permisos'));
+        return view('secretaria.alumno.matricular', compact('permisos', 'modulos', 'modulos'));
     }
     /**
     * Agregar deudas
     **/
     public function agregarDeuda()
     {
-        return view('secretaria.alumno.deuda.agregar');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('secretaria.alumno.deuda.agregar', ['modulos' => $modulos]);
+
+        //return view('secretaria.alumno.deuda.agregar');
     }
     /**
     * Modificar deudas
     **/
     public function deudas()
     {
-        return view('secretaria.alumno.deuda.index');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('secretaria.alumno.deuda.index', ['modulos' => $modulos]);
+
+        //return view('secretaria.alumno.deuda.index');
     }
     /**
     * Cancelar deudas de actividad
     **/
     public function cancelarDeudaActividad()
     {
-        return view('secretaria.alumno.deuda.cancelar');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('secretaria.alumno.deuda.cancelar', ['modulos' => $modulos]);
+
+        //return view('secretaria.alumno.deuda.cancelar');
     }
     /**
     * Autorizar amortización
     **/
     public function amortizacion()
     {
-        return view('secretaria.alumno.deuda.amortizacion');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('secretaria.alumno.deuda.amortizacion', ['modulos' => $modulos]);
+
+        //return view('secretaria.alumno.deuda.amortizacion');
     }
 
     public function datosAlumno(Request $request, $dni)
@@ -583,7 +599,11 @@ class AlumnosController extends Controller
      */
     public function agregarDeudasAnteriores()
     {
-      return view('secretaria.alumno.deuda.anteriores');
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+
+        return view('secretaria.alumno.deuda.anteriores', ['modulos' => $modulos]);
+
+      //return view('secretaria.alumno.deuda.anteriores');
     }
     /**
      * Crear deudas anteriores para un alumno

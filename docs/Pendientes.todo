@@ -1,64 +1,37 @@
 
- ☐ Admin - Crear modulo para otorgar permisos de uso de módulos (roles).   @critical @critical
- ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
+
 
  ☐ Reportes exportar a Excel. @critical @critical
- ☐ Secretaria y Administrador: Reporte de historial de alumno con selección del período, debe mostrar deudas y pago segun periodo. @critical @critical
- ☐ Secretaria y Administrador: El reporte de cuenta de alumno debe de mostrar las deudas con su período asociado. @critical @critical
- ☐ Admin Reporte: Reporte de lista de ingresos por cajera. @critical @critical
- ☐ Admin Reporte: Lista de ingresos: usuario que realizó el cobro. @critical @critical
- ☐ Admin Reporte: Cuenta de Alumno: mostrar estado de pago (pendiente - pagado). @critical @critical
- ☐ Admin Reporte: Cuenta de Alumno: cambiar Total -> Total inversión. @critical @critical
- ☐ Admin Reporte: Cuenta de Alumno: mostrar fecha de vencimiento de los pagos. @critical @critical
-
- ☐ Secretaria Reporte: Alumnos Deudores. @critical @critical
- ☐ Secretaria Reporte: Reporte de deudas por grados. @critical @critical
+ ☐ Secretaria y Administrador: Reporte Cuenta de alumno. @critical @critical
+ ☐ Secretaria y Administrador: Reporte Deudas de alumno. @critical @critical
+ ☐ Secretaria y Administrador: Reporte Alumnos deudores por grado/semestre. @critical @critical
+ ☐ Admin y tesorera Reporte: Reporte de lista de ingresos por cajera. @critical @critical
+ ☐ Admin y tesoreraReporte: Lista de ingresos por institucion. @critical @critical
+ ☐ Admin y tesorera Reporte: Ingresos Totales. @critical @critical
+ ☐ Admin y tesorera Reporte: Balance. @critical @critical
+ ☐ Admin y tesorera Reporte: Lista Egresos. @critical @critical
+ ☐ Admin y tesorera Reporte: Lista Egresos Agrupados por rubro. @critical @critical
+ ☐ Admin y tesorera Reporte: Lista Egresos totales. @critical @critical
+ ☐ Cajera Reporte: Reporte de lista de ingresos. @critical @critical
  
- ☐ Tesorera: Reporte de lista de ingresos debe mostrar las sgts categorias: Matriculas, Pensiones, Actividades, Extraordinarios y todos los conceptos de con_factor, sin_factor y multiples. @critical @critical
- ☐ Tesorera: Reporte de Ingresos y Egresos debe mostrar solo instituciones autorizadas y ser multiseleccion de estas.
- ☐ Cajera:Agregar selector de fecha en el reporte. @critical @critical
- ☐ Cajera: El reporte debe de mostrar los datos de los comprobantes. @critical @critical
- ☐ Cajera: Reporte de lista de ingresos con filtro de fechas inicial y final y con modelo detallado o agrupado. @critical @critical
- ☐ Revisar funcionalidad y procesamiento de cada reporte. @critical @critical
 
+ ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
  ☐ Administrador: Crear modulo para editar Matriculas y pensiones. @critical
  ☐ Verificar que para cada modulo, restringir opciones (instituciones) de acuerdo a sus permisos. @critical
- ☐ Revisar procesamiento de Creación/ administacion de todos los modulo. @critical 
- ☐ Actividades: Al Buscar el loader aparece atras del modal de editar. @critical
- ☐ Cobros Ordinarios: Al Buscar el loader aparece atras del modal de editar. @critical
- ☐ Cobros Otros: Al Buscar el loader aparece atras del modal de editar. @critical
- ☐ Admin Retiro: Al Buscar el loader aparece atras del modal de editar. @critical
- ☐ Secretaria Modificar deuda: No aparece la pelotita del loader. @critical
- ☐ Secretaria Autorizar descuento:Al Buscar el loader aparece atras del modal de editar. @critical
- ☐ Tesorera Modificar Egreso: al eliminar egreso el loader aparece detras del mensaje. @critical
- ☐ Tesorera Retiro:  No aparece la pelotita del loader. @critical
- ☐ Rediseñar PDF. @critical 
- ☐ Limitar intentos de login a tres. @critical
- ☐ Cobros Ordinarios: Al listar los cobros debe de poder seleccionar varias instituciones. @critical
- ☐ Quitar logo de ULP del menú lateral. @critical
- ☐ Agregar ícono de J. Soria al header. @critical
- ☐ Cambiar tablas que estén dentro de los card.  @critical
 
- ☐ Autorizar descuento:  Impresión de codigo de autorización.  @high
- ☐ Cajera Retiro: Añadir detalle de retiro. @high
- ☐ Cobros extraordinarios: Crear modulo de Modificar/Listar. @high
- ☐ Secretaria: Mostrar institucion del alumno en todos los procesos donde se le involucre. @high
- ☐ Cambiar mensaje de sesión (alertas) a 10 columnas. @high
- ☐ Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres. @high
- ☐ Actividades: Dividir en pantallas de Creación y Administración. @high
- ☐ Cobros Ordinarios: Dividir en pantallas de Creación y Administración @high
- ☐ Cobros Otros: Dividir en pantallas de Creación y Administración. @high
- ☐ Usuarios:  Dividir en pantallas de Creación y Administración. @high
+
+
  
- ☐ Configuración de porcentaje de descuento para pensiones. @low
- ☐ Cambiar a Material Icons. @low
- ☐ Agregar marca y versión de software en el footer. @low
 
 
 
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Admin - Crear modulo para otorgar permisos de uso de módulos (roles).   @critical @critical @done (16-11-22 06:52)
+ ✔ Configuración de porcentaje de descuento para pensiones. @low @done (16-11-22 05:23)
+ ✔ Cajera:Agregar selector de fecha en el reporte. @critical @critical @done (16-11-22 05:16)
+ ✔ Tesorera: Reporte de lista de ingresos debe mostrar las sgts categorias: Matriculas, Pensiones, Actividades, Extraordinarios y todos los conceptos de con_factor, sin_factor y multiples. @critical @critical @done (16-11-22 05:15)
  ✔ Para todos los usuarios: módulo de búsqueda de alumnos.  @critical @critical @done (16-11-21 20:36)
  ✔ Tesorera: en modificar egresos sacar el boton de eliminar. @done (16-11-21 18:17)
  ✔ Admin: en usuarios modificar sacar el boton de eliminar @done (16-11-21 18:03)

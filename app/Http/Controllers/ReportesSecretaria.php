@@ -5,6 +5,7 @@ namespace JSoria\Http\Controllers;
 use Illuminate\Http\Request;
 
 use JSoria\Http\Requests;
+use JSoria\Usuario_Modulos;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
@@ -17,8 +18,11 @@ class ReportesSecretaria extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-        return view('secretaria.reportes.index');
+    {   
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('secretaria.reportes.index', ['modulos' => $modulos]);
+         
+        //return view('secretaria.reportes.index');
     }
 
     /**

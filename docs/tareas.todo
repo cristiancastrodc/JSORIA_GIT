@@ -117,6 +117,34 @@ Cajera:
    ☐ El reporte debe de mostrar los datos de los comprobantes.
    ☐ Reporte de lista de ingresos con filtro de fechas inicial y final y con modelo detallado o agrupado.
 
+
+    ☐ Revisar procesamiento de Creación/ administacion de todos los modulo. @critical 
+ ☐ Actividades: Al Buscar el loader aparece atras del modal de editar. @critical
+ ☐ Cobros Ordinarios: Al Buscar el loader aparece atras del modal de editar. @critical
+ ☐ Cobros Otros: Al Buscar el loader aparece atras del modal de editar. @critical
+ ☐ Admin Retiro: Al Buscar el loader aparece atras del modal de editar. @critical
+ ☐ Secretaria Modificar deuda: No aparece la pelotita del loader. @critical
+ ☐ Secretaria Autorizar descuento:Al Buscar el loader aparece atras del modal de editar. @critical 
+ ☐ Tesorera Retiro:  No aparece la pelotita del loader. @critical
+ ☐ Rediseñar PDF. @critical 
+ ☐ Limitar intentos de login a tres. @critical
+ ☐ Cobros Ordinarios: Al listar los cobros debe de poder seleccionar varias instituciones. @critical
+ ☐ Quitar logo de ULP del menú lateral. @critical
+ ☐ Agregar ícono de J. Soria al header. @critical
+ ☐ Cambiar tablas que estén dentro de los card.  @critical
+ ☐ Autorizar descuento:  Impresión de codigo de autorización.  @high
+ ☐ Cajera Retiro: Añadir detalle de retiro. @high
+ ☐ Cobros extraordinarios: Crear modulo de Modificar/Listar. @high
+ ☐ Secretaria: Mostrar institucion del alumno en todos los procesos donde se le involucre. @high
+ ☐ Cambiar mensaje de sesión (alertas) a 10 columnas. @high
+ ☐ Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres. @high
+ ☐ Actividades: Dividir en pantallas de Creación y Administración. @high
+ ☐ Cobros Ordinarios: Dividir en pantallas de Creación y Administración @high
+ ☐ Cobros Otros: Dividir en pantallas de Creación y Administración. @high
+ ☐ Usuarios:  Dividir en pantallas de Creación y Administración. @high
+  ☐ Cambiar a Material Icons. @low
+ ☐ Agregar marca y versión de software en el footer. @low
+
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
  ✔ Nueva hoja de Excel para la importación de datos. @critical @done (16-10-22 08:17) @project(Generales)
