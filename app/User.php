@@ -81,4 +81,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos) as nombre"))
                ->get();
   }
+  /**
+   * Retorna la lista de usuarios cajera
+   */
+  public static function getCajeras()
+  {
+    return User::where('tipo', '=', 'Cajera')
+           ->select('id', 'nombres', 'apellidos')
+           ->get();
+  }
 }
