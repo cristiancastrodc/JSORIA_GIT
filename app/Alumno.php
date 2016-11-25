@@ -40,11 +40,12 @@ class Alumno extends Model
 
   public static function alumnos_detalle_institucion($id_detalle_institucion)
   {
-    return Alumno::join('grado', 'alumno.id_grado', '=', 'grado.id' )
-           ->where('estado', '=', 1)
-           ->where('grado.id_detalle','=', $id_detalle_institucion)
-           ->select('alumno.nro_documento')
-           ->get();
+    return Alumno::join('grado', 'alumno.id_grado', '=', 'grado.id')
+                 ->leftJoin('categoria', 'alumno.id_matricula', '=', 'categoria.id')
+                 ->where('estado', '=', 1)
+                 ->where('grado.id_detalle','=', $id_detalle_institucion)
+                 ->select('alumno.nro_documento', 'categoria.periodo')
+                 ->get();
   }
   /**
    * Retorna los datos de un alumno específico.
@@ -66,4 +67,20 @@ class Alumno extends Model
                  ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'institucion.nombre as institucion', 'detalle_institucion.nombre_division as nivel', 'grado.nombre_grado as grado')
                  ->get();
   }
+  /**
+   * Retorna los alumnos para la creación de deudas de actividad
+   */
+  public static function alumnosParaCreacionActividades($id_detalle_institucion, $monto, $id_categoria)
+  {
+    $monto_aux = $monto . ' as saldo';
+    $categoria = $id_categoria . ' as id_categoria';
+    $alumnos = Alumno::join('grado', 'alumno.id_grado', '=', 'grado.id')
+                     ->where('alumno.estado', '=', 1)
+                     ->where('grado.id_detalle','=', $id_detalle_institucion)
+                     ->select('alumno.nro_documento as id_alumno', 'alumno.id_matricula', DB::raw($monto_aux), DB::raw($categoria))
+                     ->get();
+    return $alumnos->toArray();
+  }
+
+
 }

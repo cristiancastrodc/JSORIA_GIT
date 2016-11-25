@@ -370,23 +370,25 @@ class AlumnosController extends Controller
     /*** Agregar deudas para un alumno ***/
     public function agregarDeudasAlumno(Request $request)
     {
-        if ($request->ajax()) {
-            $nro_documento = $request->nro_documento;
-            $deudas = $request->deudas;
+      if ($request->ajax()) {
+        $nro_documento = $request->nro_documento;
+        $alumno = Alumno::find($nro_documento);
+        $deudas = $request->deudas;
 
-            foreach ($deudas as $deuda) {
-                $id_categoria = $deuda['id_categoria'];
-                $monto = Categoria::find($id_categoria)->monto;
-                $saldo = floatval($monto) * floatval($deuda['factor']);
+        foreach ($deudas as $deuda) {
+          $id_categoria = $deuda['id_categoria'];
+          $monto = Categoria::find($id_categoria)->monto;
+          $saldo = floatval($monto) * floatval($deuda['factor']);
 
-                Deuda_Ingreso::create([
-                    'saldo' => $saldo,
-                    'id_categoria' => $id_categoria,
-                    'id_alumno' => $nro_documento
-                ]);
-            }
-            return response()->json(['mensaje' => 'Deudas de alumno creadas exitosamente.']);
+          Deuda_Ingreso::create([
+              'saldo' => $saldo,
+              'id_categoria' => $id_categoria,
+              'id_alumno' => $nro_documento,
+              'id_matricula' => $alumno->id_matricula,
+          ]);
         }
+        return response()->json(['mensaje' => 'Deudas de alumno creadas exitosamente.']);
+      }
     }
 
     /*** Eliminar Actividad del alumno ***/
@@ -525,17 +527,19 @@ class AlumnosController extends Controller
         $id_grado = $request->input('id_grado');
         $matricula = $request->input('matricula');
         $pensiones = $request->input('pensiones');
+        $id_matricula = $matricula['id'];
         // Recuperar alumno y actualizar datos
         $alumno = Alumno::find($nro_documento);
         $alumno->estado = 1;
         $alumno->id_grado = $id_grado;
-        $alumno->id_matricula = $matricula['id'];
+        $alumno->id_matricula = $id_matricula;
         $alumno->save();
         // Crear deuda de matrícula
         Deuda_Ingreso::create([
           'saldo' => $matricula['monto'],
           'id_categoria' => $matricula['id'],
           'id_alumno' => $nro_documento,
+          'id_matricula' => $id_matricula,
         ]);
         # Actualizar la lista de categorías
         array_push($categorias, $matricula['id']);
@@ -546,6 +550,7 @@ class AlumnosController extends Controller
             'saldo' => $pension['monto'],
             'id_categoria' => $pension['id'],
             'id_alumno' => $nro_documento,
+            'id_matricula' => $id_matricula,
           ]);
         }
       } catch (Exception $e) {

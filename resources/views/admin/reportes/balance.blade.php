@@ -33,14 +33,30 @@
                 </select>
               </div>
             </div>
+            <!-- EXCEL O PDF -->
             <div class="form-group">
-              <div class="col-sm-3 col-sm-offset-6">
-                <button type="submit" class="btn btn-block waves-effect m-t-15 accent-color" formtarget="_blank">Generar PDF</button>
+              <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
+              <div class="col-sm-9">
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="pdf">
+                      <i class="input-helper"></i>PDF
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="excel">
+                      <i class="input-helper"></i>Excel
+                  </label>
+                </div>
               </div>
-              <div class="col-sm-3">
-                <button type="button" class="btn btn-block waves-effect m-t-15 bgm-blue-soria" formtarget="_blank">Generar Excel</button>
+            </div>
+            <!--/ EXCEL O PDF -->
+            <div class="form-group">
+              <div class="col-sm-3 col-sm-offset-9">
+                <button type="submit" class="btn btn-block waves-effect m-t-15 accent-color" formtarget="_blank">Generar</button>
               </div>
-            </div>            
+            </div>
           {!!Form::close()!!}
         </div>
       </div>

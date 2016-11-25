@@ -61,32 +61,35 @@ class ActividadesController extends Controller
 
             if ($nombre_division == 'Todo') {
 
-                $id_institucion = $institucion_detalle->id_institucion;
-                $detalles_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
-                                        ->where('nombre_division', '<>', 'Todo')
-                                        ->get();
-                $resp = array();
-                foreach ($detalles_institucion as $detalle) {
-                    $id_categoria = Categoria::create([
-                        'nombre' => $nombre,
-                        'monto' => $monto,
-                        'tipo' => 'actividad',
-                        'estado' => 1,
-                        'id_detalle_institucion' => $detalle->id
-                    ])->id;
+              $id_institucion = $institucion_detalle->id_institucion;
+              $detalles_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
+                                      ->where('nombre_division', '<>', 'Todo')
+                                      ->get();
+              foreach ($detalles_institucion as $detalle) {
+                $id_categoria = Categoria::create([
+                    'nombre' => $nombre,
+                    'monto' => $monto,
+                    'tipo' => 'actividad',
+                    'estado' => 1,
+                    'id_detalle_institucion' => $detalle->id
+                ])->id;
 
-                    $alumnos = Alumno::alumnos_detalle_institucion($detalle->id);
+                //$alumnos = Alumno::alumnos_detalle_institucion($detalle->id);
+                $alumnos = Alumno::alumnosParaCreacionActividades($detalle->id, $monto, $id_categoria);
 
-                    foreach ($alumnos as $alumno) {
-                        Deuda_Ingreso::create([
-                            'saldo' => $monto,
-                            'id_categoria' => $id_categoria,
-                            'id_alumno' => $alumno->nro_documento
-                        ]);
-                    }
+                Deuda_Ingreso::insert($alumnos);
+                /*
+                foreach ($alumnos as $alumno) {
+                    Deuda_Ingreso::create([
+                        'saldo' => $monto,
+                        'id_categoria' => $id_categoria,
+                        'id_alumno' => $alumno->nro_documento
+                    ]);
                 }
+                */
+              }
 
-                return response()->json(['mensaje' => 'everything iS OK']);
+              return response()->json(['mensaje' => 'everything iS OK']);
             } else {
                 $id_categoria = Categoria::create([
                     'nombre' => $nombre,
@@ -96,8 +99,9 @@ class ActividadesController extends Controller
                     'id_detalle_institucion' => $id_detalle_institucion
                 ])->id;
 
-                $alumnos = Alumno::alumnos_detalle_institucion($id_detalle_institucion);
-
+                //$alumnos = Alumno::alumnos_detalle_institucion($id_detalle_institucion);
+                $alumnos = Alumno::alumnosParaCreacionActividades($id_detalle_institucion, $monto, $id_categoria);
+                /*
                 foreach ($alumnos as $alumno) {
                     Deuda_Ingreso::create([
                         'saldo' => $monto,
@@ -105,6 +109,8 @@ class ActividadesController extends Controller
                         'id_alumno' => $alumno->nro_documento
                     ]);
                 }
+                */
+                Deuda_Ingreso::insert($alumnos);
                 return response()->json(['mensaje' => 'everything iS OK']);
             }
         }

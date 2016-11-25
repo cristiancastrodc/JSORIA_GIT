@@ -103,19 +103,34 @@ class ReportesAdminController extends Controller
     /*** Reporte de Balance de Ingresos / Egresos: Procesar ***/
     public function balanceIngresosEgresosProcesar(BalanceGenerarRequest $request)
     {
-        $fecha = date('d-m-Y H:i:s');
-        $archivo = 'Balance Ingresos Egresos-' . date('dmYHis');
-
-        $balance = Balance::getBalanceTesorera($request->id_tesorera, date('Y-m-d'));
-        $balance_detallado = Balance::getBalanceDetalladoTesorera($request->id_tesorera, date('Y-m-d'));
-
-        $tesorera = User::find($request->id_tesorera);
-        $nombre_tesorera = $tesorera->nombres . ' ' . $tesorera->apellidos;
-
+      // Definir el nombre del archivo
+      $archivo = 'Balance Ingresos Egresos-' . date('dmYHis');
+      // Recuperar valores enviados y de la base de datos
+      $tipo_reporte = $request->tipo_reporte;
+      $tesorera = User::find($request->id_tesorera);
+      $nombre_tesorera = $tesorera->nombres . ' ' . $tesorera->apellidos;
+      $balance = Balance::getBalanceTesorera($request->id_tesorera, date('Y-m-d'));
+      $balance_detallado = Balance::getBalanceDetalladoTesorera($request->id_tesorera, date('Y-m-d'));
+      // Recuperar fecha para el reporte
+      $fecha = date('d-m-Y H:i:s');
+      // Generar el PDF
+      if ($tipo_reporte == 'pdf') {
         $view = \View::make('admin.reportes.balance_rept', compact('fecha', 'balance', 'balance_detallado', 'nombre_tesorera'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream($archivo);
+      } else {
+        \Excel::create($archivo, function($excel) use ($nombre_tesorera, $balance, $balance_detallado) {
+            $excel->sheet('Hoja 1', function($sheet) use ($nombre_tesorera, $balance, $balance_detallado) {
+                $fecha = date('d-m-Y H:i:s');
+                $sheet->loadView('admin.reportes.balance_rept', array(
+                  'fecha' => $fecha,
+                  'nombre_tesorera' => $nombre_tesorera,
+                  'balance' => $balance,
+                  'balance_detallado' => $balance_detallado,
+                ));
+            });
+        })->download('xlsx');
+      }
     }
-
 }

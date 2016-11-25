@@ -91,18 +91,32 @@ class CajeraReporteCobros extends Controller
 
     public function generar(Request $request)
     {
-        $fecha_archivo = date('d-m-Y H:i:s');
-        $fecha = $request['fecha'];
-        $archivo = 'Reporte de Ingresos-' . $fecha_archivo;
-
-        $ingresos = Deuda_Ingreso::cajeraIngresosPorDia(Auth::user()->id, $fecha);
-        $total = 0;
-        foreach ($ingresos as $ingreso) {
-            $total += floatval($ingreso->monto);
-        }
-        $view = \View::make('pdf.CajeraCobros', ['ingresos' => $ingresos, 'fecha' => $fecha, 'total' => number_format($total, 2)])->render();
+      $fecha_archivo = date('d-m-Y H:i:s');
+      $archivo = 'Reporte de Ingresos-' . $fecha_archivo;
+      $tipo_reporte = $request['tipo_reporte'];
+      $fecha = $request['fecha'];
+      $ingresos = Deuda_Ingreso::cajeraIngresosPorDia(Auth::user()->id, $fecha);
+      $total = 0;
+      foreach ($ingresos as $ingreso) {
+        $total += floatval($ingreso->monto);
+      }
+      $total = number_format($total, 2);
+      // Generar el PDF
+      if ($tipo_reporte == 'pdf') {
+        $view = \View::make('pdf.CajeraCobros', ['ingresos' => $ingresos, 'fecha' => $fecha, 'total' => $total])->render();
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view); //->setPaper('a4', 'landscape');
+        $pdf->loadHTML($view);
         return $pdf->stream($archivo);
+      } else {
+        \Excel::create($archivo, function($excel) use ($ingresos, $fecha, $total) {
+          $excel->sheet('Hoja 1', function($sheet) use ($ingresos, $fecha, $total) {
+            $sheet->loadView('pdf.CajeraCobros', array(
+              'ingresos' => $ingresos,
+              'fecha' => $fecha,
+              'total' => $total,
+            ));
+          });
+        })->download('xlsx');
+      }
     }
 }
