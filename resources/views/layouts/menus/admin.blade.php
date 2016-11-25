@@ -40,7 +40,7 @@
 <li class="sub-menu">
   <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
   <ul>
-      <li> <a href="{!!URL::to('/admin/reporte/balance_ingresos_egresos')!!}">Balance de Ingresos/Egresos</a></li>
+      <li><a href="{!!URL::to('/admin/reporte/balance_ingresos_egresos')!!}">Balance de Ingresos/Egresos</a></li>
       <li><a href="{!!URL::to('/admin/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
       <li><a href="{!!URL::to('/admin/reportes/IngresosCategoria')!!}">Ingresos agrupados por Categorias</a></li>
       <li><a href="{!!URL::to('/admin/reportes/IngresosTotales')!!}">Ingresos Totales</a></li>
@@ -49,6 +49,7 @@
       <li><a href="{!!URL::to('/admin/reportes/EgresosTotales')!!}">Egresos Totales</a></li>
       <li><a href="{!!URL::to('/admin/reportes/AlumnosDeudores')!!}">Alumnos Deudores</a></li>
       <li><a href="{!!URL::to('/admin/reportes/CuentaAlumno')!!}">Cuenta de Alumno</a></li>
+      <li><a href="{{ url('/admin/reportes/ingresos_cajera') }}">Ingresos por Cajera</a></li>
   </ul>
 </li>
 <li><a href="{!!URL::to('/admin/cobros/CuentaAlumno')!!}"></i> Otros Cobros</a>
