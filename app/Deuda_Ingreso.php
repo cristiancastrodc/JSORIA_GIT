@@ -76,8 +76,8 @@ where estado_pago = '0'
   {
     return Deuda_Ingreso::join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
                         ->leftJoin('alumno', 'deuda_ingreso.id_alumno', '=', 'alumno.nro_documento')
-                        ->join('grado', 'alumno.id_grado', '=', 'grado.id')
-                        ->join('detalle_institucion', 'grado.id_detalle', '=', 'detalle_institucion.id')
+                        ->leftJoin('grado', 'alumno.id_grado', '=', 'grado.id')
+                        ->leftJoin('detalle_institucion', 'grado.id_detalle', '=', 'detalle_institucion.id')
                         ->where('estado_pago', 1)
                         ->whereDate('fecha_hora_ingreso', '=', $fecha)
                         ->where('id_cajera', $id_cajera)

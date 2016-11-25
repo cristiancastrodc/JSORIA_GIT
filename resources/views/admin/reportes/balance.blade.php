@@ -51,6 +51,7 @@
                 </div>
               </div>
             </div>
+            <!--/ EXCEL O PDF -->
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
                 <button type="submit" class="btn btn-block waves-effect m-t-15 accent-color" formtarget="_blank">Generar</button>

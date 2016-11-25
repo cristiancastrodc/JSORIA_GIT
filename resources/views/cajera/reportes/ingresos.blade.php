@@ -34,6 +34,25 @@
                     </div>
                 </div>
             </div>
+            <!-- EXCEL O PDF -->
+            <div class="form-group">
+              <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
+              <div class="col-sm-9">
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="pdf">
+                      <i class="input-helper"></i>PDF
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="excel">
+                      <i class="input-helper"></i>Excel
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!--/ EXCEL O PDF -->
             <div class="form-group">
               <div class="pull-right">
                 <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-EgresosRubro" formtarget="_blank">Generar</button>
