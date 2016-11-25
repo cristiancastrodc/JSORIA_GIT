@@ -594,6 +594,7 @@ class CobrosController extends Controller
           }
         }
         // Guardar los conceptos adicionales
+        $id_matricula = Alumno::find($nro_documento)->id_matricula;
         if (isset($conceptos_adicionales)) {
           foreach ($conceptos_adicionales as $concepto) {
             Deuda_Ingreso::create([
@@ -606,6 +607,7 @@ class CobrosController extends Controller
               'tipo_comprobante' => $tipo_comprobante,
               'serie_comprobante' => $comprobante['serie'],
               'numero_comprobante' => $comprobante['numero_comprobante'],
+              'id_matricula' => $id_matricula,
             ]);
           }
         }
