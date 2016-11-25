@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\BalanceGenerarRequest;
 use JSoria\Http\Controllers\Controller;
+use JSoria\Alumno;
 use JSoria\Balance;
 use JSoria\Deuda_Ingreso;
 use JSoria\User;
@@ -179,5 +180,63 @@ class ReportesAdminController extends Controller
           });
         })->download('xls');
       }
+    }
+    /**
+     * Mostrar la pantalla de Lista de Ingresos por Cajera
+     */
+    public function cuentaDeAlumno()
+    {
+      $modulos = Usuario_Modulos::modulosDeUsuario();
+      return view('admin.reportes.cuenta_alumno',
+        ['modulos' => $modulos]
+      );
+    }
+    /**
+     * Recuperar los períodos del alumno
+     */
+    public function periodosAlumno($nro_documento)
+    {
+      return Alumno::periodosAlumno($nro_documento);
+    }
+    /**
+     * Mostrar la pantalla de Lista de Ingresos por Cajera
+     */
+    public function procesarCuentaDeAlumno(Request $request)
+    {
+      return $request;
+      /*
+      // Recuperar valores enviados y de la base de datos
+      $cajera = User::find($request->id_cajera);
+      $nombre_cajera = $cajera->nombres . ' ' . $cajera->apellidos;
+      // Definir el nombre del archivo
+      $fecha_archivo = date('d-m-Y H:i:s');
+      $archivo = 'Lista de Ingresos por Cajera-' . $fecha_archivo;
+      $tipo_reporte = $request->tipo_reporte;
+      $fecha = $request->fecha;
+      $ingresos = Deuda_Ingreso::cajeraIngresosPorDia($request->id_cajera, $fecha);
+      $total = 0;
+      foreach ($ingresos as $ingreso) {
+        $total += floatval($ingreso->monto);
+      }
+      $total = number_format($total, 2);
+      // Generar el PDF
+      if ($tipo_reporte == 'pdf') {
+        $view = \View::make('admin.reportes.ingresos_cajera_rept', ['ingresos' => $ingresos, 'fecha' => $fecha, 'total' => $total, 'cajera' => $nombre_cajera])->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream($archivo);
+      } else {
+        \Excel::create($archivo, function($excel) use ($ingresos, $fecha, $total, $nombre_cajera) {
+          $excel->sheet('Hoja 1', function($sheet) use ($ingresos, $fecha, $total, $nombre_cajera) {
+            $sheet->loadView('admin.reportes.ingresos_cajera_rept', array(
+              'ingresos' => $ingresos,
+              'fecha' => $fecha,
+              'total' => $total,
+              'cajera' => $nombre_cajera,
+            ));
+          });
+        })->download('xls');
+      }
+      */
     }
 }

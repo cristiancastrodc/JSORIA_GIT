@@ -5,6 +5,7 @@ namespace JSoria;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use JSoria\Grado;
+use JSoria\Deuda_Ingreso;
 
 class Alumno extends Model
 {
@@ -81,6 +82,16 @@ class Alumno extends Model
                      ->get();
     return $alumnos->toArray();
   }
-
-
+  /**
+   * Retorna los alumnos para la creación de deudas de actividad
+   */
+  public static function periodosAlumno($nro_documento)
+  {
+    return Deuda_Ingreso::where('id_alumno', $nro_documento)
+                        ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                        ->join('alumno', 'deuda_ingreso.id_alumno', '=', 'alumno.nro_documento')
+                        ->where('categoria.tipo', 'matricula')
+                        ->select('categoria.id', 'categoria.periodo', 'categoria.fecha_inicio', 'categoria.fecha_fin', 'alumno.nombres', 'alumno.apellidos')
+                        ->get();
+  }
 }

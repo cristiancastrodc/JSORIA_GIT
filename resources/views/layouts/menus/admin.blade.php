@@ -50,6 +50,7 @@
       <li><a href="{!!URL::to('/admin/reportes/AlumnosDeudores')!!}">Alumnos Deudores</a></li>
       <li><a href="{!!URL::to('/admin/reportes/CuentaAlumno')!!}">Cuenta de Alumno</a></li>
       <li><a href="{{ url('/admin/reportes/ingresos_cajera') }}">Ingresos por Cajera</a></li>
+      <li><a href="{{ url('/admin/reportes/cuenta_alumno') }}">Cuenta de Alumno</a></li>
   </ul>
 </li>
 <li><a href="{!!URL::to('/admin/cobros/CuentaAlumno')!!}"></i> Otros Cobros</a>
