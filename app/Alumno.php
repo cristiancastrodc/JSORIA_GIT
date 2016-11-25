@@ -91,7 +91,7 @@ class Alumno extends Model
                         ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
                         ->join('alumno', 'deuda_ingreso.id_alumno', '=', 'alumno.nro_documento')
                         ->where('categoria.tipo', 'matricula')
-                        ->select('categoria.id', 'categoria.periodo', 'categoria.fecha_inicio', 'categoria.fecha_fin', 'alumno.nombres', 'alumno.apellidos')
+                        ->select('categoria.id', 'categoria.periodo', 'categoria.fecha_inicio', 'categoria.fecha_fin')
                         ->get();
   }
 }

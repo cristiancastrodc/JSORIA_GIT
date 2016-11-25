@@ -50,29 +50,41 @@
                 </div>
               </div>
               <div ng-show="hayAlumno">
-              </div>
-              <!-- EXCEL O PDF -->
-              <div class="form-group">
-                <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
-                <div class="col-sm-9">
-                  <div class="radio">
-                    <label>
-                        <input type="radio" name="tipo_reporte" value="pdf">
-                        <i class="input-helper"></i>PDF
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                        <input type="radio" name="tipo_reporte" value="excel">
-                        <i class="input-helper"></i>Excel
-                    </label>
+                <div class="form-group">
+                  <label for="id_categoria" class="control-label col-sm-3">Período:</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <div class="select">
+                        <select name="id_categoria" id="id_categoria" class="form-control" ng-options="periodo.periodo for periodo in periodos" ng-model="id_categoria">
+                          <option value="">Seleccione Período</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <!--/ EXCEL O PDF -->
-              <div class="form-group">
-                <div class="col-sm-3 col-sm-offset-9">
-                  <button type="submit" class="btn btn-block waves-effect m-t-15 accent-color" formtarget="_blank">Generar</button>
+                <!-- EXCEL O PDF -->
+                <div class="form-group">
+                  <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
+                  <div class="col-sm-9">
+                    <div class="radio">
+                      <label>
+                          <input type="radio" name="tipo_reporte" value="pdf">
+                          <i class="input-helper"></i>PDF
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                          <input type="radio" name="tipo_reporte" value="excel">
+                          <i class="input-helper"></i>Excel
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <!--/ EXCEL O PDF -->
+                <div class="form-group">
+                  <div class="col-sm-3 col-sm-offset-9">
+                    <button type="submit" class="btn btn-block waves-effect m-t-15 accent-color" formtarget="_blank">Generar</button>
+                  </div>
                 </div>
               </div>
             </form>
