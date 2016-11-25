@@ -30,6 +30,7 @@
                   <option value="1">I.E. J. Soria</option>
                   <option value="2">CEBA Konrad Adenahuer</option>
                   <option value="3">I.S.T. Urusayhua</option>
+                  <option value="4">Universidad Privada Líder Peruana</option>
                 </select>
                   <!--<div class="col-sm-9 col-sm-4">
                       <div class="checkbox">
