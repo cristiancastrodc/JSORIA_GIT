@@ -5,6 +5,7 @@ namespace JSoria;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use JSoria\Grado;
+use JSoria\Deuda_Ingreso;
 
 class Alumno extends Model
 {
@@ -81,6 +82,38 @@ class Alumno extends Model
                      ->get();
     return $alumnos->toArray();
   }
-
-
+  /**
+   * Retorna los alumnos para la creación de deudas de actividad
+   */
+  public static function periodosAlumno($nro_documento)
+  {
+    return Deuda_Ingreso::where('id_alumno', $nro_documento)
+                        ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                        ->join('alumno', 'deuda_ingreso.id_alumno', '=', 'alumno.nro_documento')
+                        ->where('categoria.tipo', 'matricula')
+                        ->select('categoria.id', 'categoria.periodo', 'categoria.fecha_inicio', 'categoria.fecha_fin')
+                        ->get();
+  }
+  /**
+   * Retorna la cuenta de un alumno
+   */
+  public static function cuentaAlumno($nro_documento, $id_categoria)
+  {
+    return Deuda_Ingreso::where('id_alumno', $nro_documento)
+                        ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                        ->where('deuda_ingreso.id_matricula', $id_categoria)
+                        ->select('categoria.nombre', 'categoria.tipo','categoria.fecha_fin', 'deuda_ingreso.estado_pago','deuda_ingreso.fecha_hora_ingreso', 'deuda_ingreso.tipo_comprobante','deuda_ingreso.serie_comprobante', 'deuda_ingreso.numero_comprobante', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
+                        ->get();
+  }
+  /**
+   * Retorna las deudas de un alumno
+   */
+  public static function deudasAlumno($nro_documento)
+  {
+    return Deuda_Ingreso::where('id_alumno', $nro_documento)
+                        ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                        ->where('deuda_ingreso.estado_pago', '=', 0)
+                        ->select('categoria.nombre', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
+                        ->get();
+  }
 }

@@ -12,6 +12,15 @@
 .header-90 {
   top: -90px;
 }
+.header-120 {
+  top: -120px;
+}
+.header-150 {
+  top: -150px;
+}
+.space-50 {
+  height: 50px;
+}
 .footer {
   position: fixed;
   left: 0px;
