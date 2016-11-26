@@ -116,4 +116,30 @@ class Alumno extends Model
                         ->select('categoria.nombre', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
                         ->get();
   }
+  /**
+   * Retorna los alumnos deudores de un determinado grado o semestre
+   */
+  public static function alumnosDeudores($grado)
+  {
+    $hoy = date('Y-m-d');
+
+    $deudas = Alumno::where('id_grado', $grado)
+                 ->join('deuda_ingreso', 'alumno.nro_documento', '=', 'deuda_ingreso.id_alumno')
+                 ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                 ->where('deuda_ingreso.estado_pago', '=', 0)
+                 ->where('categoria.tipo', '=', 'pension')
+                 ->where('categoria.fecha_fin', '<', $hoy)
+                 ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'categoria.nombre', 'categoria.fecha_fin', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento');
+
+    $deudas2 = Alumno::where('id_grado', $grado)
+                 ->join('deuda_ingreso', 'alumno.nro_documento', '=', 'deuda_ingreso.id_alumno')
+                 ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                 ->where('deuda_ingreso.estado_pago', '=', 0)
+                 ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'categoria.nombre', DB::raw("'' as fecha_fin"), 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
+                 ->union($deudas)
+                 ->get();
+    return $deudas2;
+
+
+  }
 }

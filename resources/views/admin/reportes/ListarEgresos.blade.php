@@ -22,7 +22,8 @@
           <h2>Reporte Lista de Egresos</h2>
         </div>
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-egresos','route' => 'admin.reportes.ListaEgresos.procesar.store','method' => 'POST'))!!}      
+          <form action="{{ url('/admin/reportes/ListaEgresos/procesar') }}" class="form-horizontal" method="POST">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -47,6 +48,9 @@
               <label for="id_rubro" class="col-sm-3 control-label">Rubro</label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="rubro" id="rubro" title='Seleccione'>
+                  @foreach ($rubros as $rubro)
+                    <option value="{{ $rubro->id }}">{{ $rubro->nombre }}</option>
+                  @endforeach
                 </select>
                   <div class="col-sm-9 col-sm-3">
                       <div class="checkbox">
@@ -59,7 +63,6 @@
                   </div>                 
               </div>
             </div>
-
             <div class="form-group">
               <label for="fecha_inicio" class="col-sm-3 control-label">Fecha Inicial:</label>
                 <div class="col-sm-9">
@@ -70,7 +73,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
               <label for="fecha_fin" class="col-sm-3 control-label">Fecha Final:</label>
                 <div class="col-sm-9">
@@ -81,13 +83,31 @@
                     </div>
                 </div>
             </div>
-
+            <!-- EXCEL O PDF -->
+            <div class="form-group">
+              <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
+              <div class="col-sm-9">
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="pdf">
+                      <i class="input-helper"></i>PDF
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="excel">
+                      <i class="input-helper"></i>Excel
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!--/ EXCEL O PDF -->
             <div class="form-group">
               <div class="pull-right">
                 <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarEgreso" formtarget="_blank">Generar</button>
               </div>
             </div>
-          {!!Form::close()!!}
+          </form>
         </div>
       </div>
     </div>
