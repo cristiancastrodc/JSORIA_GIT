@@ -54,6 +54,8 @@ Route::get('admin/usuario/modulos', 'UsersController@modulosUsuario');
 Route::get('admin/usuario/lista', 'UsersController@listaUsuarios');
 Route::get('admin/usuario/{id_usuario}/modulos', 'UsersController@listaModulosUsuario');
 Route::post('admin/usuario/modulos/grabar', 'UsersController@grabarModulosUsuario');
+Route::get('admin/cobros/extraordinarios/listar/{id_institucion}', 'CobrosExtraordinariosController@listaCobros');
+Route::get('admin/cobros/extraordinarios/eliminar/{id_cobro}', 'CobrosExtraordinariosController@eliminarCobro');
 # Reportes
 Route::get('admin/reporte/balance_ingresos_egresos',
   ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);

@@ -1394,3 +1394,69 @@ function notify(message, from, align, type, animIn, animOut){
     template: '<div data-growl="container" class="alert" role="alert">' + '<button type="button" class="close" data-growl="dismiss">' + '<span aria-hidden="true">&times;</span>' + '<span class="sr-only">Close</span>' + '</button>' + '<span data-growl="icon"></span>' + '<span data-growl="title"></span>' + '<span data-growl="message"></span>' + '<a href="#" data-growl="url"></a>' + '</div>'
   });
 };
+
+/*** Listar Cobros Extraordinarios  ***/
+$('#btn-listar-extraordinarios').click(function (e) {
+  e.preventDefault();
+  listar_extraordinarios();
+});
+
+function listar_extraordinarios() {
+  $id_institucion = $('#id_institucion_listar').val();
+
+  if ($id_institucion != "") {
+    var ruta = '/admin/cobros/extraordinarios/listar/' + $id_institucion;
+    $('#tabla-listar-extraordinarios tbody').empty();
+
+    $('#ajax-loader').fadeIn('fast', function () {
+      $.get(ruta, function (data) {
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+              var fila = "<tr>";
+              fila += "<td class='hidden'>" + data[i].id + "</td>";
+              fila += "<td>" + data[i].descripcion_extr + "</td>";
+              fila += "<td>" + data[i].saldo + "</td>";
+              if (data[i].estado_pago == 1) {
+                fila += "<td>Cancelado</td>";
+                fila += '<td></td>'
+              } else {
+                fila += "<td>Pendiente</td>";
+                fila += "<td><button type='button' class='btn fourth-color m-r-20 btn-eliminar-extraordinario' data-id='" + data[i].id + "'><i class='zmdi zmdi-delete'></i></button></td>";
+              }
+              fila += "</tr>";
+              $('#tabla-listar-extraordinarios tbody').append(fila);
+          };
+        } else {
+          $('#tabla-listar-extraordinarios tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+        }
+      })
+      .always(function () {
+        $('#ajax-loader').fadeOut('slow');
+      });
+    });
+  } else {
+    swal({
+      title : '¡Atención!',
+      text : 'Debe seleccionar la institución.',
+      type : 'warning'
+    });
+  }
+}
+
+$('#tabla-listar-extraordinarios').on('click', '.btn-eliminar-extraordinario', function(event) {
+  event.preventDefault();
+  var $id = $(this).data('id')
+  swal({
+    title: "¿Realmente desea eliminar el cobro?",
+    type: "warning",
+    showCancelButton: true,
+    cancelButtonText: 'No',
+    confirmButtonText: 'Si',
+  }, function (isConfirm) {
+    if (isConfirm) {
+      $.get('/admin/cobros/extraordinarios/eliminar/' + $id, function(data) {
+        listar_extraordinarios();
+      });
+    }
+  });
+});

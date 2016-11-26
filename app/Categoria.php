@@ -139,4 +139,16 @@ class Categoria extends Model
                     ->select('categoria.*', DB::raw('0 as cantidad'))
                     ->get();
   }
+  /**
+   * Retorna las categorías ordinarias para una institución
+   */
+  public static function cobrosExtraordinariosInstitucion($id_institucion)
+  {
+    return Deuda_Ingreso::join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                        ->join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                        ->where('detalle_institucion.id_institucion', '=', $id_institucion)
+                        ->where('categoria.tipo', 'cobro_extraordinario')
+                        ->select('deuda_ingreso.id', 'deuda_ingreso.descripcion_extr', 'deuda_ingreso.estado_pago', 'deuda_ingreso.saldo')
+                        ->get();
+  }
 }
