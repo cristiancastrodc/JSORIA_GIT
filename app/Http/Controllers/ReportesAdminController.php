@@ -425,13 +425,14 @@ class ReportesAdminController extends Controller
         $pdf->loadHTML($view);
         return $pdf->stream($archivo);
       } else {
-        \Excel::create($archivo, function($excel) use ($institucion, $grado, $deudas, $nombre_nivel) {
-          $excel->sheet('Hoja 1', function($sheet) use ($institucion, $grado, $deudas, $nombre_nivel) {
+        \Excel::create($archivo, function($excel) use ($institucion, $datas, $fecha_inicio, $fecha_fin, $tipo_periodo) {
+          $excel->sheet('Hoja 1', function($sheet) use ($institucion, $datas, $fecha_inicio, $fecha_fin, $tipo_periodo) {
             $sheet->loadView('pdf.AdminIngresosTotales', array(
               'institucion' => $institucion,
-              'grado' => $grado,
-              'deudas' => $deudas,
-              'nombre_nivel' => $nombre_nivel,
+              'datas' => $datas,
+              'fecha_inicio' => $fecha_inicio,
+              'fecha_fin' => $fecha_fin,
+              'tipo_periodo' => $tipo_periodo,
             ));
           });
         })->download('xls');

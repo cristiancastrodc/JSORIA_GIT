@@ -21,7 +21,7 @@
       <li>
         <a href="{!!URL::to('/tesorera/reporte/balance_ingresos_egresos')!!}">Balance de Ingresos/Egresos</a>
       </li>
-      <li><a href="{!!URL::to('/tesorera/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
+      <!-- li><a href="{!!URL::to('/tesorera/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li-->
       <li><a href="{!!URL::to('/tesorera/reportes/IngresosCategoria')!!}">Ingresos agrupados por Categorias</a></li>
       <li><a href="{!!URL::to('/tesorera/reportes/IngresosTotales')!!}">Ingresos Totales</a></li>
       <li><a href="{!!URL::to('/tesorera/reportes/ListaEgresos')!!}">Lista de Egresos</a></li>
