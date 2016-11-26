@@ -41,9 +41,11 @@ class AdminReporteEgresosRubro extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {}
+    public function procesarReporte(Request $request)
     {
         $id_institucion = $request['id_institucion'];
-
+        $tipo_reporte = $request->tipo_reporte;
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];
 
@@ -71,10 +73,26 @@ class AdminReporteEgresosRubro extends Controller
             default:
                 break;
         }
-        $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','datas','fecha_inicio','fecha_fin'))->render();
-        $pdf = \App::make('dompdf.wrapper');
+
+        // Generar el PDF
+        if ($tipo_reporte == 'pdf') {            
+            $view =  \View::make('pdf.AdminEgresosRubro', compact('id_institucion','datas','fecha_inicio','fecha_fin'))->render();
+            $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminEgresosRubro'); 
+        } else {
+            \Excel::create('AdminEgresosRubro', function($excel) use ($id_institucion, $datas, $fecha_inicio, $fecha_fin) {
+              $excel->sheet('Hoja 1', function($sheet) use ($id_institucion, $datas, $fecha_inicio, $fecha_fin) {
+                $sheet->loadView('pdf.AdminEgresosRubro', array(
+                  'id_institucion' => $id_institucion,
+                  'datas' => $datas,
+                  'fecha_inicio' => $fecha_inicio,
+                  'fecha_fin' => $fecha_fin,
+
+                ));
+              });
+            })->download('xls');
+        }       
     }
     
 

@@ -7,8 +7,10 @@ $('#form-reporte-ingresos #id_institucion').change(function (e) {
 
   $.get(route, function (response, state) {
     for (var i = 0; i < response.length; i++) {
-      var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre_division + "</option>"
-      $detalle_institucion.append(opcion);
+      if (response[i].nombre_division != 'Todo') {
+        var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre_division + "</option>"
+        $detalle_institucion.append(opcion);
+      }
     };
     $detalle_institucion.selectpicker('refresh');
   });

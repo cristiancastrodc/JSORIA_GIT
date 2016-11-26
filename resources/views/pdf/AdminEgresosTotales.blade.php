@@ -3,14 +3,30 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Reporte Egresos Totales</title>
-    {!! Html::style('css/pdf.css') !!}
+    <link rel="stylesheet" href="{{ asset('css/reportes.css') }}">
   </head>
 <body>
-<div >
-  <h1>EGRESOS POR {{$radio_btn_fecha}}</h1>
-  <h2>Institucion: {{$id_institucion}}</h2>
-  <h2>Fecha Inicial: {{$fecha_inicio}}</h2>
-  <h2>Fecha Final: {{$fecha_fin}}</h2>  
+<div class="header header-90">
+    <table>
+        <tr>
+          <td colspan="4" class="text-center"><h1>EGRESOS POR {{$radio_btn_fecha}}</h1></td>
+        </tr>  
+        <tr>
+          <td>Institucion: {{$id_institucion}}</td>
+        </tr>
+        <tr>
+          <td>Fecha Inicial: {{$fecha_inicio}}</td>
+        </tr> 
+        <tr>
+          <td>Fecha Final: {{$fecha_fin}}</td>
+        </tr>    
+      </table>
+      <hr>
+  </div>
+  <div class="footer">
+    Página <span class="pagenum"></span>
+  </div>
+  <div class="space-95"></div>  
   <table >
     <thead>
       <tr>
