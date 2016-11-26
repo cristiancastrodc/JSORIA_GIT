@@ -2,21 +2,15 @@
 <html lang="es">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Balance de Ingresos y Egresos</title>
+  <title>Reporte Alumnos Deudores</title>
   <link rel="stylesheet" href="{{ asset('css/reportes.css') }}">
 </head>
 <body>
   <div class="header header-90">
     <table>
       <tr>
-        <td colspan="5"><h1>BALANCE DE INGRESOS Y EGRESOS</h1></td>
-      </tr>
-      <tr>
-        <td><div class="text-right">Fecha: {{ $fecha }}</div></td>
-      </tr>
-      <tr>
-        <td><div class="text-left">Tesorera: {{ $nombre_tesorera }}</div></td>
-      </tr>
+        <td colspan="5"><h1>LISTA DE ALUMNOS DEUDORES</h1></td>
+      </tr>      
     </table>
     <hr>
   </div>
