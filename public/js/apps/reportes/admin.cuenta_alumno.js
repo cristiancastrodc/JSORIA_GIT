@@ -8,6 +8,7 @@ app.controller('reporteCuentaAlumnoController', function ($scope, $http, $filter
   // Atributos
   $scope.buscando = false;
   $scope.hayAlumno = false;
+  $scope.alumno = [];
   $scope.periodos = [];
   // Funciones
   $scope.buscar = function () {
@@ -16,7 +17,8 @@ app.controller('reporteCuentaAlumnoController', function ($scope, $http, $filter
     var ruta = '/admin/reportes/cuenta_alumno/' + $scope.alumno.nro_documento + '/periodos';
     $http.get(ruta)
     .success(function(response) {
-        $scope.periodos = response;
+        $scope.periodos = response.periodos;
+        $scope.alumno = response.alumno;
         $scope.hayAlumno = true;
     });
     $scope.buscando = false;

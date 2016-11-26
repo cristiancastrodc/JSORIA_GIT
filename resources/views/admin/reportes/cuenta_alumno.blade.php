@@ -50,18 +50,20 @@
                 </div>
               </div>
               <div ng-show="hayAlumno">
+                <h3 class="text-uppercase m-t-0">{@ alumno.nombres @} {@ alumno.apellidos @}</h3>
                 <div class="form-group">
                   <label for="id_categoria" class="control-label col-sm-3">Período:</label>
                   <div class="col-sm-9">
                     <div class="fg-line">
                       <div class="select">
-                        <select name="id_categoria" id="id_categoria" class="form-control" ng-options="periodo.periodo for periodo in periodos" ng-model="id_categoria">
+                        <select name="periodo" id="id_categoria" class="form-control" ng-options="periodo.periodo for periodo in periodos" ng-model="categoria">
                           <option value="">Seleccione Período</option>
                         </select>
                       </div>
                     </div>
                   </div>
                 </div>
+                <input type="hidden" value="{@ categoria.id @}" name="id_categoria">
                 <!-- EXCEL O PDF -->
                 <div class="form-group">
                   <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
@@ -98,4 +100,9 @@
 @section('scripts')
   <script src="{{ asset('js/angular.min.js') }}"></script>
   <script src="{{ asset('js/apps/reportes/admin.cuenta_alumno.js') }}"></script>
+  <script>
+    $(document).on("keypress", "form", function(event) {
+        return event.keyCode != 13;
+    });
+  </script>
 @endsection

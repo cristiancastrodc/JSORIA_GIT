@@ -250,37 +250,37 @@ class AlumnosController extends Controller
     }
     public function categoriasAlumno(Request $request, $documento)
     {
-        if ($request->ajax()) {
-            //$estado = Alumno::where('nro_documento','=',$documento)->first();
-            $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
-                            ->where('alumno.nro_documento','=',$documento)
-                            ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
-                            ->first();
+      if ($request->ajax()) {
+        //$estado = Alumno::where('nro_documento','=',$documento)->first();
+        $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+                        ->where('alumno.nro_documento','=',$documento)
+                        ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
+                        ->first();
 
-            if ($alumno) {
-                if ($alumno->estado == 1) {
-                    $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
+        if ($alumno) {
+          if ($alumno->estado == 1) {
+            $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
 
-                    $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
-                                                             ->where('nombre_division', '=', 'Todo')
-                                                             ->first()->id;
-                    $categorias = Categoria::whereIn('tipo', ['con_factor', 'sin_factor'])
-                                           ->where('estado', '=', 1)
-                                           ->where('id_detalle_institucion','=', $detalle_institucion)
-                                           ->get();
-                    $response = array($alumno, $categorias);
-                    return response()->json($response);
-                } else {
-                    return response()->json([
-                        'mensaje' => 'El alumno no esta matriculado.'
-                    ]);
-                }
-            } else {
-                return response()->json([
-                    'mensajeno' => 'El alumno no existe.'
-                ]);
-            }
+            $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
+                                                     ->where('nombre_division', '=', 'Todo')
+                                                     ->first()->id;
+            $categorias = Categoria::whereIn('tipo', ['con_factor', 'sin_factor'])
+                                   ->where('estado', '=', 1)
+                                   ->where('id_detalle_institucion','=', $detalle_institucion)
+                                   ->get();
+            $response = array($alumno, $categorias);
+            return response()->json($response);
+          } else {
+            return response()->json([
+              'mensaje' => 'El alumno no esta matriculado.'
+            ]);
+          }
+        } else {
+          return response()->json([
+            'mensajeno' => 'El alumno no existe.'
+          ]);
         }
+      }
     }
 
     public function listaDeudasAlumno(Request $request, $documento)
@@ -624,10 +624,17 @@ class AlumnosController extends Controller
         $pensiones = $request->input('pensiones');
         // Crear deuda de pensiones
         foreach ($pensiones as $pension) {
+          $id_matricula = '';
+          if ($pension['tipo'] == 'matricula') {
+            $id_matricula = $pension['id'];
+          } else {
+            $id_matricula = $pension['id_matricula'];
+          }
           Deuda_Ingreso::create([
             'saldo' => $pension['monto'],
             'id_categoria' => $pension['id'],
             'id_alumno' => $nro_documento,
+            'id_matricula' => $id_matricula,
           ]);
         }
       } catch (Exception $e) {
