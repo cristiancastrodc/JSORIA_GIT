@@ -37,6 +37,9 @@ class ModulosSeeder extends Seeder
         ['descripcion' => 'Usuarios', 'tipo_usuario' => 'Administrador', 'tag_id' => 'link_usuarios']
       );
       DB::table('modulos')->insert(
+        ['descripcion' => 'Módulos de Usuario', 'tipo_usuario' => 'Administrador', 'tag_id' => 'link_usuario_modulos']
+      );
+      DB::table('modulos')->insert(
         ['descripcion' => 'Autorizar Descuentos', 'tipo_usuario' => 'Administrador', 'tag_id' => 'link_autorizacion']
       );
       DB::table('modulos')->insert(

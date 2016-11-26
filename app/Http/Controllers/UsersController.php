@@ -40,7 +40,7 @@ class UsersController extends Controller {
   public function index()
   {
     /*** Mostrar lista de usuarios ***/
-    $users = User::All();
+    $users = User::where('usuario_login', '<>', 'sysadmin')->get();
     /*** Mostrar formulario de creacion ***/
     $modulos = Usuario_Modulos::modulosDeUsuario();
     return view('admin.usuario.index', compact('users', 'modulos'));

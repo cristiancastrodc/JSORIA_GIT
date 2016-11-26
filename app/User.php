@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 use DB;
+use Auth;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -78,8 +79,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
    */
   public static function listaUsuarios()
   {
-    return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos) as nombre"))
+    if (Auth::user()->usuario_login == 'sysadmin') {
+      return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos) as nombre"))
                ->get();
+    }
+    else {
+      return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos) as nombre"))
+                 ->where('usuario_login', '<>', 'sysadmin')
+                 ->get();
+    }
   }
   /**
    * Retorna la lista de usuarios cajera
