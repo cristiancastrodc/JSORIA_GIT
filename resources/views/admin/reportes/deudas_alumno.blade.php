@@ -42,7 +42,7 @@
                 <div class="col-sm-9">
                   <div class="radio">
                     <label>
-                        <input type="radio" name="tipo_reporte" value="pdf">
+                        <input type="radio" name="tipo_reporte" value="pdf" checked="checked">
                         <i class="input-helper"></i>PDF
                     </label>
                   </div>

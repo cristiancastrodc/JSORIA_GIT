@@ -16,9 +16,6 @@
         </tr>
         <tr>
           <td>Fecha Inicial: {{$fecha_inicio}}</td>
-        </tr>
-        <tr>
-          <td>Fecha Inicial: {{$fecha_inicio}}</td>
         </tr> 
         <tr>
           <td>Fecha Final: {{$fecha_fin}}</td>

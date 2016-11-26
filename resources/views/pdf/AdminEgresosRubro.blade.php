@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/reportes.css') }}">
   </head>
   <body>
-<div class="header header-90">
+  <div class="header header-90">
     <table>
         <tr>
           <td colspan="3" class="text-center"><h1>LISTA DE EGRESOS POR RUBRO</h1></td>
@@ -17,9 +17,6 @@
         <tr>
           <td>Fecha Inicial: {{$fecha_inicio}}</td>
         </tr>
-        <tr>
-          <td>Fecha Inicial: {{$fecha_inicio}}</td>
-        </tr> 
         <tr>
           <td>Fecha Final: {{$fecha_fin}}</td>
         </tr>    
