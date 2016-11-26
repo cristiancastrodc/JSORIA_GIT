@@ -7,22 +7,27 @@
 @section('content')
 
   @if(Session::has('message'))
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{Session::get('message')}}
+    <div class="row">
+      <div class="col-sm-10">
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{Session::get('message')}}
+        </div>
+      </div>
     </div>
   @endif
 
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2>Reporte de Ingresos Totales</h2>
         </div>
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-ingresos','route' => 'admin.reportes.IngresosTotales.procesar.store','method' => 'POST'))!!}
+          <form action="{{ url('/admin/reportes/IngresosTotales/procesar') }}" class="form-horizontal" id="form-reporte-ingresos" method="POST">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -35,25 +40,21 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="" class="col-sm-3 control-label"></label>
-
-            <label class="radio radio-inline m-r-10">
-                <input type="radio" name="inlineRadioOptions" value="dias" checked="checked">
-                <i class="input-helper"></i>Dias  
-            </label>
-            
-            <label class="radio radio-inline m-r-10">
-                <input type="radio" name="inlineRadioOptions" value="mes">
-                <i class="input-helper"></i>  
-                Mes
-            </label>          
-            <label class="radio radio-inline m-r-10">
-                <input type="radio" name="inlineRadioOptions" value="anio">
-                <i class="input-helper"></i>  
-                Año
-            </label> 
+              <div class="col-sm-offset-3">
+                <label class="radio radio-inline m-r-10">
+                    <input type="radio" name="tipoPeriodo" value="dias" checked="checked">
+                    <i class="input-helper"></i>Dias
+                </label>
+                <label class="radio radio-inline m-r-10">
+                    <input type="radio" name="tipoPeriodo" value="mes">
+                    <i class="input-helper"></i>Mes
+                </label>
+                <label class="radio radio-inline m-r-10">
+                    <input type="radio" name="tipoPeriodo" value="anio">
+                    <i class="input-helper"></i>Año
+                </label>
+              </div>
             </div>
-          
             <div class="form-group">
               <label for="fecha_inicio" class="col-sm-3 control-label">Fecha Inicial:</label>
                 <div class="col-sm-9">
@@ -64,7 +65,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
               <label for="fecha_fin" class="col-sm-3 control-label">Fecha Final:</label>
                 <div class="col-sm-9">
@@ -75,13 +75,31 @@
                     </div>
                 </div>
             </div>
-
+            <!-- EXCEL O PDF -->
             <div class="form-group">
-              <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-IngresosTotales" formtarget="_blank">Generar</button>
+              <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
+              <div class="col-sm-9">
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="pdf" checked="checked">
+                      <i class="input-helper"></i>PDF
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="excel">
+                      <i class="input-helper"></i>Excel
+                  </label>
+                </div>
               </div>
             </div>
-          {!!Form::close()!!}
+            <!--/ EXCEL O PDF -->
+            <div class="form-group">
+              <div class="col-sm-3 col-sm-offset-9">
+                <button type="submit" class="btn btn-block btn-warning waves-effect" id="btn-reporte-IngresosTotales" formtarget="_blank">Generar</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

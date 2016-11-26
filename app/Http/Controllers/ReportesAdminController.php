@@ -15,6 +15,7 @@ use JSoria\Grado;
 use JSoria\User;
 use JSoria\Usuario_Modulos;
 use NumeroALetras;
+use DB;
 
 class ReportesAdminController extends Controller
 {
@@ -312,6 +313,121 @@ class ReportesAdminController extends Controller
         \Excel::create($archivo, function($excel) use ($institucion, $grado, $deudas, $nombre_nivel) {
           $excel->sheet('Hoja 1', function($sheet) use ($institucion, $grado, $deudas, $nombre_nivel) {
             $sheet->loadView('pdf.AdminAlumnosDeudores', array(
+              'institucion' => $institucion,
+              'grado' => $grado,
+              'deudas' => $deudas,
+              'nombre_nivel' => $nombre_nivel,
+            ));
+          });
+        })->download('xls');
+      }
+    }
+    /**
+     * Mostrar la pantalla de Lista de Ingresos por Cajera
+     */
+    public function ReporteIngresosTotales(Request $request)
+    {
+      $fecha_archivo = date('d-m-Y H:i:s');
+      $archivo = 'Reporte de Ingresos Totales -' . $fecha_archivo;
+      $tipo_reporte = $request->tipo_reporte;
+
+      $id_institucion = $request['id_institucion'];
+      $institucion = Institucion::find($id_institucion);
+      $fecha_inicio = $request['fecha_inicio'];
+      $fecha_fin = $request['fecha_fin'];
+      $tipoPeriodo = $request['tipoPeriodo'];
+      $tipo_periodo = '';
+
+      switch ($tipoPeriodo) {
+        case 'dias':
+          $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
+                                ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
+                                ->where('estado_pago','=',1)
+                                ->where('detalle_institucion.id_institucion','=', $id_institucion)
+                                ->whereDate('fecha_hora_ingreso', '>=', $fecha_inicio)
+                                ->whereDate('fecha_hora_ingreso', '<=', $fecha_fin)
+                                ->groupBy(DB::raw('date(fecha_hora_ingreso)'))
+                                ->get([DB::raw('date(fecha_hora_ingreso) as fecha1'), DB::raw('Sum(saldo - descuento) as monto')]);
+          $tipo_periodo = 'DÍAS';
+          break;
+        case 'mes':
+          $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
+                              ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
+                              ->where('estado_pago','=',1)
+                              ->where('detalle_institucion.id_institucion','=',$id_institucion)
+                              ->whereDate('fecha_hora_ingreso', '>=', $fecha_inicio)
+                              ->whereDate('fecha_hora_ingreso', '<=', $fecha_fin)
+                              ->groupBy(DB::raw('month(fecha_hora_ingreso)'),DB::raw('year(fecha_hora_ingreso)'))
+                              ->get([DB::raw('month(fecha_hora_ingreso) as fecha1'),DB::raw('year(fecha_hora_ingreso) as fecha2'), DB::raw('Sum(saldo - descuento) as monto')]);
+          $tipo_periodo = 'MESES';
+          break;
+        case 'anio':
+          $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
+                              ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
+                              ->where('estado_pago','=',1)
+                              ->where('detalle_institucion.id_institucion','=',$id_institucion)
+                              ->whereDate('fecha_hora_ingreso', '>=', $fecha_inicio)
+                              ->whereDate('fecha_hora_ingreso', '<=', $fecha_fin)
+                              ->groupBy(DB::raw('year(fecha_hora_ingreso)'))
+                              ->get([DB::raw('year(fecha_hora_ingreso) as fecha1'), DB::raw('Sum(saldo - descuento) as monto')]);
+          $tipo_periodo = 'AÑOS';
+          break;
+        default:
+            break;
+      }
+
+      if ($tipoPeriodo == 'mes') {
+        foreach ($datas as $item) {
+          switch ($item['fecha1']) {
+            case 1:
+              $item['fecha1'] = 'Enero - ';
+              break;
+            case 2:
+              $item['fecha1'] = 'Febrero - ';
+              break;
+            case 3:
+              $item['fecha1'] = 'Marzo - ';
+              break;
+            case 4:
+              $item['fecha1'] = 'Abril - ';
+              break;
+            case 5:
+              $item['fecha1'] = 'Mayo - ';
+              break;
+            case 6:
+              $item['fecha1'] = 'Junio - ';
+              break;
+            case 7:
+              $item['fecha1'] = 'Julio - ';
+              break;
+            case 8:
+              $item['fecha1'] = 'Agosto - ';
+              break;
+            case 9:
+              $item['fecha1'] = 'Septiembre - ';
+              break;
+            case 10:
+              $item['fecha1'] = 'Octubre - ';
+              break;
+            case 11:
+              $item['fecha1'] = 'Noviembre - ';
+              break;
+            case 12:
+              $item['fecha1'] = 'Diciembre - ';
+              break;
+          }
+        }
+      }
+
+      if ($tipo_reporte == 'pdf') {
+        $view =  \View::make('pdf.AdminIngresosTotales', compact('institucion', 'datas', 'fecha_inicio', 'fecha_fin', 'tipo_periodo'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream($archivo);
+      } else {
+        \Excel::create($archivo, function($excel) use ($institucion, $grado, $deudas, $nombre_nivel) {
+          $excel->sheet('Hoja 1', function($sheet) use ($institucion, $grado, $deudas, $nombre_nivel) {
+            $sheet->loadView('pdf.AdminIngresosTotales', array(
               'institucion' => $institucion,
               'grado' => $grado,
               'deudas' => $deudas,

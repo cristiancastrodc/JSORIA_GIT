@@ -44,9 +44,9 @@
                 <!--<div class="col-sm-9 col-sm-4">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="todas_instituciones" id="todas_instituciones" class="input_control">  
+                            <input type="checkbox" name="todas_instituciones" id="todas_instituciones" class="input_control">
                             <i class="input-helper"></i>
-                            Todas Instituciones                            
+                            Todas Instituciones
                         </label>
                     </div>
                 </div>-->
@@ -76,10 +76,10 @@
                           <label>
                               <input type="checkbox" name="todas_categorias" id="todas_categorias" class="input_control">
                               <i class="input-helper"></i>
-                              Todos                              
+                              Todos
                           </label>
                       </div>
-                  </div>                
+                  </div>
               </div>
 
             </div>

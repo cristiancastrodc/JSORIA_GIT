@@ -1,0 +1,50 @@
+@page {
+  margin: 200px 50px;
+}
+.header {
+  position: fixed;
+  left: 0px;
+  top: -175px;
+  right: 0px;
+  height: 150px;
+  text-align: center;
+}
+.footer {
+  position: fixed;
+  left: 0px;
+  bottom: -50px;
+  right: 0px;
+  height: 50px;
+  text-align: center;
+}
+.footer .pagenum:before {
+  content: counter(page);
+}
+html {
+  font-family: sans-serif;
+  font-size: 10px;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  margin-bottom: 20px;
+}
+table > thead > tr {
+  background-color: #e6e6ff;
+}
+table.bordered td {
+  border-bottom: 1px solid #000;
+}
+table td {
+  padding: 5px;
+}

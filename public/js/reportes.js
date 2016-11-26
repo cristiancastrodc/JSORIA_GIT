@@ -63,6 +63,7 @@ $('#form-listar_deudores #id_detalle_institucion').change(function (e) {
   });
 });
 
+/*
 $(document).ready(function() {
     $('#form-reporte-ingresos').on('submit', function(evt) {
           evt.preventDefault();
@@ -72,6 +73,7 @@ $(document).ready(function() {
           this.submit();
     });
 });
+*/
 
 $(document).ready(function() {
     $('#form-reporte-egresos').on('submit', function(evt) {

@@ -67,7 +67,7 @@ Route::get('admin/categorias/{id_detalle_institucion}', 'CategoriasController@ca
 Route::get('admin/reportes/IngresosCategoria','AdminReporteIngresosCategoria@index');
 Route::resource('admin/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria');
 Route::get('admin/reportes/IngresosTotales','AdminReporteIngresosTotales@index');
-Route::resource('admin/reportes/IngresosTotales/procesar','AdminReporteIngresosTotales');
+Route::post('admin/reportes/IngresosTotales/procesar','ReportesAdminController@ReporteIngresosTotales');
 Route::get('admin/reportes/ListaEgresos','AdminReporteListarEgresos@index');
 Route::post('admin/reportes/ListaEgresos/procesar','AdminReporteListarEgresos@procesar');
 Route::get('admin/rubros','RubrosController@listaRubros');
