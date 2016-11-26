@@ -128,7 +128,7 @@ class ReportesAdminController extends Controller
                   'balance_detallado' => $balance_detallado,
                 ));
             });
-        })->download('xlsx');
+        })->download('xls');
       }
     }
     /**
