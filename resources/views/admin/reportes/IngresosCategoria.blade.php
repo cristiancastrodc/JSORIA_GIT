@@ -22,6 +22,7 @@
           <h2>Reporte de Ingresos Agrupados por Categoria</h2>
         </div>
         <div class="card-body card-padding">
+          <form action="{{ url('/admin/reportes/IngresosCategoria/procesar') }}" class="form-horizontal" id = "form-reporte-ingresos" method="POST">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">         
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
@@ -70,6 +71,7 @@
               <div class="col-sm-9">
                 <div class="radio">
                   <label>
+                      <input type="radio" name="tipo_reporte" value="pdf" checked="checked">
                       <i class="input-helper"></i>PDF
                   </label>
                 </div>

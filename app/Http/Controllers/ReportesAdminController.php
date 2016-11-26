@@ -9,6 +9,9 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Alumno;
 use JSoria\Balance;
 use JSoria\Deuda_Ingreso;
+use JSoria\Institucion;
+use JSoria\InstitucionDetalle;
+use JSoria\Grado;
 use JSoria\User;
 use JSoria\Usuario_Modulos;
 use NumeroALetras;
@@ -273,6 +276,46 @@ class ReportesAdminController extends Controller
               'deudas' => $deudas,
               'alumno' => $alumno,
               'fecha' => $fecha,
+            ));
+          });
+        })->download('xls');
+      }
+    }
+    /**
+     * Mostrar la pantalla de Lista de Ingresos por Cajera
+     */
+    public function ReporteAlumnosDeudores(Request $request)
+    {
+      $fecha_archivo = date('d-m-Y H:i:s');
+      $archivo = 'Reporte de Alumnos Deudores -' . $fecha_archivo;
+      $tipo_reporte = $request->tipo_reporte;
+      $id_institucion = $request['id_institucion'];
+      $institucion = Institucion::find($id_institucion);
+      $id_detalle_institucion = $request['id_detalle_institucion'];
+      $id_grado = $request['grado'];
+
+      $deudas = Alumno::alumnosDeudores($id_grado);
+
+      $nombre_nivel = InstitucionDetalle::where('id', '=', $id_detalle_institucion)
+                                        ->first()->nombre_division;
+
+      $grado = Grado::where('id','=', $id_grado)
+                    ->first();
+
+      if ($tipo_reporte == 'pdf') {
+        $view =  \View::make('pdf.AdminAlumnosDeudores', compact('institucion', 'grado', 'deudas', 'nombre_nivel'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream($archivo);
+      } else {
+        \Excel::create($archivo, function($excel) use ($institucion, $grado, $deudas, $nombre_nivel) {
+          $excel->sheet('Hoja 1', function($sheet) use ($institucion, $grado, $deudas, $nombre_nivel) {
+            $sheet->loadView('pdf.AdminAlumnosDeudores', array(
+              'institucion' => $institucion,
+              'grado' => $grado,
+              'deudas' => $deudas,
+              'nombre_nivel' => $nombre_nivel,
             ));
           });
         })->download('xls');

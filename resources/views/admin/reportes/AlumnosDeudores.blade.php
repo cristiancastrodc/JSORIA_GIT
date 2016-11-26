@@ -22,7 +22,8 @@
           <h2>Reporte de Alumnos deudores</h2>
         </div>
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-listar_deudores','route' => 'admin.reportes.AlumnosDeudores.procesar.store','method' => 'POST'))!!}
+          <form action="{{ url('/admin/reportes/AlumnosDeudores/procesar') }}" method="POST" class="form-horizontal" id="form-listar_deudores">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -45,15 +46,34 @@
               <label for="grado" class="col-sm-3 control-label"></label>
               <div class="col-sm-9">
                 <select class="selectpicker" name="grado" id="grado" title='Seleccione Grado o Semestre'>
-                </select> 
+                </select>
               </div>
             </div>
+            <!-- EXCEL O PDF -->
             <div class="form-group">
-              <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-ListarIngreso" formtarget="_blank">Generar</button>
+              <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
+              <div class="col-sm-9">
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="pdf">
+                      <i class="input-helper"></i>PDF
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="excel">
+                      <i class="input-helper"></i>Excel
+                  </label>
+                </div>
               </div>
             </div>
-          {!!Form::close()!!}
+            <!--/ EXCEL O PDF -->
+            <div class="form-group">
+              <div class="col-sm-3 col-sm-offset-9">
+                <button type="submit" class="btn btn-warning waves-effect btn-block" id="btn-reporte-ListarIngreso" formtarget="_blank">Generar</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

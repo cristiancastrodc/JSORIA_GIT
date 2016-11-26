@@ -1,34 +1,13 @@
 @page {
-  margin: 100px 50px;
+  margin: 150px 50px;
 }
 .header {
   position: fixed;
   left: 0px;
-  top: -75px;
+  top: -125px;
   right: 0px;
-  height: 50px;
+  height: 100px;
   text-align: center;
-}
-.header-90 {
-  top: -90px;
-}
-.header-120 {
-  top: -120px;
-}
-.header-150 {
-  top: -150px;
-}
-.space-50 {
-  height: 50px;
-}
-.space-75 {
-  height: 75px;
-}
-.space-95 {
-  height: 95px;
-}
-.m-t-50 {
-  margin-top: 50px;
 }
 .footer {
   position: fixed;
@@ -68,10 +47,4 @@ table.bordered td {
 }
 table td {
   padding: 5px;
-}
-.bg-success {
-  background-color: #DFF0D8;
-}
-.bg-danger {
-  background-color: #F2DEDE;
 }

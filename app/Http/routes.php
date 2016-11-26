@@ -76,7 +76,7 @@ Route::post('admin/reportes/EgresosRubro/procesar','AdminReporteEgresosRubro@pro
 Route::get('admin/reportes/EgresosTotales','AdminReporteEgresosTotales@index');
 Route::post('admin/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales@procesarReporteTotal');
 Route::get('admin/reportes/AlumnosDeudores','AdminReporteAlumnosDeudores@index');
-Route::resource('admin/reportes/AlumnosDeudores/procesar','AdminReporteAlumnosDeudores');
+Route::post('admin/reportes/AlumnosDeudores/procesar','ReportesAdminController@ReporteAlumnosDeudores');
 Route::get('admin/grados/{id_detalle_institucion}','GradosController@gradosDivision');
 Route::get('admin/reportes/CuentaAlumno','AdminReporteCuentaAlumno@index');
 Route::post('admin/reportes/CuentaAlumno/procesar','AdminReporteCuentaAlumno@procesar');

@@ -9,10 +9,10 @@
   <div class="header header-90">
     <table>
       <tr>
-        <td colspan="5"><h1>BALANCE DE INGRESOS Y EGRESOS</h1></td>
+        <td colspan="5" class="text-center"><h1>BALANCE DE INGRESOS Y EGRESOS</h1></td>
       </tr>
       <tr>
-        <td><div class="text-right">Fecha: {{ $fecha }}</div></td>
+        <td colspan="5"><div class="text-right">Fecha: {{ $fecha }}</div></td>
       </tr>
       <tr>
         <td><div class="text-left">Tesorera: {{ $nombre_tesorera }}</div></td>
@@ -23,7 +23,7 @@
   <div class="footer">
     Página <span class="pagenum"></span>
   </div>
-  <h2>RESUMEN</h2>
+  <h2 class="m-t-50">RESUMEN</h2>
   <table class="bordered">
     <thead>
       <tr class="text-center"><td>Saldo anterior ({{ $balance->fecha }})</td><td>Ingresos</td><td>Egresos</td><td>Saldo Actual</td></tr>
