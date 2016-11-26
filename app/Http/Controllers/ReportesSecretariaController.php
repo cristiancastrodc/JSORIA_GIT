@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 use JSoria\Deuda_Ingreso;
+use JSoria\Alumno;
 use JSoria\Usuario_Modulos;
 
 class ReportesSecretariaController extends Controller
@@ -106,4 +107,57 @@ class ReportesSecretariaController extends Controller
         $deudas = Deuda_Ingreso::deudasPorGrado($request['grado']);
         return 'hola';
     }
-}
+    /**
+     * Recuperar los períodos del alumno
+     */
+    public function periodosAlumno($nro_documento)
+    {
+      $alumno = Alumno::datosAlumno($nro_documento);
+      $periodos = Alumno::periodosAlumno($nro_documento);
+      $respuesta = array('alumno' => $alumno, 'periodos' => $periodos);
+      return $respuesta;
+    }
+    /**
+     * Mostrar la pantalla de Lista de Ingresos por Cajera
+     */
+    public function cuentaDeAlumno()
+    {
+      $modulos = Usuario_Modulos::modulosDeUsuario();
+      return view('secretaria.reportes.index',
+        ['modulos' => $modulos]
+      );
+    }
+    /**
+     * Mostrar la pantalla de Lista de Ingresos por Cajera
+     */
+    public function procesarCuentaDeAlumno(Request $request)
+    {
+      $nro_documento = $request->nro_documento;
+      $id_categoria = $request->id_categoria;
+      $tipo_reporte = $request->tipo_reporte;
+      // Recuperar valores enviados y de la base de datos
+      $fecha_archivo = date('d-m-Y H:i:s');
+      $archivo = 'Reporte de Cuenta de Alumno -' . $nro_documento . '-' . $fecha_archivo;
+      $cuenta = Alumno::cuentaAlumno($nro_documento, $id_categoria);
+      $alumno = Alumno::datosAlumno($nro_documento);
+      $fecha = date('d-m-Y');
+      // Generar el PDF
+      if ($tipo_reporte == 'pdf') {
+        $view = \View::make('admin.reportes.cuenta_alumno_rept',
+          ['cuenta' => $cuenta, 'alumno' => $alumno, 'fecha' => $fecha]
+        )->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream($archivo);
+      } else {
+        \Excel::create($archivo, function($excel) use ($cuenta, $alumno, $fecha) {
+          $excel->sheet('Hoja 1', function($sheet) use ($cuenta, $alumno, $fecha) {
+            $sheet->loadView('admin.reportes.cuenta_alumno_rept', array(
+              'cuenta' => $cuenta,
+              'alumno' => $alumno,
+              'fecha' => $fecha,
+            ));
+          });
+        })->download('xls');
+      }
+    }}

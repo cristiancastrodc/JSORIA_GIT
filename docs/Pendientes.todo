@@ -1,20 +1,20 @@
- ☐ Secretaria y Administrador: Reporte Alumnos deudores por grado/semestre. @critical @critical
  ☐ Admin y tesoreraReporte: Lista de ingresos por institucion. @critical @critical
- ☐ Admin y tesorera Reporte: Ingresos Totales. @critical @critical
- ☐ Admin y tesorera Reporte: Lista Egresos. @critical @critical
- ☐ Admin y tesorera Reporte: Lista Egresos Agrupados por rubro. @critical @critical
- ☐ Admin y tesorera Reporte: Lista Egresos totales. @critical @critical
  
- ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
- ☐ Administrador: Crear modulo para editar Matriculas y pensiones. @critical
- ☐ Super administrador
- ☐ cajera : registrar ingresos, las instituciones tienen que recuperr de la bd
  Admin:
- ☐ Módulos de Usuario: Check para seleccionar todos los módulos.
- ☐ Lista de Cobros extraordinarios.
  General:
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Módulos de Usuario: Check para seleccionar todos los módulos. @done (16-11-26 08:53)
+ ✔ tesorera : registrar ingresos, las instituciones tienen que recuperr de la bd @done (16-11-26 08:48)
+ ✔ Administrador: Crear modulo para editar Matriculas y pensiones. @critical @done (16-11-26 08:48)
+ ✔ Super administrador @done (16-11-26 08:47)
+ ✔ Admin y tesorera Reporte: Ingresos Totales. @critical @critical @done (16-11-26 07:20)
+ ✔ Admin y tesorera Reporte: Ingresos agrupados por categoria. @critical @critical @done (16-11-26 05:50)
+ ✔ Admin y tesorera Reporte: Lista Egresos Agrupados por rubro. @critical @critical @done (16-11-26 04:55)
+ ✔ Lista de Cobros extraordinarios. @done (16-11-26 04:46)
+ ✔ Secretaria y Administrador: Reporte Alumnos deudores por grado/semestre. @critical @critical @done (16-11-26 04:44)
+ ✔ Admin y tesorera Reporte: Lista Egresos totales. @critical @critical @done (16-11-26 04:34)
+ ✔ Admin y tesorera Reporte: Lista Egresos. @critical @critical @done (16-11-26 03:53)
  ✔ Secretaria y Administrador: Reporte Deudas de alumno. @critical @critical @done (16-11-25 20:30)
  ✔ Secretaria y Administrador: Reporte Cuenta de alumno. @critical @critical @done (16-11-25 20:30)
  ✔ Definir descuentos -> Definir descuentos para el instituto. @done (16-11-25 18:40)
