@@ -10,6 +10,7 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Balance;
 use JSoria\Deuda_Ingreso;
 use JSoria\Egreso;
+use JSoria\Usuario_Modulos;
 use Auth;
 
 class ReportesTesoreraController extends Controller
@@ -91,18 +92,36 @@ class ReportesTesoreraController extends Controller
     }
 
     /*** Reporte de Balance de Ingresos / Egresos ***/
-    public function balanceIngresosEgresos()
+    public function mostrarBalanceIngresosEgresos()
     {
+        $modulos = Usuario_Modulos::modulosDeUsuario();
+        return view('tesorera.reportes.balance', ['modulos' => $modulos]);
+    }
+    /*** Reporte de Balance de Ingresos / Egresos ***/
+    public function balanceIngresosEgresos(Request $request)
+    {
+        $tipo_reporte = $request->tipo_reporte;
         $fecha = date('d-m-Y H:i:s');
         $archivo = 'Balance Ingresos Egresos-' . date('dmYHis');
-
         $balance = Balance::getBalanceTesorera(Auth::user()->id, date('Y-m-d'));
         # $cobros = Deuda_Ingreso::where();
         $balance_detallado = Balance::getBalanceDetalladoTesorera(Auth::user()->id, date('Y-m-d'));
 
-        $view = \View::make('tesorera.reportes.balance', compact('fecha', 'balance', 'balance_detallado'))->render();
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
-        return $pdf->stream($archivo);
+        if ($tipo_reporte == 'pdf') {
+            $view = \View::make('tesorera.reportes.balance_rept', compact('fecha', 'balance', 'balance_detallado'))->render();
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream($archivo);
+        } else {
+            \Excel::create($archivo, function($excel) use ($fecha, $balance, $balance_detallado) {
+              $excel->sheet('Hoja 1', function($sheet) use ($fecha, $balance, $balance_detallado) {
+                $sheet->loadView('tesorera.reportes.balance_rept', array(
+                  'fecha' => $fecha,
+                  'balance' => $balance,
+                  'balance_detallado' => $balance_detallado,
+                ));
+              });
+            })->download('xls');
+        }
     }
 }

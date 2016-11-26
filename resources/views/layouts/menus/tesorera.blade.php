@@ -19,7 +19,7 @@
   <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>
   <ul>
       <li>
-        <a href="{!!URL::to('/tesorera/reporte/balance_ingresos_egresos')!!}" target="_blank">Balance de Ingresos/Egresos</a>
+        <a href="{!!URL::to('/tesorera/reporte/balance_ingresos_egresos')!!}">Balance de Ingresos/Egresos</a>
       </li>
       <li><a href="{!!URL::to('/tesorera/reportes/ListaIngresos')!!}">Lista de Ingresos</a></li>
       <li><a href="{!!URL::to('/tesorera/reportes/IngresosCategoria')!!}">Ingresos agrupados por Categorias</a></li>
