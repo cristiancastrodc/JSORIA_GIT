@@ -1,13 +1,10 @@
- ☐ Secretaria y Administrador: Reporte Cuenta de alumno. @critical @critical
- ☐ Secretaria y Administrador: Reporte Deudas de alumno. @critical @critical
  ☐ Secretaria y Administrador: Reporte Alumnos deudores por grado/semestre. @critical @critical
- ☐ Admin y tesorera Reporte: Reporte de lista de ingresos por cajera. @critical @critical
  ☐ Admin y tesoreraReporte: Lista de ingresos por institucion. @critical @critical
  ☐ Admin y tesorera Reporte: Ingresos Totales. @critical @critical
  ☐ Admin y tesorera Reporte: Lista Egresos. @critical @critical
  ☐ Admin y tesorera Reporte: Lista Egresos Agrupados por rubro. @critical @critical
  ☐ Admin y tesorera Reporte: Lista Egresos totales. @critical @critical
- ☐ Cajera Reporte: Reporte de lista de ingresos, verificar que liste los otros cobros y los cobros múltiples. @critical @critical
+ 
  ☐ Administrador: Reporte de acciones de usuarios. @critical @critical
  ☐ Administrador: Crear modulo para editar Matriculas y pensiones. @critical
  ☐ Super administrador
@@ -15,11 +12,15 @@
  Admin:
  ☐ Módulos de Usuario: Check para seleccionar todos los módulos.
  ☐ Lista de Cobros extraordinarios.
- ☐ Definir descuentos -> Definir descuentos para el instituto.
  General:
- ☐ ULP en todos los módulos.
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Secretaria y Administrador: Reporte Deudas de alumno. @critical @critical @done (16-11-25 20:30)
+ ✔ Secretaria y Administrador: Reporte Cuenta de alumno. @critical @critical @done (16-11-25 20:30)
+ ✔ Definir descuentos -> Definir descuentos para el instituto. @done (16-11-25 18:40)
+ ✔ Admin y tesorera Reporte: Reporte de lista de ingresos por cajera. @critical @critical @done (16-11-25 18:04)
+ ✔ ULP en todos los módulos. @done (16-11-25 14:52)
+ ✔ Cajera Reporte: Reporte de lista de ingresos, verificar que liste los otros cobros y los cobros múltiples. @critical @critical @done (16-11-25 12:39)
  ✔ Reportes exportar a Excel. @critical @critical @done (16-11-23 21:52)
  ✔ Admin y tesorera Reporte: Balance. @critical @critical @done (16-11-22 07:33)
  ✔ Verificar que para cada modulo, restringir opciones (instituciones) de acuerdo a sus permisos. @critical @done (16-11-22 07:32)
