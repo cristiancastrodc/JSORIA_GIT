@@ -128,4 +128,21 @@ class CobrosExtraordinariosController extends Controller
     {
         //
     }
+    /**
+     * Listar cobros extraordinarios
+     */
+    public function listaCobros(Request $request, $id_institucion)
+    {
+      if ($request->ajax()) {
+        $cobros = Categoria::cobrosExtraordinariosInstitucion($id_institucion);
+        return response()->json($cobros);
+      }
+    }
+    /**
+     * Listar cobros extraordinarios
+     */
+    public function eliminarCobro($id_cobro)
+    {
+      Deuda_Ingreso::destroy($id_cobro);
+    }
 }

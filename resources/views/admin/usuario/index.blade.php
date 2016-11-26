@@ -122,7 +122,7 @@
                     <td>{{$user->tipo}}</td>
                     <td>
                       {!!link_to_route('admin.usuarios.edit', $title = '', $parameters = $user->id, $attributes = ['class' => 'btn third-color zmdi zmdi-edit', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Modificar'])!!}
-                      
+
                     </td>
                   </tr>
                 @endforeach

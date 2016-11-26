@@ -54,8 +54,6 @@
       <li><a href="{{ url('/admin/reportes/deudas_alumno') }}">Deudas de Alumno</a></li>
   </ul>
 </li>
-<li><a href="{!!URL::to('/admin/cobros/CuentaAlumno')!!}"></i> Otros Cobros</a>
-</li>
 <!-- li><a href="{!!URL::to('/admin/configuracion')!!}">
   <i class="zmdi zmdi-settings"></i> Configuración</a>
 </li-->
