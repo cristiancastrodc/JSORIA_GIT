@@ -58,4 +58,15 @@ app.controller('modulosController', function ($scope, $http, $filter) {
       console.log('Internal Error');
     });
   }
+  $scope.seleccionarTodo = function () {
+    if ($scope.todoSeleccionado) {
+        $scope.modulos.forEach(function (element) {
+          element.seleccionado = true;
+        })
+    } else {
+        $scope.modulos.forEach(function (element) {
+          element.seleccionado = false;
+        })
+    }
+  }
 });

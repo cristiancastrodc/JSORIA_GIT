@@ -44,7 +44,15 @@
             <table class="table table-bordered">
               <tr class="accent-color">
                 <td>Módulo</td>
-                <td></td>
+                <td>
+                  <div class="checkbox table-checkbox">
+                    <label>
+                      <input type="checkbox" ng-change="seleccionarTodo()" ng-model="todoSeleccionado">
+                      <i class="input-helper"></i>
+                      Seleccionar Todo
+                    </label>
+                  </div>
+                </td>
               </tr>
               <tr ng-repeat="modulo in modulos">
                 <td>{@ modulo.descripcion @}</td>
