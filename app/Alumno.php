@@ -105,4 +105,15 @@ class Alumno extends Model
                         ->select('categoria.nombre', 'categoria.tipo','categoria.fecha_fin', 'deuda_ingreso.estado_pago','deuda_ingreso.fecha_hora_ingreso', 'deuda_ingreso.tipo_comprobante','deuda_ingreso.serie_comprobante', 'deuda_ingreso.numero_comprobante', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
                         ->get();
   }
+  /**
+   * Retorna las deudas de un alumno
+   */
+  public static function deudasAlumno($nro_documento)
+  {
+    return Deuda_Ingreso::where('id_alumno', $nro_documento)
+                        ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                        ->where('deuda_ingreso.estado_pago', '=', 0)
+                        ->select('categoria.nombre', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
+                        ->get();
+  }
 }

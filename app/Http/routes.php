@@ -83,6 +83,8 @@ Route::post('admin/reportes/ingresos_cajera/procesar', 'ReportesAdminController@
 Route::get('admin/reportes/cuenta_alumno', 'ReportesAdminController@cuentaDeAlumno');
 Route::post('admin/reportes/cuenta_alumno/procesar', 'ReportesAdminController@procesarCuentaDeAlumno');
 Route::get('admin/reportes/cuenta_alumno/{nro_documento}/periodos', 'ReportesAdminController@periodosAlumno');
+Route::get('admin/reportes/deudas_alumno', 'ReportesAdminController@deudasDeAlumno');
+Route::post('admin/reportes/deudas_alumno/procesar', 'ReportesAdminController@procesarDeudasDeAlumno');
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');

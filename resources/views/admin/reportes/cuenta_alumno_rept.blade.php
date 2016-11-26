@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Cuenta de Alumno - {{ $alumno->nro_documento }} - </title>
+  <title>Cuenta de Alumno - {{ $alumno->nro_documento }}</title>
   <link rel="stylesheet" href="{{ asset('css/reportes.css') }}">
 </head>
 <body>

@@ -235,4 +235,47 @@ class ReportesAdminController extends Controller
         })->download('xls');
       }
     }
+    /**
+     * Mostrar la pantalla de Lista de Ingresos por Cajera
+     */
+    public function deudasDeAlumno()
+    {
+      $modulos = Usuario_Modulos::modulosDeUsuario();
+      return view('admin.reportes.deudas_alumno',
+        ['modulos' => $modulos]
+      );
+    }
+    /**
+     * Mostrar la pantalla de Lista de Ingresos por Cajera
+     */
+    public function procesarDeudasDeAlumno(Request $request)
+    {
+      $nro_documento = $request->nro_documento;
+      $tipo_reporte = $request->tipo_reporte;
+      $fecha = date('d-m-Y');
+      // Recuperar valores enviados y de la base de datos
+      $fecha_archivo = date('d-m-Y H:i:s');
+      $archivo = 'Reporte de Deudas de Alumno -' . $nro_documento . '-' . $fecha_archivo;
+      $deudas = Alumno::deudasAlumno($nro_documento);
+      $alumno = Alumno::datosAlumno($nro_documento);
+      // Generar el PDF
+      if ($tipo_reporte == 'pdf') {
+        $view = \View::make('admin.reportes.deudas_alumno_rept',
+          ['deudas' => $deudas, 'alumno' => $alumno, 'fecha' => $fecha]
+        )->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream($archivo);
+      } else {
+        \Excel::create($archivo, function($excel) use ($deudas, $alumno, $fecha) {
+          $excel->sheet('Hoja 1', function($sheet) use ($deudas, $alumno, $fecha) {
+            $sheet->loadView('admin.reportes.deudas_alumno_rept', array(
+              'deudas' => $deudas,
+              'alumno' => $alumno,
+              'fecha' => $fecha,
+            ));
+          });
+        })->download('xls');
+      }
+    }
 }
