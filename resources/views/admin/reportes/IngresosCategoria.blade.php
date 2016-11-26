@@ -22,7 +22,7 @@
           <h2>Reporte de Ingresos Agrupados por Categoria</h2>
         </div>
         <div class="card-body card-padding">
-         {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-reporte-ingresos','route' => 'admin.reportes.IngresosCategoria.procesar.store','method' => 'POST'))!!}          
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">         
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
               <div class="col-sm-9">
@@ -64,12 +64,30 @@
                 </div>
             </div>
 
+            <!-- EXCEL O PDF -->
             <div class="form-group">
-              <div class="pull-right">
-                <button type="submit" class="btn btn-warning waves-effect" id="btn-reporte-IngresosCategoria" formtarget="_blank">Generar</button>
+              <label for="tipo_reporte" class="control-label col-sm-3">Tipo de Reporte</label>
+              <div class="col-sm-9">
+                <div class="radio">
+                  <label>
+                      <i class="input-helper"></i>PDF
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                      <input type="radio" name="tipo_reporte" value="excel">
+                      <i class="input-helper"></i>Excel
+                  </label>
+                </div>
               </div>
             </div>
-          {!!Form::close()!!}
+            <!--/ EXCEL O PDF -->
+            <div class="form-group">
+              <div class="col-sm-3 col-sm-offset-9">
+                <button type="submit" class="btn btn-block waves-effect m-t-15 accent-color" id="btn-reporte-IngresosCategoria" formtarget="_blank">Generar</button>
+              </div>
+            </div>            
+          </form>
         </div>
       </div>
     </div>

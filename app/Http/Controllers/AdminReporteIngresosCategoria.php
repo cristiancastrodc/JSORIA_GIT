@@ -43,15 +43,18 @@ class AdminReporteIngresosCategoria extends Controller
      */
     public function store(Request $request)
     {
+
+    }
+    public function procesar(Request $request)
+    {
         $id_institucion = $request['id_institucion'];
         //$id_institucion = $request->id_institucion;
 
         $id_detalle_institucion = $request['id_detalle_institucion'];
-
+        $tipo_reporte = $request->tipo_reporte;
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];        
 
-        $fecha_inicio = $request['fecha_inicio'];
 
         $datas = Deuda_Ingreso::join('categoria','id_categoria','=','categoria.id')
                             ->join('detalle_institucion','categoria.id_detalle_institucion','=','detalle_institucion.id')
@@ -86,11 +89,26 @@ class AdminReporteIngresosCategoria extends Controller
             default:
                 break;
         }
-
-        $view =  \View::make('pdf.AdminIngresosCategoria', compact('id_institucion','nombre_nivel','datas','fecha_inicio','fecha_fin'))->render();
-        $pdf = \App::make('dompdf.wrapper');
+        // Generar el PDF
+        if ($tipo_reporte == 'pdf') {            
+            $view =  \View::make('pdf.AdminIngresosCategoria', compact('id_institucion','nombre_nivel','datas','fecha_inicio','fecha_fin'))->render();
+            $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminIngresosCategoria'); 
+        } else {
+            \Excel::create('AdminIngresosCategoria', function($excel) use ($id_institucion, $nombre_nivel, $datas, $fecha_inicio, $fecha_fin) {
+              $excel->sheet('Hoja 1', function($sheet) use ($id_institucion, $nombre_nivel, $datas, $fecha_inicio, $fecha_fin) {
+                $sheet->loadView('pdf.AdminIngresosCategoria', array(
+                  'id_institucion' => $id_institucion,
+                  'nombre_nivel' => $nombre_nivel,
+                  'datas' => $datas,
+                  'fecha_inicio' => $fecha_inicio,
+                  'fecha_fin' => $fecha_fin,
+
+                ));
+              });
+            })->download('xls');
+        }       
         
     }
 

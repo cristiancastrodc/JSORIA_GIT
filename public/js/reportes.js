@@ -7,8 +7,10 @@ $('#form-reporte-ingresos #id_institucion').change(function (e) {
 
   $.get(route, function (response, state) {
     for (var i = 0; i < response.length; i++) {
-      var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre_division + "</option>"
-      $detalle_institucion.append(opcion);
+      if (response[i].nombre_division != 'Todo') {
+        var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre_division + "</option>"
+        $detalle_institucion.append(opcion);
+      }
     };
     $detalle_institucion.selectpicker('refresh');
   });
@@ -61,7 +63,7 @@ $('#form-listar_deudores #id_detalle_institucion').change(function (e) {
   });
 });
 
-$(document).ready(function() {
+/*$(document).ready(function() {
     $('#form-reporte-ingresos').on('submit', function(evt) {
           evt.preventDefault();
           setTimeout(function() {
@@ -69,7 +71,7 @@ $(document).ready(function() {
           },0);
           this.submit();
     });
-});
+});*/
 
 $(document).ready(function() {
     $('#form-reporte-egresos').on('submit', function(evt) {

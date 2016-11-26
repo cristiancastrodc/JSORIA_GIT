@@ -41,11 +41,14 @@ class AdminReporteEgresosTotales extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    {}
+    
+    public function procesarReporteTotal(Request $request)
     {
         $id_institucion = $request['id_institucion'];
         //$id_institucion = $request->id_institucion;
 
-
+        $tipo_reporte = $request->tipo_reporte;
         $fecha_inicio = $request['fecha_inicio'];
         $fecha_fin = $request['fecha_fin'];        
         $radio_btn_fecha=$request['inlineRadioOptions'];
@@ -105,12 +108,28 @@ class AdminReporteEgresosTotales extends Controller
                 break;
             default:
                 break;
-        }        
+        } 
 
-        $view =  \View::make('pdf.AdminEgresosTotales', compact('id_institucion','datas','fecha_inicio','fecha_fin','radio_btn_fecha'))->render();
-        $pdf = \App::make('dompdf.wrapper');
+        // Generar el PDF
+        if ($tipo_reporte == 'pdf') {            
+            $view =  \View::make('pdf.AdminEgresosTotales', compact('id_institucion','datas','fecha_inicio','fecha_fin','radio_btn_fecha'))->render();
+            $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('AdminEgresosTotales'); 
+        } else {
+            \Excel::create('AdminEgresosTotales', function($excel) use ($id_institucion, $datas, $fecha_inicio, $fecha_fin, $radio_btn_fecha) {
+              $excel->sheet('Hoja 1', function($sheet) use ($id_institucion, $datas, $fecha_inicio, $fecha_fin, $radio_btn_fecha) {
+                $sheet->loadView('pdf.AdminEgresosTotales', array(
+                  'id_institucion' => $id_institucion,
+                  'datas' => $datas,
+                  'fecha_inicio' => $fecha_inicio,
+                  'fecha_fin' => $fecha_fin,
+                  'radio_btn_fecha' => $radio_btn_fecha,
+
+                ));
+              });
+            })->download('xls');
+        }          
     }
 
 
