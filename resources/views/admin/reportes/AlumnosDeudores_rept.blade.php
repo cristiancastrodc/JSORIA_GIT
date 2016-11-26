@@ -10,7 +10,7 @@
     <table>
       <tr>
         <td colspan="5"><h1>LISTA DE ALUMNOS DEUDORES</h1></td>
-      </tr>      
+      </tr>
     </table>
     <hr>
   </div>
