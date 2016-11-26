@@ -376,4 +376,38 @@ class MatriculasController extends Controller
     }
     return $pensiones;
   }
+  /**
+   * Retorna las categorías asociadas a una matrícula
+   */
+  public function editarMatricula()
+  {
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    return view('admin.matricula.editar', ['modulos' => $modulos]);
+  }
+  /**
+   * Retorna las categorías asociadas a una matrícula
+   */
+  public function recuperarCategoriasAdmin($id_matricula)
+  {
+    $pensiones = Categoria::categoriasDeMatricula($id_matricula);
+    return $pensiones;
+  }
+  /**
+   * Retorna las categorías asociadas a una matrícula
+   */
+  public function guardarEdicionMatricula(Request $request)
+  {
+    $resultado = 'true';
+    $categorias = $request->input('pensiones');
+    foreach ($categorias as $categoria) {
+      $categoria_aux = Categoria::find($categoria['id']);
+      $categoria_aux->nombre = $categoria['nombre'];
+      $categoria_aux->monto = $categoria['monto'];
+      $categoria_aux->save();
+    }
+    $respuesta = [
+      'resultado' => $resultado,
+    ];
+    return $respuesta;
+  }
 }

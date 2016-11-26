@@ -56,6 +56,10 @@ Route::get('admin/usuario/{id_usuario}/modulos', 'UsersController@listaModulosUs
 Route::post('admin/usuario/modulos/grabar', 'UsersController@grabarModulosUsuario');
 Route::get('admin/cobros/extraordinarios/listar/{id_institucion}', 'CobrosExtraordinariosController@listaCobros');
 Route::get('admin/cobros/extraordinarios/eliminar/{id_cobro}', 'CobrosExtraordinariosController@eliminarCobro');
+Route::get('admin/matricula/editar', 'MatriculasController@editarMatricula');
+Route::get('admin/matricula/institucion/{id_institucion}/detalle', 'InstitucionDetalleController@detalleInstitucion');
+Route::get('admin/matricula/{id_matricula}/categorias', 'MatriculasController@recuperarCategoriasAdmin');
+Route::post('admin/matricula/editar/guardar', 'MatriculasController@guardarEdicionMatricula');
 # Reportes
 Route::get('admin/reporte/balance_ingresos_egresos',
   ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);
@@ -87,6 +91,7 @@ Route::post('admin/reportes/cuenta_alumno/procesar', 'ReportesAdminController@pr
 Route::get('admin/reportes/cuenta_alumno/{nro_documento}/periodos', 'ReportesAdminController@periodosAlumno');
 Route::get('admin/reportes/deudas_alumno', 'ReportesAdminController@deudasDeAlumno');
 Route::post('admin/reportes/deudas_alumno/procesar', 'ReportesAdminController@procesarDeudasDeAlumno');
+Route::get('admin/matricula/detalle_institucion/{id_detalle}/grados_matriculas', 'InstitucionDetalleController@recuperarGradosYMatriculas');
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');

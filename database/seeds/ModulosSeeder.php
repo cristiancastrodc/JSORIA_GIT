@@ -19,6 +19,9 @@ class ModulosSeeder extends Seeder
         ['descripcion' => 'Crear Matrícula', 'tipo_usuario' => 'Administrador', 'tag_id' => 'link_crear_matricula']
       );
       DB::table('modulos')->insert(
+        ['descripcion' => 'Editar Matrícula', 'tipo_usuario' => 'Administrador', 'tag_id' => 'link_editar_matricula']
+      );
+      DB::table('modulos')->insert(
         ['descripcion' => 'Cobros Ordinarios', 'tipo_usuario' => 'Administrador', 'tag_id' => 'link_cobros_ordinarios']
       );
       DB::table('modulos')->insert(
