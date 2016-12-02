@@ -468,12 +468,12 @@ class CobrosController extends Controller
           // Recuperar deudas de alumno
           $deudas = Deuda_Ingreso::deudasDeAlumno($codigo);
           // Modificar las pensiones de acuerdo a los descuentos
-          if ($id_institucion == '3') {
-            $dia_limite = Configuracion::valor('dia_limite_descuento') . ' days';
-            $porcentaje_descuento = floatval(Configuracion::valor('porcentaje_descuento')) / 100;
-            $fecha_actual = date_create(date('Y-m-d'));
+          $dia_limite = Configuracion::valor('dia_limite_descuento') . ' days';
+          $porcentaje_descuento = floatval(Configuracion::valor('porcentaje_descuento')) / 100;
+          $fecha_actual = date_create(date('Y-m-d'));
+          #if ($id_institucion == '3') {
             foreach ($deudas as $deuda) {
-              if ($deuda->tipo == "pension" && $deuda->estado_descuento == "0") {
+              if ($deuda->id_institucion == '3' && $deuda->tipo == "pension" && $deuda->estado_descuento == "0") {
                 $fecha_final = date_create($deuda->fecha_fin);
                 date_add($fecha_final, date_interval_create_from_date_string($dia_limite));
                 if ($fecha_actual <= $fecha_final) {
@@ -482,7 +482,7 @@ class CobrosController extends Controller
                 }
               }
             }
-          }
+          #}
           // Recuperar los montos a cancelar de cada deuda
           foreach ($deudas as $deuda) {
             $deuda['monto_cancelar'] = floatval($deuda->saldo) - floatval($deuda->descuento);

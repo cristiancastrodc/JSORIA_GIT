@@ -8,6 +8,7 @@
  General:
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ @critical @critical @started Cajera: El descuento para pensiones se debe de calcular en base a la institucion de la categoria y no la institucion del alumno. @done (16-12-02 11:22)
  ✔ Cajera - Cobros: Cobros no recupera montos reales. @done (16-12-02 11:02)
  ✔ Módulos de Usuario: Check para seleccionar todos los módulos. @done (16-11-26 08:53)
  ✔ tesorera : registrar ingresos, las instituciones tienen que recuperr de la bd @done (16-11-26 08:48)
