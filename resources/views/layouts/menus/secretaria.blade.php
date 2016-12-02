@@ -19,7 +19,8 @@
 <li class="sub-menu">
   <a href=""><i class="zmdi zmdi-pin-account"></i> Reportes</a>
   <ul>
-    <li><a href="{!!URL::to('/secretaria/reportes')!!}">Cuenta de Alumno</a></li>
-    <li><a href="{{ url('/secretaria/generar/reporte/deudas_por_grado') }}">Deudas por Grado</a></li>
+    <li><a href="{!!URL::to('/secretaria/reportes/cuenta_alumno')!!}">Cuenta de Alumno</a></li>
+    <li><a href="{{ url('/secretaria/reportes/deudas_alumno') }}">Deudas de Alumno</a></li>
+    <li><a href="{{ url('/secretaria/reportes/deudas_por_grado') }}">Deudas por Grado</a></li>
   </ul>
 </li>

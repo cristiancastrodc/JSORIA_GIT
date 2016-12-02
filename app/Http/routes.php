@@ -189,13 +189,18 @@ Route::get('secretaria/alumno/deudas/{id_matricula}/categorias', 'MatriculasCont
 Route::post('secretaria/alumno/deudas/anteriores/crear', 'AlumnosController@crearDeudasAnteriores');
 Route::get('secretaria/alumno/deudas/anteriores/detalle_institucion/{id_detalle}/matriculas', 'InstitucionDetalleController@recuperarTodasMatriculas');
 # Reportes
-Route::get('secretaria/generar/reporte/deudas_por_grado', 'ReportesSecretariaController@deudasPorGrado');
 Route::get('secretaria/procesar/reporte/deudas_por_grado', 'ReportesSecretariaController@procesarDeudasPorGrado');
 Route::get('secretaria/periodo/programar', 'MatriculasController@programarPeriodos');
 Route::post('secretaria/periodo/crear', 'MatriculasController@crearMatriculaPensiones');
 Route::get('secretaria/matriculas/recuperar/{id_institucion}', 'MatriculasController@recuperarMatriculas');
-Route::get('secretaria/reportes', 'AdminReporteCuentaAlumno@index');
+Route::get('secretaria/reportes/cuenta_alumno', 'ReportesSecretariaController@cuentaDeAlumno');
 Route::resource('secretaria/reportes/procesar','AdminReporteCuentaAlumno');
 Route::resource('secretaria/reportes/EgresosTotales/procesar','AdminReporteEgresosTotales');
+Route::get('secretaria/reportes/cuenta_alumno/{nro_documento}/periodos', 'ReportesSecretariaController@periodosAlumno');
+Route::post('secretaria/reportes/cuenta_alumno/procesar', 'ReportesSecretariaController@procesarCuentaDeAlumno');
+Route::get('secretaria/reportes/deudas_alumno', 'ReportesAdminController@deudasDeAlumno');
+Route::get('secretaria/reportes/deudas_por_grado', 'AdminReporteAlumnosDeudores@index');
+Route::get('secretaria/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
+Route::get('secretaria/grados/{id_detalle_institucion}','GradosController@gradosDivision');
 // Rutas temporales (inhabilitar luego de utilizar)
 # Route::get('temp', function () { return view('temp.one'); });
