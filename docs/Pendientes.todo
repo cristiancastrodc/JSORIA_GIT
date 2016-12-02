@@ -1,4 +1,9 @@
- ☐ Admin y tesoreraReporte: Lista de ingresos por institucion. @critical @critical
+
+ ☐ Cajera: Agregar el descuento en los comprobantes.
+ ☐ matricula: select texto en click del textbox.
+ ☐ Modulos de usuario: en la lista agregar el tipo de usuario (juana del arco - secretario).
+ ☐ Administrador: Resumen de creacion de cada proceso (matricula,cobros los tres, definir comprobantes,definir descuento,autorizar descuento). 
+ ☐ Agregar los reportes de tesorera.
  
  Admin:
  General:
