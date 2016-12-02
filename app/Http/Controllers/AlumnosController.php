@@ -604,11 +604,8 @@ class AlumnosController extends Controller
      */
     public function agregarDeudasAnteriores()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-
-        return view('secretaria.alumno.deuda.anteriores', ['modulos' => $modulos]);
-
-      //return view('secretaria.alumno.deuda.anteriores');
+      $modulos = Usuario_Modulos::modulosDeUsuario();
+      return view('secretaria.alumno.deuda.anteriores', ['modulos' => $modulos]);
     }
     /**
      * Crear deudas anteriores para un alumno

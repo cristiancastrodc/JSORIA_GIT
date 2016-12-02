@@ -60,7 +60,7 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
     if ($scope.detalle_institucion != null) {
       var id_detalle = $scope.detalle_institucion.id;
       // Recuperar detalle de la institución
-      var ruta = '/admin/matricula/detalle_institucion/' + id_detalle + '/grados_matriculas';
+      var ruta = '/admin/matricula/detalle_institucion/' + id_detalle + '/matriculas';
       $http.get(ruta)
       .success(function(response) {
         $scope.matriculas = response.matriculas;

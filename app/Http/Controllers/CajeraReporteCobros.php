@@ -116,7 +116,7 @@ class CajeraReporteCobros extends Controller
               'total' => $total,
             ));
           });
-        })->download('xlsx');
+        })->download('xls');
       }
     }
 }

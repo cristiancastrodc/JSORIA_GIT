@@ -91,7 +91,7 @@ Route::post('admin/reportes/cuenta_alumno/procesar', 'ReportesAdminController@pr
 Route::get('admin/reportes/cuenta_alumno/{nro_documento}/periodos', 'ReportesAdminController@periodosAlumno');
 Route::get('admin/reportes/deudas_alumno', 'ReportesAdminController@deudasDeAlumno');
 Route::post('admin/reportes/deudas_alumno/procesar', 'ReportesAdminController@procesarDeudasDeAlumno');
-Route::get('admin/matricula/detalle_institucion/{id_detalle}/grados_matriculas', 'InstitucionDetalleController@recuperarGradosYMatriculas');
+Route::get('admin/matricula/detalle_institucion/{id_detalle}/matriculas', 'InstitucionDetalleController@recuperarTodasMatriculas');
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
@@ -187,6 +187,7 @@ Route::post('secretaria/ciclo/cerrar/guardar', 'CicloController@cerrarCiclo');
 Route::get('secretaria/alumno/deudas/anteriores/agregar', 'AlumnosController@agregarDeudasAnteriores');
 Route::get('secretaria/alumno/deudas/{id_matricula}/categorias', 'MatriculasController@recuperarCategorias');
 Route::post('secretaria/alumno/deudas/anteriores/crear', 'AlumnosController@crearDeudasAnteriores');
+Route::get('secretaria/alumno/deudas/anteriores/detalle_institucion/{id_detalle}/matriculas', 'InstitucionDetalleController@recuperarTodasMatriculas');
 # Reportes
 Route::get('secretaria/generar/reporte/deudas_por_grado', 'ReportesSecretariaController@deudasPorGrado');
 Route::get('secretaria/procesar/reporte/deudas_por_grado', 'ReportesSecretariaController@procesarDeudasPorGrado');

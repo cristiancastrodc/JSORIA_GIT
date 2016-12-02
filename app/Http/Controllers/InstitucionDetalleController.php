@@ -156,4 +156,16 @@ class InstitucionDetalleController extends Controller
       );
       return $respuesta;
     }
+    /*
+     * Retorna la lista de matrículas para agregar deudas anteriores
+     */
+    public function recuperarTodasMatriculas($id_detalle)
+    {
+      // Recuperar los grados
+      $matriculas = Categoria::todasMatriculas($id_detalle);
+      $respuesta = array(
+        'matriculas' => $matriculas,
+      );
+      return $respuesta;
+    }
 }

@@ -151,4 +151,13 @@ class Categoria extends Model
                         ->select('deuda_ingreso.id', 'deuda_ingreso.descripcion_extr', 'deuda_ingreso.estado_pago', 'deuda_ingreso.saldo')
                         ->get();
   }
+  /**
+   * Retorna la lista de matrículas para agregar deudas anteriores
+   */
+  public static function todasMatriculas($id_detalle_institucion)
+  {
+    return Categoria::where('tipo', 'matricula')
+                    ->where('id_detalle_institucion', $id_detalle_institucion)
+                    ->get();
+  }
 }
