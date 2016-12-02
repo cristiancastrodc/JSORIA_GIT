@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder {
 
 		#$this->call('ConfiguracionSeeder');
 		#$this->call('ModulosSeeder');
-		$this->call('SysAdminSeeder');
+		#$this->call('SysAdminSeeder');
 	}
 
 }

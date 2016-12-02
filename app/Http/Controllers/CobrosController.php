@@ -578,7 +578,8 @@ class CobrosController extends Controller
               ]);
               // Se actualiza la deuda
               $deuda = Deuda_Ingreso::find($pago['id']);
-              $deuda->saldo = floatval($pago['monto_cancelar']) - $pago['monto_pagado'];
+              //$deuda->saldo = floatval($pago['monto_cancelar']) - $pago['monto_pagado'];
+              $deuda->saldo = $pago['saldo'] - $pago['monto_pagado'];
               $deuda->save();
             } else {
               // Se actualiza la deuda

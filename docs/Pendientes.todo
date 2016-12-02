@@ -1,14 +1,14 @@
-
  ☐ Cajera: Agregar el descuento en los comprobantes.
  ☐ matricula: select texto en click del textbox.
  ☐ Modulos de usuario: en la lista agregar el tipo de usuario (juana del arco - secretario).
- ☐ Administrador: Resumen de creacion de cada proceso (matricula,cobros los tres, definir comprobantes,definir descuento,autorizar descuento). 
+ ☐ Administrador: Resumen de creacion de cada proceso (matricula,cobros los tres, definir comprobantes,definir descuento,autorizar descuento).
  ☐ Agregar los reportes de tesorera.
- 
+
  Admin:
  General:
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Cajera - Cobros: Cobros no recupera montos reales. @done (16-12-02 11:02)
  ✔ Módulos de Usuario: Check para seleccionar todos los módulos. @done (16-11-26 08:53)
  ✔ tesorera : registrar ingresos, las instituciones tienen que recuperr de la bd @done (16-11-26 08:48)
  ✔ Administrador: Crear modulo para editar Matriculas y pensiones. @critical @done (16-11-26 08:48)
@@ -49,6 +49,6 @@ Archive:
  ✔ Secretaria Matricular: Mostrar reporte con las deudas generadas. El Total debe de decir Total Inversión. @critical @critical @done (16-11-20 10:17)
  ✔ Rehacer Modulo de cerrar ciclo, escoger matriculas deseadas. @critical @critical @done (16-11-20 10:16)
  ✔ Secretaria: Modulo para asignar fechas de matricula.  @critical @critical @done (16-10-27 06:05)
- ✔ Tesorera Retiro: Mostrar numeros de comprobante de ingresos. @critical @critical      @done (16-10-26 11:19) 
+ ✔ Tesorera Retiro: Mostrar numeros de comprobante de ingresos. @critical @critical      @done (16-10-26 11:19)
  ✔ Secretaria: Quitar módulo de amortizaiones. @critical @critical @done (16-10-26 10:54)
  ✔ Rehacer los módulos de matrícula y pensiones. @critical @critical @done (16-10-26 10:50)

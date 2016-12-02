@@ -1,5 +1,5 @@
 use JSoria\Usuario_Modulos;
 
-        $modulos = Usuario_Modulos::modulosDeUsuario();
+$modulos = Usuario_Modulos::modulosDeUsuario();
 
-    , ['modulos' => $modulos]
+['modulos' => $modulos]

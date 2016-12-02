@@ -12,7 +12,7 @@ class SysAdminSeeder extends Seeder
     public function run()
     {
       DB::table('usuario')->insert(
-        ['dni' => 'sysadmin', 'nombres' => 'sysadmin', 'apellidos' => '', 'tipo' => 'Administrador', 'usuario_login' => 'sysadmin', 'password' => \Hash::make('soriaSYSadmin')]
+        ['dni' => 'sysadmin', 'nombres' => 'sysadmin', 'apellidos' => '', 'tipo' => 'Administrador', 'usuario_login' => 'sysadmin', 'password' => \Hash::make('sysadmin')]
       );
     }
 }
