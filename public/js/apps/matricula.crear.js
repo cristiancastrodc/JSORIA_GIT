@@ -47,8 +47,11 @@ app.controller('matriculaController', function ($scope, $http) {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
     .then(function successCallback(response) {
-      if (response.data == 'true') {
+      if (response.data.resultado == 'true') {
         debug('Las pensiones fueron creadas');
+        var ruta = '/admin/matricula/resumen/' + response.data.batch
+        window.location = ruta;
+        /*
         swal({
           title: "Éxito!",
           text: "Matrícula y pensiones creadas correctamente.",
@@ -56,10 +59,11 @@ app.controller('matriculaController', function ($scope, $http) {
         }, function () {
           document.location.reload();
         });
+        */
       } else {
         swal({
           title: "Error",
-          text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos. Excepción: " + response.data,
+          text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos. Excepción: " + response.data.mensaje,
           type: "warning"
         }, function () {
           document.location.reload();

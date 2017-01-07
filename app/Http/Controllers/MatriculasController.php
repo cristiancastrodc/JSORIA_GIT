@@ -145,8 +145,10 @@ class MatriculasController extends Controller
    */
   public function guardarMatricula(Request $request)
   {
-    $resultado = 'true';
+    $respuesta = [];
+    $respuesta['resultado'] = 'false';
     try {
+      $respuesta['resultado'] = 'true';
       // Recuperar los datos
       $id_institucion = $request->input('id_institucion');
       $matricula = $request->input('matricula');
@@ -160,6 +162,9 @@ class MatriculasController extends Controller
       $pensiones_concepto = $pensiones['concepto'];
       // El almacenamiento es diferente en caso se definan o no las fechas
       if ($definir_fechas === 'true') {
+        // Recuperar el nro. del batch
+        $batch = Categoria::siguienteNroBatch();
+        $respuesta['batch'] = $batch;
         // -- Datos de Matricula
         $matricula_fecha_inicio = $matricula['fecha_inicio'];
         $matricula_fecha_fin = $matricula['fecha_fin'];
@@ -190,6 +195,7 @@ class MatriculasController extends Controller
                                 'destino' => '0',
                                 'id_detalle_institucion' => $division['id'],
                                 'periodo' => $periodo,
+                                'batch' => $batch,
                             ])->id;
             // Crear las pensiones
             $meses2 = array(0, 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto' , 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
@@ -210,6 +216,7 @@ class MatriculasController extends Controller
                   'id_detalle_institucion' => $division['id'],
                   'id_matricula' => $id_matricula,
                   'periodo' => $periodo,
+                  'batch' => $batch,
                   ]);
               if (intval($mes) == 12) {
                   $inicio += 89;
@@ -220,6 +227,7 @@ class MatriculasController extends Controller
           }
         }
       } else {
+        $respuesta['batch'] = -1;
         foreach ($divisiones as $division) {
           if (isset($division['seleccionar']) && $division['seleccionar']) {
             $matricula_regular = $matricula_concepto;
@@ -250,9 +258,10 @@ class MatriculasController extends Controller
         }
       }
     } catch (\Exception $e) {
-      $resultado = $e->getMessage();
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
     }
-    return $resultado;
+    return $respuesta;
   }
 
   /**
@@ -409,5 +418,14 @@ class MatriculasController extends Controller
       'resultado' => $resultado,
     ];
     return $respuesta;
+  }
+  /**
+   * Muestra el resumen de creacion de la matricula
+   */
+  public function mostrarResumenMatricula($batch)
+  {
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    $categorias = Categoria::categoriasPorBatch($batch);
+    return view('admin.matricula.resumen', ['modulos' => $modulos, 'categorias' => $categorias]);
   }
 }

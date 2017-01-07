@@ -12,7 +12,7 @@ class Categoria extends Model
 {
   protected $table = 'categoria';
 
-  protected $fillable = ['nombre', 'monto', 'tipo', 'estado', 'fecha_inicio', 'fecha_fin', 'destino', 'id_detalle_institucion', 'id_matricula', 'periodo'];
+  protected $fillable = ['nombre', 'monto', 'tipo', 'estado', 'fecha_inicio', 'fecha_fin', 'destino', 'id_detalle_institucion', 'id_matricula', 'periodo', 'batch'];
 
   /*** Custom ***/
   public $timestamps = false;
@@ -158,6 +158,23 @@ class Categoria extends Model
   {
     return Categoria::where('tipo', 'matricula')
                     ->where('id_detalle_institucion', $id_detalle_institucion)
+                    ->get();
+  }
+  /**
+   * Retorna el número siguiente del batch
+   */
+  public static function siguienteNroBatch()
+  {
+    return Categoria::max('batch') + 1;
+  }
+  /**
+   * Retorna las categorías asociadas a un batch
+   */
+  public static function categoriasPorBatch($batch)
+  {
+    return Categoria::where('batch', $batch)
+                    ->join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                    ->select('detalle_institucion.nombre_division', 'categoria.nombre', 'categoria.monto', 'categoria.fecha_inicio', 'categoria.fecha_fin')
                     ->get();
   }
 }
