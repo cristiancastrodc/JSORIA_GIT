@@ -61,6 +61,7 @@ Route::get('admin/matricula/institucion/{id_institucion}/detalle', 'InstitucionD
 Route::get('admin/matricula/{id_matricula}/categorias', 'MatriculasController@recuperarCategoriasAdmin');
 Route::post('admin/matricula/editar/guardar', 'MatriculasController@guardarEdicionMatricula');
 Route::get('admin/matricula/resumen/{batch}', 'MatriculasController@mostrarResumenMatricula');
+Route::get('admin/matricula/temp/resumen/{batch}', 'MatriculasController@mostrarResumenMatriculaTemp');
 # Reportes
 Route::get('admin/reporte/balance_ingresos_egresos',
   ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);

@@ -227,7 +227,8 @@ class MatriculasController extends Controller
           }
         }
       } else {
-        $respuesta['batch'] = -1;
+        $batch = CategoriaTemp::siguienteNroBatch();
+        $respuesta['batch'] = $batch;
         foreach ($divisiones as $division) {
           if (isset($division['seleccionar']) && $division['seleccionar']) {
             $matricula_regular = $matricula_concepto;
@@ -242,6 +243,7 @@ class MatriculasController extends Controller
               'concepto_matricula' => $matricula_regular,
               'concepto_pension' => $pensiones_concepto,
               'periodo' => $periodo,
+              'batch' => $batch,
               ]);
             if (isset($division['crear_ingresantes']) && $division['crear_ingresantes']) {
               CategoriaTemp::create([
@@ -252,6 +254,7 @@ class MatriculasController extends Controller
                 'concepto_matricula' => $matricula_concepto . ' - Alumno Ingresante',
                 'concepto_pension' => $pensiones_concepto,
                 'periodo' => $periodo,
+                'batch' => $batch,
                 ]);
             }
           }
@@ -427,5 +430,14 @@ class MatriculasController extends Controller
     $modulos = Usuario_Modulos::modulosDeUsuario();
     $categorias = Categoria::categoriasPorBatch($batch);
     return view('admin.matricula.resumen', ['modulos' => $modulos, 'categorias' => $categorias]);
+  }
+  /**
+   * Muestra el resumen de creacion de la matricula
+   */
+  public function mostrarResumenMatriculaTemp($batch)
+  {
+    $modulos = Usuario_Modulos::modulosDeUsuario();
+    $categorias = CategoriaTemp::categoriasPorBatch($batch);
+    return view('admin.matricula.resumen_temp', ['modulos' => $modulos, 'categorias' => $categorias]);
   }
 }

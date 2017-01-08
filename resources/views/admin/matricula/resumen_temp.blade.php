@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-  Resumen de Creación de Matrícula
+  Resumen de Creación de Matrículas Temporales
 @endsection
 
 @section('content')
@@ -25,31 +25,31 @@
     <div class="col-md-10">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
-          <h2>Resumen de Creación de Matrícula</h2>
+          <h2>Resumen de Creación de Matrículas Temporales</h2>
         </div>
         <div class="card-body card-padding">
           <div class="alert alert-success" role="alert">
-            Matrícula y pensiones creadas correctamente.
+            Conceptos creados correctamente. Como siguiente paso se debe de programar las fechas de estos conceptos para que estén disponibles.
           </div>
           <div class="table-responsive">
             <table class="table table-bordered">
               <thead>
                 <tr>
                   <th class="accent-color c-white">Nivel / Carrera</th>
-                  <th class="accent-color c-white">Descripción</th>
-                  <th class="accent-color c-white">Monto</th>
-                  <th class="accent-color c-white">Fecha Inicio</th>
-                  <th class="accent-color c-white">Fecha Fin</th>
+                  <th class="accent-color c-white">Concepto Matrícula</th>
+                  <th class="accent-color c-white">Monto Matrícula</th>
+                  <th class="accent-color c-white">Concepto Pensión</th>
+                  <th class="accent-color c-white">Monto Pensión</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($categorias as $categoria)
                   <tr>
                     <td>{{ $categoria->nombre_division }}</td>
-                    <td>{{ $categoria->nombre }}</td>
-                    <td>{{ $categoria->monto }}</td>
-                    <td>{{ $categoria->fecha_inicio }}</td>
-                    <td>{{ $categoria->fecha_fin }}</td>
+                    <td>{{ $categoria->concepto_matricula }}</td>
+                    <td>{{ $categoria->monto_matricula }}</td>
+                    <td>{{ $categoria->concepto_pension }}</td>
+                    <td>{{ $categoria->monto_pension }}</td>
                   </tr>
                 @endforeach
               </tbody>

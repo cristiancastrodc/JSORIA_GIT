@@ -136,7 +136,7 @@
                   <td>Nivel / Carrera</td>
                   <td>Monto Matrícula</td>
                   <td>Monto Pensiones</td>
-                  <td ng-show="id_institucion == 3"></td>
+                  <td ng-show="id_institucion == 3 && !definir_fechas"></td>
                 </tr>
                 <tr ng-repeat="detalle in divisiones">
                   <td>
@@ -154,7 +154,7 @@
                   <td class="text-right">
                     <input type="text" class="form-control table-input text-right" value="{@ detalle.monto_pensiones @}" ng-model="detalle.monto_pensiones" ng-disabled="!detalle.seleccionar">
                   </td>
-                  <td ng-show="id_institucion == 3">
+                  <td ng-show="id_institucion == 3 && !definir_fechas">
                     <div class="checkbox table-checkbox">
                       <label>
                         <input type="checkbox" ng-model="detalle.crear_ingresantes" value="{@ detalle.crear_ingresantes @}" ng-disabled="!detalle.seleccionar">

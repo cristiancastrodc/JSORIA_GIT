@@ -50,16 +50,10 @@ app.controller('matriculaController', function ($scope, $http) {
       if (response.data.resultado == 'true') {
         debug('Las pensiones fueron creadas');
         var ruta = '/admin/matricula/resumen/' + response.data.batch
+        if (!$scope.definir_fechas) {
+          ruta = '/admin/matricula/temp/resumen/' + response.data.batch
+        }
         window.location = ruta;
-        /*
-        swal({
-          title: "Éxito!",
-          text: "Matrícula y pensiones creadas correctamente.",
-          type: "success"
-        }, function () {
-          document.location.reload();
-        });
-        */
       } else {
         swal({
           title: "Error",
