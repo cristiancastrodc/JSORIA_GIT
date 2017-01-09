@@ -46,4 +46,13 @@ class InstitucionDetalle extends Model
                                ->where('nombre_division', '<>', 'Todo')
                                ->get();
     }
+    /*
+     * Retorna el id del detalle para toda una institución.
+     */
+    public static function todoDeInstitucion($id_institucion)
+    {
+      return InstitucionDetalle::where('id_institucion', '=', $id_institucion)
+                               ->where('nombre_division', '=', 'Todo')
+                               ->first();
+    }
 }

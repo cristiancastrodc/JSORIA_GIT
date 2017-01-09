@@ -54,37 +54,31 @@ class CobrosOrdinariosController extends Controller
      */
     public function store(CobroOrdinarioCreateRequest $request)
     {
-        $id = InstitucionDetalle::where('id_institucion', '=', $request['id_institucion'])->where('nombre_division', '=', 'Todo')->first()->id;
-        $factor = $request['unitario'];
-        $otracuenta = $request['exterior'];
-        $habilitado = $request['habilitado'];
-        if ($factor) {
-            $fac = 'con_factor';
-        } else {
-            $fac = 'sin_factor';
-        }
-        if ($otracuenta) {
-            $destino = '1';
-        } else {
-            $destino = '0';
-        }
-        if ($habilitado) {
-            $estado = '1';
-        } else {
-            $estado = '0';
-        }
+      $respuesta = [];
+      $respuesta['resultado'] = 'false';
+      try {
+        $id_detalle = InstitucionDetalle::todoDeInstitucion($request['id_institucion'])->id;
+        $nombre = $request['nombre'];
+        $monto = $request['monto'];
+        $con_factor = $request['con_factor'];
+        $tipo = $con_factor ? 'con_factor' : 'sin_factor';
+        $destino = $request['destino'] ? '1' : '0';
+        $estado = $request['estado'] ? '1' : '0';
+
         Categoria::create([
-            'id_detalle_institucion' => $id,
-            'nombre' => $request-> nombre,
-            'monto' => $request-> monto,
-            'tipo' => $fac,
-            'destino' => $destino,
-            'estado' => $estado,
-            ]);
+          'id_detalle_institucion' => $id_detalle,
+          'nombre' => $nombre,
+          'monto' => $monto,
+          'tipo' => $tipo,
+          'destino' => $destino,
+          'estado' => $estado,
+        ]);
+        $respuesta['resultado'] = 'true';
+      } catch (Exception $e) {
+        $respuesta['mensaje'] = $e->getMessage();
+      }
 
-
-        Session::flash('message', 'Cobro Ordinario creado correctamente.');
-        return Redirect::to('/admin/cobros/ordinarios');
+      return $respuesta;
     }
 
     /**
