@@ -53,30 +53,29 @@ class OtrosCobrosController extends Controller
      */
     public function store(OtrosCobrosCreateRequest $request)
     {
-        $id = InstitucionDetalle::where('id_institucion', '=', $request['id_institucion'])->where('nombre_division', '=', 'Todo')->first()->id;
-        $otracuenta = $request['exterior'];
-        $habilitado = $request['habilitado'];
-        if ($otracuenta) {
-            $destino = '1';
-        } else {
-            $destino = '0';
-        }
-        if ($habilitado) {
-            $estado = '1';
-        } else {
-            $estado = '0';
-        }
+      $respuesta = [];
+      $respuesta['resultado'] = 'false';
+      try {
+        $id_detalle = InstitucionDetalle::todoDeInstitucion($request['id_institucion'])->id;
+        $destino = $request['destino'] ? '1' : '0';
+        $estado = $request['estado'] ? '1' : '0';
+        $nombre = $request['nombre'];
+        $monto = $request['monto'];
+
         Categoria::create([
-            'id_detalle_institucion' => $id,
-            'nombre' => $request->nombre,
-            'monto' => $request->monto,
+            'id_detalle_institucion' => $id_detalle,
+            'nombre' => $nombre,
+            'monto' => $monto,
             'tipo' => 'multiple',
             'destino' => $destino,
             'estado' => $estado,
             ]);
+        $respuesta['resultado'] = 'true';
+      } catch (Exception $e) {
+        $respuesta['mensaje'] = $e->getMessage();
+      }
 
-        Session::flash('message', 'Otros Cobros fue creado correctamente.');
-        return Redirect::to('/admin/cobros/otros');
+      return $respuesta;
     }
 
     /**
