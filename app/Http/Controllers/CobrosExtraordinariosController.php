@@ -51,37 +51,31 @@ class CobrosExtraordinariosController extends Controller
      */
     public function store(CobroExtCreateRequest $request)
     {
-        $id_institucion = $request['id_institucion'];
+
+      $respuesta = [];
+      $respuesta['resultado'] = 'false';
+      try {
+        $id_detalle = InstitucionDetalle::todoDeInstitucion($request['id_institucion'])->id;
         $descripcion_extr = $request['descripcion_extr'];
         $monto = $request['monto'];
         $cliente_extr = $request['cliente_extr'];
-
-        if ($request['exterior']) {
-            $destino = 1;
-        } else {
-            $destino = 0;
-        }
-
-        $id_detalle_institucion = InstitucionDetalle::where('nombre_division', '=', 'Todo')
-                                                    ->where('id_institucion', '=', $id_institucion)
-                                                    ->first()->id;
-
-        $id_categoria = Categoria::where('tipo', '=', 'cobro_extraordinario')
-                                 ->where('destino', '=', $destino)
-                                 ->where('id_detalle_institucion', '=', $id_detalle_institucion)
-                                 ->first()->id;
+        $destino = $request['destino'] ? '1' : '0';
+        // Recuperar id de la categoria indicada
+        $id_categoria = Categoria::categoriaExtraordinaria($id_detalle, $destino)->id;
 
         $id_deuda = Deuda_Ingreso::create([
-            'saldo' => $monto,
-            'cliente_extr' => $cliente_extr,
-            'descripcion_extr' => $descripcion_extr,
-            'id_categoria' => $id_categoria,
-        ])->id;
+                      'saldo' => $monto,
+                      'cliente_extr' => $cliente_extr,
+                      'descripcion_extr' => $descripcion_extr,
+                      'id_categoria' => $id_categoria,
+                    ])->id;
+        $respuesta['resultado'] = 'true';
+        $respuesta['id_deuda'] = $id_deuda;
+      } catch (Exception $e) {
+        $respuesta['mensaje'] = $e->getMessage();
+      }
 
-        $mensaje = 'El cobro fue creado exitosamente. El código de pago es: ' . $id_deuda;
-
-        Session::flash('message', $mensaje);
-        return Redirect::to('/admin/cobros/extraordinarios');
+      return $respuesta;
     }
 
     /**

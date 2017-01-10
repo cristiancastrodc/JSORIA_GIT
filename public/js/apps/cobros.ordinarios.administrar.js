@@ -41,17 +41,18 @@ app.controller('crearCobroOrdinarioController', function ($scope, $http) {
     .then(function successCallback(response) {
       debug(response, false)
       if (response.data.resultado == 'true') {
-        var texto = "Institución : " + $scope.cobroOrdinario.institucion.label + "\n"
-                  + "Descripción : " + $scope.cobroOrdinario.nombre + "\n"
-                  + "Monto : " + $scope.cobroOrdinario.monto + "\n"
-                  + "Habilitado : " + ($scope.cobroOrdinario.estado ? "Si" : "No") + "\n"
-                  + "Es Monto Unitario : " + ($scope.cobroOrdinario.con_factor ? "Si" : "No") + "\n"
-                  + ($scope.cobroOrdinario.destino ? "* Este concepto almacena los ingresos en la cuenta exterior privada" : "")
+        var texto = "<p style='text-align:left'><strong>Institución : </strong>" + $scope.cobroOrdinario.institucion.label + "<br>"
+                  + "<strong>Descripción : </strong>" + $scope.cobroOrdinario.nombre + "<br>"
+                  + "<strong>Monto : </strong>" + $scope.cobroOrdinario.monto + "<br>"
+                  + "<strong>Habilitado : </strong>" + ($scope.cobroOrdinario.estado ? "Si" : "No") + "<br>"
+                  + "<strong>Es Monto Unitario : </strong>" + ($scope.cobroOrdinario.con_factor ? "Si" : "No") + "<br>"
+                  + ($scope.cobroOrdinario.destino ? "* Este concepto almacena los ingresos en la cuenta exterior privada." : "") + "</p>";
         swal({
           title : "Concepto creado correctamente.",
           text : texto,
           type : "success",
           confirmButtonText: "Aceptar",
+          html: true,
         }, function () {
           $scope.procesando = false
           $scope.cobroOrdinario = {

@@ -177,4 +177,14 @@ class Categoria extends Model
                     ->select('detalle_institucion.nombre_division', 'categoria.nombre', 'categoria.monto', 'categoria.fecha_inicio', 'categoria.fecha_fin')
                     ->get();
   }
+  /**
+   * Retorna la categorías indicada para un cobro extraordinario
+   */
+  public static function categoriaExtraordinaria($id_detalle_institucion, $destino)
+  {
+    return Categoria::where('tipo', '=', 'cobro_extraordinario')
+                    ->where('id_detalle_institucion', '=', $id_detalle_institucion)
+                    ->where('destino', '=', $destino)
+                    ->first();
+  }
 }
