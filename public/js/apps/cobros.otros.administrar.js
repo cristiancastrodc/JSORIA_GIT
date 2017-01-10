@@ -19,6 +19,7 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
     { value: '4', label:'Universidad Privada Líder Peruana' },
   ];
   // Funciones
+  $scope.guardarOtroCobro = function () {
     $scope.procesando = true
     var ruta = '/admin/cobros/otros';
     $http({
