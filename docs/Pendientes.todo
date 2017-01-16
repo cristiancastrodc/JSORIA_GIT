@@ -3,15 +3,17 @@
  ✔ cobros ordinarios @done (17-01-09 21:56)
  ✔ cobros extraordinarios @done (17-01-09 23:22)
  ✔ otros cobros @done (17-01-09 23:49)
- ☐ definir comprobantes, definir descuento, autorizar descuento).
+ ☐ definir comprobantes @started(17-01-14 12:13)
+ ☐ definir descuento
+ ☐ autorizar descuento
  ☐ Cajera: Agregar el descuento en los comprobantes.
  ☐ Admin Crear Matricula: select montos en click del textbox.
  ☐ Modulos de usuario: en la lista agregar el tipo de usuario (juana del arco - secretario).
  ☐ Agregar los reportes de tesorera.
+ ☐ Modificar modulo de Editar Usuario.
+ ☐ Secretaria: Agregar deudas anteriores: Modificar para que también agregue las deudas ya canceladas.
+ ☐ Administrador: Editar y eliminar comprobantes.
 
- Admin:
- General:
-＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
  ✔ @critical @critical @started Cajera: El descuento para pensiones se debe de calcular en base a la institucion de la categoria y no la institucion del alumno. @done (16-12-02 11:22)
  ✔ Cajera - Cobros: Cobros no recupera montos reales. @done (16-12-02 11:02)

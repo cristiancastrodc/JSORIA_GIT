@@ -2,6 +2,7 @@
 
 namespace JSoria;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use JSoria\Institucion;
 
@@ -48,5 +49,14 @@ class Comprobante extends Model
                               ->first();
     $comprobante->numero_comprobante = intval($nuevo_numero);
     $comprobante->save();
+  }
+  /**
+   * Retorna la lista de comprobantes
+   */
+  public static function listarComprobantes()
+  {
+    return Comprobante::join('institucion', 'comprobante.id_institucion', '=', 'institucion.id')
+                      ->select('comprobante.id', 'comprobante.tipo', 'comprobante.serie', DB::raw("LPAD(jsoria_comprobante.numero_comprobante, jsoria_comprobante.pad_izquierda, '0') as numero_comprobante"), 'comprobante.id_institucion', 'institucion.nombre')
+                      ->get();
   }
 }

@@ -7,7 +7,7 @@
 @section('content')
   @if(Session::has('message'))
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-12">
       <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -20,8 +20,8 @@
 
   @include('messages.errors')
 
-  <div class="row">
-    <div class="col-sm-10">
+  <div class="row" ng-app="administrarComprobantes" ng-controller="comprobantesController">
+    <div class="col-sm-6">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2>Definir Comprobantes</h2>
@@ -77,5 +77,37 @@
         </div>
       </div>
     </div>
+    <div class="col-sm-6">
+      <div class="card hoverable">
+        <div class="card-header main-color ch-alt">
+          <h2>Comprobantes</h2>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="c-white accent-color">Institución</th>
+                <th class="c-white accent-color">Tipo</th>
+                <th class="c-white accent-color">Serie</th>
+                <th class="c-white accent-color">Número</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="comprobante in comprobantes">
+                <td>{@ comprobante.nombre @}</td>
+                <td>{@ comprobante.tipo @}</td>
+                <td>{@ comprobante.serie @}</td>
+                <td>{@ comprobante.numero_comprobante @}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('js/angular.min.js') }}"></script>
+  <script src="{{ asset('js/apps/comprobantes.administrar.js') }}"></script>
 @endsection

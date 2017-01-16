@@ -216,4 +216,11 @@ class ConfiguracionController extends Controller
 
       return redirect()->back()->with('message', 'Configuracion actualizada.')->withInput();
     }
+    /**
+     * Retorna la lista de comprobantes
+     */
+    public function listarComprobantes()
+    {
+      return Comprobante::listarComprobantes();
+    }
 }
