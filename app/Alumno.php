@@ -141,4 +141,16 @@ class Alumno extends Model
                  ->get();
     return $deudas2;
   }
+  /**
+   * Retorna un alumno junto a su institución
+   */
+  public static function recuperarAlumno($nro_documento)
+  {
+    return Alumno::join('grado', 'alumno.id_grado', '=', 'grado.id')
+                 ->join('detalle_institucion', 'grado.id_detalle', '=', 'detalle_institucion.id')
+                 ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
+                 ->where('alumno.nro_documento', $nro_documento)
+                 ->select('alumno.nombres', 'alumno.apellidos', 'institucion.nombre as institucion', 'detalle_institucion.nombre_division as division')
+                 ->first();
+  }
 }

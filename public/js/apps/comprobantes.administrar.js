@@ -4,7 +4,7 @@ var app = angular.module('administrarComprobantes', [], function($interpolatePro
                           $interpolateProvider.endSymbol('@}');
                        });
 // Definir el controlador
-app.controller('comprobantesController', function ($scope, $http, $filter) {
+app.controller('comprobantesController', function ($scope, $http) {
   // Atributos
   $scope.comprobantes = [];
   // Métodos que se ejecutan al iniciar el módulo

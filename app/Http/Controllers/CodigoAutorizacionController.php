@@ -32,16 +32,6 @@ class CodigoAutorizacionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,58 +39,19 @@ class CodigoAutorizacionController extends Controller
      */
     public function store(AutorizacionCreateRequest $request)
     {
+      $respuesta = [];
+      $respuesta['resultado'] = 'true';
+      try {
         Autorizacion::create([
-                'rd' => $request->rd,
-                'estado' => 0,
-                'id_alumno' => $request->nro_documento,
-                'fecha_limite' => $request->fecha_limite,
-                ]);
-        Session::flash('message', 'Autorizacion guardada.');
-        return Redirect::to('/admin/autorizacion');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+          'rd' => $request->resolucion,
+          'estado' => 0,
+          'id_alumno' => $request->nro_documento,
+          'fecha_limite' => $request->fecha_limite,
+        ]);
+      } catch (\Exception $e) {
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = $e->getMessage();
+      }
+      return $respuesta;
     }
 }

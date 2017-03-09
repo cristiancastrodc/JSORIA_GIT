@@ -28,7 +28,8 @@ class AlumnosController extends Controller
     public function __construct()
     {
       $this->middleware('auth');
-      $this->middleware('Secretaria');
+      $this->middleware('Secretaria', ['except' => ['recuperarAlumno']]);
+      $this->middleware('admin', ['only' => ['recuperarAlumno']]);
     }
     /**
      * Display a listing of the resource.
@@ -644,6 +645,21 @@ class AlumnosController extends Controller
         'resultado' => $resultado,
         'mensaje' => $mensaje,
       );
+      return $respuesta;
+    }
+    /**
+     * Recuperar datos de alumno (administrador)
+     */
+    public function recuperarAlumno($nro_documento)
+    {
+      $respuesta = [];
+      $alumno = Alumno::recuperarAlumno($nro_documento);
+      if ($alumno) {
+        $respuesta['resultado'] = 'true';
+        $respuesta['alumno'] = $alumno;
+      } else {
+        $respuesta['resultado'] = 'false';
+      }
       return $respuesta;
     }
 }

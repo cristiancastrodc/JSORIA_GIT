@@ -24,7 +24,7 @@
     <div class="col-sm-10">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
-          <h2>Definir Descuentos - Instituto URUSAYHUA</h2>
+          <h2>Definir Descuentos - Instituto Urusayhua</h2>
         </div>
         <div class="card-body card-padding">
           <form action="{{ url('/admin/configuracion/guardar') }}" class="form-horizontal" method="POST">

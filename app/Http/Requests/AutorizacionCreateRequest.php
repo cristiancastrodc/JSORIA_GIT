@@ -24,9 +24,9 @@ class AutorizacionCreateRequest extends Request
     public function rules()
     {
         return [
-            'rd' => 'required|string',
+            'resolucion' => 'required|string',
             'nro_documento' => 'required',
-            'fecha_limite'=>'required|date_format:Y/m/d',
+            'fecha_limite'=>'date_format:Y/m/d',
         ];
     }
 }
