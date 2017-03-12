@@ -1,5 +1,5 @@
- Administrador: Resumen de creacion de cada proceso:
- ☐ Autorizar descuento: Mostrar lista de descuentos (con filtros).
+ Administrador:
+ ☐ Resumen de creacion de cada proceso.
  ☐ Cajera: Agregar el descuento en los comprobantes.
  ☐ Admin Crear Matricula: select montos en click del textbox.
  ☐ Modulos de usuario: en la lista agregar el tipo de usuario (juana perez - secretaria).
@@ -9,6 +9,7 @@
  ☐ Administrador: Editar y eliminar comprobantes.
 
 Archive:
+ ✔ Autorizar descuento: Mostrar lista de descuentos (con filtros). @started(17-03-09 09:28) @done (17-03-12 12:58) @lasted(3 days, 3:30)
  ✔ Validar alumno en autorizar descuento @started(17-01-15 21:52) @done (17-03-09 09:27) @lasted(52 days, 11:35)
  ✔ definir descuento @done (17-01-15 21:49)
  ✔ definir comprobantes @started(17-01-14 12:13) @done (17-01-15 21:47) @lasted(1 day, 9:34)

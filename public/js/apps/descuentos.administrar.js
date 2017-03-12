@@ -11,6 +11,21 @@ app.controller('descuentosController', function ($scope, $http) {
   $scope.existe_alumno = true
   $scope.nro_documento = ''
   $scope.fecha_limite = ''
+  $scope.form_busqueda = {
+    nro_documento  : '',
+    fecha_creacion : '',
+    procesando     : false,
+  }
+  $scope.autorizaciones = []
+  $scope.modal = {
+    resolucion  : '',
+    id_alumno  : '',
+    nombre  : '',
+    fecha_limite  : '',
+    fecha_creacion  : '',
+    estado  : '',
+    puede_eliminar  : false,
+  }
   // Funciones
   $scope.buscarAlumno = function () {
     if ($scope.nro_documento != '') {
@@ -33,7 +48,7 @@ app.controller('descuentosController', function ($scope, $http) {
   }
   $scope.guardarAutorizacion = function () {
     $scope.procesando = true
-    var ruta = '/admin/autorizacion/guardar';
+    var ruta = '/admin/autorizacion/guardar'
     $http({
       method: 'POST',
       url: ruta,
@@ -48,7 +63,7 @@ app.controller('descuentosController', function ($scope, $http) {
       if (response.data.resultado == 'true') {
         var texto = "<p style='text-align:left'><strong>Alumno : </strong>" + $scope.datos_alumno + "<br>"
                   + "<strong>Resolución : </strong>" + $scope.resolucion + "<br>"
-                  + "<strong>Fecha límite : </strong>" + $scope.fecha_limite + "</p>";
+                  + "<strong>Fecha límite : </strong>" + $scope.fecha_limite + "</p>"
         swal({
           title : "Autorización creada correctamente.",
           text : texto,
@@ -85,8 +100,48 @@ app.controller('descuentosController', function ($scope, $http) {
       $scope.fecha_limite = ''
     });
   }
+  $scope.buscarAutorizacion = function () {
+    $scope.form_busqueda.procesando = true
+    var fecha = $scope.form_busqueda.fecha_creacion.split('/').join('-')
+    var nro_documento = $scope.form_busqueda.nro_documento != '' ? $scope.form_busqueda.nro_documento : 'nro_documento_is_null'
+    var ruta = '/admin/autorizacion/listar/autorizaciones/' + nro_documento + '/' + fecha
+    $http.get(ruta)
+    .success(function(response) {
+      $scope.autorizaciones = response
+      $scope.form_busqueda.procesando = false
+    });
+  }
+  $scope.mostrarDetalle = function (autorizacion) {
+    $scope.modal = {
+      id_autorizacion  : autorizacion.id,
+      resolucion  : autorizacion.rd,
+      id_alumno  : autorizacion.id_alumno,
+      nombre_alumno  : autorizacion.apellidos + ' ' + autorizacion.nombres,
+      fecha_limite  : autorizacion.fecha_limite,
+      fecha_creacion  : autorizacion.fecha_creacion,
+      estado  : autorizacion.estado == 0 ? 'Sin procesar' : 'Procesada',
+      puede_eliminar  : autorizacion.estado == 0,
+    }
+    $('#modal-detalle-autorizacion').modal('show')
+  }
+  $scope.eliminarAutorizacion = function (id_autorizacion) {
+    var ruta = '/admin/autorizacion/eliminar/' + id_autorizacion
+    $http.get(ruta)
+    .success(function(response) {
+      swal({
+        title : "Autorización eliminada correctamente.",
+        type : "success",
+      }, function () {
+        $scope.buscarAutorizacion()
+        $('#modal-detalle-autorizacion').modal('hide')
+      })
+    });
+  }
   // Eventos
   $("#fecha_limite").on("dp.change", function() {
     $scope.fecha_limite = $("#fecha_limite").val();
+  });
+  $("#busqueda_fecha_creacion").on("dp.change", function() {
+    $scope.form_busqueda.fecha_creacion = $("#busqueda_fecha_creacion").val();
   });
 });

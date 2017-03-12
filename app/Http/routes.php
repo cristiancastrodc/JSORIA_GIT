@@ -97,6 +97,8 @@ Route::post('admin/reportes/deudas_alumno/procesar', 'ReportesAdminController@pr
 Route::get('admin/matricula/detalle_institucion/{id_detalle}/matriculas', 'InstitucionDetalleController@recuperarTodasMatriculas');
 Route::get('admin/alumno/{nro_documento}/datos', 'AlumnosController@recuperarAlumno');
 Route::post('admin/autorizacion/guardar','CodigoAutorizacionController@store');
+Route::get('admin/autorizacion/listar/autorizaciones/{nro_documento}/{fecha_creacion?}','CodigoAutorizacionController@listar');
+Route::get('admin/autorizacion/eliminar/{id_autorizacion}', 'CodigoAutorizacionController@eliminar');
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
