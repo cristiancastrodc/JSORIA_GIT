@@ -12,8 +12,21 @@
  ☐ Agregar batch a categoria temporal
  ☐ Revisar creacion de matriculas de ingresantes para el instituto cuando se han definido las fechas  
 
- 
- 
+ Secretaria:
+ ☐  al matricular a un alumno solo muestra las matriculas dentro de las fechas, ¿deberia mostrar tambien las k siguen activas , las que todavia no se cerro ciclo?
+ ☐ muestra todos los cobros ordinarios y no solo los que necesiten un factor - agregar deudas 
+ ☐  al terminar de modificar una deuda seria bueno k muestre un reporte con la nueva lista de deudas del alumno - modificar deudas.
+  Tesorera:
+ ☐ poner una lista de egresos ingresados del dia - registrar egresos.
+ ☐ que se ingrese solo numeros en el campo "monto" - registrar egtresos
+ ☐ mostrar un resumen del egreso modificado - editar egreso.
+ ☐ que se ingrese solo numeros en el campo "monto" - editar egtresos
+ ☐ al finalizar el retiro que mande un reporte con los ingresos retirados - retirar ingresos
+ ☐ filtrar las instituciones k maneja la tesorera - registrar ingresos adicionales
+ ☐ que se ingrese solo numeros en el campo "monto" - registrar ingresos adicionales
+ Cajera:
+ ☐  que se ingrese solo numeros en el campo "pago con" - cobros el ultimo modal
+ ☐  agregar un boton de cerrar - cobros el ultimo modal
 
 Archive:
  ✔ Autorizar descuento: Mostrar lista de descuentos (con filtros). @started(17-03-09 09:28) @done (17-03-12 12:58) @lasted(3 days, 3:30)
