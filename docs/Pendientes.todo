@@ -1,12 +1,19 @@
  Administrador:
- ☐ Resumen de creacion de cada proceso.
- ☐ Cajera: Agregar el descuento en los comprobantes.
- ☐ Admin Crear Matricula: select montos en click del textbox.
- ☐ Modulos de usuario: en la lista agregar el tipo de usuario (juana perez - secretaria).
- ☐ Agregar los reportes de tesorera.
- ☐ Modificar modulo de Editar Usuario.
- ☐ Secretaria: Agregar deudas anteriores: Modificar para que también agregue las deudas ya canceladas.
+ ☐ crear el Eliminar matriculas
+ ☐ mejorar mensaje en definir descuento al momento de crear
+ ☐ en el detalle de lista de cobros extraordinarios  que muestre tambien el codigo de pago !importante
+ ☐ poner un cerrar en listar autorizaciones en el modal
+ ☐ eliminar usuario? - usuario
+ ☐ Modulos de usuario: en la lista agregar el tipo de usuario (juana del arco - secretario).  
+ ☐ desactivar el boton de retirar si no se tiene nada por retirar - retirar ingresos
  ☐ Administrador: Editar y eliminar comprobantes.
+ ☐ Cajera: Agregar el descuento en los comprobantes.
+ ☐ matricula: select texto en click del textbox.
+ ☐ Agregar batch a categoria temporal
+ ☐ Revisar creacion de matriculas de ingresantes para el instituto cuando se han definido las fechas  
+
+ 
+ 
 
 Archive:
  ✔ Autorizar descuento: Mostrar lista de descuentos (con filtros). @started(17-03-09 09:28) @done (17-03-12 12:58) @lasted(3 days, 3:30)
