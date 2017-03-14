@@ -141,7 +141,7 @@ class CicloController extends Controller
                 'id_matricula' => NULL
                 ]);
       }
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       $mensaje['titulo'] = 'ERROR';
       $mensaje['contenido'] = $e->getMessage();
     }

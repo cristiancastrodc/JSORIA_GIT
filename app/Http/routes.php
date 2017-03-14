@@ -99,6 +99,9 @@ Route::get('admin/alumno/{nro_documento}/datos', 'AlumnosController@recuperarAlu
 Route::post('admin/autorizacion/guardar','CodigoAutorizacionController@store');
 Route::get('admin/autorizacion/listar/autorizaciones/{nro_documento}/{fecha_creacion?}','CodigoAutorizacionController@listar');
 Route::get('admin/autorizacion/eliminar/{id_autorizacion}', 'CodigoAutorizacionController@eliminar');
+Route::post('admin/actividades/grabar','ActividadesController@store');
+Route::get('admin/actividades/resumen/{batch}','ActividadesController@mostrarResumenActividad');
+
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');

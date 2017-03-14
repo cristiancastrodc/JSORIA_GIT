@@ -71,7 +71,7 @@ class OtrosCobrosController extends Controller
             'estado' => $estado,
             ]);
         $respuesta['resultado'] = 'true';
-      } catch (Exception $e) {
+      } catch (\Exception $e) {
         $respuesta['mensaje'] = $e->getMessage();
       }
 

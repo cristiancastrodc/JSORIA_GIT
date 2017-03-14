@@ -4,7 +4,7 @@ var app = angular.module('reporteCuentaAlumno', [], function($interpolateProvide
                           $interpolateProvider.endSymbol('@}');
                        });
 // Definir el controlador
-app.controller('reporteCuentaAlumnoController', function ($scope, $http, $filter) {
+app.controller('reporteCuentaAlumnoController', function ($scope, $http) {
   // Atributos
   $scope.buscando = false;
   $scope.hayAlumno = false;

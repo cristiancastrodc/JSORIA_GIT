@@ -187,4 +187,14 @@ class Categoria extends Model
                     ->where('destino', '=', $destino)
                     ->first();
   }
+  /**
+   * Retorna el resumen de creación de una actividad.
+   */
+  public static function resumenActividad($batch)
+  {
+    return Categoria::where('batch', $batch)
+                    ->join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                    ->select('detalle_institucion.nombre_division', 'categoria.nombre', 'categoria.monto', DB::raw('(select count(*) from jsoria_deuda_ingreso where jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id) as nro_alumnos'))
+                    ->get();
+  }
 }

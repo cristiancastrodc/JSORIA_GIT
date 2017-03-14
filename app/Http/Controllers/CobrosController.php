@@ -614,7 +614,7 @@ class CobrosController extends Controller
         }
         // Actualizar el comprobante
         $comprobante = Comprobante::actualizar($id_institucion, $tipo_comprobante, $comprobante['serie'], $comprobante['numero_comprobante']);
-      } catch (Exception $e) {
+      } catch (\Exception $e) {
         $resultado = 'false';
         $mensaje['titulo'] = 'ERROR';
         $mensaje['contenido'] = $e->getMessage();

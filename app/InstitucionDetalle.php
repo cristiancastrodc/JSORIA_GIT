@@ -42,7 +42,7 @@ class InstitucionDetalle extends Model
      */
     public static function detalleInstitucion($id_institucion)
     {
-      return InstitucionDetalle::where('id_institucion','=', $id_institucion)
+      return InstitucionDetalle::where('id_institucion', $id_institucion)
                                ->where('nombre_division', '<>', 'Todo')
                                ->get();
     }

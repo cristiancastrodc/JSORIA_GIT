@@ -24,9 +24,11 @@ class ActividadesCreateRequest extends Request
     public function rules()
     {
         return [
+          /*
             'id_detalle_institucion' => 'required|numeric',
             'nombre' => 'required',
             'monto' => 'required|numeric',
+          */
         ];
     }
 }

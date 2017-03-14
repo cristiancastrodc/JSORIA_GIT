@@ -554,7 +554,7 @@ class AlumnosController extends Controller
             'id_matricula' => $id_matricula,
           ]);
         }
-      } catch (Exception $e) {
+      } catch (\Exception $e) {
         $resultado = 'false';
         $mensaje['titulo'] = 'Error';
         $mensaje['contenido'] = $e->getMessage();
@@ -635,7 +635,7 @@ class AlumnosController extends Controller
             'id_matricula' => $id_matricula,
           ]);
         }
-      } catch (Exception $e) {
+      } catch (\Exception $e) {
         $resultado = 'false';
         $mensaje['titulo'] = 'Error';
         $mensaje['contenido'] = $e->getMessage();

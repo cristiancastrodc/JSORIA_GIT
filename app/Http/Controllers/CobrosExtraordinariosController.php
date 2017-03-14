@@ -71,7 +71,7 @@ class CobrosExtraordinariosController extends Controller
                     ])->id;
         $respuesta['resultado'] = 'true';
         $respuesta['id_deuda'] = $id_deuda;
-      } catch (Exception $e) {
+      } catch (\Exception $e) {
         $respuesta['mensaje'] = $e->getMessage();
       }
 

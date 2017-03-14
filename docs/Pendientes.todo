@@ -7,8 +7,12 @@
  ☐ Modificar modulo de Editar Usuario.
  ☐ Secretaria: Agregar deudas anteriores: Modificar para que también agregue las deudas ya canceladas.
  ☐ Administrador: Editar y eliminar comprobantes.
+ ☐ Administrador: Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
+ ☐ Agregar botón de Cancelar a todos los procesos.
+ ☐ Administrador: Listar Actividades: Filtros no obligatorios (para mejorar la búsqueda).
 
 Archive:
+ ✔ Actividades @started(17-03-12 18:25) @done (17-03-14 12:29) @lasted(1 day, 18:04) @project(Administrador)
  ✔ Autorizar descuento: Mostrar lista de descuentos (con filtros). @started(17-03-09 09:28) @done (17-03-12 12:58) @lasted(3 days, 3:30)
  ✔ Validar alumno en autorizar descuento @started(17-01-15 21:52) @done (17-03-09 09:27) @lasted(52 days, 11:35)
  ✔ definir descuento @done (17-01-15 21:49)

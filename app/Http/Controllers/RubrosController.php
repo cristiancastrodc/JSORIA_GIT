@@ -209,7 +209,7 @@ class RubrosController extends Controller
             Session::flash('message','Rubro actualizado.');
 
             return response()->json(['resultado' => true, 'mensaje' => 'Rubro actualizado.']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['resultado' => false]);
         }
     }

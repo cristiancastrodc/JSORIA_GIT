@@ -2,17 +2,19 @@
 
 namespace JSoria\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
+
+use JSoria\Http\Controllers\Controller;
 
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\ActividadesCreateRequest;
 use JSoria\Http\Requests\ActividadesUpdateRequest;
-use JSoria\Http\Controllers\Controller;
 
-use JSoria\Categoria;
-use JSoria\InstitucionDetalle;
-use JSoria\Deuda_Ingreso;
 use JSoria\Alumno;
+use JSoria\Categoria;
+use JSoria\Deuda_Ingreso;
+use JSoria\InstitucionDetalle;
 use JSoria\Usuario_Modulos;
 
 class ActividadesController extends Controller
@@ -29,8 +31,8 @@ class ActividadesController extends Controller
      */
     public function index()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('admin.actividad.index', ['modulos' => $modulos]);
+      $modulos = Usuario_Modulos::modulosDeUsuario();
+      return view('admin.actividad.index', ['modulos' => $modulos]);
     }
 
     /**
@@ -51,91 +53,50 @@ class ActividadesController extends Controller
      */
     public function store(ActividadesCreateRequest $request)
     {
-        if ($request->ajax()) {
-            $nombre = $request['nombre'];
-            $monto = $request['monto'];
-            $id_detalle_institucion = $request['id_detalle_institucion'];
-
-            $institucion_detalle = InstitucionDetalle::find($id_detalle_institucion);
-            $nombre_division = $institucion_detalle->nombre_division;
-
-            if ($nombre_division == 'Todo') {
-
-              $id_institucion = $institucion_detalle->id_institucion;
-              $detalles_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
-                                      ->where('nombre_division', '<>', 'Todo')
-                                      ->get();
-              foreach ($detalles_institucion as $detalle) {
-                $id_categoria = Categoria::create([
-                    'nombre' => $nombre,
-                    'monto' => $monto,
-                    'tipo' => 'actividad',
-                    'estado' => 1,
-                    'id_detalle_institucion' => $detalle->id
-                ])->id;
-
-                //$alumnos = Alumno::alumnos_detalle_institucion($detalle->id);
-                $alumnos = Alumno::alumnosParaCreacionActividades($detalle->id, $monto, $id_categoria);
-
-                Deuda_Ingreso::insert($alumnos);
-                /*
-                foreach ($alumnos as $alumno) {
-                    Deuda_Ingreso::create([
-                        'saldo' => $monto,
-                        'id_categoria' => $id_categoria,
-                        'id_alumno' => $alumno->nro_documento
-                    ]);
-                }
-                */
-              }
-
-              return response()->json(['mensaje' => 'everything iS OK']);
-            } else {
-                $id_categoria = Categoria::create([
-                    'nombre' => $nombre,
-                    'monto' => $monto,
-                    'tipo' => 'actividad',
-                    'estado' => 1,
-                    'id_detalle_institucion' => $id_detalle_institucion
-                ])->id;
-
-                //$alumnos = Alumno::alumnos_detalle_institucion($id_detalle_institucion);
-                $alumnos = Alumno::alumnosParaCreacionActividades($id_detalle_institucion, $monto, $id_categoria);
-                /*
-                foreach ($alumnos as $alumno) {
-                    Deuda_Ingreso::create([
-                        'saldo' => $monto,
-                        'id_categoria' => $id_categoria,
-                        'id_alumno' => $alumno->nro_documento
-                    ]);
-                }
-                */
-                Deuda_Ingreso::insert($alumnos);
-                return response()->json(['mensaje' => 'everything iS OK']);
-            }
+      $respuesta = [];
+      $respuesta['resultado'] = 'true';
+      try {
+        $nombre = $request->input('nombre');
+        $monto = $request->input('monto');
+        $todas_divisiones = filter_var($request->input('todas_divisiones'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $id_institucion = $request->input('id_institucion');
+        $divisiones = [];
+        // Recuperar todas las divisiones
+        if ($todas_divisiones) {
+          $divisiones = InstitucionDetalle::detalleInstitucion($id_institucion);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        else {
+          $divisiones = InstitucionDetalle::where('id', $request->input('id_division'))->get();
+        }
+        // Recuperar el nro. del batch
+        $batch = Categoria::siguienteNroBatch();
+        $respuesta['batch'] = $batch;
+        // Iniciar transacción de BD
+        DB::beginTransaction();
+        // Crear la actividad para cada division y agregar deudas
+        foreach ($divisiones as $division) {
+          // Crear la actividad
+          $id_categoria = Categoria::create([
+                            'nombre' => $nombre,
+                            'monto' => $monto,
+                            'tipo' => 'actividad',
+                            'estado' => 1,
+                            'id_detalle_institucion' => $division->id,
+                            'batch' => $batch,
+                          ])->id;
+          // Usando el id de la actividad, crear deudas
+          $alumnos = Alumno::alumnosParaCreacionActividades($division->id, $monto, $id_categoria);
+          Deuda_Ingreso::insert($alumnos);
+        }
+        // Si no hubo errores, finalizar la transacción
+        DB::commit();
+      } catch (\Exception $e) {
+        // Abortar la transacción
+        DB::rollBack();
+        $respuesta['resultado'] = false;
+        $respuesta['mensaje'] = $e->getMessage();
+      }
+      return $respuesta;
     }
 
     /**
@@ -168,17 +129,6 @@ class ActividadesController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     /*
     * Listar actividades
     */
@@ -187,5 +137,21 @@ class ActividadesController extends Controller
             $actividades = Categoria::actividadesDetalle($id_detalle_institucion);
             return response()->json($actividades);
         }
+    }
+
+    /**
+     * Muestra el resumen de creación de la actividad.
+     *
+     * @param  int  $batch
+     * @return \Illuminate\Http\Response
+     */
+    public function mostrarResumenActividad($batch)
+    {
+      $modulos = Usuario_Modulos::modulosDeUsuario();
+      $actividades = Categoria::resumenActividad($batch);
+      return view('admin.actividad.resumen', [
+        'modulos' => $modulos,
+        'actividades' => $actividades,
+      ]);
     }
 }

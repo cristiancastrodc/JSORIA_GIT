@@ -193,7 +193,7 @@ class HerramientasController extends Controller
 
       /* Close printer */
       $printer -> close();
-    } catch(Exception $e) {
+    } catch(\Exception $e) {
       return "Couldn't print to this printer: " . $e -> getMessage() . "\n";
     }
   }
@@ -350,7 +350,7 @@ class HerramientasController extends Controller
 
       /* Close printer */
       $printer -> close();
-    } catch(Exception $e) {
+    } catch(\Exception $e) {
       return "Couldn't print to this printer: " . $e -> getMessage() . "\n";
     }
   }
@@ -527,7 +527,7 @@ class HerramientasController extends Controller
 
       /* Close printer */
       $printer -> close();
-    } catch(Exception $e) {
+    } catch(\Exception $e) {
       return "Couldn't print to this printer: " . $e -> getMessage() . "\n";
     }
   }
