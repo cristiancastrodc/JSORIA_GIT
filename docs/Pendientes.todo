@@ -1,17 +1,37 @@
- Administrador:
- ☐ Resumen de creacion de cada proceso.
- ☐ Cajera: Agregar el descuento en los comprobantes.
- ☐ Admin Crear Matricula: select montos en click del textbox.
- ☐ Modulos de usuario: en la lista agregar el tipo de usuario (juana perez - secretaria).
- ☐ Agregar los reportes de tesorera.
- ☐ Modificar modulo de Editar Usuario.
- ☐ Secretaria: Agregar deudas anteriores: Modificar para que también agregue las deudas ya canceladas.
- ☐ Administrador: Editar y eliminar comprobantes.
- ☐ Administrador: Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
+General:
  ☐ Agregar botón de Cancelar a todos los procesos.
- ☐ Administrador: Listar Actividades: Filtros no obligatorios (para mejorar la búsqueda).
+ ☐ Tablas editables: seleccionar el texto al hacer click en una celda editable.
+Administrador:
+ ☐ Desarrollar módulo para Eliminar Matrículas.
+ ☐ Definir descuento: Mejorar mensaje al momento de crear.
+ ☐ Lista de cobros extraordinarios: En el detalle que muestre tambien el codigo de pago. @critical
+ ☐ Listar autorizaciones: poner botón de cerrar en el modal de visualización.
+ ☐ Usuarios: ¿se deberían poder eliminar?
+ ☐ Módulos de usuario: en la lista agregar el tipo de usuario (Ej. juana del arco - secretaria).
+ ☐ Retiro: si no se tiene nada por retirar, desactivar el botón de retirar.
+ ☐ Desarrollar módulo para Editar y Eliminar Comprobantes.
+ ☐ Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
+ ☐ Listar Actividades: Filtros no obligatorios (para mejorar la búsqueda).
+ ☐ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas.
+Secretaria:
+ ☐ Al matricular a un alumno solo muestra las matriculas dentro de las fechas, ¿deberia mostrar tambien las que siguen activas, las que todavía no se cerró ciclo?
+ ☐ Muestra todos los cobros ordinarios y no solo los que necesiten un factor - agregar deudas.
+ ☐ Al terminar de modificar una deuda sería bueno que muestre un reporte con la nueva lista de deudas del alumno - modificar deudas.
+Tesorera:
+ ☐ Poner una lista de egresos registrados en el dia - registrar egresos.
+ ☐ Que se ingrese solo numeros en el campo "monto" - registrar egresos.
+ ☐ Mostrar un resumen del egreso modificado - editar egreso.
+ ☐ Que se ingrese solo numeros en el campo "monto" - editar egresos.
+ ☐ Al finalizar el retiro que mande un reporte con los ingresos retirados - retirar ingresos.
+ ☐ Filtrar las instituciones que maneja la tesorera - registrar ingresos adicionales.
+ ☐ Que se ingrese solo numeros en el campo "monto" - registrar ingresos adicionales.
+Cajera:
+ ☐ Cobro: Agregar el descuento en los comprobantes.
+ ☐ Que se ingrese solo numeros en el campo "pago con" - cobros el ultimo modal.
+ ☐ Agregar un boton de cerrar - cobros el ultimo modal.
 
 Archive:
+ ✔ Agregar batch a categoria temporal @done (17-03-14 12:56) @project(Administrador)
  ✔ Actividades @started(17-03-12 18:25) @done (17-03-14 12:29) @lasted(1 day, 18:04) @project(Administrador)
  ✔ Autorizar descuento: Mostrar lista de descuentos (con filtros). @started(17-03-09 09:28) @done (17-03-12 12:58) @lasted(3 days, 3:30)
  ✔ Validar alumno en autorizar descuento @started(17-01-15 21:52) @done (17-03-09 09:27) @lasted(52 days, 11:35)
