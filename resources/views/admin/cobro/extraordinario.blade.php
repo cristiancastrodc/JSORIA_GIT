@@ -120,7 +120,7 @@
             <table id="tabla-listar-extraordinarios" class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="hidden">Id</th>
+                        <th class="accent-color c-white">Código</th>
                         <th class="accent-color c-white">Concepto</th>
                         <th class="accent-color c-white">Monto</th>
                         <th class="accent-color c-white">Estado</th>

@@ -1,10 +1,9 @@
 General:
  ☐ Agregar botón de Cancelar a todos los procesos.
  ☐ Tablas editables: seleccionar el texto al hacer click en una celda editable.
+ ☐ En la url del home, redireccionar si el usuario ya inicio sesión.
 Administrador:
  ☐ Desarrollar módulo para Eliminar Matrículas.
- ☐ Definir descuento: Mejorar mensaje al momento de crear.
- ☐ Lista de cobros extraordinarios: En el detalle que muestre tambien el codigo de pago. @critical
  ☐ Listar autorizaciones: poner botón de cerrar en el modal de visualización.
  ☐ Usuarios: ¿se deberían poder eliminar?
  ☐ Módulos de usuario: en la lista agregar el tipo de usuario (Ej. juana del arco - secretaria).
@@ -31,6 +30,7 @@ Cajera:
  ☐ Agregar un boton de cerrar - cobros el ultimo modal.
 
 Archive:
+ ✔ Lista de cobros extraordinarios: En el detalle que muestre tambien el codigo de pago. @critical @started(17-03-14 20:54) @done (17-03-14 21:01) @lasted(0:07) @project(Administrador)
  ✔ Agregar batch a categoria temporal @done (17-03-14 12:56) @project(Administrador)
  ✔ Actividades @started(17-03-12 18:25) @done (17-03-14 12:29) @lasted(1 day, 18:04) @project(Administrador)
  ✔ Autorizar descuento: Mostrar lista de descuentos (con filtros). @started(17-03-09 09:28) @done (17-03-12 12:58) @lasted(3 days, 3:30)

@@ -1307,19 +1307,17 @@ $('#btn-listar-extraordinarios').click(function (e) {
 
 function listar_extraordinarios() {
   $id_institucion = $('#id_institucion_listar').val();
-
   if ($id_institucion != "") {
     var ruta = '/admin/cobros/extraordinarios/listar/' + $id_institucion;
     $('#tabla-listar-extraordinarios tbody').empty();
-
     $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (data) {
         if (data.length > 0) {
           for (var i = 0; i < data.length; i++) {
               var fila = "<tr>";
-              fila += "<td class='hidden'>" + data[i].id + "</td>";
+              fila += "<td>" + data[i].id + "</td>";
               fila += "<td>" + data[i].descripcion_extr + "</td>";
-              fila += "<td>" + data[i].saldo + "</td>";
+              fila += "<td class='text-right'>" + data[i].saldo.toFixed(2) + "</td>";
               if (data[i].estado_pago == 1) {
                 fila += "<td>Cancelado</td>";
                 fila += '<td></td>'
