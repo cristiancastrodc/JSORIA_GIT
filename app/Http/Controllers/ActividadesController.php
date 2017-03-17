@@ -31,8 +31,7 @@ class ActividadesController extends Controller
      */
     public function index()
     {
-      $modulos = Usuario_Modulos::modulosDeUsuario();
-      return view('admin.actividad.index', ['modulos' => $modulos]);
+      return view('admin.actividad.index');
     }
 
     /**

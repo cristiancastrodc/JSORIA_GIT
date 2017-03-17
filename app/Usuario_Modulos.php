@@ -17,7 +17,7 @@ class Usuario_Modulos extends Model
   /*** Custom ***/
   public $timestamps = false;
   /**
-   * Retorna la lista de modulos de un usuario
+   * Retorna la lista de modulos del usuario autenticado
    */
   public static function modulosDeUsuario()
   {

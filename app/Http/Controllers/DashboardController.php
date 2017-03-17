@@ -7,7 +7,6 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Balance;
 use JSoria\Usuario;
 use JSoria\UsuarioImpresora;
-use JSoria\Usuario_Modulos;
 
 class DashboardController extends Controller {
 
@@ -19,18 +18,17 @@ class DashboardController extends Controller {
   public function escritorio()
   {
     $tipo = strtolower(Auth::user()->tipo);
-    $modulos = Usuario_Modulos::modulosDeUsuario();
     if ($tipo == 'tesorera') {
       $balance = Balance::where('id_tesorera', Auth::user()->id)->first();
       if ($balance) {
-        return view('layouts.dashboard', ['modulos' => $modulos]);
+        return view('layouts.dashboard');
       } else {
-        return view('tesorera.inicial.index', ['modulos' => $modulos]);
+        return view('tesorera.inicial.index');
       }
     } else if ($tipo == 'cajera') {
-      return view('cajera.ingresos.index', ['modulos' => $modulos]);
+      return view('cajera.ingresos.index');
     } else {
-      return view('layouts.dashboard', ['modulos' => $modulos]);
+      return view('layouts.dashboard');
     }
   }
 }

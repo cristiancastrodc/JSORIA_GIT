@@ -150,6 +150,8 @@ return [
 		//
 		'Barryvdh\DomPDF\ServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
+
+		JSoria\Providers\ComposerServiceProvider::class,
 	],
 
 	/*
