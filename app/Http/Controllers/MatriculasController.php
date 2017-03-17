@@ -10,7 +10,6 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Categoria;
 use JSoria\CategoriaTemp;
 use JSoria\Deuda_Ingreso;
-use JSoria\Usuario_Modulos;
 
 class MatriculasController extends Controller
 {
@@ -28,8 +27,7 @@ class MatriculasController extends Controller
    */
   public function index()
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('admin.matricula.index', ['modulos' => $modulos]);
+    return view('admin.matricula.index');
   }
 
   /**
@@ -77,8 +75,7 @@ class MatriculasController extends Controller
    */
   public function edit($id)
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('admin.usuario.edit', ['user' => $this->user, 'modulos' => $modulos]);
+    return view('admin.usuario.edit', ['user' => $this->user]);
   }
 
   /**
@@ -136,8 +133,7 @@ class MatriculasController extends Controller
    */
   public function crearMatricula()
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('admin.matricula.crear', ['modulos' => $modulos]);
+    return view('admin.matricula.crear');
   }
 
   /**
@@ -272,8 +268,7 @@ class MatriculasController extends Controller
    */
   public function programarPeriodos()
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('secretaria.matricula.programar', ['modulos' => $modulos]);
+    return view('secretaria.matricula.programar');
   }
 
   /**
@@ -393,8 +388,7 @@ class MatriculasController extends Controller
    */
   public function editarMatricula()
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('admin.matricula.editar', ['modulos' => $modulos]);
+    return view('admin.matricula.editar');
   }
   /**
    * Retorna las categorías asociadas a una matrícula
@@ -427,17 +421,15 @@ class MatriculasController extends Controller
    */
   public function mostrarResumenMatricula($batch)
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
     $categorias = Categoria::categoriasPorBatch($batch);
-    return view('admin.matricula.resumen', ['modulos' => $modulos, 'categorias' => $categorias]);
+    return view('admin.matricula.resumen', ['categorias' => $categorias]);
   }
   /**
    * Muestra el resumen de creacion de la matricula
    */
   public function mostrarResumenMatriculaTemp($batch)
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
     $categorias = CategoriaTemp::categoriasPorBatch($batch);
-    return view('admin.matricula.resumen_temp', ['modulos' => $modulos, 'categorias' => $categorias]);
+    return view('admin.matricula.resumen_temp', ['categorias' => $categorias]);
   }
 }

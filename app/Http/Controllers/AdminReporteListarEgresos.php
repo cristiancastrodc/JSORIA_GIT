@@ -22,8 +22,7 @@ class AdminReporteListarEgresos extends Controller
     public function index()
     {
         $rubros = Rubro::all();
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('admin.reportes.ListarEgresos', ['modulos' => $modulos, 'rubros' => $rubros]);
+        return view('admin.reportes.ListarEgresos', ['rubros' => $rubros]);
     }
 
     /**

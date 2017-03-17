@@ -20,8 +20,7 @@ class AdminReporteEgresosTotales extends Controller
      */
     public function index()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('admin.reportes.EgresosTotales', ['modulos' => $modulos]);
+        return view('admin.reportes.EgresosTotales');
     }
 
     /**

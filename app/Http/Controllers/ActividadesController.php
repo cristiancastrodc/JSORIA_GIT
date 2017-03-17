@@ -15,7 +15,6 @@ use JSoria\Alumno;
 use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
 use JSoria\InstitucionDetalle;
-use JSoria\Usuario_Modulos;
 
 class ActividadesController extends Controller
 {

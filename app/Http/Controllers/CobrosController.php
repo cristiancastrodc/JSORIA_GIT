@@ -18,7 +18,6 @@ use JSoria\Permiso;
 use JSoria\UsuarioImpresora;
 use JSoria\Http\Controllers\HerramientasController;
 use NumeroALetras;
-use JSoria\Usuario_Modulos;
 
 class CobrosController extends Controller
 {
@@ -36,8 +35,7 @@ class CobrosController extends Controller
     {
       $categorias = Categoria::listaOtrosCobrosCajera();
       $tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
-      $modulos = Usuario_Modulos::modulosDeUsuario();
-      return view('cajera.cobros.index', compact('categorias', 'tipo_impresora', 'modulos'));
+      return view('cajera.cobros.index', compact('categorias', 'tipo_impresora'));
     }
 
     /**
@@ -435,8 +433,7 @@ class CobrosController extends Controller
      */
     public function generarIngreso()
     {
-      $modulos = Usuario_Modulos::modulosDeUsuario();
-      return view('cajera.ingresos.index', ['modulos' => $modulos]);
+      return view('cajera.ingresos.index');
     }
     /**
      * Retorna la lista de deudas de un alumno o los datos de un cobro extraordinario

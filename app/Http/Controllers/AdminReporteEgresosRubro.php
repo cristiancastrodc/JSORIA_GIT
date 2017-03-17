@@ -20,8 +20,7 @@ class AdminReporteEgresosRubro extends Controller
      */
     public function index()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('admin.reportes.EgresosRubro', ['modulos' => $modulos]);
+        return view('admin.reportes.EgresosRubro');
     }
 
     /**

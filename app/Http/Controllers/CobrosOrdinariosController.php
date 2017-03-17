@@ -13,7 +13,6 @@ use JSoria\Categoria;
 use JSoria\InstitucionDetalle;
 use Redirect;
 use Session;
-use JSoria\Usuario_Modulos;
 
 
 class CobrosOrdinariosController extends Controller
@@ -32,8 +31,7 @@ class CobrosOrdinariosController extends Controller
     {
         /*** Mostrar lista de usuarios ***/
         $categories = Categoria::All();
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('admin.cobro.ordinario', compact('categories', 'modulos'));
+        return view('admin.cobro.ordinario', compact('categories'));
     }
 
     /**

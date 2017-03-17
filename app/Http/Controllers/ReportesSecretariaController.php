@@ -8,7 +8,6 @@ use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 use JSoria\Deuda_Ingreso;
 use JSoria\Alumno;
-use JSoria\Usuario_Modulos;
 
 class ReportesSecretariaController extends Controller
 {
@@ -93,8 +92,7 @@ class ReportesSecretariaController extends Controller
      */
     public function deudasPorGrado()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('secretaria.reportes.deudas', ['modulos' => $modulos]);
+        return view('secretaria.reportes.deudas');
 
         //return view('secretaria.reportes.deudas');
     }
@@ -122,10 +120,7 @@ class ReportesSecretariaController extends Controller
      */
     public function cuentaDeAlumno()
     {
-      $modulos = Usuario_Modulos::modulosDeUsuario();
-      return view('secretaria.reportes.index',
-        ['modulos' => $modulos]
-      );
+      return view('secretaria.reportes.index');
     }
     /**
      * Mostrar la pantalla de Lista de Ingresos por Cajera

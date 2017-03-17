@@ -12,7 +12,6 @@ use JSoria\Categoria;
 use JSoria\InstitucionDetalle;
 use JSoria\Permiso;
 use Redirect;
-use JSoria\Usuario_Modulos;
 use Session;
 
 class CicloController extends Controller
@@ -38,8 +37,7 @@ class CicloController extends Controller
 
     return view('secretaria.ciclo.index', compact('permisos'));
     */
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('secretaria.ciclo.cerrar', ['modulos' => $modulos]);
+    return view('secretaria.ciclo.cerrar');
    // return view('secretaria.ciclo.cerrar', compact('permisos'));
   }
 

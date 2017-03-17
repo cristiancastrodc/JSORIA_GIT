@@ -13,7 +13,6 @@ use JSoria\Deuda_Ingreso;
 use JSoria\Retiro;
 use JSoria\User;
 use Auth;
-use JSoria\Usuario_Modulos;
 
 class RetirosController extends Controller
 {
@@ -34,8 +33,7 @@ class RetirosController extends Controller
                       ->where('retiro.estado','=','0')
                       ->select('retiro.id','retiro.monto','retiro.fecha_hora_creacion','usuario.nombres','usuario.apellidos')
                       ->get();
-      $modulos = Usuario_Modulos::modulosDeUsuario();
-      return view('cajera.retiros.index', compact('retiro', 'modulos'));
+      return view('cajera.retiros.index', compact('retiro'));
     }
 
     /**

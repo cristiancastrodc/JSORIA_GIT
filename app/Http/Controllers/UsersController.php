@@ -15,7 +15,6 @@ use JSoria\Modulo;
 use JSoria\Permiso;
 use JSoria\User;
 use JSoria\UsuarioImpresora;
-use JSoria\Usuario_Modulos;
 
 class UsersController extends Controller {
 
@@ -42,8 +41,7 @@ class UsersController extends Controller {
     /*** Mostrar lista de usuarios ***/
     $users = User::where('usuario_login', '<>', 'sysadmin')->get();
     /*** Mostrar formulario de creacion ***/
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('admin.usuario.index', compact('users', 'modulos'));
+    return view('admin.usuario.index', compact('users'));
   }
 
   /**
@@ -113,8 +111,7 @@ class UsersController extends Controller {
    */
   public function edit($id)
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('admin.usuario.edit', ['user' => $this->user, 'modulos' => $modulos]);
+    return view('admin.usuario.edit', ['user' => $this->user]);
   }
 
   /**
@@ -174,8 +171,7 @@ class UsersController extends Controller {
    */
   public function modulosUsuario()
   {
-    $modulos = Usuario_Modulos::modulosDeUsuario();
-    return view('admin.usuario.modulos', ['modulos' => $modulos]);
+    return view('admin.usuario.modulos');
   }
   /**
    * Devuelve la lista de Usuarios

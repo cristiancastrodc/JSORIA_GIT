@@ -14,7 +14,6 @@ use JSoria\DetalleEgreso;
 use JSoria\Egreso;
 use JSoria\Permiso;
 use JSoria\Rubro;
-use JSoria\Usuario_Modulos;
 
 use Auth;
 
@@ -33,9 +32,8 @@ class EgresosController extends Controller
     public function index()
     {
         $egresos = Egreso::All();
-        $modulos = Usuario_Modulos::modulosDeUsuario();
    
-        return view('tesorera.egreso.index', compact('egresos', 'modulos'));
+        return view('tesorera.egreso.index', compact('egresos'));
     }
 
     /**
@@ -52,9 +50,8 @@ class EgresosController extends Controller
                            ->select('institucion.id', 'institucion.nombre')->get();
 
         $rubros = Rubro::All();
-        $modulos = Usuario_Modulos::modulosDeUsuario();
 
-        return view('tesorera.egreso.create', compact('permisos', 'rubros', 'modulos'));
+        return view('tesorera.egreso.create', compact('permisos', 'rubros'));
     }
 
     /**
@@ -115,9 +112,8 @@ class EgresosController extends Controller
                            ->where('id_egreso', $id)
                            ->get();
 
-        $modulos = Usuario_Modulos::modulosDeUsuario();
 
-        return view('tesorera.egreso.edit', compact('permisos', 'rubros', 'egreso', 'comprobante', 'detalles_egreso', 'modulos'));
+        return view('tesorera.egreso.edit', compact('permisos', 'rubros', 'egreso', 'comprobante', 'detalles_egreso'));
     }
 
     /**

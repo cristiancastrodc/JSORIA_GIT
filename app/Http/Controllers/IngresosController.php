@@ -11,7 +11,6 @@ use JSoria\Deuda_Ingreso;
 use JSoria\IngresoTesorera;
 use JSoria\User;
 use Redirect;
-use JSoria\Usuario_Modulos;
 use Session;
 
 class IngresosController extends Controller
@@ -29,9 +28,8 @@ class IngresosController extends Controller
     public function index()
     {
         $cajeras = User::getCajerasTesorera(Auth::user()->id);
-        $modulos = Usuario_Modulos::modulosDeUsuario();
 
-        return view('tesorera.ingreso.index', compact('cajeras', 'modulos'));
+        return view('tesorera.ingreso.index', compact('cajeras'));
     }
 
     /**
@@ -105,8 +103,7 @@ class IngresosController extends Controller
      */
     public function ingresosAdicionales()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('tesorera.ingreso.registrar', ['modulos' => $modulos]);
+        return view('tesorera.ingreso.registrar');
 
        // return view('tesorera.ingreso.registrar');
     }

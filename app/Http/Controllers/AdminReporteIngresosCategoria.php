@@ -21,8 +21,7 @@ class AdminReporteIngresosCategoria extends Controller
      */
     public function index()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('admin.reportes.IngresosCategoria', ['modulos' => $modulos]);
+        return view('admin.reportes.IngresosCategoria');
     }
 
     /**

@@ -10,7 +10,6 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Balance;
 use JSoria\Deuda_Ingreso;
 use JSoria\Egreso;
-use JSoria\Usuario_Modulos;
 use Auth;
 
 class ReportesTesoreraController extends Controller
@@ -94,8 +93,7 @@ class ReportesTesoreraController extends Controller
     /*** Reporte de Balance de Ingresos / Egresos ***/
     public function mostrarBalanceIngresosEgresos()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('tesorera.reportes.balance', ['modulos' => $modulos]);
+        return view('tesorera.reportes.balance');
     }
     /*** Reporte de Balance de Ingresos / Egresos ***/
     public function balanceIngresosEgresos(Request $request)

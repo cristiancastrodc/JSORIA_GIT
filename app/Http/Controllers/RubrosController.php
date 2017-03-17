@@ -10,7 +10,6 @@ use JSoria\Http\Requests\RubroUpdateRequest;
 use JSoria\Http\Controllers\Controller;
 
 use JSoria\Rubro;
-use JSoria\Usuario_Modulos;
 use JSoria\DetalleEgreso;
 use Redirect;
 use Session;
@@ -36,9 +35,8 @@ class RubrosController extends Controller
     public function fixed_index()
     {
         $rubros = Rubro::All();
-        $modulos = Usuario_Modulos::modulosDeUsuario();
 
-        return view('tesorera.rubro.index', compact('rubros', 'modulos'));
+        return view('tesorera.rubro.index', compact('rubros'));
     }
 
     public function fixed_guardar(RubroCreateRequest $request)
@@ -177,9 +175,8 @@ class RubrosController extends Controller
     public function administrarRubros()
     {
         $rubros = Rubro::all();
-        $modulos = Usuario_Modulos::modulosDeUsuario();
 
-        return view('tesorera.rubro.administrar', ['rubros' => $rubros, 'modulos' => $modulos]);
+        return view('tesorera.rubro.administrar', ['rubros' => $rubros]);
     }
 
     /**

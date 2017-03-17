@@ -13,7 +13,6 @@ use JSoria\Institucion;
 use JSoria\InstitucionDetalle;
 use JSoria\Grado;
 use JSoria\User;
-use JSoria\Usuario_Modulos;
 use NumeroALetras;
 use DB;
 
@@ -99,8 +98,7 @@ class ReportesAdminController extends Controller
     public function balanceIngresosEgresos()
     {
         $tesoreras = User::getTesoreras();
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('admin.reportes.balance', compact('tesoreras', 'modulos'));
+        return view('admin.reportes.balance', compact('tesoreras'));
     }
 
     /*** Reporte de Balance de Ingresos / Egresos: Procesar ***/
@@ -142,9 +140,8 @@ class ReportesAdminController extends Controller
     public function ingresosPorCajera()
     {
       $cajeras = User::getCajeras();
-      $modulos = Usuario_Modulos::modulosDeUsuario();
       return view('admin.reportes.ingresos_cajera',
-        ['cajeras' => $cajeras, 'modulos' => $modulos]
+        ['cajeras' => $cajeras]
       );
     }
     /**
@@ -190,10 +187,7 @@ class ReportesAdminController extends Controller
      */
     public function cuentaDeAlumno()
     {
-      $modulos = Usuario_Modulos::modulosDeUsuario();
-      return view('admin.reportes.cuenta_alumno',
-        ['modulos' => $modulos]
-      );
+      return view('admin.reportes.cuenta_alumno');
     }
     /**
      * Recuperar los períodos del alumno
@@ -244,10 +238,7 @@ class ReportesAdminController extends Controller
      */
     public function deudasDeAlumno()
     {
-      $modulos = Usuario_Modulos::modulosDeUsuario();
-      return view('admin.reportes.deudas_alumno',
-        ['modulos' => $modulos]
-      );
+      return view('admin.reportes.deudas_alumno');
     }
     /**
      * Mostrar la pantalla de Lista de Ingresos por Cajera

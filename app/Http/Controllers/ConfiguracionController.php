@@ -12,7 +12,6 @@ use JSoria\Comprobante;
 use JSoria\UsuarioImpresora;
 use Redirect;
 use Session;
-use JSoria\Usuario_Modulos;
 
 class ConfiguracionController extends Controller
 {
@@ -104,8 +103,7 @@ class ConfiguracionController extends Controller
             $opciones = "<option value='matricial'>Matricial</option>";
             $opciones .= "<option value='ticketera' selected>Ticketera</option>";
         }
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('cajera.conf.impresora', compact('opciones', 'modulos'));
+        return view('cajera.conf.impresora', compact('opciones'));
     }
 
     /*** Guardar configuracion de Impresora de Cajera ***/
@@ -145,8 +143,7 @@ class ConfiguracionController extends Controller
      */
     public function definirComprobantes()
     {
-        $modulos = Usuario_Modulos::modulosDeUsuario();
-        return view('admin.comprobantes.series', ['modulos' => $modulos]);
+        return view('admin.comprobantes.series');
     }
 
     /**
@@ -195,11 +192,9 @@ class ConfiguracionController extends Controller
     {
       $dia_limite_descuento = Configuracion::where('variable', 'dia_limite_descuento')->first();
       $porcentaje_descuento = Configuracion::where('variable', 'porcentaje_descuento')->first();
-      $modulos = Usuario_Modulos::modulosDeUsuario();
       return view('admin.configuracion.index', [
         'dia_limite_descuento' => $dia_limite_descuento->valor,
-        'porcentaje_descuento' => $porcentaje_descuento->valor,
-        'modulos' => $modulos
+        'porcentaje_descuento' => $porcentaje_descuento->valor,      
         ]);
     }
     /**
