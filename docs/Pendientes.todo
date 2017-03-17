@@ -1,7 +1,7 @@
 General:
  ☐ Agregar botón de Cancelar a todos los procesos.
  ☐ Tablas editables: seleccionar el texto al hacer click en una celda editable.
- ☐ En la url del home, redireccionar si el usuario ya inicio sesión.
+ ☐ En el home, redireccionar si el usuario ya inicio sesión.
 Administrador:
  ☐ Desarrollar módulo para Eliminar Matrículas.
  ☐ Listar autorizaciones: poner botón de cerrar en el modal de visualización.
@@ -30,6 +30,7 @@ Cajera:
  ☐ Agregar un boton de cerrar - cobros el ultimo modal.
 
 Archive:
+ ✔ Comprobantes: mostrar resumen de creación. @started(17-03-15 08:48) @done (17-03-17 10:42) @lasted(2 days, 1:54) @project(Administrador)
  ✔ Lista de cobros extraordinarios: En el detalle que muestre tambien el codigo de pago. @critical @started(17-03-14 20:54) @done (17-03-14 21:01) @lasted(0:07) @project(Administrador)
  ✔ Agregar batch a categoria temporal @done (17-03-14 12:56) @project(Administrador)
  ✔ Actividades @started(17-03-12 18:25) @done (17-03-14 12:29) @lasted(1 day, 18:04) @project(Administrador)

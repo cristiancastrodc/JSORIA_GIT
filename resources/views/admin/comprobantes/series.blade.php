@@ -19,23 +19,20 @@
   @endif
 
   @include('messages.errors')
-
-  <div class="row" ng-app="administrarComprobantes" ng-controller="comprobantesController">
+<div ng-app="administrarComprobantes" ng-controller="comprobantesController">
+  <div class="row">
     <div class="col-sm-6">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2>Definir Comprobantes</h2>
         </div>
         <div class="card-body card-padding">
-          <form action="{{ url('admin/comprobante/guardar') }}" class="form-horizontal" method="POST">
-            <input type="hidden" value="{{ csrf_token() }}" name="_token">
+          <form class="form-horizontal">
             <div class="form-group">
               <label for="tipo_comprobante" class="control-label col-sm-3">Tipo:</label>
               <div class="col-sm-9">
-                <select name="tipo_comprobante" id="tipo_comprobante" class="selectpicker" title="Seleccione tipo de Comprobante">
-                  <option value="comprobante">Comprobante</option>
-                  <option value="boleta">Boleta</option>
-                  <option value="factura">Factura</option>
+                <select class="selectpicker" id="tipo_comprobante" ng-model="comprobante.tipo" ng-options="tipo as tipo.label for tipo in tipos_comprobante">
+                  <option value="" disabled="">-- Seleccione Tipo de Comprobante --</option>
                 </select>
               </div>
             </div>
@@ -43,7 +40,7 @@
               <label for="serie_comprobante" class="control-label col-sm-3">Serie</label>
               <div class="col-sm-9">
                 <div class="fg-line">
-                  <input type="text" id="serie_comprobante" name="serie_comprobante" class="form-control" placeholder="Serie">
+                  <input type="text" id="serie_comprobante" class="form-control" placeholder="Serie" ng-model="comprobante.serie">
                 </div>
               </div>
             </div>
@@ -51,25 +48,29 @@
               <label for="numero_comprobante" class="control-label col-sm-3">Número</label>
               <div class="col-sm-9">
                 <div class="fg-line">
-                  <input type="text" id="numero_comprobante" name="numero_comprobante" class="form-control" placeholder="Número actual">
+                  <input type="text" id="numero_comprobante" class="form-control" placeholder="Número actual" ng-model="comprobante.numero">
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label for="id_institucion" class="control-label col-sm-3">Institución</label>
               <div class="col-sm-9">
-                <select name="id_institucion" id="id_institucion" class="selectpicker" title="Seleccione Institución">
-                  <option value="1">I.E. J. Soria</option>
-                  <option value="2">CEBA Konrad Adenauer</option>
-                  <option value="3">I.S.T. Urusayhua</option>
-                  <option value="4">Universidad Privada Líder Peruana</option>
-                </select>
+                <div class="fg-line">
+                  <div class="select">
+                    <select class="form-control" id="institucion_comprobante" ng-options="institucion.nombre for institucion in instituciones" ng-model="comprobante.institucion">
+                      <option value="" disabled="">-- SELECCIONE INSTITUCIÓN --</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group">
-              <div class="col-sm-3 col-sm-offset-9">
-                <button type="submit" class="btn btn-block waves-effect m-t-15 accent-color">
-                  Guardar
+              <div class="col-sm-4 col-sm-offset-8">
+                <button type="button" class="btn btn-block waves-effect m-t-15 accent-color" ng-click="guardarComprobante()" ng-disabled="procesando">
+                  <span ng-hide="procesando">Grabar</span>
+                  <span ng-show="procesando">
+                    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
+                  </span>
                 </button>
               </div>
             </div>
@@ -105,6 +106,7 @@
       </div>
     </div>
   </div>
+</div>
 @endsection
 
 @section('scripts')

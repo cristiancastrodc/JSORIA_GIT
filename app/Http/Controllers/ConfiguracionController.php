@@ -3,6 +3,7 @@
 namespace JSoria\Http\Controllers;
 
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
@@ -15,82 +16,6 @@ use Session;
 
 class ConfiguracionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     /*** Vista de Configuracion de Cajera ***/
     public function cajeraImpresora()
     {
@@ -151,20 +76,33 @@ class ConfiguracionController extends Controller
      */
     public function guardarComprobante(Request $request)
     {
-        $tipo = $request["tipo_comprobante"];
-        $serie = $request["serie_comprobante"];
-        $numero_comprobante = intval($request["numero_comprobante"]);
-        $pad_izquierda = strlen($request["numero_comprobante"]);
-        $id_institucion = $request["id_institucion"];
+      $respuesta = [];
+      $respuesta['resultado'] = 'true';
+      try {
+        $tipo_comprobante = $request->input('tipo_comprobante');
+        $serie_comprobante = $request->input('serie_comprobante');
+        $numero_comprobante = $request->input('numero_comprobante');
+        $pad_izquierda = strlen($numero_comprobante);
+        $id_institucion = $request->input('id_institucion');
+        // Iniciar transacción de BD
+        DB::beginTransaction();
+        // Crear el comprobante
         Comprobante::create([
-            'tipo' => $tipo,
-            'serie' => $serie,
+            'tipo' => $tipo_comprobante,
+            'serie' => $serie_comprobante,
             'numero_comprobante' => $numero_comprobante,
             'pad_izquierda' => $pad_izquierda,
             'id_institucion' => $id_institucion,
             ]);
-        Session::flash('message', 'Datos de comprobante correctamente creados.');
-        return Redirect::to('admin/comprobante/crear');
+        // Si no hubo errores, finalizar la transacción
+        DB::commit();
+      } catch (\Exception $e) {
+        // Abortar la transacción
+        DB::rollBack();
+        $respuesta['resultado'] = false;
+        $respuesta['mensaje'] = $e->getMessage();
+      }
+      return $respuesta;
     }
 
     /**
