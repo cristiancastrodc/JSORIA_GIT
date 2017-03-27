@@ -85,7 +85,10 @@
                   </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-4 col-sm-offset-8">
+                <div class="col-md-4 col-md-offset-4">
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                </div>
+                <div class="col-sm-4">
                   <button type="button" class="btn btn-block accent-color waves-effect" ng-click="grabarActividad()" ng-disabled="procesando">
                     <span ng-hide="procesando">Grabar</span>
                     <span ng-show="procesando">

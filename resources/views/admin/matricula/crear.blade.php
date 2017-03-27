@@ -32,13 +32,13 @@
               <div class="form-group">
                 <label for="id_institucion" class="control-label col-sm-3">Institución</label>
                 <div class="col-sm-9">
-                  <select name="id_institucion" id="id_institucion" class="selectpicker" title="Seleccione" ng-model="id_institucion" ng-change="recuperarDetalle()">
-                    <option value="">Seleccione institución</option>
-                    <option value="1">I.E. J. Soria</option>
-                    <option value="2">CEBA Konrad Adenauer</option>
-                    <option value="3">I.S.T. Urusayhua</option>
-                    <option value="4">Universidad Privada Líder Peruana</option>
-                  </select>
+                  <div class="fg-line">
+                    <div class="select">
+                      <select class="form-control" id="id_institucion" ng-options="institucion.nombre for institucion in instituciones" ng-model="institucion" ng-change="recuperarDetalle()">
+                        <option value="" disabled="">-- SELECCIONE INSTITUCIÓN --</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -165,9 +165,12 @@
                   </td>
                 </tr>
               </table>
-              <div class="form-group">
-                <div class="col-sm-3 col-sm-offset-9">
-                  <button type="button" class="btn btn-block waves-effect m-t-15 accent-color" ng-click="crearMatriculaPensiones()" ng-disabled="procesando">
+              <div class="form-group m-t-15">
+              <div class="col-md-4 col-md-offset-4">
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
+                </div>
+                <div class="col-sm-4">
+                  <button type="button" class="btn btn-block waves-effect accent-color" ng-click="crearMatriculaPensiones()" ng-disabled="procesando">
                     <span ng-hide="procesando">Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...

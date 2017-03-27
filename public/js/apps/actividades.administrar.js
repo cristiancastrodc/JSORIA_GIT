@@ -26,6 +26,13 @@ app.controller('actividadesController', function ($scope, $http) {
   }
   $scope.procesando = false
   // Funciones
+    // Funciones
+  $scope.cancelar = function () {    
+    $scope.institucion = '';
+    $scope.division = '';
+    $scope.nombre = '';
+    $scope.monto = '';
+  }
   $scope.cargarDetalle = function () {
     var id = $scope.actividad.institucion.id_institucion
     // Actualizar las etiquetas

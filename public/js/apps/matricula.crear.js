@@ -5,8 +5,13 @@ var app = angular.module('crearMatricula', [], function($interpolateProvider) {
                        });
 // Definir el controlador
 app.controller('matriculaController', function ($scope, $http) {
+  // Procesos iniciales
+  $http.get('/usuario/instituciones')
+  .success(function(response) {
+    $scope.instituciones = response;
+  });
   // Enlazar
-  $scope.id_institucion = null;
+  $scope.institucion = [];
   $scope.matricula = {
     concepto : '',
     fecha_inicio : null,
@@ -24,7 +29,7 @@ app.controller('matriculaController', function ($scope, $http) {
   // Funciones
   $scope.recuperarDetalle = function () {
     // Recuperar el detalle de la Institucion
-    $http.get('/admin/divisiones_select/' + $scope.id_institucion)
+    $http.get('/admin/divisiones_select/' + $scope.institucion.id_institucion)
     .success(function(response) {
       $scope.divisiones = response;
     });
@@ -37,7 +42,7 @@ app.controller('matriculaController', function ($scope, $http) {
       method: 'POST',
       url: url,
       data : $.param({
-       id_institucion : $scope.id_institucion,
+       id_institucion : $scope.institucion.id_institucion,
        matricula : $scope.matricula,
        pensiones : $scope.pensiones,
        divisiones : $scope.divisiones,
@@ -67,6 +72,18 @@ app.controller('matriculaController', function ($scope, $http) {
       console.log('error');
     });
   };
+  $scope.cancelar = function () {
+    $scope.institucion = [];
+    $scope.periodo = '';
+    $scope.definir_fechas = false;
+    $scope.matricula.concepto = '';
+    $scope.matricula.fecha_inicio = '';
+    $scope.matricula.fecha_fin = '';
+    $scope.pensiones.concepto = '';
+    $scope.pensiones.mes_inicio = '';
+    $scope.pensiones.mes_fin = '';
+    $scope.divisiones = [];
+  }
 
   $("#fecha_inicio_matricula").on("dp.change", function() {
     $scope.matricula.fecha_inicio = $("#fecha_inicio_matricula").val();
