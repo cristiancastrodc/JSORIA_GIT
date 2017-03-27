@@ -646,7 +646,6 @@ class CobrosController extends Controller
       $total = number_format($total, 2);
       $letras = NumeroALetras::convertir($total, 'soles', 'centimos');
       // Direccionar a la vista
-      $modulos = Usuario_Modulos::modulosDeUsuario();
       return view('cajera.ingresos.comprobante', [
         'fecha_hora' => $fecha_hora,
         'nro_documento' => $nro_documento,
@@ -657,7 +656,6 @@ class CobrosController extends Controller
         'letras' => $letras,
         'tipo_comprobante' => $tipo_comprobante,
         'comprobante' => $comprobante,
-        'modulos' => $modulos
         ]);
     }
     /**
@@ -701,7 +699,6 @@ class CobrosController extends Controller
       $total = number_format($deuda->saldo, 2);
       $letras = NumeroALetras::convertir($total, 'soles', 'centimos');
       // Direccionar a la vista
-      $modulos = Usuario_Modulos::modulosDeUsuario();
       return view('cajera.ingresos.comprobante_extr', [
         'fecha_hora' => $fecha_hora,
         'pago' => $deuda,
@@ -709,7 +706,6 @@ class CobrosController extends Controller
         'letras' => $letras,
         'tipo_comprobante' => $tipo_comprobante,
         'comprobante' => $comprobante,
-        'modulos' => $modulos,
         ]);
     }
     /**
@@ -731,7 +727,6 @@ class CobrosController extends Controller
       $total = number_format($categoria->monto, 2);
       $letras = NumeroALetras::convertir($total, 'soles', 'centimos');
       // Direccionar a la vista
-      $modulos = Usuario_Modulos::modulosDeUsuario();
       return view('cajera.ingresos.comprobante_multiple', [
         'fecha_hora' => $fecha_hora,
         'pago' => $categoria,
@@ -743,7 +738,6 @@ class CobrosController extends Controller
         'ruc' => $ruc,
         'razon_social' => $razon_social,
         'direccion' => $direccion,
-        'modulos' => $modulos,
         ]);
     }
 }

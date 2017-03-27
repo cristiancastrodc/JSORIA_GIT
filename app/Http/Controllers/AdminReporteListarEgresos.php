@@ -9,7 +9,6 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Egreso;
 use DB;
-use JSoria\Usuario_Modulos;
 use JSoria\Rubro;
 
 class AdminReporteListarEgresos extends Controller
