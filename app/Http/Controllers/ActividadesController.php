@@ -144,11 +144,9 @@ class ActividadesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function mostrarResumenActividad($batch)
-    {
-      $modulos = Usuario_Modulos::modulosDeUsuario();
+    {      
       $actividades = Categoria::resumenActividad($batch);
       return view('admin.actividad.resumen', [
-        'modulos' => $modulos,
         'actividades' => $actividades,
       ]);
     }

@@ -9,7 +9,6 @@ use JSoria\Http\Controllers\Controller;
 
 use JSoria\Deuda_Ingreso;
 use DB;
-use JSoria\Usuario_Modulos;
 
 class AdminReporteIngresosTotales extends Controller
 {
