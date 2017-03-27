@@ -20,8 +20,8 @@
 <li class="sub-menu">
   <a href="#"><i class="zmdi zmdi-money-box"></i> Definir</a>
   <ul>
-    <li><a href="{{ url('/admin/comprobante/crear') }}" class="hidden" id="link_crear_comprobante">Definir Comprobantes</a></li>
-    <li><a href="{{ url('admin/configuracion') }}" class="hidden" id="link_configuracion">Definir Descuentos</a></li>
+    <li><a href="{{ url('/admin/comprobante/crear') }}" class="hidden" id="link_crear_comprobante">Comprobantes</a></li>
+    <li><a href="{{ url('admin/configuracion') }}" class="hidden" id="link_configuracion">Descuentos</a></li>
   </ul>
 </li>
 <li class="sub-menu">

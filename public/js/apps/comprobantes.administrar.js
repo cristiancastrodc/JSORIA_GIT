@@ -20,6 +20,10 @@ app.controller('comprobantesController', function ($scope, $http) {
     institucion : [],
   }
   $scope.procesando = false
+  $scope.modal = {
+    procesando : false,
+    comprobante : [],
+  }
   // Métodos que se ejecutan al iniciar el módulo
   // -- Recuperar instituciones del usuario
   $http.get('/usuario/instituciones')
@@ -69,6 +73,7 @@ app.controller('comprobantesController', function ($scope, $http) {
       }
       // Inicializar
       $scope.inicializar()
+      $scope.listarComprobantes()
     }, function errorCallback(response) {
       debug(response, false)
       swal({
@@ -81,11 +86,6 @@ app.controller('comprobantesController', function ($scope, $http) {
     });
   }
   $scope.inicializar = function () {
-    // -- Recuperar la lista de comprobantes
-    $http.get('/admin/comprobante/listar')
-    .success(function(response) {
-      $scope.comprobantes = response;
-    });
     $scope.comprobante = {
       tipo : '',
       serie : '',
@@ -93,6 +93,86 @@ app.controller('comprobantesController', function ($scope, $http) {
       institucion : [],
     }
     $scope.procesando = false
+  }
+  $scope.listarComprobantes = function () {
+    // -- Recuperar la lista de comprobantes
+    $http.get('/admin/comprobante/listar')
+    .success(function(response) {
+      $scope.comprobantes = response;
+    });
+  }
+  $scope.editarComprobante = function (comprobante) {
+    $scope.modal.comprobante = comprobante
+    $('#modal-detalle-comprobante').modal('show')
+  }
+  $scope.actualizarComprobante = function () {
+    $scope.modal.procesando = true
+    var ruta = '/admin/comprobante/actualizar/' + $scope.modal.comprobante.id;
+    $http({
+      method: 'POST',
+      url: ruta,
+      data : $.param({
+        serie_comprobante : $scope.modal.comprobante.serie,
+        numero_comprobante : $scope.modal.comprobante.numero_comprobante,
+      }),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    })
+    .then(function successCallback(response) {
+      $('#modal-detalle-comprobante').modal('hide')
+      if (response.data.resultado == 'true') {
+        swal({
+          title : 'Comprobante actualizado correctamente.',
+          type : 'success',
+        })
+        $scope.listarComprobantes()
+      } else {
+        debug(response.data.mensaje)
+        swal({
+          title: 'Error.',
+          text: 'Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.',
+          type: 'warning',
+        })
+      }
+      $scope.modal.procesando = false
+    }, function errorCallback(response) {
+      $('#modal-detalle-comprobante').modal('hide')
+      debug(response, false)
+      swal({
+        title: 'Error.',
+        text: 'Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.',
+        type: 'error',
+      })
+      $scope.modal.procesando = false
+    });
+  }
+  $scope.confirmarEliminacion = function (id) {
+    swal({
+      title: '¿Realmente desea eliminar el comprobante?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonClass: 'btn-danger',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+    }, function () {
+      var ruta = '/admin/comprobante/eliminar/' + id
+      $http.get(ruta)
+      .success(function(response) {
+        if (response.resultado == 'true') {
+          swal({
+            title : 'Comprobante eliminado correctamente.',
+            type : 'success',
+          })
+          $scope.listarComprobantes()
+        } else {
+          debug(response.mensaje)
+          swal({
+            title: 'Error.',
+            text: 'Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.',
+            type: 'error',
+          })
+        }
+      })
+    })
   }
 })
 /*

@@ -101,6 +101,8 @@ Route::get('admin/autorizacion/listar/autorizaciones/{nro_documento}/{fecha_crea
 Route::get('admin/autorizacion/eliminar/{id_autorizacion}', 'CodigoAutorizacionController@eliminar');
 Route::post('admin/actividades/grabar','ActividadesController@store');
 Route::get('admin/actividades/resumen/{batch}','ActividadesController@mostrarResumenActividad');
+Route::post('admin/comprobante/actualizar/{id}','ConfiguracionController@actualizarComprobante');
+Route::get('admin/comprobante/eliminar/{id}','ConfiguracionController@eliminarComprobante');
 
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');

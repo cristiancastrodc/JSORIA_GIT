@@ -132,7 +132,7 @@ class ConfiguracionController extends Controller
       $porcentaje_descuento = Configuracion::where('variable', 'porcentaje_descuento')->first();
       return view('admin.configuracion.index', [
         'dia_limite_descuento' => $dia_limite_descuento->valor,
-        'porcentaje_descuento' => $porcentaje_descuento->valor,      
+        'porcentaje_descuento' => $porcentaje_descuento->valor,
         ]);
     }
     /**
@@ -155,5 +155,53 @@ class ConfiguracionController extends Controller
     public function listarComprobantes()
     {
       return Comprobante::listarComprobantes();
+    }
+    /**
+     * Actualiza los datos de un comprobante.
+     */
+    public function actualizarComprobante(Request $request, $id)
+    {
+      $respuesta = [];
+      try {
+        $serie = $request->input('serie_comprobante');
+        $numero = $request->input('numero_comprobante');
+        $pad_izquierda = strlen($numero);
+        $comprobante = Comprobante::find($id);
+        if ($comprobante) {
+          $comprobante->serie = $serie;
+          $comprobante->numero_comprobante = $numero;
+          $comprobante->pad_izquierda = $pad_izquierda;
+          $comprobante->save();
+          $respuesta['resultado'] = 'true';
+        } else {
+          $respuesta['resultado'] = 'false';
+          $respuesta['mensaje'] = 'Comprobante no existe.';
+        }
+      } catch (\Exception $e) {
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = $e->getMessage();
+      }
+      return $respuesta;
+    }
+    /**
+     * Elimina un comprobante.
+     */
+    public function eliminarComprobante($id)
+    {
+      $respuesta = [];
+      try {
+        $comprobante = Comprobante::find($id);
+        if ($comprobante) {
+          $comprobante->delete();
+          $respuesta['resultado'] = 'true';
+        } else {
+          $respuesta['mensaje'] = 'Comprobante no existe.';
+          $respuesta['resultado'] = 'false';
+        }
+      } catch (\Exception $e) {
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = $e->getMessage();
+      }
+      return $respuesta;
     }
 }

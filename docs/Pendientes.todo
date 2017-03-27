@@ -8,7 +8,6 @@ Administrador:
  ☐ Usuarios: ¿se deberían poder eliminar?
  ☐ Módulos de usuario: en la lista agregar el tipo de usuario (Ej. juana del arco - secretaria).
  ☐ Retiro: si no se tiene nada por retirar, desactivar el botón de retirar.
- ☐ Desarrollar módulo para Editar y Eliminar Comprobantes.
  ☐ Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
  ☐ Listar Actividades: Filtros no obligatorios (para mejorar la búsqueda).
  ☐ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas.
@@ -30,6 +29,7 @@ Cajera:
  ☐ Agregar un boton de cerrar - cobros el ultimo modal.
 
 Archive:
+ ✔ Desarrollar módulo para Editar y Eliminar Comprobantes. @started(17-03-17 12:28) @done (17-03-27 12:12) @lasted(9 days, 23:44) @project(Administrador)
  ✔ Comprobantes: mostrar resumen de creación. @started(17-03-15 08:48) @done (17-03-17 10:42) @lasted(2 days, 1:54) @project(Administrador)
  ✔ Lista de cobros extraordinarios: En el detalle que muestre tambien el codigo de pago. @critical @started(17-03-14 20:54) @done (17-03-14 21:01) @lasted(0:07) @project(Administrador)
  ✔ Agregar batch a categoria temporal @done (17-03-14 12:56) @project(Administrador)
