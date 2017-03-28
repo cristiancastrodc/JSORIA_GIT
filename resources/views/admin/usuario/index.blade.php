@@ -7,130 +7,140 @@
 @section('content')
 
   @if(Session::has('message'))
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{Session::get('message')}}
+  <div class="row">
+    <div class="col-sm-10">
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{Session::get('message')}}
+      </div>
     </div>
+  </div>
   @endif
 
   @include('messages.errors')
 
-  <div class="row">
-    <div class="col-md-5">
-      <div class="card hoverable">
-        <div class="card-header main-color ch-alt">
-          <h2>Nuevo Usuario</h2>
-        </div>
-        <div class="card-body card-padding">
-          {!!Form::open(array('route' => 'admin.usuarios.store', 'class' => 'form-horizontal', 'method' => 'POST'))!!}
-            <div class="form-group">
-              <label for="dni" class="col-sm-3 control-label">DNI</label>
-              <div class="col-sm-9">
-                <div class="fg-line">
-                  <input type="text" class="form-control input-sm" id="dni" name="dni" placeholder="DNI" data-mask="00000000">
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="nombres" class="col-sm-3 control-label">Nombres</label>
-              <div class="col-sm-9">
-                <div class="fg-line">
-                  <input type="text" class="form-control input-sm" id="nombres" name="nombres" placeholder="Nombres">
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="apellidos" class="col-sm-3 control-label">Apellidos</label>
-              <div class="col-sm-9">
-                <div class="fg-line">
-                  <input type="text" class="form-control input-sm" id="apellidos" name="apellidos" placeholder="Apellidos">
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="tipo" class="col-sm-3 control-label">Tipo</label>
-              <div class="col-sm-9">
-                <select class="selectpicker" name="tipo" id="tipo">
-                  <option>Administrador</option>
-                  <option>Cajera</option>
-                  <option>Secretaria</option>
-                  <option>Tesorera</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="permisos" class="col-sm-3 control-label">Permisos</label>
-              <div class="col-sm-9">
-                <div class="fg-line">
-                  <div class="select">
-                    <select class="chosen" multiple data-placeholder="Elegir Institucion(es)" id="permisos" name="permisos[]">
-                      <option value="1">I.E. J. Soria</option>
-                      <option value="2">CEBA Konrad Adenahuer</option>
-                      <option value="3">I.S.T. Urusayhua</option>
-                      <option value="4">Universidad Privada Líder Peruana</option>
-                    </select>
+  <div ng-app="administrarUsuarios" ng-controller="usuariosController">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="card hoverable">
+          <div class="card-header main-color ch-alt">
+            <h2>Nuevo Usuario</h2>
+          </div>
+          <div class="card-body card-padding">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="dni" class="col-sm-3 control-label">DNI</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" class="form-control input-sm" id="dni" name="dni" placeholder="DNI" data-mask="00000000" ng-model="usuario.dni">
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="user" class="col-sm-3 control-label">Usuario</label>
-              <div class="col-sm-9">
-                <div class="fg-line">
-                  <input type="text" class="form-control input-sm" id="usuario_login" name="usuario_login" placeholder="Usuario">
+              <div class="form-group">
+                <label for="nombres" class="col-sm-3 control-label">Nombres</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" class="form-control input-sm" id="nombres" name="nombres" placeholder="Nombres" ng-model="usuario.nombres">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="password" class="col-sm-3 control-label">Contraseña</label>
-              <div class="col-sm-9">
-                <div class="fg-line">
-                  <input type="password" class="form-control input-sm" id="password" name="password" placeholder="Contraseña">
+              <div class="form-group">
+                <label for="apellidos" class="col-sm-3 control-label">Apellidos</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" class="form-control input-sm" id="apellidos" name="apellidos" placeholder="Apellidos" ng-model="usuario.apellidos">
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-sm-offset-6">
-                <button class="btn btn-block accent-color waves-effect m-t-10">Guardar</button>
+              <div class="form-group">
+                <label for="tipo" class="col-sm-3 control-label">Tipo</label>
+                <div class="col-sm-9">
+                  <select class="selectpicker" id="tipo" ng-model="usuario.tipo" ng-options="tipo.value as tipo.label for tipo in tipos_usuario">
+                    <option value="" disabled="">-- Seleccione Tipo de Usuario --</option>
+                  </select>
+                </div>
               </div>
-            </div>
-          {!!Form::close()!!}
+              <div class="form-group">
+                <label for="permisos" class="col-sm-3 control-label">Permisos</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <div class="select">
+                      <select class="chosen" multiple="" id="permisos" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="usuario.permisos" chosen data-placeholder="-- Seleccione Instituciones --">
+                        <option value="" disabled="">-- Seleccione Instituciones --</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="user" class="col-sm-3 control-label">Usuario</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" class="form-control input-sm" id="usuario_login" name="usuario_login" placeholder="Usuario" ng-model="usuario.login">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="col-sm-3 control-label">Contraseña</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="password" class="form-control input-sm" id="password" name="password" placeholder="Contraseña" ng-model="usuario.password">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-6">
+                  <button class="btn btn-block accent-color waves-effect" ng-click="guardarUsuario()" ng-disabled="procesando">
+                    <span ng-hide="procesando">Grabar</span>
+                    <span ng-show="procesando">
+                      <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-7">
-      <div class="card hoverable">
-        <div class="card-header main-color ch-alt">
-          <h2>Lista de Usuarios</h2>
-        </div>
-        <div class="card-body card-padding">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th class="accent-color c-white">Nombres</th>
-                  <th class="accent-color c-white">Apellidos</th>
-                  <th class="accent-color c-white">Tipo</th>
-                  <th class="accent-color c-white">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($users as $user)
+      <div class="col-md-7">
+        <div class="card hoverable">
+          <div class="card-header main-color ch-alt">
+            <h2>Lista de Usuarios</h2>
+          </div>
+          <div class="card-body card-padding">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
                   <tr>
-                    <td>{{$user->nombres}}</td>
-                    <td>{{$user->apellidos}}</td>
-                    <td>{{$user->tipo}}</td>
-                    <td>
-                      {!!link_to_route('admin.usuarios.edit', $title = '', $parameters = $user->id, $attributes = ['class' => 'btn third-color zmdi zmdi-edit', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Modificar'])!!}
-
-                    </td>
+                    <th class="accent-color c-white">Nombres</th>
+                    <th class="accent-color c-white">Apellidos</th>
+                    <th class="accent-color c-white">Tipo</th>
+                    <th class="accent-color c-white">Acciones</th>
                   </tr>
-                @endforeach
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  @foreach($users as $user)
+                    <tr>
+                      <td>{{$user->nombres}}</td>
+                      <td>{{$user->apellidos}}</td>
+                      <td>{{$user->tipo}}</td>
+                      <td>
+                        {!!link_to_route('admin.usuarios.edit', $title = '', $parameters = $user->id, $attributes = ['class' => 'btn third-color zmdi zmdi-edit', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Modificar'])!!}
+
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+@endsection
+
+@section('scripts')
+  <script src="{{ asset('js/angular.min.js') }}"></script>
+  <script src="{{ asset('js/apps/usuarios.administrar.js') }}"></script>
 @endsection

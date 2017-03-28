@@ -9,6 +9,7 @@ Administrador:
  ☐ Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
  ☐ Listar Actividades: Filtros no obligatorios (para mejorar la búsqueda).
  ☐ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas.
+ ☐ Eliminar retiros.
 Secretaria:
  ☐ Al matricular a un alumno solo muestra las matriculas dentro de las fechas, ¿deberia mostrar tambien las que siguen activas, las que todavía no se cerró ciclo?
  ☐ Al terminar de modificar una deuda sería bueno que muestre un reporte con la nueva lista de deudas del alumno - modificar deudas.
@@ -26,6 +27,7 @@ Cajera:
  ☐ Agregar un boton de cerrar - cobros el ultimo modal.
 
 Archive:
+ ✔ Resumen de creación de usuario. @started(17-03-28 09:33) @done (17-03-28 12:35) @lasted(3:02) @project(Administrador)
  ✔ Desarrollar módulo para Editar y Eliminar Comprobantes. @started(17-03-17 12:28) @done (17-03-27 12:12) @lasted(9 days, 23:44) @project(Administrador)
  ✔ Listar autorizaciones: poner botón de cerrar en el modal de visualización. @done (17-03-27 11:38) @project(Administrador)
  ✔ Módulos de usuario: en la lista agregar el tipo de usuario (Ej. juana del arco - secretaria). @done (17-03-27 10:50) @project(Administrador)

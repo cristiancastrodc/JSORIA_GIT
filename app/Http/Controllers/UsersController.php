@@ -61,35 +61,41 @@ class UsersController extends Controller {
    */
   public function store(UserCreateRequest $request)
   {
-    $user_id =
-    User::create([
-      'dni' => $request['dni'],
-      'nombres' => $request['nombres'],
-      'apellidos' => $request['apellidos'],
-      'tipo' => $request['tipo'],
-      'usuario_login' => $request['usuario_login'],
-      'password' => $request['password'],
-      ])->id;
-
-    $permisos = $request->input('permisos');
-
-    foreach ($permisos as $permiso) {
-      Permiso::create([
-        'id_institucion' => $permiso,
-        'id_usuario' => $user_id,
-        ]);
+    $respuesta = [];
+    try {
+      DB::beginTransaction();
+      // Verificar si existen usuarios con el mismo login
+      $usuario_login = $request->input('usuario_login');
+      $cantidad_login = User::where('usuario_login', $usuario_login)->count();
+      if ($cantidad_login <= 0) {
+        // Crear el usuario
+        $id_usuario = User::create([
+          'dni' => $request->input('dni'),
+          'nombres' => $request->input('nombres'),
+          'apellidos' => $request->input('apellidos'),
+          'tipo' => $request->input('tipo'),
+          'usuario_login' => $request->input('usuario_login'),
+          'password' => $request->input('password'),
+          ])->id;
+        // Crear permisos del usuario
+        $permisos = $request->input('permisos');
+        $permisos_a_crear = [];
+        foreach ($permisos as $permiso) {
+          array_push($permisos_a_crear, ['id_institucion' => $permiso, 'id_usuario' => $id_usuario]);
+        }
+        Permiso::insert($permisos_a_crear);
+        DB::commit();
+        $respuesta['resultado'] = 'true';
+      } else {
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = 'Usuario para iniciar sesión ya existe.';
+      }
+    } catch (\Exception $e) {
+      DB::rollback();
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
     }
-    // Crear la impresora para la cajera
-    if ($request['tipo'] == 'Cajera') {
-      UsuarioImpresora::create([
-        'id_cajera' => $user_id,
-        'tipo_impresora' => 'matricial',
-        'nombre_impresora' => 'Matricial',
-        ]);
-    }
-
-    Session::flash('message', 'Datos de usuario creados.');
-    return Redirect::to('/admin/usuarios');
+    return $respuesta;
   }
 
   /**
