@@ -31,7 +31,7 @@
                       <input type="text" class="form-control input-sm" id="nro_documento" name="nro_documento" placeholder="Documento Alumno" autocomplete="off">
                   </div>
               </div>
-            </div>            
+            </div>
             <div class="form-group">
               <div class="pull-right">
                 <button type="submit" class="btn btn-warning waves-effect" id="btn-buscar-alumno" formtarget="_blank">Generar</button>

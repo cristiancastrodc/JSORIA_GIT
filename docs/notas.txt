@@ -1,0 +1,5 @@
+Variables:
+   main-color: #091b43
+   accent-color: #F58634
+   third: #F5B134
+   fourth: #EF3341
