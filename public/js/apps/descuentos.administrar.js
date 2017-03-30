@@ -137,6 +137,14 @@ app.controller('descuentosController', function ($scope, $http) {
       })
     });
   }
+   $scope.inicializar = function () {
+    $scope.datos_alumno = ''
+    $scope.clase_documento = 'form-group'
+    $scope.existe_alumno = true
+    $scope.nro_documento = ''
+    $scope.fecha_limite = ''
+    $scope.resolucion = ''
+  }
   // Eventos
   $("#fecha_limite").on("dp.change", function() {
     $scope.fecha_limite = $("#fecha_limite").val();

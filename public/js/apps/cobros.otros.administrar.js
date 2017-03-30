@@ -12,12 +12,11 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
   $scope.destino = false
   $scope.estado = false
   $scope.procesando = false
-  $scope.instituciones = [
-    { value: '1', label:'I.E. J. Soria' },
-    { value: '2', label:'CEBA Konrad Adenahuer' },
-    { value: '3', label:'I.S.T. Urusayhua' },
-    { value: '4', label:'Universidad Privada Líder Peruana' },
-  ];
+  // Procesos iniciales
+   $http.get('/usuario/instituciones')
+  .success(function(response) {
+    $scope.instituciones = response;
+    });
   // Funciones
   $scope.guardarOtroCobro = function () {
     $scope.procesando = true
@@ -26,7 +25,7 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
       method: 'POST',
       url: ruta,
       data : $.param({
-       id_institucion : $scope.institucion.value,
+       id_institucion : $scope.institucion.id_institucion,
        nombre : $scope.nombre,
        monto : $scope.monto,
        destino : $scope.destino,
@@ -37,7 +36,7 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
     .then(function successCallback(response) {
       debug(response, false)
       if (response.data.resultado == 'true') {
-        var texto = "<p style='text-align:left'><strong>Institución : </strong>" + $scope.institucion.label + "<br>"
+        var texto = "<p style='text-align:left'><strong>Institución : </strong>" + $scope.institucion.nombre + "<br>"
                   + "<strong>Descripción : </strong>" + $scope.nombre + "<br>"
                   + "<strong>Monto : </strong>" + $scope.monto + "<br>"
                   + "<strong>Habilitado : </strong>" + ($scope.estado ? "Si" : "No") + "<br>"
@@ -69,5 +68,13 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
     }, function errorCallback(response) {
       debug('Error')
     });
+  }
+   $scope.inicializar = function () {
+    $scope.institucion = ''
+    $scope.nombre = ''
+    $scope.monto = ''
+    $scope.destino = false
+    $scope.estado = false
+    $scope.procesando = false
   }
 });

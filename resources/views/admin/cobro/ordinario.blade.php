@@ -31,10 +31,14 @@
             <form class="form-horizontal">
               <div class="form-group">
                 <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
-                <div class="col-sm-9">
-                  <select class="selectpicker" name="institucion" id="id_institucion" title='Elegir Institución' ng-model="cobroOrdinario.institucion" ng-options="opt as opt.label for opt in instituciones">
-                    <option value="" disabled="">-- Seleccione --</option>
-                  </select>
+                <div class="col-sm-9">                  
+                   <div class="fg-line">
+                    <div class="select">
+                      <select class="form-control" id="institucion" ng-options="institucion.nombre for institucion in instituciones" ng-model="cobroOrdinario.institucion">
+                        <option value="" disabled="">-- SELECCIONE INSTITUCIÓN --</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -86,9 +90,12 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-sm-offset-6">
-                  <button type="button" class="btn btn-block waves-effect m-t-15 accent-color" ng-click="guardarCobroOrdinario()" ng-disabled="procesando">
+              <div class="form-group m-t-15">
+                <div class="col-md-5 col-md-offset-2">
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                </div>
+                <div class="col-sm-5">
+                  <button type="button" class="btn btn-block waves-effect  accent-color" ng-click="guardarCobroOrdinario()" ng-disabled="procesando">
                     <span ng-hide="procesando">Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...

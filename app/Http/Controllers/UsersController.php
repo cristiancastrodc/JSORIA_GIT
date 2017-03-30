@@ -15,6 +15,7 @@ use JSoria\Modulo;
 use JSoria\Permiso;
 use JSoria\User;
 use JSoria\UsuarioImpresora;
+use JSoria\Usuario_Modulos;
 
 class UsersController extends Controller {
 

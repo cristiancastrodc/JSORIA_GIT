@@ -63,9 +63,12 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-sm-offset-6">
-                  <button type="button" class="btn btn-block waves-effect m-t-15 accent-color" ng-click="guardarAutorizacion()" ng-disabled="procesando || !(datos_alumno && resolucion)">
+              <div class="form-group m-t-15">
+                <div class="col-md-5 col-md-offset-2">
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                </div>
+                <div class="col-sm-5">
+                  <button type="button" class="btn btn-block waves-effect accent-color" ng-click="guardarAutorizacion()" ng-disabled="procesando || !(datos_alumno && resolucion)">
                     <span ng-hide="procesando">Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...

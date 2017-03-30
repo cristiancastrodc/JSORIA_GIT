@@ -12,12 +12,11 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
   $scope.cliente_extr = ''
   $scope.destino = false
   $scope.procesando = false
-  $scope.instituciones = [
-    { value: '1', label:'I.E. J. Soria' },
-    { value: '2', label:'CEBA Konrad Adenahuer' },
-    { value: '3', label:'I.S.T. Urusayhua' },
-    { value: '4', label:'Universidad Privada Líder Peruana' },
-  ];
+  // Procesos iniciales
+   $http.get('/usuario/instituciones')
+  .success(function(response) {
+    $scope.instituciones = response;
+  });
   // Funciones
   $scope.guardarCobroExtraordinario = function () {
     $scope.procesando = true
@@ -26,7 +25,7 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
       method: 'POST',
       url: ruta,
       data : $.param({
-       id_institucion : $scope.institucion.value,
+       id_institucion : $scope.institucion.id_institucion,
        descripcion_extr : $scope.descripcion_extr,
        monto : $scope.monto,
        cliente_extr : $scope.cliente_extr,
@@ -37,7 +36,7 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
     .then(function successCallback(response) {
       debug(response, false)
       if (response.data.resultado == 'true') {
-        var texto = "<p style='text-align:left'><strong>Institución : </strong>" + $scope.institucion.label + "<br>"
+        var texto = "<p style='text-align:left'><strong>Institución : </strong>" + $scope.institucion.nombre + "<br>"
                   + "<strong>Descripción : </strong>" + $scope.descripcion_extr + "<br>"
                   + "<strong>Monto : </strong>" + $scope.monto + "<br>"
                   + "<strong>Cliente : </strong>" + $scope.cliente_extr + "<br>"
@@ -69,5 +68,13 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
     }, function errorCallback(response) {
       debug('Error')
     });
+  }
+  $scope.inicializar = function () {
+   $scope.institucion = null
+    $scope.descripcion_extr = ''
+    $scope.monto = ''
+    $scope.cliente_extr = ''
+    $scope.destino = false
+    $scope.procesando = false
   }
 });

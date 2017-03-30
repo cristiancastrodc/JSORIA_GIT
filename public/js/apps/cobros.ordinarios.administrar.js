@@ -15,12 +15,11 @@ app.controller('crearCobroOrdinarioController', function ($scope, $http) {
     'estado' : false,
   }
   $scope.procesando = false
-  $scope.instituciones = [
-    { value: '1', label:'I.E. J. Soria' },
-    { value: '2', label:'CEBA Konrad Adenahuer' },
-    { value: '3', label:'I.S.T. Urusayhua' },
-    { value: '4', label:'Universidad Privada Líder Peruana' },
-  ];
+   // Procesos iniciales
+   $http.get('/usuario/instituciones')
+  .success(function(response) {
+    $scope.instituciones = response;
+  });
   // Funciones
   $scope.guardarCobroOrdinario = function () {
     $scope.procesando = true
@@ -29,7 +28,7 @@ app.controller('crearCobroOrdinarioController', function ($scope, $http) {
       method: 'POST',
       url: ruta,
       data : $.param({
-       id_institucion : $scope.cobroOrdinario.institucion.value,
+       id_institucion : $scope.cobroOrdinario.institucion.id_institucion,
        nombre : $scope.cobroOrdinario.nombre,
        monto : $scope.cobroOrdinario.monto,
        con_factor : $scope.cobroOrdinario.con_factor,
@@ -41,7 +40,7 @@ app.controller('crearCobroOrdinarioController', function ($scope, $http) {
     .then(function successCallback(response) {
       debug(response, false)
       if (response.data.resultado == 'true') {
-        var texto = "<p style='text-align:left'><strong>Institución : </strong>" + $scope.cobroOrdinario.institucion.label + "<br>"
+        var texto = "<p style='text-align:left'><strong>Institución : </strong>" + $scope.cobroOrdinario.institucion.nombre + "<br>"
                   + "<strong>Descripción : </strong>" + $scope.cobroOrdinario.nombre + "<br>"
                   + "<strong>Monto : </strong>" + $scope.cobroOrdinario.monto + "<br>"
                   + "<strong>Habilitado : </strong>" + ($scope.cobroOrdinario.estado ? "Si" : "No") + "<br>"
@@ -77,5 +76,11 @@ app.controller('crearCobroOrdinarioController', function ($scope, $http) {
     }, function errorCallback(response) {
       debug('Error')
     });
+  }
+  $scope.inicializar = function () {
+    $scope.cobroOrdinario = []
+    $scope.cobroOrdinario.institucion = null
+    $scope.$apply()
+    $('.selectpicker').selectpicker('refresh')
   }
 });
