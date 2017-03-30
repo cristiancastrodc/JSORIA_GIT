@@ -2,17 +2,15 @@
 
 namespace JSoria\Http\Controllers;
 
+use Auth;
+use DB;
 use Illuminate\Http\Request;
-use Crypt;
-
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
-
 use JSoria\Balance;
 use JSoria\Deuda_Ingreso;
 use JSoria\Retiro;
 use JSoria\User;
-use Auth;
 
 class RetirosController extends Controller
 {
@@ -35,17 +33,6 @@ class RetirosController extends Controller
                       ->get();
       return view('cajera.retiros.index', compact('retiro'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -86,52 +73,6 @@ class RetirosController extends Controller
         }
       }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     /** Recuperar los cobros asociados al administrador **/
     public function retiroAdmin(Request $request, $id_cajera)
     {
@@ -140,7 +81,6 @@ class RetirosController extends Controller
         return response()->json($pagos);
       }
     }
-
     public function retiroTesorera(Request $request, $id_cajera)
     {
       if ($request->ajax()) {
@@ -201,5 +141,39 @@ class RetirosController extends Controller
           return response()->json(['mensaje' => 'Contraseña incorrecta.', 'tipo' => 'error']);
         }
       }
+    }
+    /**
+     * Lista los retiros del usuario autenticado.
+     */
+    public function listarRetiros()
+    {
+      return Retiro::retirosUsuario(Auth::user()->id);
+    }
+    /**
+     * Elimina el retiro y restaura sus cobros asociados.
+     */
+    public function eliminarRetiro($id)
+    {
+      $respuesta = [];
+      try {
+        DB::beginTransaction();
+        // Actualizar los cobros
+        $retiro = Retiro::find($id);
+        if ($retiro) {
+          Deuda_Ingreso::where('id_retiro', $id)
+                       ->update(['id_retiro' => NULL, 'estado_retiro' => 0]);
+          $retiro->delete();
+          DB::commit();
+          $respuesta['resultado'] = 'true';
+        } else {
+          $respuesta['resultado'] = 'false';
+          $respuesta['mensaje'] = 'Retiro no existe.';
+        }
+      } catch (\Exception $e) {
+        DB::rollback();
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = $e->getMessage();
+      }
+      return $respuesta;
     }
 }

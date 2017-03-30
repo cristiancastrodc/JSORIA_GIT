@@ -183,7 +183,6 @@ $('#btn-guardar-egreso').click(function(e) {
 /****** Retirar Ingresos *******/
 $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
   e.preventDefault();
-  debug('Boton Buscar Cobros presionado.');
 
   var $id_cajera = $('#id_cajera').val();
 
@@ -194,40 +193,45 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
 
     $('#ajax-loader').fadeIn('fast', function () {
       $.get(ruta, function (response, state) {
-        var monto_no_retirado = 0;
-        var monto_por_retirar = 0;
-        for (var i = 0; i < response.length; i++) {
-          var monto = response[i].saldo - response[i].descuento;
-          if (response[i].estado_retiro == 0) {
-            monto_no_retirado += monto;
-          } else if (response[i].estado_retiro == 1) {
-            monto_por_retirar += monto;
-          }
-          var fila = "<tr>";
-          fila += "<td class='hidden id_cobro'>" + response[i].id + "</td>";
-          fila += "<td>" + response[i].fecha_hora_ingreso + "</td>";
-          fila += "<td>" + response[i].documento + "</td>";
-          fila += "<td>" + response[i].nombre + "</td>";
-          if (response[i].estado_retiro == 0) {
-            fila += "<td><span class='p-5'>No retirado</span></td>";
-          } else if (response[i].estado_retiro == 1) {
-            fila += "<td><span class='bgm-orange c-white p-5'>Por retirar</span></td>";
-          }
-          fila += "<td class='text-right'>" + monto.toFixed(2) + "</td>";
-          fila += "</tr>";
-          $('#tabla-ingresos-cajera tbody').append(fila);
-        };
-        $('#cobros-no-retirados').html(monto_no_retirado.toFixed(2));
-        $('#cobros-por-retirar').html(monto_por_retirar.toFixed(2));
+        if (response.length > 0) {
+          var monto_no_retirado = 0;
+          var monto_por_retirar = 0;
+          for (var i = 0; i < response.length; i++) {
+            var monto = response[i].saldo - response[i].descuento;
+            if (response[i].estado_retiro == 0) {
+              monto_no_retirado += monto;
+            } else if (response[i].estado_retiro == 1) {
+              monto_por_retirar += monto;
+            }
+            var fila = "<tr>";
+            fila += "<td class='hidden id_cobro'>" + response[i].id + "</td>";
+            fila += "<td>" + response[i].fecha_hora_ingreso + "</td>";
+            fila += "<td>" + response[i].documento + "</td>";
+            fila += "<td>" + response[i].nombre + "</td>";
+            if (response[i].estado_retiro == 0) {
+              fila += "<td><span class='p-5'>No retirado</span></td>";
+            } else if (response[i].estado_retiro == 1) {
+              fila += "<td><span class='bgm-orange c-white p-5'>Por retirar</span></td>";
+            }
+            fila += "<td class='text-right'>" + monto.toFixed(2) + "</td>";
+            fila += "</tr>";
+            $('#tabla-ingresos-cajera tbody').append(fila);
+          };
+          $('#cobros-no-retirados').html(monto_no_retirado.toFixed(2));
+          $('#cobros-por-retirar').html(monto_por_retirar.toFixed(2));
+          $('#card-ingresos-admin.js-toggle').slideDown('slow');
+        } else {
+          swal({
+            title : 'No existen cobros pendientes de retiro.',
+            type : 'info',
+            confirmButtonText : 'Aceptar',
+          })
+        }
       })
       .always(function () {
         $('#ajax-loader').fadeOut('slow');
       });
     });
-
-
-
-    $('#card-ingresos-admin.js-toggle').slideDown('slow');
   } else {
     sweet_alert('¡Atención!', 'Debe de seleccionar una cajera.', 'warning');
   }

@@ -27,7 +27,7 @@ app.controller('actividadesController', function ($scope, $http) {
   $scope.procesando = false
   // Funciones
     // Funciones
-  $scope.cancelar = function () {    
+  $scope.cancelar = function () {
     $scope.institucion = '';
     $scope.division = '';
     $scope.nombre = '';

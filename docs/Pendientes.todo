@@ -5,11 +5,9 @@ General:
 Administrador:
  ☐ Desarrollar módulo para Eliminar Matrículas.
  ☐ Usuarios: ¿se deberían poder eliminar?
- ☐ Retiro: si no se tiene nada por retirar, desactivar el botón de retirar.
  ☐ Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
  ☐ Listar Actividades: Filtros no obligatorios (para mejorar la búsqueda).
  ☐ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas.
- ☐ Eliminar retiros.
 Secretaria:
  ☐ Al matricular a un alumno solo muestra las matriculas dentro de las fechas, ¿deberia mostrar tambien las que siguen activas, las que todavía no se cerró ciclo?
  ☐ Al terminar de modificar una deuda sería bueno que muestre un reporte con la nueva lista de deudas del alumno - modificar deudas.
@@ -27,6 +25,8 @@ Cajera:
  ☐ Agregar un boton de cerrar - cobros el ultimo modal.
 
 Archive:
+ ✔ Eliminar retiros. @started(17-03-29 07:44) @done (17-03-30 10:45) @lasted(1 day, 3:01) @project(Administrador)
+ ✔ Retiro: si no se tiene nada por retirar, desactivar el botón de retirar. @started(17-03-29 07:18) @done (17-03-29 07:44) @lasted(0:26) @project(Administrador)
  ✔ Resumen de creación de usuario. @started(17-03-28 09:33) @done (17-03-28 12:35) @lasted(3:02) @project(Administrador)
  ✔ Desarrollar módulo para Editar y Eliminar Comprobantes. @started(17-03-17 12:28) @done (17-03-27 12:12) @lasted(9 days, 23:44) @project(Administrador)
  ✔ Listar autorizaciones: poner botón de cerrar en el modal de visualización. @done (17-03-27 11:38) @project(Administrador)

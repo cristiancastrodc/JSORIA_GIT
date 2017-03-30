@@ -192,7 +192,7 @@
               </div>
               <div class="form-group">
                 <div class="col-md-4 col-md-offset-4">
-                  <a class="btn btn-link" data-dismiss="modal">Cerrar</a>                  
+                  <a class="btn btn-link" data-dismiss="modal">Cerrar</a>
                 </div>
                 <div class="col-md-4">
                   <button class="btn btn-block fourth-color waves-effect" type="button" ng-disabled="!modal.puede_eliminar" ng-click="eliminarAutorizacion(modal.id_autorizacion)"><i class="zmdi zmdi-delete"></i> Eliminar</button>

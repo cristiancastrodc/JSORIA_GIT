@@ -103,6 +103,8 @@ Route::post('admin/actividades/grabar','ActividadesController@store');
 Route::get('admin/actividades/resumen/{batch}','ActividadesController@mostrarResumenActividad');
 Route::post('admin/comprobante/actualizar/{id}','ConfiguracionController@actualizarComprobante');
 Route::get('admin/comprobante/eliminar/{id}','ConfiguracionController@eliminarComprobante');
+Route::get('admin/retiros/listar','RetirosController@listarRetiros');
+Route::get('admin/retiro/eliminar/{id}', 'RetirosController@eliminarRetiro');
 
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');

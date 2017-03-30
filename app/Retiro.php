@@ -22,5 +22,14 @@ class Retiro extends Model
 
   /*** Custom ***/
   public $timestamps = false;
-
+  /**
+   * Lista de retiros de un usuario.
+   */
+  public static function retirosUsuario($id_usuario)
+  {
+    return Retiro::where('id_usuario', $id_usuario)
+                 ->join('usuario', 'retiro.id_cajera', '=', 'usuario.id')
+                 ->select('retiro.id', 'monto', 'fecha_hora_creacion', 'estado', 'usuario.nombres', 'usuario.apellidos', 'fecha_hora_retiro')
+                 ->get();
+  }
 }
