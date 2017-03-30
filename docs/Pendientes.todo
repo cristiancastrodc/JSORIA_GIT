@@ -1,7 +1,6 @@
 General:
  ☐ Agregar botón de Cancelar a todos los procesos.
  ☐ Tablas editables: seleccionar el texto al hacer click en una celda editable.
- ☐ En el home, redireccionar si el usuario ya inicio sesión.
 Administrador:
  ☐ Desarrollar módulo para Eliminar Matrículas.
  ☐ Usuarios: ¿se deberían poder eliminar?
@@ -25,6 +24,7 @@ Cajera:
  ☐ Agregar un boton de cerrar - cobros el ultimo modal.
 
 Archive:
+ ✔ En el home, redireccionar si el usuario ya inicio sesión. @done (17-03-30 10:51) @project(General)
  ✔ Eliminar retiros. @started(17-03-29 07:44) @done (17-03-30 10:45) @lasted(1 day, 3:01) @project(Administrador)
  ✔ Retiro: si no se tiene nada por retirar, desactivar el botón de retirar. @started(17-03-29 07:18) @done (17-03-29 07:44) @lasted(0:26) @project(Administrador)
  ✔ Resumen de creación de usuario. @started(17-03-28 09:33) @done (17-03-28 12:35) @lasted(3:02) @project(Administrador)

@@ -1,20 +1,24 @@
 <?php namespace JSoria\Http\Controllers;
 
+use Auth;
+use Illuminate\Http\Request;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
-
 class FrontController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return view('login');
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+      if (Auth::check()) {
+        return redirect('escritorio');
+      } else {
+        return view('login');
+      }
+    }
 
 }
