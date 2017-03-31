@@ -1,17 +1,16 @@
 General:
- ☐ Agregar botón de Cancelar a todos los procesos.
- ☐ Tablas editables: seleccionar el texto al hacer click en una celda editable.
+ ☐ Revisar: Tablas editables: seleccionar el texto al hacer click en una celda editable. @started(17-03-31 11:46)
+ ☐ Revisar: Poner íconos en todos los procesos.
+ ☐ Revisar: Cambiar diseño tablas que estén dentro de los card.
+ ☐ Revisar: Mostrar institucion del alumno en todos los procesos donde se le involucre.
+ ☐ Revisar: En los módulos para listar y los reportes los filtros no deben de ser obligatorios.
+ ☐ Revisar: Verificar que para cada módulo, se limiten las opciones de instituciones de acuerdo a sus permisos.
  ☐ Quitar logo de ULP del menú lateral.
  ☐ Agregar ícono de J. Soria al header.
  ☐ Agregar marca y versión de software en el footer.
  ☐ Limitar intentos de login a tres.
  ☐ Códigos de error en las peticiones AJAX.
- ☐ Poner íconos en todos los procesos.
- ☐ Cambiar diseño tablas que estén dentro de los card.
  ☐ Cambiar mensaje de sesión (alertas) a 10 columnas.
- ☐ Mostrar institucion del alumno en todos los procesos donde se le involucre.
- ☐ En los módulos para listar y los reportes los filtros no deben de ser obligatorios.
- ☐ Verificar que para cada módulo, se limiten las opciones de instituciones de acuerdo a sus permisos.
  ☐ En todo proceso que involucre BD incluir transacciones de base de datos.
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
 Administrador:
@@ -29,6 +28,10 @@ Administrador:
  ☐ Retiro: Si existen montos "Por retirar" pero no existen montos "No retirados", entonces desactivar el botón Retirar.
  ☐ Retiro: Mostrar el resumen de la creación del retiro.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
+ ☐ Boton de cancelar: Buscar Actividad.
+ ☐ Editar Usuario: Boton de cancelar.
+ ☐ Listar Autorizaciones: Boton de cancelar.
+ ☐ Retirar Ingresos: Boton de cancelar.
 Secretaria:
  ☐ Modificar deuda: Al finalizar se debe de dar la opción de mostrar el reporte de cuenta de alumno.
  ☐ Modificar deuda: No aparece la pelotita del loader.
@@ -36,6 +39,11 @@ Secretaria:
  ☐ Reporte de Deudas de alumno: Mostrar las deudas con su período asociado.
  ☐ Nuevo Alumno: Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
+ ☐ Nuevo Alumno: Boton de cancelar.
+ ☐ Agregar Deuda: Boton de cancelar.
+ ☐ Cancelar deuda de Actividad: Boton de cancelar.
+ ☐ Modificar Deudas: Boton de cancelar.
+ ☐ Programar periodos: Boton de cancelar.
 Tesorera:
  ☐ Registrar egreso: Validar que en el campo Monto sólo se ingresen dígitos.
  ☐ Registrar egreso: Mostrar resumen de creación.
@@ -48,15 +56,21 @@ Tesorera:
  ☐ Ingresos adicionales: Validar que en el campo Monto sólo se ingresen dígitos.
  ☐ Ingresos adicionales: Filtrar instituciones de acuerdo a los permisos de la tesorera.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
+ ☐ Registrar egreso: Boton de cancelar.
+ ☐ Rubros: Boton de cancelar.
+ ☐ Retiro: Boton de cancelar.
+ ☐ Registrar ingresos adicionales: Boton de cancelar.
 Cajera:
  ☐ Cobro: Agregar el descuento en los comprobantes.
  ☐ Cobro: Validar que en el campo "Pago con" sólo se ingresen dígitos.
  ☐ Cobro: Agregar boton de cerrar al modal "Datos del comprobante".
  ☐ Retiro: Añadir detalle de retiro.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
+ ☐ Otos cobros: Boton de cancelar.
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
  ✔ Editar matrícula: Se debe de poder cambiar las fechas de la matrícula. @started(17-03-31 08:21) @done (17-03-31 12:43) @lasted(4:22) @project(Administrador)
+ ✔ Agregar botón de Cancelar a todos los procesos. @started(17-03-31 08:22) @done (17-03-31 11:41) @lasted(3:19) @project(General)
  ✔ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas. @started(17-03-31 07:50) @done (17-03-31 08:17) @lasted(0:27) @project(Administrador)
  ✔ Revisar procesamiento de Creación/ administacion de todos los modulo. @critical @done (17-03-30 12:19) @project(Cajera)
  ✔ El reporte debe de mostrar los datos de los comprobantes. @done (17-03-30 12:17) @project(Cajera / Reporte)
