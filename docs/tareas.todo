@@ -6,12 +6,11 @@ General:
  ☐ Agregar ícono de J. Soria al header.
  ☐ Agregar marca y versión de software en el footer.
  ☐ Limitar intentos de login a tres.
- ☐ Códigos de error en las peticiones AJAX. 
- ☐ Cambiar mensaje de sesión (alertas) a 10 columnas. 
+ ☐ Códigos de error en las peticiones AJAX.
+ ☐ Cambiar mensaje de sesión (alertas) a 10 columnas.
  ☐ En todo proceso que involucre BD incluir transacciones de base de datos.
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
 Administrador:
- ☐ Editar matrícula: Se debe de poder cambiar las fechas de la matrícula.
  ☐ Eliminar Matrículas: Desarrollar módulo.
  ☐ Eliminar Usuarios: Desarrollar módulo.
  ☐ Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
@@ -106,6 +105,7 @@ Archive:
  ✔ Revisar: Verificar que para cada módulo, se limiten las opciones de instituciones de acuerdo a sus permisos. @started(17-03-31 12:40) @done (17-03-31 12:57) @lasted(0:17) @project(General)
  ✔ Revisar: Cambiar diseño tablas que estén dentro de los card. @started(17-03-31 12:19) @done (17-03-31 12:35) @lasted(0:16) @project(General)
  ✔ Revisar: Tablas editables: seleccionar el texto al hacer click en una celda editable. @started(17-03-31 11:46) @done (17-03-31 12:10) @lasted(0:24) @project(General)
+ ✔ Editar matrícula: Se debe de poder cambiar las fechas de la matrícula. @started(17-03-31 08:21) @done (17-03-31 12:43) @lasted(4:22) @project(Administrador)
  ✔ Agregar botón de Cancelar a todos los procesos. @started(17-03-31 08:22) @done (17-03-31 11:41) @lasted(3:19) @project(General)
  ✔ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas. @started(17-03-31 07:50) @done (17-03-31 08:17) @lasted(0:27) @project(Administrador)
  ✔ Revisar procesamiento de Creación/ administacion de todos los modulo. @critical @done (17-03-30 12:19) @project(Cajera)

@@ -31,16 +31,6 @@ class MatriculasController extends Controller
   }
 
   /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
-    //
-  }
-
-  /**
    * Store a newly created resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
@@ -54,17 +44,6 @@ class MatriculasController extends Controller
         'mensaje' => 'Matrícula creada exitosamente.'
       ]);
     }
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id)
-  {
-    //
   }
 
   /**
@@ -106,17 +85,6 @@ class MatriculasController extends Controller
     return response()->json([
       'mensaje' => 'actualizado'
     ]);
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy($id)
-  {
-    //
   }
 
   public function listaMatriculas(Request $request, $id_institucion, $anio) {
@@ -404,9 +372,14 @@ class MatriculasController extends Controller
   public function guardarEdicionMatricula(Request $request)
   {
     $resultado = 'true';
+    $matricula = $request->input('matricula');
     $categorias = $request->input('pensiones');
     foreach ($categorias as $categoria) {
       $categoria_aux = Categoria::find($categoria['id']);
+      if ($categoria['id'] == $matricula['id']) {
+        $categoria_aux->fecha_inicio = $matricula['fecha_inicio'];
+        $categoria_aux->fecha_fin = $matricula['fecha_fin'];
+      }
       $categoria_aux->nombre = $categoria['nombre'];
       $categoria_aux->monto = $categoria['monto'];
       $categoria_aux->save();

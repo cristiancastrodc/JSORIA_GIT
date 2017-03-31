@@ -27,8 +27,8 @@
           <div class="card-header main-color ch-alt">
             <h2>Editar Matrícula</h2>
           </div>
-          <div class="card-body card-padding">
-            <form action="" class="form-horizontal">
+          <form action="" class="form-horizontal">
+            <div class="card-body card-padding">
               <div class="form-group">
                 <label for="institucion" class="control-label col-sm-3">Institución</label>
                 <div class="col-sm-9">
@@ -65,30 +65,54 @@
                   </div>
                 </div>
               </div>
-              <table class="table table-bordered">
-                <tr class="accent-color">
-                  <td></td>
-                  <td>Concepto</td>
-                  <td>Monto</td>
-                </tr>
-                <tr ng-repeat="pension in pensiones">
-                  <td>
-                    <div class="checkbox table-checkbox">
-                      <label>
-                        <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}" ng-change="contarCategorias()">
-                        <i class="input-helper"></i>
-                      </label>
+              <div ng-show="matricula.id">
+                <div class="form-group">
+                  <label for="fecha_inicio_matricula" class="col-sm-3 control-label">Fecha Inicio</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <div class="dtp-container fg-line">
+                        <input type='text' class="form-control date-picker" placeholder="Fecha Inicial" name="fecha_inicio_matricula" id="fecha_inicio_matricula" ng-model="matricula.fecha_inicio" datepicker>
+                      </div>
                     </div>
-                  </td>
-                  <td>
-                    <input type="text" value="{@ pension.nombre @}" ng-model="pension.nombre" class="form-control table-input" ng-disabled="!pension.seleccionada">
-                  </td>
-                  <td class="text-right">
-                    <input type="text" value="{@ pension.monto @}" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada">
-                  </td>
-                </tr>
-              </table>
-              <div class="form-group m-t-15">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="fecha_fin_matricula" class="col-sm-3 control-label">Fecha Fin</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <div class="dtp-container fg-line">
+                        <input type='text' class="form-control date-picker" placeholder="Fecha Final" name="fecha_fin_matricula" id="fecha_fin_matricula" ng-model="matricula.fecha_fin" datepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <table class="table table-bordered">
+              <tr class="accent-color">
+                <td></td>
+                <td>Concepto</td>
+                <td>Monto</td>
+              </tr>
+              <tr ng-repeat="pension in pensiones">
+                <td>
+                  <div class="checkbox table-checkbox">
+                    <label>
+                      <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}" ng-change="contarCategorias()">
+                      <i class="input-helper"></i>
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <input type="text" value="{@ pension.nombre @}" ng-model="pension.nombre" class="form-control table-input" ng-disabled="!pension.seleccionada">
+                </td>
+                <td class="text-right">
+                  <input type="text" value="{@ pension.monto @}" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada">
+                </td>
+              </tr>
+            </table>
+            <div class="card-body card-padding">
+              <div class="form-group">
                 <div class="col-sm-3 col-sm-offset-6">
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
                 </div>
@@ -101,8 +125,8 @@
                   </button>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
