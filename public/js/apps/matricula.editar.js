@@ -12,6 +12,7 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
   $scope.label_detalle = '';
   $scope.pensiones = [];
   $scope.cantidad_categorias = 0;
+  $scope.matricula = []
   // Métodos que se ejecutan al iniciar el módulo
   // -- Recuperar las instituciones del usuario
   $http.get('/usuario/instituciones')
@@ -89,7 +90,8 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
       method: 'POST',
       url: ruta,
       data : $.param({
-       pensiones : pensionesSeleccionadas,
+        matricula : $scope.matricula,
+        pensiones : pensionesSeleccionadas,
       }),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -115,9 +117,32 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
       }
     }, function errorCallback(response) {
       console.log('Internal Error');
-    });
+    })
   }
   $scope.contarCategorias = function () {
     $scope.cantidad_categorias = $filter('filter')($scope.pensiones, { seleccionada : true }).length;
   }
-});
+  // Eventos
+  $("#fecha_inicio_matricula").on("dp.change", function() {
+    $scope.matricula.fecha_inicio = $("#fecha_inicio_matricula").val()
+  })
+  $("#fecha_fin_matricula").on("dp.change", function() {
+    $scope.matricula.fecha_fin = $("#fecha_fin_matricula").val()
+  })
+})
+.directive('datepicker', function() {
+  var linker = function (scope, element, attr) {
+    scope.$watch('matricula', function () {
+      if (element[0].id == 'fecha_inicio_matricula' && scope.matricula.fecha_inicio != null) {
+        element.data('DateTimePicker').date(scope.matricula.fecha_inicio)
+      }
+      if (element[0].id == 'fecha_fin_matricula' && scope.matricula.fecha_fin != null) {
+        element.data('DateTimePicker').date(scope.matricula.fecha_fin)
+      }
+    })
+  }
+  return {
+    restrict: 'A',
+    link: linker,
+  }
+})

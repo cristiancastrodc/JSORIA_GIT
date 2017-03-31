@@ -15,7 +15,6 @@ General:
  ☐ En todo proceso que involucre BD incluir transacciones de base de datos.
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
 Administrador:
- ☐ Editar matrícula: Se debe de poder cambiar las fechas de la matrícula.
  ☐ Eliminar Matrículas: Desarrollar módulo.
  ☐ Eliminar Usuarios: Desarrollar módulo.
  ☐ Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
@@ -57,6 +56,7 @@ Cajera:
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Editar matrícula: Se debe de poder cambiar las fechas de la matrícula. @started(17-03-31 08:21) @done (17-03-31 12:43) @lasted(4:22) @project(Administrador)
  ✔ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas. @started(17-03-31 07:50) @done (17-03-31 08:17) @lasted(0:27) @project(Administrador)
  ✔ Revisar procesamiento de Creación/ administacion de todos los modulo. @critical @done (17-03-30 12:19) @project(Cajera)
  ✔ El reporte debe de mostrar los datos de los comprobantes. @done (17-03-30 12:17) @project(Cajera / Reporte)
