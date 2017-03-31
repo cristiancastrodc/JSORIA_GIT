@@ -10,9 +10,10 @@ General:
  ☐ Agregar marca y versión de software en el footer.
  ☐ Limitar intentos de login a tres.
  ☐ Códigos de error en las peticiones AJAX. 
- ☐ Cambiar mensaje de sesión (alertas) a 10 columnas.  
-Administrador:  
- ☐ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas.
+ ☐ Cambiar mensaje de sesión (alertas) a 10 columnas. 
+ ☐ En todo proceso que involucre BD incluir transacciones de base de datos.
+ ☐ Envolver métodos en try.. catch e incluir manejo de errores.
+Administrador:
  ☐ Editar matrícula: Se debe de poder cambiar las fechas de la matrícula.
  ☐ Eliminar Matrículas: Desarrollar módulo.
  ☐ Eliminar Usuarios: Desarrollar módulo.
@@ -70,6 +71,7 @@ Cajera:
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
  ✔ Agregar botón de Cancelar a todos los procesos. @started(17-03-31 08:22) @done (17-03-31 11:41) @lasted(3:19) @project(General)
+ ✔ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas. @started(17-03-31 07:50) @done (17-03-31 08:17) @lasted(0:27) @project(Administrador)
  ✔ Revisar procesamiento de Creación/ administacion de todos los modulo. @critical @done (17-03-30 12:19) @project(Cajera)
  ✔ El reporte debe de mostrar los datos de los comprobantes. @done (17-03-30 12:17) @project(Cajera / Reporte)
  ✔ Agregar selector de fecha en el reporte. @critical @critical @done (17-03-30 12:17) @project(Cajera / Reporte)
