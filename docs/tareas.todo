@@ -1,10 +1,7 @@
 General:
- ☐ Revisar: Tablas editables: seleccionar el texto al hacer click en una celda editable. @started(17-03-31 11:46)
- ☐ Revisar: Poner íconos en todos los procesos.
- ☐ Revisar: Cambiar diseño tablas que estén dentro de los card.
+ ☐ Revisar: Poner íconos en todos los procesos. 
  ☐ Revisar: Mostrar institucion del alumno en todos los procesos donde se le involucre.
  ☐ Revisar: En los módulos para listar y los reportes los filtros no deben de ser obligatorios.
- ☐ Revisar: Verificar que para cada módulo, se limiten las opciones de instituciones de acuerdo a sus permisos.
  ☐ Quitar logo de ULP del menú lateral.
  ☐ Agregar ícono de J. Soria al header.
  ☐ Agregar marca y versión de software en el footer.
@@ -33,6 +30,22 @@ Administrador:
  ☐ Editar Usuario: Boton de cancelar.
  ☐ Listar Autorizaciones: Boton de cancelar.
  ☐ Retirar Ingresos: Boton de cancelar. 
+ ☐ Matricula crear: poner placeholder en la tabla de niveles.
+ ☐ Buscar actividad: Tabla dentro del card.
+ ☐ Crear matricula: Tabla dentro del card.
+ ☐ Editar matricula: Tabla dentro del card.
+ ☐ Lista de cobros ordinarios: Tabla dentro del card.
+ ☐ Lista de cobros extraordinarios: Tabla dentro del card.
+ ☐ Lista de otros cobros: Tabla dentro del card.
+ ☐ Lista de usuarios: Tabla dentro del card.
+ ☐ Definir modulos de usuario: Tabla dentro del card.
+ ☐ Buscar Actividades: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Lista de cobros ordinarios: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Lista de cobros extraordinarios: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Lista de otros cobros: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Editar usuario: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Autorizar descuento: que solo pueda autorizar a los alumnos que pertenezacan la misma intitucion del usuario.
+ ☐ Retirar ingresos: solo le tiene que mostrar las cajeras que manejan la misma institucion del usuario. 
 Secretaria:
  ☐ Modificar deuda: Al finalizar se debe de dar la opción de mostrar el reporte de cuenta de alumno.
  ☐ Modificar deuda: No aparece la pelotita del loader.
@@ -45,6 +58,14 @@ Secretaria:
  ☐ Cancelar deuda de Actividad: Boton de cancelar.
  ☐ Modificar Deudas: Boton de cancelar.
  ☐ Programar periodos: Boton de cancelar.
+ ☐ Agregar deuda: poner placeholder en la tabla de deudas.
+ ☐ Crear matricula: Tabla dentro del card.
+ ☐ Añadir deuda: Tabla dentro del card.
+ ☐ Modificar deudas: Tabla dentro del card.
+ ☐ Cancelar deudas de actividas: Tabla dentro del card.
+ ☐ Agregar deudas anterios: Tabla dentro del card.
+ ☐ Programar periodos: Tabla dentro del card.
+ ☐ Cerrar ciclo: Tabla dentro del card.
 Tesorera:
  ☐ Registrar egreso: Validar que en el campo Monto sólo se ingresen dígitos.
  ☐ Registrar egreso: Mostrar resumen de creación.
@@ -61,6 +82,10 @@ Tesorera:
  ☐ Rubros: Boton de cancelar.
  ☐ Retiro: Boton de cancelar.
  ☐ Registrar ingresos adicionales: Boton de cancelar.
+ ☐ Registrar ingreso: Tabla dentro del card.
+ ☐ Modificar egresos: Tabla dentro del card.
+ ☐ Retirar ingresos: Tabla ingresos dentro del card.
+ ☐ Registrar ingresos adicionales: limitar las opciones de instituciones de acuerdo a sus permisos.
 Cajera:
  ☐ Cobro: Agregar el descuento en los comprobantes.
  ☐ Cobro: Validar que en el campo "Pago con" sólo se ingresen dígitos.
@@ -68,8 +93,19 @@ Cajera:
  ☐ Retiro: Añadir detalle de retiro.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
  ☐ Otos cobros: Boton de cancelar.
+ ☐ Cobros: poner placeholder en la tabla conceptos adicionales en el campo cantidad.
+ ☐ Cobros: Tabla dentro del card.
+ ☐ Cobros: Tabla resumen de pago dentro del card.
+ ☐ Retiros: Tabla dentro del card.
+ ☐ otros cobros: que solo muestre cobros pertenecientes a la intitucion k maneja.
+ ☐ añadir deuda: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
+ ☐ Modificar deudas: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
+ ☐ Cancelar deuda de actividad: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Revisar: Verificar que para cada módulo, se limiten las opciones de instituciones de acuerdo a sus permisos. @started(17-03-31 12:40) @done (17-03-31 12:57) @lasted(0:17) @project(General)
+ ✔ Revisar: Cambiar diseño tablas que estén dentro de los card. @started(17-03-31 12:19) @done (17-03-31 12:35) @lasted(0:16) @project(General)
+ ✔ Revisar: Tablas editables: seleccionar el texto al hacer click en una celda editable. @started(17-03-31 11:46) @done (17-03-31 12:10) @lasted(0:24) @project(General)
  ✔ Agregar botón de Cancelar a todos los procesos. @started(17-03-31 08:22) @done (17-03-31 11:41) @lasted(3:19) @project(General)
  ✔ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas. @started(17-03-31 07:50) @done (17-03-31 08:17) @lasted(0:27) @project(Administrador)
  ✔ Revisar procesamiento de Creación/ administacion de todos los modulo. @critical @done (17-03-30 12:19) @project(Cajera)
