@@ -10,103 +10,101 @@ General:
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
 Administrador:
  ☐ Eliminar Matrículas: Desarrollar módulo.
+ ☐ Matricula crear: poner placeholder en la tabla de niveles.
+ ☐ Crear matricula: Tabla dentro del card.
+ ☐ Editar matricula: Tabla dentro del card.
  ☐ Eliminar Usuarios: Desarrollar módulo.
+ ☐ Lista de usuarios: Tabla dentro del card.
+ ☐ Editar usuario: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Editar Usuario: Boton de cancelar.
+ ☐ Definir modulos de usuario: Tabla dentro del card.
  ☐ Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
- ☐ Listar Actividades: Filtros no obligatorios.
- ☐ Reporte de Cuenta de alumno: Mostrar las deudas con su período asociado.
- ☐ Reporte de Acciones de usuarios: Desarrollar.
- ☐ Definir descuentos: variables para la universidad.
+ ☐ Buscar Actividad: Boton de cancelar.
+ ☐ Buscar actividad: Tabla dentro del card.
+ ☐ Buscar Actividades: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Buscar Actividades: Buscar actividad mostrar todas las actividades sin necesidad de seleccionar una institucion y mostrar las actividades solo ingresando la institucion sin nivel.
+ ☐ Buscar Actividades: Filtros no obligatorios.
  ☐ Cobros ordinarios: Filtros no obligatorios.
+ ☐ Lista de cobros ordinarios: Tabla dentro del card.
+ ☐ Lista de cobros ordinarios: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Lista de cobros ordinarios: listar sin necesidad de seleccionar una institucion.
  ☐ Cobros extraordinarios: Código de pago debe ser más resaltante.
+ ☐ Lista de cobros extraordinarios: Tabla dentro del card.
+ ☐ Lista de cobros extraordinarios: listar sin necesidad de seleccionar una institucion.
+ ☐ Lista de cobros extraordinarios: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Lista de otros cobros: listar sin necesidad de seleccionar una institucion.
+ ☐ Lista de otros cobros: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Lista de otros cobros: Tabla dentro del card.
  ☐ Retiro: No aparece la pelotita del loader.
  ☐ Retiro: Mostrar numeros de comprobante de ingresos.
  ☐ Retiro: Si existen montos "Por retirar" pero no existen montos "No retirados", entonces desactivar el botón Retirar.
  ☐ Retiro: Mostrar el resumen de la creación del retiro.
- ☐ Revisar funcionalidad y procesamiento de cada reporte.
- ☐ Boton de cancelar: Buscar Actividad.
- ☐ Editar Usuario: Boton de cancelar.
+ ☐ Retiro: solo le tiene que mostrar las cajeras que manejan la misma institucion del usuario.
+ ☐ Retiro: Boton de cancelar. 
  ☐ Listar Autorizaciones: Boton de cancelar.
- ☐ Retirar Ingresos: Boton de cancelar. 
- ☐ Matricula crear: poner placeholder en la tabla de niveles.
- ☐ Buscar actividad: Tabla dentro del card.
- ☐ Crear matricula: Tabla dentro del card.
- ☐ Editar matricula: Tabla dentro del card.
- ☐ Lista de cobros ordinarios: Tabla dentro del card.
- ☐ Lista de cobros extraordinarios: Tabla dentro del card.
- ☐ Lista de otros cobros: Tabla dentro del card.
- ☐ Lista de usuarios: Tabla dentro del card.
- ☐ Definir modulos de usuario: Tabla dentro del card.
- ☐ Buscar Actividades: limitar las opciones de instituciones de acuerdo a sus permisos.
- ☐ Lista de cobros ordinarios: limitar las opciones de instituciones de acuerdo a sus permisos.
- ☐ Lista de cobros extraordinarios: limitar las opciones de instituciones de acuerdo a sus permisos.
- ☐ Lista de otros cobros: limitar las opciones de instituciones de acuerdo a sus permisos.
- ☐ Editar usuario: limitar las opciones de instituciones de acuerdo a sus permisos.
  ☐ Autorizar descuento: que solo pueda autorizar a los alumnos que pertenezacan la misma intitucion del usuario.
- ☐ Retirar ingresos: solo le tiene que mostrar las cajeras que manejan la misma institucion del usuario.
- ☐ Actividades: Buscar actividad mostrar todas las actividades sin necesidad de seleccionar una institucion y mostrar las actividades solo ingresando la institucion sin nivel.
- ☐ Cobros ordinarios: listar sin necesidad de seleccionar una institucion.
- ☐ Cobros extraordinarios: listar sin necesidad de seleccionar una institucion.
- ☐ Cobros otros: listar sin necesidad de seleccionar una institucion.
-
+ ☐ Revisar funcionalidad y procesamiento de cada reporte.
+ ☐ Reporte de Cuenta de alumno: Mostrar las deudas con su período asociado.
+ ☐ Reporte de Acciones de usuarios: Desarrollar.
+ ☐ Definir descuentos: variables para la universidad.
 Secretaria:
  ☐ Modificar deuda: Al finalizar se debe de dar la opción de mostrar el reporte de cuenta de alumno.
  ☐ Modificar deuda: No aparece la pelotita del loader.
+ ☐ Modificar Deudas: Boton de cancelar.
+ ☐ Modificar deudas: Tabla dentro del card.
+ ☐ Modificar deudas: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
+ ☐ Modificar deudas: Mostrar institucion del alumno. 
+ ☐ Nuevo Alumno: Boton de cancelar.
+ ☐ Añadir Deuda: Boton de cancelar.
+ ☐ Añadir deuda: poner placeholder en la tabla de deudas.
+ ☐ Añadir deuda: Tabla dentro del card.
+ ☐ Añadir deuda: Mostrar institucion del alumno.
+ ☐ Añadir deuda: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
+ ☐ Cancelar deuda de Actividad: Boton de cancelar.
+ ☐ Cancelar deudas de actividas: Tabla dentro del card.
+ ☐ Cancelar deuda de actividad: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
+ ☐ Cancelar deudas de actividad: Mostrar institucion del alumno.
+ ☐ Programar periodos: Boton de cancelar.
+ ☐ Programar periodos: Tabla dentro del card.
+ ☐ Crear matricula: Tabla dentro del card.
+ ☐ Agregar deudas anterios: Tabla dentro del card.
+ ☐ Cerrar ciclo: Tabla dentro del card. 
  ☐ Reporte de Cuenta de alumno: Mostrar las deudas con su período asociado.
  ☐ Reporte de Deudas de alumno: Mostrar las deudas con su período asociado.
  ☐ Nuevo Alumno: Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
- ☐ Nuevo Alumno: Boton de cancelar.
- ☐ Agregar Deuda: Boton de cancelar.
- ☐ Cancelar deuda de Actividad: Boton de cancelar.
- ☐ Modificar Deudas: Boton de cancelar.
- ☐ Programar periodos: Boton de cancelar.
- ☐ Agregar deuda: poner placeholder en la tabla de deudas.
- ☐ Crear matricula: Tabla dentro del card.
- ☐ Añadir deuda: Tabla dentro del card.
- ☐ Modificar deudas: Tabla dentro del card.
- ☐ Cancelar deudas de actividas: Tabla dentro del card.
- ☐ Agregar deudas anterios: Tabla dentro del card.
- ☐ Programar periodos: Tabla dentro del card.
- ☐ Cerrar ciclo: Tabla dentro del card.
- ☐ Agregar deuda: Mostrar institucion del alumno.
- ☐ Modificar deudas: Mostrar institucion del alumno.
- ☐ Cancelar deudas de actividad: Mostrar institucion del alumno.
 Tesorera:
  ☐ Registrar egreso: Validar que en el campo Monto sólo se ingresen dígitos.
  ☐ Registrar egreso: Mostrar resumen de creación.
+ ☐ Registrar egreso: Boton de cancelar.
  ☐ Editar egreso: Mostrar un resumen del egreso modificado.
  ☐ Editar egreso: Validar que en el campo Monto sólo se ingresen dígitos.
+ ☐ Editar egreso: listar los egresos sin seleccionar fecha.
+ ☐ Editar egreso: Tabla dentro del card.
  ☐ Retiro: Si existen montos "Por retirar" pero no existen montos "No retirados", entonces desactivar el botón Retirar.
  ☐ Retiro: Mostrar el resumen de la creación del retiro.
  ☐ Retiro: No aparece la pelotita del loader.
  ☐ Retiro: Mostrar números de comprobante de ingresos.
+ ☐ Retiro: Boton de cancelar.
+ ☐ Retiro: Tabla ingresos dentro del card.
  ☐ Ingresos adicionales: Validar que en el campo Monto sólo se ingresen dígitos.
  ☐ Ingresos adicionales: Filtrar instituciones de acuerdo a los permisos de la tesorera.
- ☐ Revisar funcionalidad y procesamiento de cada reporte.
- ☐ Registrar egreso: Boton de cancelar.
+ ☐ Ingresos adicionales: limitar las opciones de instituciones de acuerdo a sus permisos.
+ ☐ Ingresos adicionales: Boton de cancelar.
  ☐ Rubros: Boton de cancelar.
- ☐ Retiro: Boton de cancelar.
- ☐ Registrar ingresos adicionales: Boton de cancelar.
- ☐ Registrar ingreso: Tabla dentro del card.
- ☐ Modificar egresos: Tabla dentro del card.
- ☐ Retirar ingresos: Tabla ingresos dentro del card.
- ☐ Registrar ingresos adicionales: limitar las opciones de instituciones de acuerdo a sus permisos.
- ☐ Modificar egreso: listar los egresos sin seleccionar fecha.
+ ☐ Revisar funcionalidad y procesamiento de cada reporte. 
 Cajera:
  ☐ Cobro: Agregar el descuento en los comprobantes.
  ☐ Cobro: Validar que en el campo "Pago con" sólo se ingresen dígitos.
- ☐ Cobro: Agregar boton de cerrar al modal "Datos del comprobante".
- ☐ Retiro: Añadir detalle de retiro.
- ☐ Revisar funcionalidad y procesamiento de cada reporte.
- ☐ Otos cobros: Boton de cancelar.
  ☐ Cobros: poner placeholder en la tabla conceptos adicionales en el campo cantidad.
  ☐ Cobros: Tabla dentro del card.
  ☐ Cobros: Tabla resumen de pago dentro del card.
+ ☐ Cobro: Agregar boton de cerrar al modal "Datos del comprobante".
  ☐ Retiros: Tabla dentro del card.
+ ☐ Retiro: Añadir detalle de retiro.
  ☐ otros cobros: que solo muestre cobros pertenecientes a la intitucion k maneja.
- ☐ añadir deuda: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
- ☐ Modificar deudas: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
- ☐ Cancelar deuda de actividad: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
+ ☐ Otos cobros: Boton de cancelar.
+ ☐ Revisar funcionalidad y procesamiento de cada reporte. 
 Archive:
  ✔ Revisar: En los módulos para listar los filtros no deben de ser obligatorios. @done (17-04-03 11:11) @project(General)
  ✔ Revisar: Mostrar institucion del alumno en todos los procesos donde se le involucre. @done (17-04-01 09:15) @project(General)
