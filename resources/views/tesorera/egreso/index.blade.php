@@ -42,8 +42,7 @@
       <div class="card js-toggle hoverable" id="card-lista-egresos">
         <div class="card-header main-color ch-alt">
           <h2>Egresos</h2>
-        </div>
-        <div class="card-body card-padding">                    
+        </div>                    
           <div class="table-responsive">
             {!! Form::open() !!}
             <input type="hidden" id="_token" value="{{ csrf_token() }}">
@@ -61,7 +60,6 @@
             </table>
             {!! Form::close() !!}
           </div>
-        </div>
       </div>
     </div>
   </div>

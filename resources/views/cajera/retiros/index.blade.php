@@ -21,7 +21,6 @@
         <div class="card-header main-color ch-alt">
           <h2>Retiros</h2>
         </div>
-        <div class="card-body card-padding">
           {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-retiros'])!!}
           <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
           <div class="table-responsive">
@@ -50,7 +49,6 @@
             </table>
           </div>
           {!!Form::close()!!}
-        </div>
       </div>
     </div>
   </div>

@@ -132,20 +132,18 @@
               </div>
             {!!Form::close()!!}
           </div>
-          <div class="card-body card-padding">
-            <div class="table-responsive">
-              <table id="tabla-listar-actividades" class="table table-striped">
-                  <thead>
-                      <tr>
-                          <th class="hidden">Id</th>
-                          <th class="c-white accent-color">Actividad</th>
-                          <th class="c-white accent-color">Monto</th>
-                          <th class="c-white accent-color">Acciones</th>
-                      </tr>
-                  </thead>
-                  <tbody></tbody>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table id="tabla-listar-actividades" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="hidden">Id</th>
+                        <th class="c-white accent-color">Actividad</th>
+                        <th class="c-white accent-color">Monto</th>
+                        <th class="c-white accent-color">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
           </div>
         </div>
       </div>
