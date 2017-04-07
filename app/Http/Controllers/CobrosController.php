@@ -15,7 +15,6 @@ use JSoria\Deuda_Ingreso;
 use JSoria\Institucion;
 use JSoria\InstitucionDetalle;
 use JSoria\Permiso;
-use JSoria\UsuarioImpresora;
 use JSoria\Http\Controllers\HerramientasController;
 use NumeroALetras;
 
@@ -34,8 +33,7 @@ class CobrosController extends Controller
     public function index()
     {
       $categorias = Categoria::listaOtrosCobrosCajera();
-      $tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
-      return view('cajera.cobros.index', compact('categorias', 'tipo_impresora'));
+      return view('cajera.cobros.index', ['categorias' => $categorias]);
     }
 
     /**
@@ -256,69 +254,7 @@ class CobrosController extends Controller
             $nombre_completo = strtoupper($alumno->nombres . " " . $alumno->apellidos);
 
             $mensaje = 'Pagos de alumno correctamente actualizados. Puede girar manualmente el comprobante.';
-            /*
-            $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
-            if ($usuario_impresora->tipo_impresora == 'matricial') {
-                if ($tipo_comprobante == 'comprobante' || $tipo_comprobante == 'boleta') {
-                    HerramientasController::imprimirBoletaCompMatricial($nro_documento, $nombre_completo, $pagos, $monto_total, $usuario_impresora->nombre_impresora);
-                } elseif ($tipo_comprobante == 'factura') {
-                  if (Config::get('config.usar_facturas')) {
-                    HerramientasController::imprimirFacturaMatricial($nro_documento, $nombre_completo, $pagos, $monto_total, $request['ruc_cliente'], $request['razon_social'], $request['direccion'], $usuario_impresora->nombre_impresora);
-                  } else {
-                    $mensaje = 'Pagos de alumno actualizados. Puede girar la factura manualmente.';
-                  }
-                };
-            } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
-                if ($tipo_comprobante == 'comprobante') {
-                    HerramientasController::imprimirComprobanteTicketera($nro_documento, $nombre_completo, $pagos, $monto_total, $usuario_impresora->nombre_impresora, $serie_comprobante, $numero_comprobante);
-                } else {
-                    $mensaje = 'Pagos de alumno actualizados. Puede girar la boleta/factura manualmente.';
-                }
-            }
-            */
             return response()->json(['mensaje' => $mensaje]);
-        }
-    }
-
-    public function guardarCobroExtraordinario(Request $request)
-    {
-        if ($request->ajax()) {
-          $id_deuda = $request->id_deuda_extr;
-
-          $deuda = Deuda_Ingreso::find($id_deuda);
-          $deuda->estado_pago = 1;
-          $deuda->fecha_hora_ingreso = date('Y-m-d H:i:s');
-          $deuda->id_cajera = Auth::user()->id;
-          $deuda->save();
-
-          $mensaje = 'Cobro realizado exitosamente.';
-          $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
-          if ($usuario_impresora->tipo_impresora == 'matricial') {
-            if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
-              HerramientasController::imprimirBoletaCompMatricialExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $usuario_impresora->nombre_impresora);
-            } elseif ($request['tipo'] == 'factura') {
-              if (Config::get('config.usar_facturas')) {
-                HerramientasController::imprimirFacturaMatricialExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $request['ruc_cliente'], $request['razon_social'], $request['direccion'], $usuario_impresora->nombre_impresora);
-              } else {
-                $mensaje = 'Cobro realizado. Puede girar la factura manualmente.';
-              }
-            };
-          } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
-            if ($request['tipo'] == 'comprobante') {
-              $institucion = Deuda_Ingreso::join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
-                                          ->join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
-                                          ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
-                                          ->where('deuda_ingreso.id', $id_deuda)
-                                          ->select('institucion.id_razon_social','institucion.razon_social', 'institucion.ruc')
-                                          ->first();
-              //$id_razon_social = $institucion->id_razon_social;
-              HerramientasController::imprimirComprobanteTicketeraExtr($deuda->cliente_extr, $deuda->descripcion_extr, $deuda->saldo, $institucion, $usuario_impresora->nombre_impresora);
-            } else {
-              $mensaje = 'Cobro realizado. Puede girar la boleta/factura manualmente.';
-            }
-          }
-          // return response()->json(['mensaje' => 'Cobro realizado exitosamente.']);
-          return response()->json(['mensaje' => $mensaje]);
         }
     }
 
@@ -365,27 +301,6 @@ class CobrosController extends Controller
         $comprobante = Comprobante::actualizar($id_institucion, $tipo, $serie, $numero);
 
         $mensaje = 'Venta realizada exitosamente.';
-
-        /*
-        $usuario_impresora = UsuarioImpresora::find(Auth::user()->id);
-        if ($usuario_impresora->tipo_impresora == 'matricial') {
-          if ($request['tipo'] == 'comprobante' || $request['tipo'] == 'boleta') {
-              HerramientasController::imprimirBoletaCompMatricialMultiple($dni, $nombre, $categoria, $usuario_impresora->nombre_impresora);
-          } elseif ($request['tipo'] == 'factura') {
-            if (Config::get('config.usar_facturas')) {
-              HerramientasController::imprimirFacturaMatricialMultiple($ruc, $razon_social, $direccion, $categoria, $usuario_impresora->nombre_impresora);
-            } else {
-              $mensaje = 'Venta exitosa. Puede girar la factura manualmente.';
-            }
-          };
-        } elseif ($usuario_impresora->tipo_impresora == 'ticketera') {
-          if ($request['tipo'] == 'comprobante') {
-              HerramientasController::imprimirComprobanteTicketeraMultiple($dni, $nombre, $categoria, $usuario_impresora->nombre_impresora);
-          } else {
-              $mensaje = 'Venta exitosa. Puede girar la boleta/factura manualmente.';
-          }
-        }
-        */
         return response()->json(['mensaje' => $mensaje]);
       }
     }
@@ -395,19 +310,10 @@ class CobrosController extends Controller
     **/
     public function buscarComprobante($id_institucion, $tipo_comprobante, $json = 'false')
     {
-      //$tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
       $comprobantes = Comprobante::seriesComprobante($tipo_comprobante, $id_institucion);
       foreach ($comprobantes as $comprobante) {
         $comprobante->numero_comprobante = str_pad(intval($comprobante->numero_comprobante) + 1, $comprobante->pad_izquierda, '0', STR_PAD_LEFT);
       }
-      /*
-      $numero = str_pad(intval($datos_comprobante->numero_comprobante) + 1, $datos_comprobante->pad_izquierda, '0', STR_PAD_LEFT);
-      return response()->json([
-        'serie' => $datos_comprobante->serie,
-        'numero' => $numero
-        ]);
-      */
-      //return response()->json($comprobantes);
       if ($json == 'false') {
         return $comprobantes;
       } else {

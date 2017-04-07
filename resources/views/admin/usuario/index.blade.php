@@ -21,7 +21,7 @@
 
   <div ng-app="administrarUsuarios" ng-controller="usuariosController">
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-6">
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Nuevo Usuario</h2>
@@ -105,37 +105,35 @@
           </div>
         </div>
       </div>
-      <div class="col-md-7">
+      <div class="col-md-6">
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Lista de Usuarios</h2>
           </div>
-          <div class="card-body card-padding">
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th class="accent-color c-white">Nombres</th>
-                    <th class="accent-color c-white">Apellidos</th>
-                    <th class="accent-color c-white">Tipo</th>
-                    <th class="accent-color c-white">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($users as $user)
-                    <tr>
-                      <td>{{$user->nombres}}</td>
-                      <td>{{$user->apellidos}}</td>
-                      <td>{{$user->tipo}}</td>
-                      <td>
-                        {!!link_to_route('admin.usuarios.edit', $title = '', $parameters = $user->id, $attributes = ['class' => 'btn third-color zmdi zmdi-edit', 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Modificar'])!!}
-
-                      </td>
-                    </tr>
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class="accent-color c-white">Nombres</th>
+                  <th class="accent-color c-white">Apellidos</th>
+                  <th class="accent-color c-white">Tipo</th>
+                  <th class="accent-color c-white">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="usuario in usuarios">
+                  <td>{@ usuario.nombres @}</td>
+                  <td>{@ usuario.apellidos @}</td>
+                  <td>{@ usuario.tipo @}</td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <a ng-href="/admin/usuarios/{@ usuario.id @}/edit" class="btn third-color" data-toggle="tooltip" data-placement="top" data-original-title="Modificar" tooltip><i class="zmdi zmdi-edit"></i></a>
+                      <a class='btn fourth-color waves-effect' ng-click="eliminarUsuario(usuario.id)" ><i class='zmdi zmdi-delete'></i></a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

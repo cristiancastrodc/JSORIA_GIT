@@ -77,15 +77,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   /**
    * Retorna la lista de usuarios
    */
-  public static function listaUsuarios()
+  public static function listaUsuarios($modulo)
   {
-    if (Auth::user()->usuario_login == 'sysadmin') {
-      return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos, ' ', ' -', ' ', jsoria_usuario.tipo) as nombre"))
-               ->get();
-    }
-    else {
-      return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos, ' ', ' -', ' ', jsoria_usuario.tipo) as nombre"))
-                 ->where('usuario_login', '<>', 'sysadmin')
+    if ($modulo == 'modulosUsuario') {
+      if (Auth::user()->usuario_login == 'sysadmin') {
+        return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos, ' ', ' -', ' ', jsoria_usuario.tipo) as nombre"))
+                 ->get();
+      }
+      else {
+        return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos, ' ', ' -', ' ', jsoria_usuario.tipo) as nombre"))
+                   ->where('usuario_login', '<>', 'sysadmin')
+                   ->get();
+      }
+    } else {
+      return User::where('usuario_login', '<>', 'sysadmin')
+                 ->orderBy('nombres')
                  ->get();
     }
   }

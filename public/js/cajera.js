@@ -391,56 +391,6 @@ $('#btn-factura-extr').click(function(e) {
   var id_deuda_extr = $('#id_deuda_extr').val();
 });
 
-$('#btn-guardar-cobro-extr').click(function(e) {
-  e.preventDefault();
-  var $tipo_comprobante = $('#tipo-comprobante-extr').val();
-  if ($tipo_comprobante == 'factura') {
-    // TODO
-  } else {
-    var id_deuda_extr = $('#id_deuda_extr').val();
-    var ruta = '/cajera/cobro/extraordinario/guardar';
-    var $token = $('#_token').val();
-
-    $.ajax({
-      url: ruta,
-      headers: {'X-CSRF-TOKEN' : $token},
-      type: 'POST',
-      dataType: 'json',
-      data: {
-        id_deuda_extr: id_deuda_extr,
-        tipo: $tipo_comprobante,
-        /** TODO: enviar datos de comprobante **/
-      },
-      beforeSend : function () {
-            debug('Antes de enviar');
-            $('#ajax-loader').fadeIn('slow');
-          },
-      success : function (data) {
-        $('#ajax-loader').fadeOut('slow', function () {
-          swal({
-            title : '¡Éxito!',
-            text :  data.mensaje,
-            type : 'success',
-          }, function () {
-            document.location.reload();
-          });
-        });
-      },
-      error : function (data) {
-        $('#ajax-loader').fadeOut('slow', function () {
-          var error = '203';
-          sweet_alert('Ocurrió algo inesperado', 'No se puede procesar la petición. Error: ' + error);
-        });
-      },
-      complete : function (data, textStatus) {
-        $('#ajax-loader').fadeOut('slow', function () {
-          debug(data, false);
-          debug(textStatus);
-        });
-      }
-    });
-  }
-});
 /*** Fin de Procesar pago Extra ***/
 
 /*** Inicio de Registro e Impresión de cobro múltiple ***/

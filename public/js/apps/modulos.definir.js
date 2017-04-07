@@ -9,8 +9,8 @@ app.controller('modulosController', function ($scope, $http, $filter) {
   $scope.usuarios = [];
   $scope.modulos = [];
   // Métodos que se ejecutan al iniciar el módulo
-  // -- Recuperar las instituciones del usuario
-  $http.get('/admin/usuario/lista')
+  // -- Recuperar la lista de usuarios
+  $http.get('/admin/usuario/lista/modulosUsuario')
   .success(function(response) {
     $scope.usuarios = response;
   });

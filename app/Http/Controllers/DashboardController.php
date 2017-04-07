@@ -6,7 +6,6 @@ use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
 use JSoria\Balance;
 use JSoria\Usuario;
-use JSoria\UsuarioImpresora;
 
 class DashboardController extends Controller {
 

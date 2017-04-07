@@ -15,7 +15,6 @@ General:
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
 Administrador:
  ☐ Eliminar Matrículas: Desarrollar módulo.
- ☐ Eliminar Usuarios: Desarrollar módulo.
  ☐ Crear Actividad: Validar que al grabar estén presentes los campos requeridos.
  ☐ Listar Actividades: Filtros no obligatorios.
  ☐ Reporte de Cuenta de alumno: Mostrar las deudas con su período asociado.
@@ -69,6 +68,7 @@ Cajera:
  ☐ Otos cobros: Boton de cancelar.
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Eliminar Usuarios: Desarrollar módulo. @started(17-04-03 11:03) @done (17-04-07 11:31) @lasted(4 days, 0:28) @project(Administrador)
  ✔ Editar matrícula: Se debe de poder cambiar las fechas de la matrícula. @started(17-03-31 08:21) @done (17-03-31 12:43) @lasted(4:22) @project(Administrador)
  ✔ Agregar botón de Cancelar a todos los procesos. @started(17-03-31 08:22) @done (17-03-31 11:41) @lasted(3:19) @project(General)
  ✔ Crear matrículas: Revisar cuando se realiza para ingresantes del instituto y se definen las fechas. @started(17-03-31 07:50) @done (17-03-31 08:17) @lasted(0:27) @project(Administrador)

@@ -11,10 +11,14 @@ use Redirect;
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use JSoria\Balance;
+use JSoria\Deuda_Ingreso;
+use JSoria\Egreso;
 use JSoria\Modulo;
+use JSoria\IngresoTesorera;
 use JSoria\Permiso;
+use JSoria\Retiro;
 use JSoria\User;
-use JSoria\UsuarioImpresora;
 use JSoria\Usuario_Modulos;
 
 class UsersController extends Controller {
@@ -39,10 +43,8 @@ class UsersController extends Controller {
    */
   public function index()
   {
-    /*** Mostrar lista de usuarios ***/
-    $users = User::where('usuario_login', '<>', 'sysadmin')->get();
     /*** Mostrar formulario de creacion ***/
-    return view('admin.usuario.index', compact('users'));
+    return view('admin.usuario.index');
   }
 
   /**
@@ -183,9 +185,9 @@ class UsersController extends Controller {
   /**
    * Devuelve la lista de Usuarios
    */
-  public function listaUsuarios()
+  public function listaUsuarios($modulo = '')
   {
-    return User::listaUsuarios();
+    return User::listaUsuarios($modulo);
   }
   /**
    * Devuelve la lista de Módulos
@@ -230,6 +232,35 @@ class UsersController extends Controller {
     $respuesta = [
       'resultado' => $resultado,
     ];
+    return $respuesta;
+  }
+  /**
+   * Eliminar un usuario
+   */
+  public function eliminarUsuario($id)
+  {
+    $respuesta = [];
+    try {
+      $respuesta['resultado'] = 'true';
+      $balances = Balance::where('id_tesorera', $id)->count() > 0;
+      $cobros = Deuda_Ingreso::where('id_cajera', $id)->count() > 0;
+      $egresos = Egreso::where('id_tesorera', $id)->count() > 0;
+      $ingresos = IngresoTesorera::where('id_tesorera', $id)->count() > 0;
+      $retiros = Retiro::where('id_cajera', $id)
+                       ->orWhere('id_usuario', $id)
+                       ->count() > 0;
+      if ($balances || $cobros || $egresos || $ingresos || $retiros) {
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = 'Usuario ya realizó alguna operación.';
+      } else {
+        $usuario = User::find($id);
+        $usuario->delete();
+        $respuesta['resultado'] = 'true';
+      }
+    } catch (\Exception $e) {
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
+    }
     return $respuesta;
   }
 }

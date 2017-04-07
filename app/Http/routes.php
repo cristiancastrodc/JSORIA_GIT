@@ -51,7 +51,7 @@ Route::post('admin/comprobante/guardar', 'ConfiguracionController@guardarComprob
 Route::get('admin/configuracion', 'ConfiguracionController@configuracionEmpresa');
 Route::post('admin/configuracion/guardar', 'ConfiguracionController@guardarConfiguracionEmpresa');
 Route::get('admin/usuario/modulos', 'UsersController@modulosUsuario');
-Route::get('admin/usuario/lista', 'UsersController@listaUsuarios');
+Route::get('admin/usuario/lista/{modulo?}', 'UsersController@listaUsuarios');
 Route::get('admin/usuario/{id_usuario}/modulos', 'UsersController@listaModulosUsuario');
 Route::post('admin/usuario/modulos/grabar', 'UsersController@grabarModulosUsuario');
 Route::get('admin/cobros/extraordinarios/listar/{id_institucion}', 'CobrosExtraordinariosController@listaCobros');
@@ -105,7 +105,7 @@ Route::post('admin/comprobante/actualizar/{id}','ConfiguracionController@actuali
 Route::get('admin/comprobante/eliminar/{id}','ConfiguracionController@eliminarComprobante');
 Route::get('admin/retiros/listar','RetirosController@listarRetiros');
 Route::get('admin/retiro/eliminar/{id}', 'RetirosController@eliminarRetiro');
-
+Route::get('admin/usuario/eliminar/{id}', 'UsersController@eliminarUsuario');
 // Rutas para tesorera
 Route::resource('tesorera/egresos','EgresosController');
 Route::resource('tesorera/rubros','RubrosController');
@@ -148,9 +148,7 @@ Route::resource('cajera/cobros','CobrosController');
 Route::resource('cajera/retiros','RetirosController');
 Route::get('cajera/buscar/deudas/{codigo}', 'CobrosController@buscarDeudas');
 Route::post('cajera/cobro/guardar', 'CobrosController@guardarCobro');
-Route::post('cajera/cobro/extraordinario/guardar', 'CobrosController@guardarCobroExtraordinario');
 Route::post('cajera/retiro/confirmacion', 'RetirosController@confirmar');
-Route::get('cajera/configuracion/impresora', 'ConfiguracionController@cajeraImpresora');
 Route::post('cajera/configuracion/impresora/guardar', 'ConfiguracionController@guardarCajeraImpresora');
 Route::post('cajera/cobro/multiple/guardar', 'CobrosController@guardarCobroMultiple');
 Route::get('cajera/comprobante/{id_institucion}/{tipo_comprobante}/{json?}', 'CobrosController@buscarComprobante');

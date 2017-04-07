@@ -10,58 +10,11 @@ use JSoria\Http\Controllers\Controller;
 use JSoria\Balance;
 use JSoria\Configuracion;
 use JSoria\Comprobante;
-use JSoria\UsuarioImpresora;
 use Redirect;
 use Session;
 
 class ConfiguracionController extends Controller
 {
-    /*** Vista de Configuracion de Cajera ***/
-    public function cajeraImpresora()
-    {
-        $tipo_impresora = UsuarioImpresora::find(Auth::user()->id)->tipo_impresora;
-        $opciones = '';
-        if ($tipo_impresora == 'matricial') {
-            $opciones = "<option value='matricial' selected>Matricial</option>";
-            $opciones .= "<option value='ticketera'>Ticketera</option>";
-        } else {
-            $opciones = "<option value='matricial'>Matricial</option>";
-            $opciones .= "<option value='ticketera' selected>Ticketera</option>";
-        }
-        return view('cajera.conf.impresora', compact('opciones'));
-    }
-
-    /*** Guardar configuracion de Impresora de Cajera ***/
-    public function guardarCajeraImpresora(Request $request)
-    {
-        if ($request->ajax()) {
-            $tipo_impresora = $request->tipo_impresora;
-
-            $configuracion = UsuarioImpresora::where('id_cajera', Auth::user()->id)
-                             ->first();
-
-            if ($tipo_impresora == 'matricial') {
-                $nombre_impresora = '//localhost/Matricial';
-            } else if ($tipo_impresora == 'ticketera') {
-                $nombre_impresora = 'Ticketera';
-            }
-
-            if ($configuracion) {
-                $configuracion->tipo_impresora = $tipo_impresora;
-                $configuracion->nombre_impresora = $nombre_impresora;
-                $configuracion->save();
-
-                return response()->json(['mensaje' => 'Actualizados la configuración de impresora.']);
-            } else {
-                UsuarioImpresora::create([
-                    'id_cajera' => Auth::user()->id,
-                    'tipo_impresora' => $tipo_impresora,
-                    'nombre_impresora' => $nombre_impresora
-                ]);
-                return response()->json(['mensaje' => 'Se creó la configuración de impresora.']);
-            }
-        }
-    }
 
     /**
      * Muestra la interfaz para la definición de comprobantes

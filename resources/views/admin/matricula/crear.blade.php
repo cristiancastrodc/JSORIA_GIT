@@ -22,7 +22,7 @@
 
   <div class="row" ng-app="crearMatricula">
     <div ng-controller="matriculaController">
-      <div class="col-sm-10">
+      <div class="col-sm-12">
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Crear Matrícula</h2>

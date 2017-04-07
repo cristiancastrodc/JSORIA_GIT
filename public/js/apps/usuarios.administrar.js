@@ -12,7 +12,14 @@ app.controller('usuariosController', function ($scope, $http) {
       $scope.instituciones = response
     })
   }
+  $scope.listarUsuarios = function () {
+    $http.get('/admin/usuario/lista')
+    .success(function(response) {
+      $scope.usuarios = response
+    })
+  }
   $scope.listarInstituciones()
+  $scope.listarUsuarios()
   // Atributos
   $scope.tipos_usuario = [
     { value : 'Administrador', label : 'Administrador' },
@@ -80,6 +87,34 @@ app.controller('usuariosController', function ($scope, $http) {
     $scope.usuario = []
     $scope.procesando = false
   }
+  $scope.eliminarUsuario = function (id_usuario) {
+    swal({
+      title: '¿Realmente desea eliminar el usuario?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonClass: 'btn-danger',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+    }, function () {
+      var ruta = '/admin/usuario/eliminar/' + id_usuario
+      $http.get(ruta)
+      .success(function(response) {
+        if (response.resultado == 'true') {
+          swal({
+            title : 'Usuario eliminado correctamente.',
+            type : 'success',
+          })
+          $scope.listarUsuarios()
+        } else {
+          swal({
+            title: 'Error.',
+            text: 'No se pudo eliminar al usuario. Mensaje: ' + response.mensaje,
+            type: 'error',
+          })
+        }
+      })
+    })
+  }
 })
 .directive('chosen', function() {
   var linker = function (scope, element, attr) {
@@ -87,6 +122,15 @@ app.controller('usuariosController', function ($scope, $http) {
       element.trigger("chosen:updated")
     })
     element.chosen()
+  }
+  return {
+    restrict: 'A',
+    link: linker,
+  }
+})
+.directive('tooltip', function() {
+  var linker = function (scope, element, attr) {
+    element.tooltip()
   }
   return {
     restrict: 'A',

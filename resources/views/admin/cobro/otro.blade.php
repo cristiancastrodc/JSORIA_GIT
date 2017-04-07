@@ -31,7 +31,7 @@
             <form class="form-horizontal">
               <div class="form-group">
                 <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
-                <div class="col-sm-9">                  
+                <div class="col-sm-9">
                    <div class="fg-line">
                     <div class="select">
                       <select class="form-control" id="institucion" ng-options="institucion.nombre for institucion in instituciones" ng-model="institucion">
@@ -39,7 +39,7 @@
                       </select>
                     </div>
                   </div>
-                </div>                
+                </div>
               </div>
               <div class="form-group">
                 <label for="nombre" class="col-sm-3 control-label">Concepto</label>
