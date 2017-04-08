@@ -31,30 +31,32 @@
           <div class="alert alert-success" role="alert">
             Matrícula y pensiones creadas correctamente.
           </div>
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="accent-color c-white">Nivel / Carrera</th>
+                <th class="accent-color c-white">Descripción</th>
+                <th class="accent-color c-white">Monto</th>
+                <th class="accent-color c-white">Fecha Inicio</th>
+                <th class="accent-color c-white">Fecha Fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($categorias as $categoria)
                 <tr>
-                  <th class="accent-color c-white">Nivel / Carrera</th>
-                  <th class="accent-color c-white">Descripción</th>
-                  <th class="accent-color c-white">Monto</th>
-                  <th class="accent-color c-white">Fecha Inicio</th>
-                  <th class="accent-color c-white">Fecha Fin</th>
+                  <td>{{ $categoria->nombre_division }}</td>
+                  <td>{{ $categoria->nombre }}</td>
+                  <td>{{ $categoria->monto }}</td>
+                  <td>{{ $categoria->fecha_inicio }}</td>
+                  <td>{{ $categoria->fecha_fin }}</td>
                 </tr>
-              </thead>
-              <tbody>
-                @foreach($categorias as $categoria)
-                  <tr>
-                    <td>{{ $categoria->nombre_division }}</td>
-                    <td>{{ $categoria->nombre }}</td>
-                    <td>{{ $categoria->monto }}</td>
-                    <td>{{ $categoria->fecha_inicio }}</td>
-                    <td>{{ $categoria->fecha_fin }}</td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        <div class="card-body card-padding">
           <div class="row m-t-15">
             <div class="col-sm-3">
               <a href="{{ url('admin/matricula/crear') }}" class="btn btn-block main-color waves-effect"><i class="zmdi zmdi-long-arrow-left"></i> Volver</a>

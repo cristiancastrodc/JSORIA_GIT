@@ -8,7 +8,6 @@ General:
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
 Administrador:
  ☐ Eliminar Matrículas: Desarrollar módulo.
- ☐ Matricula crear: poner placeholder en la tabla de niveles.
  ☐ Matricula crear: Tabla dentro del card.
  ☐ Matricula Editar: Tabla dentro del card.
  ☐ Usuarios Eliminar : Desarrollar módulo.
@@ -97,15 +96,16 @@ Cajera:
  ☐ Otos cobros: Boton de cancelar.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
 Archive:
+ ✔ Matricula crear: poner placeholder en la tabla de niveles. @started(17-04-08 09:02) @done (17-04-08 09:36) @lasted(0:34) @project(Administrador)
  ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Editar egreso: Tabla dentro del card. @done (17-04-07 11:42) @project(Tesorera)
+ ✔ Eliminar Usuarios: Desarrollar módulo. @started(17-04-03 11:03) @done (17-04-07 11:31) @lasted(4 days, 0:28) @project(Administrador)
  ✔ Retiros: Tabla dentro del card. @done (17-04-07 10:12) @project(Cajera)
  ✔ Lista de otros cobros: Tabla dentro del card. @done (17-04-07 10:06) @project(Administrador)
  ✔ Lista de cobros extraordinarios: Tabla dentro del card. @done (17-04-07 10:04) @project(Administrador)
  ✔ Lista de cobros ordinarios: Tabla dentro del card. @done (17-04-07 09:59) @project(Administrador)
  ✔ Cobros ordinarios: Filtros no obligatorios. @done (17-04-07 09:59) @project(Administrador)
  ✔ Buscar actividad: Tabla dentro del card. @done (17-04-07 09:55) @project(Administrador)
- ✔ Eliminar Usuarios: Desarrollar módulo. @started(17-04-03 11:03) @done (17-04-07 11:31) @lasted(4 days, 0:28) @project(Administrador)
  ✔ Revisar: En los módulos para listar los filtros no deben de ser obligatorios. @done (17-04-03 11:11) @project(General)
  ✔ Revisar: Mostrar institucion del alumno en todos los procesos donde se le involucre. @done (17-04-01 09:15) @project(General)
  ✔ Revisar: Verificar que para cada módulo, se limiten las opciones de instituciones de acuerdo a sus permisos. @started(17-03-31 12:40) @done (17-03-31 12:57) @lasted(0:17) @project(General)
