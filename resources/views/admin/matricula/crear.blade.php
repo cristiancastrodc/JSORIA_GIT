@@ -150,10 +150,10 @@
                   </td>
                   <td>{@ detalle.nombre_division @}</td>
                   <td>
-                    <input type="text" class="form-control table-input text-right" value="{@ detalle.monto_matricula @}" ng-model="detalle.monto_matricula" ng-disabled="!detalle.seleccionar">
+                    <input type="text" class="form-control table-input text-right" ng-model="detalle.monto_matricula" ng-disabled="!detalle.seleccionar" placeholder="Monto">
                   </td>
                   <td class="text-right">
-                    <input type="text" class="form-control table-input text-right" value="{@ detalle.monto_pensiones @}" ng-model="detalle.monto_pensiones" ng-disabled="!detalle.seleccionar">
+                    <input type="text" class="form-control table-input text-right" ng-model="detalle.monto_pensiones" ng-disabled="!detalle.seleccionar" placeholder="Monto">
                   </td>
                   <td ng-show="institucion.id_institucion == 3 && !definir_fechas">
                     <div class="checkbox table-checkbox">

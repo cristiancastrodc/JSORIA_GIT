@@ -34,7 +34,7 @@ class InstitucionDetalle extends Model
     {
       return InstitucionDetalle::where('id_institucion','=', $id_institucion)
                                ->where('nombre_division', '<>', 'Todo')
-                               ->select('id', 'nombre_division',  DB::raw('0 as monto_matricula'), DB::raw('0 as monto_pensiones'))
+                               ->select('id', 'nombre_division')
                                ->get();
     }
     /*

@@ -8,7 +8,6 @@ General:
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
 Administrador:
  ☐ Matrícula Eliminar: Desarrollar módulo.
- ☐ Matricula crear: poner placeholder en la tabla de niveles.
  ☐ Usuarios Eliminar : Desarrollar módulo.
  ☐ Usuarios Editar: limitar las opciones de instituciones de acuerdo a sus permisos.
  ☐ Usuarios Editar: Boton de cancelar.
@@ -95,6 +94,8 @@ Cajera:
 Archive:
  ✔ Modulos de usuario: Tabla dentro del card. @done (17-04-08 09:40) @project(Administrador)
  ✔ Usuarios Lista: Tabla dentro del card. @done (17-04-08 09:28) @project(Administrador)
+ ✔ Matricula crear: poner placeholder en la tabla de niveles. @started(17-04-08 09:02) @done (17-04-08 09:36) @lasted(0:34) @project(Administrador)
+ ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Matricula crear: Tabla dentro del card. @done (17-04-08 09:01) @project(Administrador)
  ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Matricula Editar: Tabla dentro del card. @done (17-04-08 08:50) @project(Administrador)
