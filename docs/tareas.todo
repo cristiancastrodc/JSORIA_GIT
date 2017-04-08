@@ -1,7 +1,5 @@
 General:
  ☐ Revisar: Poner íconos en todos los procesos.
- ☐ Quitar logo de ULP del menú lateral.
- ☐ Agregar ícono de J. Soria al header.
  ☐ Agregar marca y versión de software en el footer.
  ☐ Limitar intentos de login a tres.
  ☐ Códigos de error en las peticiones AJAX.
@@ -106,6 +104,7 @@ Cajera:
  ☐ Otos cobros: Boton de cancelar.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
 Archive:
+ ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Eliminar Usuarios: Desarrollar módulo. @started(17-04-03 11:03) @done (17-04-07 11:31) @lasted(4 days, 0:28) @project(Administrador)
  ✔ Revisar: En los módulos para listar los filtros no deben de ser obligatorios. @done (17-04-03 11:11) @project(General)
  ✔ Revisar: Mostrar institucion del alumno en todos los procesos donde se le involucre. @done (17-04-01 09:15) @project(General)

@@ -17,6 +17,8 @@
   <body class="login-content">
     <!-- Login -->
     <div class="lc-block toggled" id="l-login">
+      <h1><span class="h3">..::J. SORIA::..</span>&nbsp<span class="h4">Corporación Educativa</span></h1>
+      <h2><span class="h4">Sistema de Caja</span></h2>
       {!!Form::open(['route'=>'log.store', 'method'=>'POST'])!!}
         <div class="input-group m-b-20">
           <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
@@ -31,7 +33,7 @@
           </div>
         </div>
         <div class="clearfix"></div>
-        {!!Form::button('<i class="zmdi zmdi-arrow-forward"></i>', array('type' => 'submit', 'class' => 'btn btn-login btn-danger btn-float'))!!}
+        {!!Form::button('<i class="zmdi zmdi-arrow-forward"></i>', array('type' => 'submit', 'class' => 'btn btn-login main-color btn-float'))!!}
         @include('messages.login-error')
         @include('messages.errors')
       {!!Form::close()!!}

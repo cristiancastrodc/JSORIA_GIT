@@ -16,12 +16,15 @@
   display: inline;
 }
 body.login-content::before {
-  background: url(../img/logo-soria-mini.png) right top no-repeat,
-              url(../img/front.jpg) center 60% / cover no-repeat;
+  background: url(../img/front.jpg) center 65% / cover no-repeat;
+}
+.profile-menu {
+  background-color: #fff;
 }
 .profile-menu > a {
-  background: url(../img/ulp-logo-mini.png) center center / contain no-repeat;
+  background: url(../img/logo-soria-mini.png) center center / contain no-repeat;
   position: relative;
+  margin-bottom: 0;
 }
 .profile-menu > a .profile-info {
   background: rgba(0, 0, 0, 0.5);
@@ -159,4 +162,9 @@ form .form-group:last-child {
 }
 .collection a.collection-item:hover {
   background-color: #DDD;
+}
+.lc-block h1,
+.lc-block h2 {
+  margin-top: 0;
+  margin-bottom: 0;
 }

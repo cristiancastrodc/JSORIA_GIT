@@ -75,7 +75,7 @@
             <i class="zmdi zmdi-caret-down"></i>
           </div>
         </a>
-        <ul class="main-menu">
+        <ul class="main-menu bgm-blue-soria">
           <li>
             <!-- Ver el Perfil -->
             <a href="{{ url('/perfil') }}"><i class="zmdi zmdi-account"></i> Ver Perfil</a>
