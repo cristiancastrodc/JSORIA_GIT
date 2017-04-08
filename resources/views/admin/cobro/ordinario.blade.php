@@ -133,24 +133,20 @@
             </div>
           {!!Form::close()!!}
         </div>
-      </div>
-      <div class="card hoverable">
-        <div class="card-body card-padding">
-          <div class="table-responsive">
-            <table id="tabla-lista-c-ordinarios" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="hidden">Id</th>
-                        <th class="accent-color c-white">Concepto</th>
-                        <th class="accent-color c-white">Monto</th>
-                        <th class="accent-color c-white">Estado</th>
-                        <th class="accent-color c-white">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-          </div>
+        <div class="table-responsive">
+          <table id="tabla-lista-c-ordinarios" class="table table-striped">
+              <thead>
+                  <tr>
+                    <th class="hidden">Id</th>
+                    <th class="accent-color c-white">Concepto</th>
+                    <th class="accent-color c-white">Monto</th>
+                    <th class="accent-color c-white">Estado</th>
+                    <th class="accent-color c-white">Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+          </table>
         </div>
       </div>
     </div>
