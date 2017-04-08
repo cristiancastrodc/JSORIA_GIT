@@ -39,25 +39,21 @@ Secretaria:
  ☐ Modificar deuda: Al finalizar se debe de dar la opción de mostrar el reporte de cuenta de alumno.
  ☐ Modificar deuda: No aparece la pelotita del loader.
  ☐ Modificar Deudas: Boton de cancelar.
- ☐ Modificar deudas: Tabla dentro del card.
  ☐ Modificar deudas: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
  ☐ Modificar deudas: Mostrar institucion del alumno. 
  ☐ Nuevo Alumno: Validar si documento DNI, solo aceptar dígitos y con longitud de 8 caracteres.
  ☐ Nuevo Alumno: Boton de cancelar.
  ☐ Añadir Deuda: Boton de cancelar.
  ☐ Añadir deuda: poner placeholder en la tabla de deudas.
- ☐ Añadir deuda: Tabla dentro del card.
  ☐ Añadir deuda: Mostrar institucion del alumno.
  ☐ Añadir deuda: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
  ☐ Cancelar deuda de Actividad: Boton de cancelar.
- ☐ Cancelar deudas de actividas: Tabla dentro del card.
  ☐ Cancelar deuda de actividad: solo puede añadir deudas a los alumnos pertenecientes a la institucion que maneja.
  ☐ Cancelar deudas de actividad: Mostrar institucion del alumno.
  ☐ Programar periodos: Boton de cancelar.
  ☐ Programar periodos: Tabla dentro del card.
  ☐ Crear matricula: Tabla dentro del card.
  ☐ Agregar deudas anterios: Tabla dentro del card.
- ☐ Cerrar ciclo: Tabla dentro del card.
  ☐ Reporte de Cuenta de alumno: Mostrar las deudas con su período asociado.
  ☐ Reporte de Deudas de alumno: Mostrar las deudas con su período asociado.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
@@ -92,11 +88,15 @@ Cajera:
  ☐ Otos cobros: Boton de cancelar.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
 Archive:
+ ✔ Cerrar ciclo: Tabla dentro del card. @done (17-04-08 10:38) @project(Secretaria)
+ ✔ Cancelar deudas de actividas: Tabla dentro del card. @done (17-04-08 10:30) @project(Secretaria)
+ ✔ Modificar deudas: Tabla dentro del card. @done (17-04-08 10:23) @project(Secretaria)
+ ✔ Añadir deuda: Tabla dentro del card. @done (17-04-08 10:17) @project(Secretaria)
  ✔ Modulos de usuario: Tabla dentro del card. @done (17-04-08 09:40) @project(Administrador)
- ✔ Usuarios Lista: Tabla dentro del card. @done (17-04-08 09:28) @project(Administrador)
  ✔ Matricula crear: poner placeholder en la tabla de niveles. @started(17-04-08 09:02) @done (17-04-08 09:36) @lasted(0:34) @project(Administrador)
- ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
+ ✔ Usuarios Lista: Tabla dentro del card. @done (17-04-08 09:28) @project(Administrador)
  ✔ Matricula crear: Tabla dentro del card. @done (17-04-08 09:01) @project(Administrador)
+ ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Matricula Editar: Tabla dentro del card. @done (17-04-08 08:50) @project(Administrador)
  ✔ Editar egreso: Tabla dentro del card. @done (17-04-07 11:42) @project(Tesorera)

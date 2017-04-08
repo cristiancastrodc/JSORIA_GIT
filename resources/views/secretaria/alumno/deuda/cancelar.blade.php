@@ -42,33 +42,33 @@
         <div class="card-header">
           <h3><span id="nombre-alumno" class="text-uppercase"></span></h3>
         </div>
-        <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-lista-deudas-alumno'])!!}
+        {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-lista-deudas-alumno'])!!}
+          <div class="card-body card-padding">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
             <input type="hidden" name="nro_documento" id="nro_documento">
-            <div class="form-group">
-              <div class="table-responsive">
-                <table id="tabla-actividades-listar-alumno" class="table table-striped">
-                    <thead>
-                        <tr>
-                          <th class="hidden">Id</th>
-                          <th class="accent-color c-white">Concepto</th>
-                          <th class="accent-color c-white">Monto (S/)</th>
-                          <th class="accent-color c-white">seleccionar</th>
-                        </tr>
-                    </thead>
-                    <tbody>                      
-                    </tbody>
-                </table>
-              </div>                
-            </div>  
+          </div>
+          <div class="table-responsive">
+            <table id="tabla-actividades-listar-alumno" class="table table-striped">
+                <thead>
+                    <tr>
+                      <th class="hidden">Id</th>
+                      <th class="accent-color c-white">Concepto</th>
+                      <th class="accent-color c-white">Monto (S/)</th>
+                      <th class="accent-color c-white">seleccionar</th>
+                    </tr>
+                </thead>
+                <tbody>                      
+                </tbody>
+            </table>
+          </div>                
+          <div class="card-body card-padding">            
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
                 <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-cancelar-deuda-actividad">Cancelar Deudas</button>
               </div>
             </div>
-          {!!Form::close()!!}   
-        </div>
+          </div>
+          {!!Form::close()!!} 
       </div>
     </div>
   </div>

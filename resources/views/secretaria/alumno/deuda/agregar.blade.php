@@ -40,33 +40,34 @@
         </div>
       </div>
       <div class="card js-toggle">
-        <div class="card">           
-          <div class="card-body card-padding">
-            <h3 class="text-uppercase"><span id="nombre-alumno"></span></h3>
+        <div class="card hoverable">           
             {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-agregar-deuda-alumno'])!!}
-              <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-              <input type="hidden" name="nro_documento" id="nro_documento">
-              <div class="form-group">
-                <div class="table-responsive">
-                  <table id="tabla-categorias-alumno" class="table table-striped">
-                      <thead>
-                          <tr>
-                            <th class="hidden">Id</th>
-                            <th class="accent-color c-white">Concepto</th>
-                            <th class="accent-color c-white">Monto Unitario (S/)</th>
-                            <th class="accent-color c-white">Factor / Cantidad</th>
-                            <th class="accent-color c-white">Total (S/)</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                  </table>
-                </div>
+              <div class="card-body card-padding">
+                <h3 class="text-uppercase"><span id="nombre-alumno"></span></h3>
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+                <input type="hidden" name="nro_documento" id="nro_documento">
               </div>
+              <div class="table-responsive">
+                <table id="tabla-categorias-alumno" class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th class="hidden">Id</th>
+                          <th class="accent-color c-white">Concepto</th>
+                          <th class="accent-color c-white">Monto Unitario (S/)</th>
+                          <th class="accent-color c-white">Factor / Cantidad</th>
+                          <th class="accent-color c-white">Total (S/)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+              </div>
+              <div class="card-body card-padding">
               <div class="form-group">
                 <div class="col-sm-3 col-sm-offset-9">
                   <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-agregar-deuda">Guardar</button>
                 </div>
+              </div>
               </div>
             {!!Form::close()!!}
           </div>
