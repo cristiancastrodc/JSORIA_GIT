@@ -7,9 +7,7 @@ General:
  ☐ En todo proceso que involucre BD incluir transacciones de base de datos.
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
 Administrador:
- ☐ Eliminar Matrículas: Desarrollar módulo.
- ☐ Matricula crear: Tabla dentro del card.
- ☐ Matricula Editar: Tabla dentro del card.
+ ☐ Matrícula Eliminar: Desarrollar módulo.
  ☐ Usuarios Eliminar : Desarrollar módulo.
  ☐ Usuarios Lista: Tabla dentro del card.
  ☐ Usuarios Editar: limitar las opciones de instituciones de acuerdo a sus permisos.
@@ -98,6 +96,8 @@ Cajera:
 Archive:
  ✔ Matricula crear: poner placeholder en la tabla de niveles. @started(17-04-08 09:02) @done (17-04-08 09:36) @lasted(0:34) @project(Administrador)
  ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
+ ✔ Matricula crear: Tabla dentro del card. @done (17-04-08 09:01) @project(Administrador)
+ ✔ Matricula Editar: Tabla dentro del card. @done (17-04-08 08:50) @project(Administrador)
  ✔ Editar egreso: Tabla dentro del card. @done (17-04-07 11:42) @project(Tesorera)
  ✔ Eliminar Usuarios: Desarrollar módulo. @started(17-04-03 11:03) @done (17-04-07 11:31) @lasted(4 days, 0:28) @project(Administrador)
  ✔ Retiros: Tabla dentro del card. @done (17-04-07 10:12) @project(Cajera)
