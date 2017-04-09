@@ -21,8 +21,8 @@
         <div class="card-header main-color ch-alt">
           <h2>Nuevo Egreso</h2>
         </div>
-        <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
+        {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
+          <div class="card-body card-padding">
             <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
             <div class="form-group">
               <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
@@ -136,7 +136,7 @@
                 </div>
               </div>
             </div>
-            <div class="form-group">
+          </div>
             <div class="table-responsive">
               <table class="table" id="tabla-resumen-egresos">
                 <thead>
@@ -151,14 +151,14 @@
                 </tbody>
               </table>
             </div>
-            </div>
+          <div class="card-body card-padding">
             <div class="form-group">
               <div class="row m-t-10">
                 <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-guardar-egreso">Guardar Egreso</button></div>
               </div>
             </div>
-          {!!Form::close()!!}
-        </div>
+          </div>
+        {!!Form::close()!!}        
       </div>
     </div>
   </div>

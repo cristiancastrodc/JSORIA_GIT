@@ -27,8 +27,8 @@
           <div class="card-header main-color ch-alt">
             <h2>Cerrar Ciclo</h2>
           </div>
-          <div class="card-body card-padding">
-            <form action="" class="form-horizontal">
+          <form action="" class="form-horizontal">
+            <div class="card-body card-padding">
               <div class="form-group">
                 <label for="institucion" class="control-label col-sm-3">Institución</label>
                 <div class="col-sm-9">
@@ -53,6 +53,7 @@
                   </div>
                 </div>
               </div>
+            </div>
               <table class="table table-bordered">
                 <tr class="accent-color">
                   <td></td>
@@ -72,6 +73,7 @@
                   <td>{@ matricula.periodo @}</td>
                 </tr>
               </table>
+            <div class="card-body card-padding">              
               <div class="form-group m-t-15">
                 <div class="col-sm-3 col-sm-offset-6">
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
@@ -85,8 +87,8 @@
                   </button>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>          
         </div>
       </div>
     </div>

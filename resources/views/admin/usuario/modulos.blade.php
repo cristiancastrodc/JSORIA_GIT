@@ -26,8 +26,8 @@
         <div class="card-header main-color ch-alt">
           <h2>Definir Módulos de Usuario</h2>
         </div>
-        <div class="card-body card-padding">
-          <form action="" class="form-horizontal">
+        <form action="" class="form-horizontal">
+          <div class="card-body card-padding">
             <div class="form-group">
               <label for="usuario" class="control-label col-sm-3">Usuario</label>
               <div class="col-sm-9">
@@ -41,6 +41,7 @@
               </div>
             </div>
             <div class="card-hr"></div>
+          </div>
             <table class="table table-bordered">
               <tr class="accent-color">
                 <td>Módulo</td>
@@ -67,6 +68,7 @@
                 </td>
               </tr>
             </table>
+          <div class="card-body card-padding">          
             <div class="form-group m-t-15">
               <div class="col-md-4 col-md-offset-4">
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
@@ -80,8 +82,8 @@
                 </button>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

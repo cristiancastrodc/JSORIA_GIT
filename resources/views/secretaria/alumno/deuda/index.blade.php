@@ -44,29 +44,27 @@
           <div class="card-header">
             <h3><span id="nombre-alumno"></span></h3>
           </div>
-          <div class="card-body card-padding">
             {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-lista-deudas-alumno'])!!}
-              <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-              <input type="hidden" name="nro_documento" id="nro_documento">
-              <div class="form-group">
-                <div class="table-responsive">
-                  <table id="tabla-deudas-alumno" class="table table-striped">
-                      <thead>
-                          <tr>
-                            <th class="hidden">Id</th>
-                            <th class="accent-color c-white">Deuda</th>
-                            <th class="accent-color c-white">Monto (S/)</th>
-                            <th class="accent-color c-white">Descuento (S/)</th>
-                            <th class="accent-color c-white">¿Anular?</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                  </table>
-                </div>                
+              <div class="card-body card-padding">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
+                <input type="hidden" name="nro_documento" id="nro_documento">
+              </div>
+              <div class="table-responsive">
+                <table id="tabla-deudas-alumno" class="table table-striped">
+                    <thead>
+                        <tr>
+                          <th class="hidden">Id</th>
+                          <th class="accent-color c-white">Deuda</th>
+                          <th class="accent-color c-white">Monto (S/)</th>
+                          <th class="accent-color c-white">Descuento (S/)</th>
+                          <th class="accent-color c-white">¿Anular?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
               </div>              
             {!!Form::close()!!}
-          </div>
         </div>
       </div>
       <div class="card js-toggle">
