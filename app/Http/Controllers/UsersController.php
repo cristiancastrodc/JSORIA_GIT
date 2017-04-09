@@ -14,6 +14,7 @@ use Illuminate\Routing\Route;
 use JSoria\Balance;
 use JSoria\Deuda_Ingreso;
 use JSoria\Egreso;
+use JSoria\Institucion;
 use JSoria\Modulo;
 use JSoria\IngresoTesorera;
 use JSoria\Permiso;
@@ -45,16 +46,6 @@ class UsersController extends Controller {
   {
     /*** Mostrar formulario de creacion ***/
     return view('admin.usuario.index');
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    //
   }
 
   /**
@@ -102,17 +93,6 @@ class UsersController extends Controller {
   }
 
   /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    //
-  }
-
-  /**
    * Show the form for editing the specified resource.
    *
    * @param  int  $id
@@ -120,7 +100,20 @@ class UsersController extends Controller {
    */
   public function edit($id)
   {
-    return view('admin.usuario.edit', ['user' => $this->user]);
+    $todas_instituciones = Institucion::all();
+
+    $permisos = Permiso::institucionesUsuario($this->user->id);
+    $ids_permisos = [];
+    foreach ($permisos as $permiso) {
+      array_push($ids_permisos, $permiso->id_institucion);
+    }
+
+    $permisos_auth = Permiso::institucionesUsuario(Auth::user()->id);
+    $ids_permisos_auth = [];
+    foreach ($permisos_auth as $permiso) {
+      array_push($ids_permisos_auth, $permiso->id_institucion);
+    }
+    return view('admin.usuario.edit', ['user' => $this->user, 'todas_instituciones' => $todas_instituciones, 'instituciones' => $ids_permisos_auth, 'permisos' => $ids_permisos]);
   }
 
   /**
@@ -131,12 +124,15 @@ class UsersController extends Controller {
    */
   public function update($id, UserUpdateRequest $request)
   {
+    $permisos = $request->input('permisos');
     $this->user->dni = $request['dni'];
     $this->user->nombres = $request['nombres'];
     $this->user->apellidos = $request['apellidos'];
     $this->user->tipo = $request['tipo'];
     $this->user->usuario_login = $request['usuario_login'];
-    $this->user->password = $request['password'];
+    if ($request['password'] != '') {
+      $this->user->password = $request['password'];
+    }
 
     $this->user->save();
 

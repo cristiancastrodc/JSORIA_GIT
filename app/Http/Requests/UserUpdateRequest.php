@@ -30,7 +30,7 @@ class UserUpdateRequest extends Request
             'tipo' => 'required|in:Administrador,Secretaria,Cajera,Tesorera',
             'permisos' => 'required|array',
             'usuario_login' => 'required|string',
-            'password' => 'required|string',
+            'password' => 'string',
         ];
     }
 }
