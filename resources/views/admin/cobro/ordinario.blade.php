@@ -53,7 +53,7 @@
                 <label for="monto" class="col-sm-3 control-label">Monto</label>
                 <div class="col-sm-9">
                   <div class="fg-line">
-                    <input type="text" class="form-control input-sm" id="monto" name="monto" placeholder="Monto" ng-model="cobroOrdinario.monto">
+                    <input type="number" class="form-control input-sm" id="monto" name="monto" placeholder="Monto" ng-model="cobroOrdinario.monto">
                   </div>
                 </div>
               </div>

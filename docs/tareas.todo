@@ -54,11 +54,9 @@ Secretaria:
  ☐ Reporte de Deudas de alumno: Mostrar las deudas con su período asociado.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
 Tesorera:
- ☐ Registrar egreso: Validar que en el campo Monto sólo se ingresen dígitos.
  ☐ Registrar egreso: Mostrar resumen de creación.
  ☐ Registrar egreso: Boton de cancelar.
  ☐ Editar egreso: Mostrar un resumen del egreso modificado.
- ☐ Editar egreso: Validar que en el campo Monto sólo se ingresen dígitos.
  ☐ Editar egreso: listar los egresos sin seleccionar fecha.
  ☐ Retiro: Si existen montos "Por retirar" pero no existen montos "No retirados", entonces desactivar el botón Retirar.
  ☐ Retiro: Mostrar el resumen de la creación del retiro.
@@ -80,6 +78,8 @@ Cajera:
  ☐ Otos cobros: Boton de cancelar.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
 Archive:
+ ✔ Editar egreso: Validar que en el campo Monto sólo se ingresen dígitos. @done (17-04-09 22:52) @project(Tesorera)
+ ✔ Registrar egreso: Validar que en el campo Monto sólo se ingresen dígitos. @done (17-04-09 22:49) @project(Tesorera)
  ✔ Ingresos adicionales: Validar que en el campo Monto sólo se ingresen dígitos. @done (17-04-09 22:36) @project(Tesorera)
  ✔ Ingresos adicionales: Filtrar instituciones de acuerdo a los permisos de la tesorera. @done (17-04-09 22:35) @project(Tesorera)
  ✔ Ingresos adicionales: Boton de cancelar. @done (17-04-09 22:35) @project(Tesorera)

@@ -119,7 +119,7 @@
                       </td>
                       <td>
                         <div class="fg-line">
-                          <input type="text" class="form-control egreso-monto text-right" value="{{ $detalle->monto }}">
+                          <input type="number" class="form-control egreso-monto text-right" value="{{ $detalle->monto }}">
                         </div>
                       </td>
                     </tr>

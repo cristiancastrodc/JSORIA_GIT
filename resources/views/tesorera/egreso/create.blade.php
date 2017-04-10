@@ -99,7 +99,7 @@
                 </div>
                 <div class="col-sm-2">
                   <div class="fg-line">
-                    <input type="text" class="form-control text-right" placeholder="Monto" id="monto_egreso">
+                    <input type="number" class="form-control text-right" placeholder="Monto" id="monto_egreso">
                   </div>
                 </div>
                 <div class="col-sm-3">
