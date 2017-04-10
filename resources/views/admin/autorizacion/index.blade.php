@@ -99,12 +99,15 @@
                 <label for="busqueda_fecha_creacion" class="col-sm-3 control-label">Fecha Creación:</label>
                 <div class="col-sm-9">
                   <div class="dtp-container fg-line">
-                    <input type='text' class="form-control date-picker" placeholder="Fecha Creación" id="busqueda_fecha_creacion" ng-model="form.fecha_creacion">
+                    <input type='text' class="form-control date-picker" placeholder="Fecha Creación" id="busqueda_fecha_creacion" ng-model="form_busqueda.fecha_creacion">
                   </div>
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-4 col-sm-offset-8">
+                <div class="col-md-5 col-md-offset-2">
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
+                </div>
+                <div class="col-sm-5">
                   <button type="button" class="btn btn-block accent-color waves-effect" ng-click="buscarAutorizacion()" ng-disabled="form_busqueda.procesando">
                     <span ng-hide="form_busqueda.procesando">Buscar</span>
                     <span ng-show="form_busqueda.procesando">

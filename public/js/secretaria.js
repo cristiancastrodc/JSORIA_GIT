@@ -175,7 +175,7 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
               fila += "<td class='hidden id-categoria'>" + $id + "</td>";
               fila += "<td>" + $nombre + "</td>";
               fila += "<td class='text-right monto'>" + $monto + "</td>";
-              fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right deuda-factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
+              fila += "<td><div class='fg-line'><input type='number' class='form-control input-sm text-right deuda-factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
               fila += "<td><p class='text-right total'></p></td>";
               fila += "</tr>";
 
@@ -249,7 +249,7 @@ $('#form-buscar-deudas-alumno #btn-buscar-alumno').click(function (e) {
           fila += "<td class='hidden id-deuda'>" + $id + "</td>";
           fila += "<td>" + $deuda + "</td>";
           fila += "<td class='text-right'>" + $monto + "</td>";
-          fila += "<td><div class='fg-line'><input type='text' class='form-control input-sm text-right descuento' placeholder='Descuento'></div></td>";
+          fila += "<td><div class='fg-line'><input type='number' class='form-control input-sm text-right descuento' placeholder='Descuento'></div></td>";
           fila += "<td><div class='toggle-switch'><input id='" + id_cb + "' type='checkbox' hidden='hidden'><label for='" + id_cb + "' class='ts-helper'></label></div></td>";
 
           $('#tabla-deudas-alumno tbody').append(fila);

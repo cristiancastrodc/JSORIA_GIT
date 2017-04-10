@@ -105,7 +105,7 @@
                     <td>{@ pension.nombre @}</td>
                     <td>{@ pension.periodo @}</td>
                     <td class="text-right">
-                      <input type="text" value="{@ pension.monto @}" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada">
+                      <input type="number" value="{@ pension.monto @}" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada">
                     </td>
                   </tr>
                 </table>

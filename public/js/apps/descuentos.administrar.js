@@ -137,13 +137,18 @@ app.controller('descuentosController', function ($scope, $http) {
       })
     });
   }
-   $scope.inicializar = function () {
+  $scope.inicializar = function () {
     $scope.datos_alumno = ''
     $scope.clase_documento = 'form-group'
     $scope.existe_alumno = true
     $scope.nro_documento = ''
     $scope.fecha_limite = ''
     $scope.resolucion = ''
+  }
+  $scope.cancelar = function () {
+    $scope.form_busqueda.nro_documento = ''
+    $scope.form_busqueda.fecha_creacion = ''
+    $scope.autorizaciones = []
   }
   // Eventos
   $("#fecha_limite").on("dp.change", function() {
