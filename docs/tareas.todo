@@ -19,13 +19,11 @@ Administrador:
  ☐ Cobros extraordinarios - Listar: no lista los cobros segun la institucion.
  ☐ Otros cobros - Listar: no lista los cobros segun la institucion.
  ☐ Otros cobros - Lista: listar sin necesidad de seleccionar una institucion.
- ☐ Retiro: No aparece la pelotita del loader.
  ☐ Retiro: Mostrar numeros de comprobante de ingresos.
  ☐ Retiro: Si existen montos "Por retirar" pero no existen montos "No retirados", entonces desactivar el botón Retirar.
- ☐ Retiro: Mostrar el resumen de la creación del retiro.
+ ☐ Retiro: Mostrar el resumen de la creación del retiro en pdf.
  ☐ Retiro: solo le tiene que mostrar las cajeras que manejan la misma institucion del usuario.
  ☐ Retiro: Boton de cancelar.
- ☐ Listar Autorizaciones: Boton de cancelar.
  ☐ Autorizar descuento: que solo pueda autorizar a los alumnos que pertenezacan la misma intitucion del usuario.
  ☐ Definir descuentos: variables para la universidad.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
@@ -78,6 +76,8 @@ Cajera:
  ☐ Otos cobros: Boton de cancelar.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
 Archive:
+ ✔ Listar Autorizaciones: Boton de cancelar. @done (17-04-10 11:02) @project(Administrador)
+ ✔ Retiro: No aparece la pelotita del loader. @done (17-04-10 09:45) @project(Administrador)
  ✔ Editar egreso: Validar que en el campo Monto sólo se ingresen dígitos. @done (17-04-09 22:52) @project(Tesorera)
  ✔ Registrar egreso: Validar que en el campo Monto sólo se ingresen dígitos. @done (17-04-09 22:49) @project(Tesorera)
  ✔ Ingresos adicionales: Validar que en el campo Monto sólo se ingresen dígitos. @done (17-04-09 22:36) @project(Tesorera)

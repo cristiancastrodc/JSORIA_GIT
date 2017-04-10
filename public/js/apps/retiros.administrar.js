@@ -64,5 +64,5 @@ app.controller('retirosController', function ($scope, $http) {
         }
       })
     })
-  }
+  }  
 })
