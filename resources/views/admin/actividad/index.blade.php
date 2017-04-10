@@ -89,7 +89,7 @@
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
                 </div>
                 <div class="col-sm-4">
-                  <button type="button" class="btn btn-block accent-color waves-effect" ng-click="grabarActividad()" ng-disabled="procesando || !formCreacionValido()">
+                  <button type="button" class="btn btn-block accent-color waves-effect" ng-click="grabarActividad()" ng-disabled="procesando || !esValidoFormCreacion()">
                     <span ng-hide="procesando">Grabar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
@@ -113,7 +113,7 @@
                 <div class="col-sm-9">
                   <div class="fg-line">
                     <div class="select">
-                      <select class="form-control" id="form_busqueda_institucion" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="form_busqueda.institucion" ng-change="cargarDetalleForm()">
+                      <select class="form-control" id="form_busqueda_institucion" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="form_busqueda.institucion" ng-change="cargarDetalleFormBusqueda()">
                         <option value="" disabled="">-- SELECCIONE INSTITUCIÓN --</option>
                       </select>
                     </div>
@@ -215,12 +215,12 @@
               <a class="btn btn-link btn-block waves-effect" data-dismiss="modal">Cerrar</a>
             </div>
             <div class="col-sm-4">
-              <a class="btn btn-block accent-color waves-effect" ng-click="actualizarActividad(modal.id_actividad)" ng-disabled="modal.procesando">
+              <button class="btn btn-block accent-color waves-effect" ng-click="actualizarActividad()" ng-disabled="modal.procesando || !esValidoFormEdicion()">
                 <span ng-hide="modal.procesando">Guardar</span>
                 <span ng-show="modal.procesando">
                   <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
                 </span>
-              </a>
+              </button>
             </div>
             </div>
         </div>

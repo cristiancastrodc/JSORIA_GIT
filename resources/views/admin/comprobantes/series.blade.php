@@ -130,7 +130,7 @@
                 <label for="modal_comprobante_institucion" class="control-label col-sm-4">Institución:</label>
                 <div class="col-sm-8">
                   <div class="fg-line">
-                    <p class="form-control-static">{@ modal.comprobante.institucion @}</p>
+                    <p class="form-control-static">{@ modal.institucion @}</p>
                   </div>
                 </div>
               </div>
@@ -138,7 +138,7 @@
                 <label for="modal_comprobante_tipo" class="control-label col-sm-4">Tipo:</label>
                 <div class="col-sm-8">
                   <div class="fg-line">
-                    <p class="form-control-static text-capitalize">{@ modal.comprobante.tipo @}</p>
+                    <p class="form-control-static text-capitalize">{@ modal.tipo @}</p>
                   </div>
                 </div>
               </div>
@@ -146,7 +146,7 @@
                 <label for="modal_comprobante_serie" class="control-label col-sm-4">Serie:</label>
                 <div class="col-sm-8">
                   <div class="fg-line">
-                    <input type="text" class="form-control" id="modal_comprobante_serie" ng-model="modal.comprobante.serie">
+                    <input type="text" class="form-control" id="modal_comprobante_serie" ng-model="modal.serie">
                   </div>
                 </div>
               </div>
@@ -154,7 +154,7 @@
                 <label for="modal_comprobante_numero" class="control-label col-sm-4">Número:</label>
                 <div class="col-sm-8">
                   <div class="fg-line">
-                    <input type="text" class="form-control" id="modal_comprobante_numero" ng-model="modal.comprobante.numero_comprobante">
+                    <input type="text" class="form-control" id="modal_comprobante_numero" ng-model="modal.numero">
                   </div>
                 </div>
               </div>

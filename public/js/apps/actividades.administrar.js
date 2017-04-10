@@ -39,16 +39,10 @@ app.controller('actividadesController', function ($scope, $http) {
     id_actividad : '',
     nombre : '',
     monto : '',
-    procesando : false,
+    procesando : true,
     errores : null,
   }
   // Funciones
-  $scope.cancelar = function () {
-    $scope.institucion = '';
-    $scope.division = '';
-    $scope.nombre = '';
-    $scope.monto = '';
-  }
   $scope.cargarDetalle = function () {
     var id = $scope.actividad.institucion.id_institucion
     // Actualizar las etiquetas
@@ -131,12 +125,12 @@ app.controller('actividadesController', function ($scope, $http) {
     }
     $scope.procesando = false
   }
-  $scope.formCreacionValido = function () {
+  $scope.esValidoFormCreacion = function () {
     return ($scope.actividad.division != '' || $scope.actividad.todas_divisiones)
            && $scope.actividad.nombre != ''
            && ($scope.actividad.monto != null && $scope.actividad.monto != '' && $scope.actividad.monto != 0)
   }
-  $scope.cargarDetalleForm = function () {
+  $scope.cargarDetalleFormBusqueda = function () {
     var id = $scope.form_busqueda.institucion
     // Actualizar las etiquetas
     switch (id) {
@@ -186,9 +180,9 @@ app.controller('actividadesController', function ($scope, $http) {
     }
     $('#modal-editar-actividad').modal('show')
   }
-  $scope.actualizarActividad = function (id_actividad) {
+  $scope.actualizarActividad = function () {
     $scope.modal.procesando = true
-    var ruta = '/admin/actividades/' + id_actividad
+    var ruta = '/admin/actividades/' + $scope.modal.id_actividad
     var nombre = $scope.modal.nombre
     var monto = $scope.modal.monto
     $http.put(ruta, { nombre: nombre, monto : monto })
@@ -214,7 +208,7 @@ app.controller('actividadesController', function ($scope, $http) {
       if (response.status == 422) {
         $scope.modal.errores = response.data
       } else {
-        debug(response.data, false)
+        debug(response, false)
         $('#modal-editar-actividad').modal('hide')
         swal({
           title : 'Error.',
@@ -223,5 +217,9 @@ app.controller('actividadesController', function ($scope, $http) {
         })
       }
     })
+  }
+  $scope.esValidoFormEdicion = function () {
+    return $scope.modal.nombre != ''
+           && $scope.modal.monto != ''
   }
 })

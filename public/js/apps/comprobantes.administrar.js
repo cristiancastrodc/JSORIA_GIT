@@ -22,19 +22,29 @@ app.controller('comprobantesController', function ($scope, $http) {
   $scope.procesando = false
   $scope.modal = {
     procesando : false,
-    comprobante : [],
+    institucion : '',
+    tipo : '',
+    serie : '',
+    numero : '',
   }
   // Métodos que se ejecutan al iniciar el módulo
   // -- Recuperar instituciones del usuario
-  $http.get('/usuario/instituciones')
-  .success(function(response) {
-    $scope.instituciones = response
-  });
+  $scope.listarInstituciones = function () {
+    $http.get('/usuario/instituciones')
+    .success(function(response) {
+      $scope.instituciones = response
+    })
+  }
+  $scope.listarInstituciones()
   // -- Recuperar la lista de comprobantes
-  $http.get('/admin/comprobante/listar')
-  .success(function(response) {
-    $scope.comprobantes = response;
-  });
+  $scope.listarComprobantes = function () {
+    // -- Recuperar la lista de comprobantes
+    $http.get('/admin/comprobante/listar')
+    .success(function(response) {
+      $scope.comprobantes = response;
+    })
+  }
+  $scope.listarComprobantes()
   // Funciones
   $scope.guardarComprobante = function () {
     $scope.procesando = true
@@ -94,26 +104,25 @@ app.controller('comprobantesController', function ($scope, $http) {
     }
     $scope.procesando = false
   }
-  $scope.listarComprobantes = function () {
-    // -- Recuperar la lista de comprobantes
-    $http.get('/admin/comprobante/listar')
-    .success(function(response) {
-      $scope.comprobantes = response;
-    });
-  }
   $scope.editarComprobante = function (comprobante) {
-    $scope.modal.comprobante = comprobante
+    $scope.modal = {
+      id : comprobante.id,
+      institucion : comprobante.institucion,
+      tipo : comprobante.tipo,
+      serie : comprobante.serie,
+      numero : comprobante.numero_comprobante,
+    }
     $('#modal-detalle-comprobante').modal('show')
   }
   $scope.actualizarComprobante = function () {
     $scope.modal.procesando = true
-    var ruta = '/admin/comprobante/actualizar/' + $scope.modal.comprobante.id;
+    var ruta = '/admin/comprobante/actualizar/' + $scope.modal.id;
     $http({
       method: 'POST',
       url: ruta,
       data : $.param({
-        serie_comprobante : $scope.modal.comprobante.serie,
-        numero_comprobante : $scope.modal.comprobante.numero_comprobante,
+        serie_comprobante : $scope.modal.serie,
+        numero_comprobante : $scope.modal.numero,
       }),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     })
@@ -126,10 +135,9 @@ app.controller('comprobantesController', function ($scope, $http) {
         })
         $scope.listarComprobantes()
       } else {
-        debug(response.data.mensaje)
         swal({
           title: 'Error.',
-          text: 'Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.',
+          text: 'No se pudo actualizar el Comprobante. Mensaje: ' + response.data.mensaje,
           type: 'warning',
         })
       }
@@ -139,7 +147,7 @@ app.controller('comprobantesController', function ($scope, $http) {
       debug(response, false)
       swal({
         title: 'Error.',
-        text: 'Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos.',
+        text: 'No se pudo actualizar el Comprobante.',
         type: 'error',
       })
       $scope.modal.procesando = false
@@ -175,16 +183,3 @@ app.controller('comprobantesController', function ($scope, $http) {
     })
   }
 })
-/*
-.directive('selectpicker', function($timeout){
-  return {
-    restrict: 'A',
-    require: 'ngModel',
-    link: function($scope, element, iAttrs, controller) {
-      $timeout(function() {
-        element.selectpicker()
-      }, 1000);
-    }
-  };
-});
-*/
