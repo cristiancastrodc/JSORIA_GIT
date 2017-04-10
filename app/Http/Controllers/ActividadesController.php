@@ -4,13 +4,10 @@ namespace JSoria\Http\Controllers;
 
 use DB;
 use Illuminate\Http\Request;
-
 use JSoria\Http\Controllers\Controller;
-
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\ActividadesCreateRequest;
 use JSoria\Http\Requests\ActividadesUpdateRequest;
-
 use JSoria\Alumno;
 use JSoria\Categoria;
 use JSoria\Deuda_Ingreso;
@@ -106,35 +103,38 @@ class ActividadesController extends Controller
      */
     public function update(ActividadesUpdateRequest $request, $id)
     {
+      $respuesta = [];
+      try {
         $categoria = Categoria::find($id);
-
-        $operacion = $request['operacion'];
-
-        if ($operacion == 'actualizar') {
-            $categoria->nombre = $request['nombre'];
-            $categoria->monto = $request['monto'];
-            $categoria->save();
-
-            /* Actualizar deudas relacionadas */
-            Deuda_Ingreso::where('id_categoria', '=', $id)->where('estado_pago', '=', 0)->update(['saldo' => $request['monto']]);
-        } elseif ($operacion == 'estado') {
-            $categoria->estado = $request['estado'];
-            $categoria->save();
+        if ($categoria) {
+          DB::beginTransaction();
+          $monto = $request->input('monto');
+          $categoria->nombre = $request->input('nombre');
+          $categoria->monto = $monto;
+          $categoria->save();
+          /* Actualizar deudas relacionadas */
+          Deuda_Ingreso::actualizarDeudas($id, $monto);
+          $respuesta['resultado'] = 'true';
+          DB::commit();
+        } else {
+          $respuesta['resultado'] = 'false';
+          $respuesta['mensaje'] = 'Actividad no existe.';
         }
-
-        return response()->json([
-            'mensaje' => 'actualizado'
-        ]);
+      } catch (\Exception $e) {
+        DB::rollBack();
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = $e->getMessage();
+      }
+      return $respuesta;
     }
 
     /*
     * Listar actividades
     */
-    public function listaActividades(Request $request, $id_detalle_institucion) {
-        if ($request->ajax()) {
-            $actividades = Categoria::actividadesDetalle($id_detalle_institucion);
-            return response()->json($actividades);
-        }
+    public function listaActividades(Request $request) {
+      $id_institucion = $request->input('id_institucion');
+      $id_division = $request->input('id_division');
+      return Categoria::listarActividades($id_institucion, $id_division);
     }
 
     /**
@@ -144,7 +144,7 @@ class ActividadesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function mostrarResumenActividad($batch)
-    {      
+    {
       $actividades = Categoria::resumenActividad($batch);
       return view('admin.actividad.resumen', [
         'actividades' => $actividades,

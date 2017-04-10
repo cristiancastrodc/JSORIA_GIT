@@ -7,7 +7,7 @@
 @section('content')
   @if(Session::has('message'))
     <div class="row">
-      <div class="col-sm-10">
+      <div class="col-sm-12">
         <div class="alert alert-success alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           {{Session::get('message')}}
@@ -58,7 +58,7 @@
                   </div>
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" id="todas_divisiones" ng-model="actividad.todas_divisiones">
+                      <input type="checkbox" id="todas_divisiones" ng-model="actividad.todas_divisiones" ng-disabled="!actividad.institucion">
                       <i class="input-helper"></i>
                       {@ labels.todas_divisiones @}
                     </label>
@@ -79,7 +79,7 @@
                     <div class="input-group">
                         <span class="input-group-addon">S/</span>
                         <div class="fg-line">
-                          <input type="text" class="form-control" id="monto" placeholder="Monto de la Actividad" ng-model="actividad.monto">
+                          <input type="number" class="form-control" id="monto" placeholder="Monto de la Actividad" ng-model="actividad.monto">
                         </div>
                     </div>
                   </div>
@@ -89,7 +89,7 @@
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
                 </div>
                 <div class="col-sm-4">
-                  <button type="button" class="btn btn-block accent-color waves-effect" ng-click="grabarActividad()" ng-disabled="procesando">
+                  <button type="button" class="btn btn-block accent-color waves-effect" ng-click="grabarActividad()" ng-disabled="procesando || !formCreacionValido()">
                     <span ng-hide="procesando">Grabar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
@@ -107,52 +107,127 @@
             <h2>Buscar Actividades</h2>
           </div>
           <div class="card-header">
-            {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-listar-actividades'))!!}
+            <form class="form-horizontal" id="form-listar-actividades">
               <div class="form-group">
-                <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
+                <label for="form_busqueda_institucion" class="col-sm-3 control-label">Institución</label>
                 <div class="col-sm-9">
-                  <select class="selectpicker" name="id_institucion" id="id_institucion" title='Elegir Institución'>
-                    <option value="1">I.E. J. Soria</option>
-                    <option value="2">CEBA Konrad Adenahuer</option>
-                    <option value="3">I.S.T. Urusayhua</option>
-                    <option value="4">ULP</option>
-                  </select>
+                  <div class="fg-line">
+                    <div class="select">
+                      <select class="form-control" id="form_busqueda_institucion" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="form_busqueda.institucion" ng-change="cargarDetalleForm()">
+                        <option value="" disabled="">-- SELECCIONE INSTITUCIÓN --</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                  <select class="selectpicker" name="id_detalle_institucion" id="id_detalle_institucion" title='Elegir Nivel o Carrera'>
-                  </select>
+                <label for="form_busqueda_division" class="control-label col-sm-3">{@ labels.form_busqueda_division @}</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <div class="select">
+                      <select class="form-control" id="form_busqueda_division" ng-options="division.id as division.nombre_division for division in form_busqueda.divisiones" ng-model="form_busqueda.division">
+                        <option value="">-- Seleccione {@ labels.form_busqueda_division @} --</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-4 col-sm-offset-8">
-                  <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-listar-actividades">Buscar</button>
+                <div class="col-sm-4 col-sm-offset-4">
+                  <button class="btn btn-link btn-block" ng-click="inicializarFormBusqueda()">Cancelar</button>
+                </div>
+                <div class="col-sm-4">
+                  <button class="btn btn-block accent-color waves-effect" ng-click="listarActividades()" ng-disabled="form_busqueda.procesando">
+                    <span ng-hide="form_busqueda.procesando">Buscar</span>
+                    <span ng-show="form_busqueda.procesando">
+                      <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Buscando...
+                    </span>
+                  </button>
                 </div>
               </div>
-            {!!Form::close()!!}
+            </form>
           </div>
           <div class="table-responsive">
             <table id="tabla-listar-actividades" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="hidden">Id</th>
-                        <th class="c-white accent-color">Actividad</th>
-                        <th class="c-white accent-color">Monto</th>
-                        <th class="c-white accent-color">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
+              <thead>
+                <tr>
+                  <th class="c-white accent-color">Actividad</th>
+                  <th class="c-white accent-color">Monto</th>
+                  <th class="c-white accent-color">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="actividad in actividades">
+                  <td>{@ actividad.nombre @}</td>
+                  <td>{@ actividad.monto @}</td>
+                  <td>
+                    <a class='btn third-color' ng-click="editarActividad(actividad)"><i class='zmdi zmdi-edit'></i></a>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-editar-actividad" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Editar Actividad</h4>
+          </div>
+          <div class="modal-body">
+            <div id="modal-error" ng-show="modal.errores">
+              <div class="alert alert-danger" role="alert">
+                <ul><li ng-repeat="(key, value) in modal.errores">{@ value[0] @}</li></ul>
+              </div>
+            </div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="modal_institucion" class="control-label col-sm-3">Institución:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <p class="form-control-static">{@ modal.institucion @}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="modal-nombre" class="control-label col-sm-3">Nombre:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" name="nombre" id="modal-nombre" class="form-control" ng-model="modal.nombre">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="modal-monto" class="control-label col-sm-3">Monto:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" id="modal-monto" name="modal-monto" class="form-control" ng-model="modal.monto">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="col-sm-4 col-sm-offset-4">
+              <a class="btn btn-link btn-block waves-effect" data-dismiss="modal">Cerrar</a>
+            </div>
+            <div class="col-sm-4">
+              <a class="btn btn-block accent-color waves-effect" ng-click="actualizarActividad(modal.id_actividad)" ng-disabled="modal.procesando">
+                <span ng-hide="modal.procesando">Guardar</span>
+                <span ng-show="modal.procesando">
+                  <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
+                </span>
+              </a>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Modal -->
   </div>
-@endsection
-
-@section('modals')
-  @include('layouts.modals.actividad')
 @endsection
 
 @section('scripts')

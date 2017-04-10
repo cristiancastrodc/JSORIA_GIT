@@ -39,7 +39,7 @@ Route::resource('admin/ingresos','AdminIngresosController');
 Route::get('admin/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
 Route::get('admin/matriculas/{id_institucion}/{anio}', 'MatriculasController@listaMatriculas');
 Route::get('admin/pensiones/{id_detalle_institucion}/{anio}', 'PensionesController@listaPensiones');
-Route::get('admin/actividades/listar/{id_detalle_institucion}', 'ActividadesController@listaActividades');
+Route::post('admin/actividad/listar', 'ActividadesController@listaActividades');
 Route::get('admin/cobros/ordinarios/listar/{id_institucion}', 'CobrosOrdinariosController@listaCobros');
 Route::get('admin/cobros/otros/listar/{id_institucion}', 'OtrosCobrosController@listaCobros');
 Route::get('admin/retirar/{id_cajera}', 'RetirosController@retiroAdmin');

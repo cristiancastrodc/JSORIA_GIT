@@ -197,4 +197,26 @@ class Categoria extends Model
                     ->select('detalle_institucion.nombre_division', 'categoria.nombre', 'categoria.monto', DB::raw('(select count(*) from jsoria_deuda_ingreso where jsoria_deuda_ingreso.id_categoria = jsoria_categoria.id) as nro_alumnos'))
                     ->get();
   }
+  /**
+   * Retorna la lista de actividades.
+   */
+  public static function listarActividades($id_institucion, $id_division)
+  {
+    $q = Categoria::join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                  ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
+                  ->select('categoria.id', 'categoria.nombre', 'monto', DB::raw("CONCAT(jsoria_institucion.nombre, ' - ', jsoria_detalle_institucion.nombre_division) as institucion"))
+                  ->where('tipo', 'actividad')
+                  ->where('estado', '1')
+                  ->orderBy('id');
+    if ($id_division != '') {
+      $q->where('id_detalle_institucion', $id_division);
+    } else if ($id_institucion != '') {
+      $q->whereIn('id_detalle_institucion', function ($query) use ($id_institucion) {
+        $query->select('id')
+              ->from('detalle_institucion')
+              ->where('id_institucion', $id_institucion);
+      });
+    }
+    return $q->get();
+  }
 }

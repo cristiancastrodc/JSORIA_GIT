@@ -6,13 +6,9 @@ General:
  ☐ Cambiar mensaje de sesión (alertas) a 10 columnas.
  ☐ En todo proceso que involucre BD incluir transacciones de base de datos.
  ☐ Envolver métodos en try.. catch e incluir manejo de errores.
+ ☐ Mostrar errores de validación en formularios.
 Administrador:
  ☐ Matrícula Eliminar: Desarrollar módulo.
- ☐ Actividad Crear: Validar que al grabar estén presentes los campos requeridos.
- ☐ Actividad Buscar: Boton de cancelar.
- ☐ Actividad Buscar: limitar las opciones de instituciones de acuerdo a sus permisos.
- ☐ Actividad Buscar: Buscar actividad mostrar todas las actividades sin necesidad de seleccionar una institucion y mostrar las actividades solo ingresando la institucion sin nivel.
- ☐ Actividad Buscar: Filtros no obligatorios.
  ☐ cobros ordinarios - Lista: limitar las opciones de instituciones de acuerdo a sus permisos.
  ☐ cobros ordinarios - Lista: listar sin necesidad de seleccionar una institucion.
  ☐ Cobros extraordinarios: Código de pago debe ser más resaltante.
@@ -32,6 +28,8 @@ Administrador:
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
  ☐ Reporte de Cuenta de alumno: Mostrar las deudas con su período asociado.
  ☐ Reporte de Acciones de usuarios: Desarrollar.
+ ☐ Actividades Buscar: Se debe de poder inhabilitar actividades en bloque.
+ ☐ Actividades Buscar: Agregar filtro para listar actividades habilitadas/inhabilitadas.
 Secretaria:
  ☐ Modificar deuda: Al finalizar se debe de dar la opción de mostrar el reporte de cuenta de alumno.
  ☐ Modificar deuda: No aparece la pelotita del loader.
@@ -85,19 +83,23 @@ Cajera:
  ☐ Otos cobros: Boton de cancelar.
  ☐ Revisar funcionalidad y procesamiento de cada reporte.
 Archive:
+ ✔ Actividad Buscar: Filtros no obligatorios. @started(17-04-09 21:07) @done (17-04-10 12:08) @lasted(15:01) @project(Administrador)
+ ✔ Actividad Buscar: Boton de cancelar. @started(17-04-09 10:08) @done (17-04-09 21:07) @lasted(10:59) @project(Administrador)
+ ✔ Actividad Buscar: limitar las opciones de instituciones de acuerdo a sus permisos. @started(17-04-09 10:39) @done (17-04-09 21:05) @lasted(10:26) @project(Administrador)
+ ✔ Actividad Crear: Validar que al grabar estén presentes los campos requeridos. @started(17-04-09 09:44) @done (17-04-09 10:02) @lasted(0:18) @project(Administrador)
  ✔ Usuarios Editar: Boton de cancelar. @started(17-04-09 09:34) @done (17-04-09 09:36) @lasted(0:02) @project(Administrador)
  ✔ Usuarios Editar: limitar las opciones de instituciones de acuerdo a sus permisos. @started(17-04-08 09:40) @done (17-04-09 09:34) @lasted(23:54) @project(Administrador)
- ✔ Matricula crear: poner placeholder en la tabla de niveles. @started(17-04-08 09:02) @done (17-04-08 09:36) @lasted(0:34) @project(Administrador)
- ✔ Matricula crear: Tabla dentro del card. @done (17-04-08 09:01) @project(Administrador)
- ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Cerrar ciclo: Tabla dentro del card. @done (17-04-08 10:38) @project(Secretaria)
  ✔ Cancelar deudas de actividas: Tabla dentro del card. @done (17-04-08 10:30) @project(Secretaria)
  ✔ Modificar deudas: Tabla dentro del card. @done (17-04-08 10:23) @project(Secretaria)
  ✔ Añadir deuda: Tabla dentro del card. @done (17-04-08 10:17) @project(Secretaria)
  ✔ Modulos de usuario: Tabla dentro del card. @done (17-04-08 09:40) @project(Administrador)
  ✔ Matricula crear: poner placeholder en la tabla de niveles. @started(17-04-08 09:02) @done (17-04-08 09:36) @lasted(0:34) @project(Administrador)
+ ✔ Matricula crear: poner placeholder en la tabla de niveles. @started(17-04-08 09:02) @done (17-04-08 09:36) @lasted(0:34) @project(Administrador)
  ✔ Usuarios Lista: Tabla dentro del card. @done (17-04-08 09:28) @project(Administrador)
  ✔ Matricula crear: Tabla dentro del card. @done (17-04-08 09:01) @project(Administrador)
+ ✔ Matricula crear: Tabla dentro del card. @done (17-04-08 09:01) @project(Administrador)
+ ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Quitar logo de ULP del menú lateral. @done (17-04-08 08:55) @project(General)
  ✔ Matricula Editar: Tabla dentro del card. @done (17-04-08 08:50) @project(Administrador)

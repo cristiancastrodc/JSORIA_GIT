@@ -103,4 +103,15 @@ where estado_pago = '0'
                         ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo', 'deuda_ingreso.descuento', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.estado_descuento', 'deuda_ingreso.estado_fraccionam', 'categoria.destino', 'categoria.monto', 'deuda_ingreso.id_categoria', 'detalle_institucion.id_institucion')
                         ->get();
   }
+  /**
+   * Actualiza las deudas relacionadas a una categoría.
+   */
+  public static function actualizarDeudas($id_categoria, $monto)
+  {
+    Deuda_Ingreso::where('id_categoria', $id_categoria)
+                 ->where('estado_pago', 0)
+                 ->update([
+                    'saldo' => $monto
+                  ]);
+  }
 }

@@ -70,7 +70,7 @@
     <aside id="sidebar" class="sidebar c-overflow bgm-blue-soria">
       <div class="profile-menu">
         <a href="">
-          <div class="profile-info">
+          <div class="profile-info text-uppercase">
             {!!Auth::user()->nombres!!} {!!Auth::user()->apellidos!!}
             <i class="zmdi zmdi-caret-down"></i>
           </div>
