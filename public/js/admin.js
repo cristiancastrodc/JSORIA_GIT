@@ -307,43 +307,36 @@ $('#btn-listar-extraordinarios').click(function (e) {
 });
 
 function listar_extraordinarios() {
-  $id_institucion = $('#id_institucion_listar').val();
-  if ($id_institucion != "") {
-    var ruta = '/admin/cobros/extraordinarios/listar/' + $id_institucion;
-    $('#tabla-listar-extraordinarios tbody').empty();
-    $('#ajax-loader').fadeIn('fast', function () {
-      $.get(ruta, function (data) {
-        if (data.length > 0) {
-          for (var i = 0; i < data.length; i++) {
-              var fila = "<tr>";
-              fila += "<td>" + data[i].id + "</td>";
-              fila += "<td>" + data[i].descripcion_extr + "</td>";
-              fila += "<td class='text-right'>" + data[i].saldo.toFixed(2) + "</td>";
-              if (data[i].estado_pago == 1) {
-                fila += "<td>Cancelado</td>";
-                fila += '<td></td>'
-              } else {
-                fila += "<td>Pendiente</td>";
-                fila += "<td><button type='button' class='btn fourth-color m-r-20 btn-eliminar-extraordinario' data-id='" + data[i].id + "'><i class='zmdi zmdi-delete'></i></button></td>";
-              }
-              fila += "</tr>";
-              $('#tabla-listar-extraordinarios tbody').append(fila);
-          };
-        } else {
-          $('#tabla-listar-extraordinarios tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
-        }
-      })
-      .always(function () {
-        $('#ajax-loader').fadeOut('slow');
-      });
+  $id_institucion = $('#id_institucion_listar').val()
+  $id_institucion = $id_institucion == null ? '' : $id_institucion
+  var ruta = '/admin/cobro/extraordinario/listar/' + $id_institucion
+  $('#tabla-listar-extraordinarios tbody').empty()
+  $('#ajax-loader').fadeIn('fast', function () {
+    $.get(ruta, function (data) {
+      if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var fila = "<tr>";
+            fila += "<td>" + data[i].id + "</td>";
+            fila += "<td>" + data[i].descripcion_extr + "</td>";
+            fila += "<td class='text-right'>" + data[i].saldo.toFixed(2) + "</td>";
+            if (data[i].estado_pago == 1) {
+              fila += "<td>Cancelado</td>";
+              fila += '<td></td>'
+            } else {
+              fila += "<td>Pendiente</td>";
+              fila += "<td><button type='button' class='btn fourth-color btn-eliminar-extraordinario' data-id='" + data[i].id + "'><i class='zmdi zmdi-delete'></i></button></td>";
+            }
+            fila += "</tr>";
+            $('#tabla-listar-extraordinarios tbody').append(fila);
+        };
+      } else {
+        $('#tabla-listar-extraordinarios tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+      }
+    })
+    .always(function () {
+      $('#ajax-loader').fadeOut('slow');
     });
-  } else {
-    swal({
-      title : '¡Atención!',
-      text : 'Debe seleccionar la institución.',
-      type : 'warning'
-    });
-  }
+  });
 }
 
 $('#tabla-listar-extraordinarios').on('click', '.btn-eliminar-extraordinario', function(event) {
@@ -353,13 +346,12 @@ $('#tabla-listar-extraordinarios').on('click', '.btn-eliminar-extraordinario', f
     title: "¿Realmente desea eliminar el cobro?",
     type: "warning",
     showCancelButton: true,
-    cancelButtonText: 'No',
-    confirmButtonText: 'Si',
-  }, function (isConfirm) {
-    if (isConfirm) {
-      $.get('/admin/cobros/extraordinarios/eliminar/' + $id, function(data) {
-        listar_extraordinarios();
-      });
-    }
-  });
-});
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Aceptar',
+    confirmButtonClass: 'btn-danger',
+  }, function () {
+    $.get('/admin/cobros/extraordinarios/eliminar/' + $id, function(data) {
+      listar_extraordinarios();
+    })
+  })
+})

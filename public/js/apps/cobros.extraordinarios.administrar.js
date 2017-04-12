@@ -13,10 +13,13 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
   $scope.destino = false
   $scope.procesando = false
   // Procesos iniciales
-   $http.get('/usuario/instituciones')
-  .success(function(response) {
-    $scope.instituciones = response;
-  });
+  $scope.listarInstituciones = function () {
+    $http.get('/usuario/instituciones')
+    .success(function(response) {
+      $scope.instituciones = response;
+    })
+  }
+  $scope.listarInstituciones()
   // Funciones
   $scope.guardarCobroExtraordinario = function () {
     $scope.procesando = true
@@ -36,16 +39,18 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
     .then(function successCallback(response) {
       debug(response, false)
       if (response.data.resultado == 'true') {
-        var texto = "<p style='text-align:left'><strong>Institución : </strong>" + $scope.institucion.nombre + "<br>"
+        var texto = "<h1>Código de pago: " + response.data.id_deuda + "</h1>"
+                  + "<p style='text-align:left'><strong>Institución : </strong>" + $scope.institucion.nombre + "<br>"
                   + "<strong>Descripción : </strong>" + $scope.descripcion_extr + "<br>"
                   + "<strong>Monto : </strong>" + $scope.monto + "<br>"
                   + "<strong>Cliente : </strong>" + $scope.cliente_extr + "<br>"
                   + ($scope.destino ? "* Este ingreso se almacenará en la cuenta exterior privada." : "") + "</p>";
         swal({
-          title : "Cobro creado correctamente. Código de pago: " + response.data.id_deuda,
+          title : "Cobro creado correctamente.",
           text : texto,
-          type : "success",
-          confirmButtonText: "Aceptar",
+          type : 'success',
+          confirmButtonText: 'Aceptar',
+          confirmButtonClass : 'accent-color',
           html: true,
         }, function () {
           $scope.procesando = false
@@ -76,5 +81,9 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
     $scope.cliente_extr = ''
     $scope.destino = false
     $scope.procesando = false
+  }
+  $scope.inicializarFormBusqueda = function () {
+    $scope.form_busqueda.institucion = ''
+    $('#tabla-listar-extraordinarios tbody').empty()
   }
 });

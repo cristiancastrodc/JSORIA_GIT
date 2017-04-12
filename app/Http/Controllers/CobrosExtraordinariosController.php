@@ -3,13 +3,11 @@
 namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use JSoria\Http\Requests\CobroExtCreateRequest;
 use JSoria\Http\Requests;
 use JSoria\Http\Controllers\Controller;
-
-use JSoria\Deuda_Ingreso;
 use JSoria\Categoria;
+use JSoria\Deuda_Ingreso;
 use JSoria\InstitucionDetalle;
 use Redirect;
 use Session;
@@ -30,17 +28,6 @@ class CobrosExtraordinariosController extends Controller
     {
         return view('admin.cobro.extraordinario');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -72,58 +59,12 @@ class CobrosExtraordinariosController extends Controller
       } catch (\Exception $e) {
         $respuesta['mensaje'] = $e->getMessage();
       }
-
       return $respuesta;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
     /**
      * Listar cobros extraordinarios
      */
-    public function listaCobros(Request $request, $id_institucion)
+    public function listaCobros(Request $request, $id_institucion = '')
     {
       if ($request->ajax()) {
         $cobros = Categoria::cobrosExtraordinariosInstitucion($id_institucion);

@@ -54,7 +54,7 @@ Route::get('admin/usuario/modulos', 'UsersController@modulosUsuario');
 Route::get('admin/usuario/lista/{modulo?}', 'UsersController@listaUsuarios');
 Route::get('admin/usuario/{id_usuario}/modulos', 'UsersController@listaModulosUsuario');
 Route::post('admin/usuario/modulos/grabar', 'UsersController@grabarModulosUsuario');
-Route::get('admin/cobros/extraordinarios/listar/{id_institucion}', 'CobrosExtraordinariosController@listaCobros');
+Route::get('admin/cobro/extraordinario/listar/{id_institucion?}', 'CobrosExtraordinariosController@listaCobros');
 Route::get('admin/cobros/extraordinarios/eliminar/{id_cobro}', 'CobrosExtraordinariosController@eliminarCobro');
 Route::get('admin/matricula/editar', 'MatriculasController@editarMatricula');
 Route::get('admin/matricula/institucion/{id_institucion}/detalle', 'InstitucionDetalleController@detalleInstitucion');
