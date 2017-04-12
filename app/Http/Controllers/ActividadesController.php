@@ -29,17 +29,6 @@ class ActividadesController extends Controller
     {
       return view('admin.actividad.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -93,7 +82,6 @@ class ActividadesController extends Controller
       }
       return $respuesta;
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -127,7 +115,6 @@ class ActividadesController extends Controller
       }
       return $respuesta;
     }
-
     /*
     * Listar actividades
     */
