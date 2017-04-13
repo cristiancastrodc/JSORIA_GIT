@@ -119,13 +119,13 @@ class MatriculasController extends Controller
       $pensiones = $request->input('pensiones');
       $divisiones = $request->input('divisiones');
       $periodo = $request->input('periodo');
-      $definir_fechas = $request->input('definir_fechas');
+      $definir_fechas = filter_var($request->input('definir_fechas'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
       // -- Datos de Matricula
       $matricula_concepto = $matricula['concepto'];
       // Datos de Pensiones
       $pensiones_concepto = $pensiones['concepto'];
       // El almacenamiento es diferente en caso se definan o no las fechas
-      if ($definir_fechas === 'true') {
+      if ($definir_fechas) {
         // Recuperar el nro. del batch
         $batch = Categoria::siguienteNroBatch();
         $respuesta['batch'] = $batch;
@@ -146,7 +146,7 @@ class MatriculasController extends Controller
         // Crear matrícula y pensiones
         $cuenta = 0;
         foreach ($divisiones as $division) {
-          if (isset($division['seleccionar']) && $division['seleccionar']) {
+          if (isset($division['seleccionar']) && filter_var($division['seleccionar'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) {
             $inicio = intval($anio_inicio) * 100 + intval($mes_inicio);
             // Crear la matrícula
             $id_matricula = Categoria::create([
@@ -194,9 +194,9 @@ class MatriculasController extends Controller
         $batch = CategoriaTemp::siguienteNroBatch();
         $respuesta['batch'] = $batch;
         foreach ($divisiones as $division) {
-          if (isset($division['seleccionar']) && $division['seleccionar']) {
+          if (isset($division['seleccionar']) && filter_var($division['seleccionar'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) {
             $matricula_regular = $matricula_concepto;
-            if (isset($division['crear_ingresantes']) && $division['crear_ingresantes']) {
+            if (isset($division['crear_ingresantes']) && filter_var($division['crear_ingresantes'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) {
               $matricula_regular .= ' - Alumno Regular';
             }
             CategoriaTemp::create([
@@ -209,7 +209,7 @@ class MatriculasController extends Controller
               'periodo' => $periodo,
               'batch' => $batch,
               ]);
-            if (isset($division['crear_ingresantes']) && $division['crear_ingresantes']) {
+            if (isset($division['crear_ingresantes']) && filter_var($division['crear_ingresantes'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) {
               CategoriaTemp::create([
                 'id_detalle_institucion' => $division['id'],
                 'estado' => 0,

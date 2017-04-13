@@ -44,7 +44,7 @@ class CobrosExtraordinariosController extends Controller
         $descripcion_extr = $request['descripcion_extr'];
         $monto = $request['monto'];
         $cliente_extr = $request['cliente_extr'];
-        $destino = $request['destino'] ? '1' : '0';
+        $destino = filter_var($request->input('destino'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         // Recuperar id de la categoria indicada
         $id_categoria = Categoria::categoriaExtraordinaria($id_detalle, $destino)->id;
 
