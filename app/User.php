@@ -49,22 +49,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   public static function getUsuarioCajera()
   {
     return User::where('tipo', '=', 'cajera')
-           ->select('id', 'nombres', 'apellidos')
-           ->get();
+               ->select('id', 'nombres', 'apellidos')
+               ->get();
   }
 
   /*** Recuperar cajeras asociadas a la tesorera ***/
-  public static function getCajerasTesorera($id_tesorera)
+  public static function getCajerasUsuario($id_usuario)
   {
-    return User::join('permisos', 'usuario.id', '=', 'permisos.id_usuario')
-           ->where('tipo', '=', 'cajera')
-           ->whereIn('permisos.id_institucion', function ($query) use ($id_tesorera) {
-              $query->select('id_institucion')
-                    ->from('permisos')
-                    ->where('id_usuario', $id_tesorera);
-           })
-           ->select('usuario.id', 'usuario.nombres', 'usuario.apellidos')
-           ->distinct()->get();
+    return User::where('tipo', '=', 'cajera')
+               ->join('permisos', 'usuario.id', '=', 'permisos.id_usuario')
+               ->whereIn('permisos.id_institucion', function ($query) use ($id_usuario) {
+                 $query->select('id_institucion')
+                       ->from('permisos')
+                       ->where('id_usuario', $id_usuario);
+                     })
+               ->select('usuario.id', 'usuario.nombres', 'usuario.apellidos')
+               ->distinct()->get();
   }
 
   /*** Recuperar lista de tesoreras ***/
