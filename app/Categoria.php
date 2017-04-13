@@ -62,11 +62,15 @@ class Categoria extends Model
 
   public static function otrosCobrosInstitucion($id_institucion)
   {
-    return Categoria::join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
-    ->where('detalle_institucion.id_institucion', '=', $id_institucion)
-    ->where('categoria.tipo', 'multiple')
-    ->select('categoria.id', 'categoria.nombre', 'categoria.monto', 'categoria.estado', 'categoria.tipo', 'categoria.destino')
-    ->get();
+    $q = Categoria::where('categoria.tipo', 'multiple')
+                  ->orderBy('categoria.nombre')
+                  ->join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                  ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
+                  ->select('categoria.id', 'categoria.nombre', 'categoria.monto', 'categoria.estado', 'categoria.tipo', 'categoria.destino', 'institucion.nombre as institucion');
+    if ($id_institucion != '') {
+      $q->where('detalle_institucion.id_institucion', '=', $id_institucion);
+    }
+    return $q->get();
   }
 
   public static function listaOtrosCobrosCajera()

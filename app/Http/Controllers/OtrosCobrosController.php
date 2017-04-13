@@ -4,12 +4,12 @@ namespace JSoria\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+use JSoria\Categoria;
+use JSoria\Http\Controllers\Controller;
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\OtrosCobrosCreateRequest;
 use JSoria\Http\Requests\OtrosCobrosUpdateRequest;
-use JSoria\Http\Controllers\Controller;
-
-use JSoria\Categoria;
 use JSoria\InstitucionDetalle;
 use Redirect;
 use Session;
@@ -32,17 +32,6 @@ class OtrosCobrosController extends Controller
         $categories = Categoria::All();
         return view('admin.cobro.otro', compact('categories'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -55,8 +44,8 @@ class OtrosCobrosController extends Controller
       $respuesta['resultado'] = 'false';
       try {
         $id_detalle = InstitucionDetalle::todoDeInstitucion($request['id_institucion'])->id;
-        $destino = $request['destino'] ? '1' : '0';
-        $estado = $request['estado'] ? '1' : '0';
+        $destino = filter_var($request->input('destino'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        $estado = filter_var($request->input('estado'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         $nombre = $request['nombre'];
         $monto = $request['monto'];
 
@@ -75,29 +64,6 @@ class OtrosCobrosController extends Controller
 
       return $respuesta;
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -107,38 +73,34 @@ class OtrosCobrosController extends Controller
      */
     public function update(OtrosCobrosUpdateRequest $request, $id)
     {
-        if ($request->ajax()) {
-            $nombre = $request['nombre'];
-            $monto = $request['monto'];
-            $estado = $request['estado'] == "true" ? 1 : 0;
-
-            Categoria::find($id)->update(['nombre' => $nombre, 'monto' => $monto, 'estado' => $estado]);
-
-            return response()->json(['mensaje' => 'Actualizado']);
+      $respuesta = [];
+      try {
+        $categoria = Categoria::find($id);
+        if ($categoria) {
+          DB::beginTransaction();
+          $categoria->nombre = $request->input('nombre');
+          $categoria->monto = $request->input('monto');
+          $estado = filter_var($request->input('estado'), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+          $categoria->estado = $estado;
+          $categoria->save();
+          $respuesta['resultado'] = 'true';
+          DB::commit();
         } else {
-            return response()->json(['mensaje' => 'Request not AJAX.']);
+          $respuesta['resultado'] = 'false';
+          $respuesta['mensaje'] = 'Cobro no existe.';
         }
+      } catch (\Exception $e) {
+        DB::rollBack();
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = $e->getMessage();
+      }
+      return $respuesta;
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     /*
     * Listar cobros
     */
-    public function listaCobros(Request $request, $id_institucion)
+    public function listaCobros(Request $request, $id_institucion = '')
     {
-        if ($request->ajax()) {
-            $otros_cobros = Categoria::otrosCobrosInstitucion($id_institucion);
-            return response()->json($otros_cobros);
-        }
+      return Categoria::otrosCobrosInstitucion($id_institucion);
     }
 }

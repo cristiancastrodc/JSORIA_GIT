@@ -41,7 +41,7 @@ Route::get('admin/matriculas/{id_institucion}/{anio}', 'MatriculasController@lis
 Route::get('admin/pensiones/{id_detalle_institucion}/{anio}', 'PensionesController@listaPensiones');
 Route::post('admin/actividad/listar', 'ActividadesController@listaActividades');
 Route::get('admin/cobro/ordinario/listar/{id_institucion?}', 'CobrosOrdinariosController@listaCobros');
-Route::get('admin/cobros/otros/listar/{id_institucion}', 'OtrosCobrosController@listaCobros');
+Route::get('admin/cobro/otro/listar/{id_institucion?}', 'OtrosCobrosController@listaCobros');
 Route::get('admin/retirar/{id_cajera}', 'RetirosController@retiroAdmin');
 Route::post('admin/retirar/actualizar', 'RetirosController@store');
 Route::get('admin/divisiones_select/{id_institucion}', 'InstitucionDetalleController@detalleInstitucionParaSelect');

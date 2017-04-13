@@ -7,7 +7,7 @@
 @section('content')
   @if(Session::has('message'))
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-12">
       <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -20,112 +20,119 @@
 
   @include('messages.errors')
 
-  <div class="row" ng-app="otrosCobros">
-    <div ng-controller="crearOtroCobroController">
-      <div class="col-md-5">
+  <div ng-app="otrosCobros" ng-controller="crearOtroCobroController">
+    <div class="row">
+      <div class="col-md-6">
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Nuevo Cobro</h2>
           </div>
           <div class="card-body card-padding">
-              <form class="form-horizontal">
-                <div class="form-group">
-                  <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
-                  <div class="col-sm-9">
-                     <div class="fg-line">
-                      <div class="select">
-                        <select class="form-control" id="institucion" ng-options="institucion.nombre for institucion in instituciones" ng-model="institucion">
-                          <option value="" disabled="">-- SELECCIONE INSTITUCIÓN --</option>
-                        </select>
-                      </div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="id_institucion" class="col-sm-3 control-label">Institución</label>
+                <div class="col-sm-9">
+                   <div class="fg-line">
+                    <div class="select">
+                      <select class="form-control" id="institucion" ng-options="institucion.nombre for institucion in instituciones" ng-model="institucion">
+                        <option value="" disabled="">-- SELECCIONE INSTITUCIÓN --</option>
+                      </select>
                     </div>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="nombre" class="col-sm-3 control-label">Concepto</label>
-                  <div class="col-sm-9">
-                    <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="nombre" name="nombre" placeholder="Concepto" ng-model="nombre">
-                    </div>
+              </div>
+              <div class="form-group">
+                <label for="nombre" class="col-sm-3 control-label">Concepto</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" class="form-control input-sm" id="nombre" name="nombre" placeholder="Concepto" ng-model="nombre">
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="monto" class="col-sm-3 control-label">Monto</label>
-                  <div class="col-sm-9">
-                    <div class="fg-line">
-                      <input type="number" class="form-control input-sm" id="monto" name="monto" placeholder="Monto" ng-model="monto">
-                    </div>
+              </div>
+              <div class="form-group">
+                <label for="monto" class="col-sm-3 control-label">Monto</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="number" class="form-control input-sm" id="monto" name="monto" placeholder="Monto" ng-model="monto">
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="col-sm-12">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" name="exterior" ng-model="destino">
-                        <i class="input-helper"></i>
-                        Cuenta exterior privada
-                        <p><small> Marque esta casilla para almacenar los ingresos por ese concepto en la cuenta exterior privada de la corporación</small></p>
-                      </label>
-                    </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="exterior" ng-model="destino">
+                      <i class="input-helper"></i>
+                      Cuenta exterior privada
+                      <p><small> Marque esta casilla para almacenar los ingresos por ese concepto en la cuenta exterior privada de la corporación</small></p>
+                    </label>
                   </div>
                 </div>
-                <div class="form-group">
-                  <div class="col-sm-12">
-                    <div class="toggle-switch">
-                      <label for="habilitado" class="ts-label">Habilitado</label>
-                      <input id="habilitado" name="habilitado" type="checkbox" hidden="hidden" ng-model="estado">
-                      <label for="habilitado" class="ts-helper"></label>
-                    </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <div class="toggle-switch">
+                    <label for="habilitado" class="ts-label">Habilitado</label>
+                    <input id="habilitado" name="habilitado" type="checkbox" hidden="hidden" ng-model="estado">
+                    <label for="habilitado" class="ts-helper"></label>
                   </div>
                 </div>
-                <div class="form-group m-t-15">
-                  <div class="col-md-5 col-md-offset-2">
-                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
-                  </div>
-                  <div class="col-sm-5">
-                    <button type="button" class="btn btn-block waves-effect  accent-color" ng-click="guardarOtroCobro()" ng-disabled="procesando">
-                      <span ng-hide="procesando">Guardar</span>
-                      <span ng-show="procesando">
-                        <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
-                      </span>
-                    </button>
-                  </div>
+              </div>
+              <div class="form-group m-t-15">
+                <div class="col-md-5 col-md-offset-2">
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
                 </div>
-              </form>
+                <div class="col-sm-5">
+                  <button type="button" class="btn btn-block waves-effect  accent-color" ng-click="guardarOtroCobro()" ng-disabled="procesando">
+                    <span ng-hide="procesando">Guardar</span>
+                    <span ng-show="procesando">
+                      <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-      <div class="col-md-7">
+      <div class="col-md-6">
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Lista de Otros Cobros</h2>
           </div>
           <div class="card-body card-padding">
-            {!!Form::open(array('class' => 'form-horizontal', 'id' => 'form-listar-c-otros'))!!}
+            <form class="form-horizontal" id="form-listar-c-otros">
               <div class="form-group">
                 <label for="form_busqueda_institucion" class="col-sm-3 control-label">Institución</label>
                 <div class="col-sm-9">
-                     <div class="fg-line">
-                      <div class="select">
-                        <select class="form-control" id="form_busqueda_institucion" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="form_busqueda.institucion">
-                          <option value="" disabled="">-- SELECCIONE INSTITUCIÓN --</option>
-                        </select>
-                      </div>
+                  <div class="fg-line">
+                    <div class="select">
+                      <select class="form-control" id="form_busqueda_institucion" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="form_busqueda.id_institucion">
+                        <option value="">-- SELECCIONE INSTITUCIÓN --</option>
+                      </select>
                     </div>
                   </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-4 col-sm-offset-8">
-                  <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-listar-c-otros">Buscar</button>
                 </div>
               </div>
-            {!!Form::close()!!}
+              <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-4">
+                  <button class="btn btn-link btn-block" ng-click="inicializarFormBusqueda()">Cancelar</button>
+                </div>
+                <div class="col-sm-4">
+                  <button class="btn btn-block accent-color waves-effect" ng-click="listarOtrosCobros()" ng-disabled="form_busqueda.procesando">
+                    <span ng-hide="form_busqueda.procesando">Buscar</span>
+                    <span ng-show="form_busqueda.procesando">
+                      <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Buscando...
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
           <div class="table-responsive">
-            <table id="tabla-listar-c-otros" class="table table-striped">
+            <table class="table table-striped">
               <thead>
                 <tr>
-                  <th class="hidden">Id</th>
                   <th class="accent-color c-white">Concepto</th>
                   <th class="accent-color c-white">Monto</th>
                   <th class="accent-color c-white">Estado</th>
@@ -133,21 +140,89 @@
                 </tr>
               </thead>
               <tbody>
+                <tr ng-repeat="cobro in cobros">
+                  <td>{@ cobro.nombre @}</td>
+                  <td>{@ cobro.monto @}</td>
+                  <td>{@ cobro.estado == 0 ? 'Inhabilitado' : 'Habilitado' @}</td>
+                  <td><a class='btn third-color' ng-click="editarCobro(cobro)"><i class='zmdi zmdi-edit'></i></a></td>
+                </tr>
               </tbody>
             </table>
           </div>
-        </div>      
+        </div>
       </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-editar-cobro" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Editar Cobro</h4>
+          </div>
+          <div class="modal-body">
+            <div id="modal-error" ng-show="modal.errores">
+              <div class="alert alert-danger" role="alert">
+                <ul><li ng-repeat="(key, value) in modal.errores">{@ value[0] @}</li></ul>
+              </div>
+            </div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label for="modal_institucion" class="control-label col-sm-3">Institución:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <p class="form-control-static">{@ modal.institucion @}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="modal_nombre" class="col-sm-3 control-label">Concepto:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" class="form-control" id="modal_nombre" ng-model="modal.nombre" placeholder="Concepto">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="modal-monto" class="col-sm-3 control-label">Monto:</label>
+                <div class="col-sm-9">
+                  <div class="fg-line">
+                    <input type="text" class="form-control input-sm" id="modal-monto" ng-model="modal.monto" placeholder="Monto">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="modal-estado" class="col-sm-3 control-label">Habilitado:</label>
+                <div class="col-sm-9">
+                  <div class="toggle-switch">
+                    <label for="modal-estado" class="ts-label"></label>
+                    <input id="modal-estado" ng-model="modal.estado" type="checkbox" hidden="hidden">
+                    <label for="modal-estado" class="ts-helper"></label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="col-sm-4 col-sm-offset-4">
+              <a class="btn btn-link btn-block waves-effect" data-dismiss="modal">Cerrar</a>
+            </div>
+            <div class="col-sm-4">
+              <button class="btn btn-block accent-color waves-effect" ng-click="actualizarCobro()" ng-disabled="modal.procesando || !esValidoFormEdicion()">
+                <span ng-hide="modal.procesando">Guardar</span>
+                <span ng-show="modal.procesando">
+                  <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Modal -->
   </div>
 @endsection
 
-@section('modals')
-  @include('layouts.modals.c-otro')
-@endsection
-
 @section('scripts')
-  <script src="{{ asset('js/admin.js') }}"></script>
   <script src="{{ asset('js/angular.min.js') }}"></script>
   <script src="{{ asset('js/apps/cobros.otros.administrar.js') }}"></script>
 @endsection

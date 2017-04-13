@@ -12,11 +12,27 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
   $scope.destino = false
   $scope.estado = false
   $scope.procesando = false
+  $scope.form_busqueda = {
+    id_institucion : '',
+    procesando : false,
+  }
+  $scope.modal = {
+    id_categoria : '',
+    nombre : '',
+    monto : '',
+    institucion : '',
+    estado : '',
+    errores : null,
+    procesando : false,
+  }
   // Procesos iniciales
-   $http.get('/usuario/instituciones')
-  .success(function(response) {
-    $scope.instituciones = response;
-    });
+  $scope.listarInstituciones = function () {
+    $http.get('/usuario/instituciones')
+    .then(function (response) {
+      $scope.instituciones = response.data;
+    })
+  }
+  $scope.listarInstituciones()
   // Funciones
   $scope.guardarOtroCobro = function () {
     $scope.procesando = true
@@ -77,4 +93,77 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
     $scope.estado = false
     $scope.procesando = false
   }
-});
+  $scope.inicializarFormBusqueda = function () {
+    $scope.form_busqueda = {
+      id_institucion : '',
+    }
+    $scope.cobros = []
+  }
+  $scope.listarOtrosCobros = function () {
+    $scope.form_busqueda.procesando = true
+    var id_institucion = $scope.form_busqueda.id_institucion
+    id_institucion = id_institucion == null ? '' : id_institucion
+    var ruta = '/admin/cobro/otro/listar/' + id_institucion
+    $http.get(ruta)
+    .then(function(response) {
+      $scope.form_busqueda.procesando = false
+      $scope.cobros = response.data
+    })
+  }
+  $scope.editarCobro = function (cobro) {
+    $scope.modal = {
+      id_categoria : cobro.id,
+      institucion : cobro.institucion,
+      nombre : cobro.nombre,
+      monto : cobro.monto,
+      estado : cobro.estado == 1,
+      procesando : false,
+      errores : null,
+    }
+    $('#modal-editar-cobro').modal('show')
+  }
+  $scope.esValidoFormEdicion = function () {
+    return $scope.modal.nombre != ''
+           && $scope.modal.monto != ''
+  }
+  $scope.actualizarCobro = function () {
+    $scope.modal.procesando = true
+    var ruta = '/admin/cobros/otros/' + $scope.modal.id_categoria
+    $http.put(ruta, {
+      nombre: $scope.modal.nombre,
+      monto : $scope.modal.monto,
+      estado : $scope.modal.estado,
+    })
+    .then(function successCallback(response) {
+      $scope.modal.procesando = false
+      $('#modal-editar-cobro').modal('hide')
+      if (response.data.resultado == 'true') {
+        swal({
+          title : 'Cobro actualizado correctamente.',
+          type : 'success',
+          confirmButtonText : 'Aceptar',
+        })
+        $scope.listarOtrosCobros()
+      } else {
+        swal({
+          title : 'Error.',
+          text : 'No se pudo actualizar el Cobro. Mensaje: ' + response.data.mensaje,
+          type : 'error',
+        })
+      }
+    }, function errorCallback(response) {
+      $scope.modal.procesando = false
+      if (response.status == 422) {
+        $scope.modal.errores = response.data
+      } else {
+        debug(response, false)
+        $('#modal-editar-cobro').modal('hide')
+        swal({
+          title : 'Error.',
+          text : 'No se pudo actualizar el Cobro.',
+          type : 'error',
+        })
+      }
+    })
+  }
+})
