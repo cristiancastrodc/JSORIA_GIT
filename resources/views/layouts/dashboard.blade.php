@@ -155,9 +155,16 @@
   {!!Html::script('js/functions.js')!!}
   {!!Html::script('js/global.js')!!}
   <script>
-    @foreach($modulos as $modulo)
-      $('#{{ $modulo->tag_id }}').removeClass('hidden');
-    @endforeach
+    $(document).ready(function() {
+      @foreach($modulos as $modulo)
+        $('#{{ $modulo->tag_id }}').removeClass('hidden');
+      @endforeach
+      $('.sub-menu').each(function() {
+        var $item = $(this)
+        var l = $item.find('ul > li > a:not(.hidden)').length
+        if (l == 0) $item.remove()
+      })
+    });
   </script>
   <!-- Scripts adicionales -->
   @yield('scripts')
