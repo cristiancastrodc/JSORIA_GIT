@@ -2,25 +2,23 @@
 
 namespace JSoria\Http\Controllers;
 
+use Auth;
+use Crypt;
 use Illuminate\Http\Request;
-
+use JSoria\Alumno;
+use JSoria\Autorizacion;
+use JSoria\Categoria;
+use JSoria\Deuda_Ingreso;
+use JSoria\Grado;
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\AlumnoCreateRequest;
 use JSoria\Http\Requests\AlumnoUpdateRequest;
 use JSoria\Http\Controllers\Controller;
-
-use JSoria\Alumno;
-use JSoria\Autorizacion;
-use JSoria\Permiso;
-use JSoria\Categoria;
-use JSoria\Deuda_Ingreso;
-use JSoria\Grado;
 use JSoria\InstitucionDetalle;
 use JSoria\Institucion;
+use JSoria\Permiso;
 use Redirect;
 use Session;
-use Auth;
-use Crypt;
 
 class AlumnosController extends Controller
 {
@@ -647,10 +645,19 @@ class AlumnosController extends Controller
       $respuesta = [];
       $alumno = Alumno::recuperarAlumno($nro_documento);
       if ($alumno) {
-        $respuesta['resultado'] = 'true';
-        $respuesta['alumno'] = $alumno;
+        $esta_autorizado = Permiso::where('id_usuario', Auth::user()->id)
+                                  ->where('id_institucion', $alumno->id_institucion)
+                                  ->count() > 0;
+        if ($esta_autorizado) {
+          $respuesta['resultado'] = 'true';
+          $respuesta['alumno'] = $alumno;
+        } else {
+          $respuesta['resultado'] = 'false';
+          $respuesta['mensaje'] = 'Usuario no autorizado para administrar este alumno.';
+        }
       } else {
         $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = 'Código de alumno no registrado.';
       }
       return $respuesta;
     }

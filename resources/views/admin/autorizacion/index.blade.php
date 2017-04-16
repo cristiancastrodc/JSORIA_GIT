@@ -8,7 +8,7 @@
 
   @if(Session::has('message'))
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-12">
       <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -36,7 +36,7 @@
                   <div class="fg-line">
                     <input type="text" class="form-control" id="nro_documento" placeholder="Ingrese DNI o Código de alumno" ng-model="nro_documento" ng-blur="buscarAlumno()">
                   </div>
-                  <small class="help-block" ng-hide="existe_alumno">Código de alumno no registrado.</small>
+                  <small class="help-block" ng-hide="existe_alumno">{@ error_documento @}</small>
                 </div>
               </div>
               <div class="form-group">

@@ -8,6 +8,7 @@ app.controller('descuentosController', function ($scope, $http) {
   // Atributos
   $scope.datos_alumno = ''
   $scope.clase_documento = 'form-group'
+  $scope.error_documento = ''
   $scope.existe_alumno = true
   $scope.nro_documento = ''
   $scope.fecha_limite = ''
@@ -31,17 +32,19 @@ app.controller('descuentosController', function ($scope, $http) {
     if ($scope.nro_documento != '') {
       var ruta = '/admin/alumno/' + $scope.nro_documento + '/datos'
       $http.get(ruta)
-      .success(function(response) {
-        if (response.resultado == 'true') {
-          $scope.datos_alumno = response.alumno['apellidos'] + ' ' + response.alumno['nombres'] + ' - ' + response.alumno['institucion'] + ' - ' + response.alumno['division']
+      .then(function successCallback(response) {
+        if (response.data.resultado == 'true') {
+          var alumno = response.data.alumno
+          $scope.datos_alumno = alumno['apellidos'] + ' ' + alumno['nombres'] + ' - ' + alumno['institucion'] + ' - ' + alumno['division']
           $scope.existe_alumno = true
           $scope.clase_documento = 'form-group'
         } else {
           $scope.datos_alumno = ''
           $scope.existe_alumno = false
           $scope.clase_documento = 'form-group has-error'
+          $scope.error_documento = response.data.mensaje
         }
-      });
+      })
     } else {
       $scope.datos_alumno = ''
     }

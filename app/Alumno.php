@@ -2,8 +2,8 @@
 
 namespace JSoria;
 
-use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 use JSoria\Grado;
 use JSoria\Deuda_Ingreso;
 
@@ -150,7 +150,7 @@ class Alumno extends Model
                  ->join('detalle_institucion', 'grado.id_detalle', '=', 'detalle_institucion.id')
                  ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
                  ->where('alumno.nro_documento', $nro_documento)
-                 ->select('alumno.nombres', 'alumno.apellidos', 'institucion.nombre as institucion', 'detalle_institucion.nombre_division as division')
+                 ->select('alumno.nombres', 'alumno.apellidos', 'institucion.nombre as institucion', 'detalle_institucion.nombre_division as division', 'institucion.id as id_institucion')
                  ->first();
   }
 }

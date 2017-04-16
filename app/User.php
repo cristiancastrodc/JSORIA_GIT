@@ -82,11 +82,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     if ($modulo == 'modulosUsuario') {
       if (Auth::user()->usuario_login == 'sysadmin') {
         return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos, ' ', ' -', ' ', jsoria_usuario.tipo) as nombre"))
+                 ->orderBy('nombres')
                  ->get();
       }
       else {
         return User::select('usuario.id', DB::raw("CONCAT(jsoria_usuario.nombres, ' ', jsoria_usuario.apellidos, ' ', ' -', ' ', jsoria_usuario.tipo) as nombre"))
                    ->where('usuario_login', '<>', 'sysadmin')
+                   ->orderBy('nombres')
                    ->get();
       }
     } else {
