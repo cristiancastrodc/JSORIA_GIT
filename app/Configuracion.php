@@ -8,16 +8,23 @@ class Configuracion extends Model
 {
   protected $table = 'configuracion';
 
-  protected $fillable = ['valor'];
+  protected $fillable = ['variable', 'valor'];
 
   public $timestamps = false;
 
   /**
-   * Recuperar variable de configuracion
+   * Recuperar el valor de una variable de configuracion.
+   * En caso no exista la variable, se creará una nueva con el valor por defecto.
    */
-  public static function valor($variable)
+  public static function valor($variable, $valor_por_defecto)
   {
-    return Configuracion::where('variable', $variable)->first()->valor;
+    $config = Configuracion::where('variable', $variable)->first();
+    if ($config) {
+      return $config->valor;
+    } else {
+      $config = Configuracion::create([ 'variable' => $variable, 'valor' => $valor_por_defecto ]);
+      return $config->valor;
+    }
   }
   /**
    * Recuperar configuracion
@@ -25,5 +32,14 @@ class Configuracion extends Model
   public static function configuracion($variable)
   {
     return Configuracion::where('variable', $variable)->first();
+  }
+  /**
+   * Actualizar configuracion
+   */
+  public static function actualizar($variable, $valor)
+  {
+    $config = Configuracion::configuracion($variable);
+    $config->valor = $valor;
+    $config->save();
   }
 }

@@ -81,11 +81,17 @@ class ConfiguracionController extends Controller
      */
     public function configuracionEmpresa()
     {
-      $dia_limite_descuento = Configuracion::where('variable', 'dia_limite_descuento')->first();
-      $porcentaje_descuento = Configuracion::where('variable', 'porcentaje_descuento')->first();
+      // Recuperar valores
+      $dia_limite_instituto = Configuracion::valor('dia_limite_descuento', 1);
+      $porcentaje_instituto = Configuracion::valor('porcentaje_descuento', 0);
+      $dia_limite_ulp = Configuracion::valor('dia_limite_descuento_ulp', 1);
+      $porcentaje_ulp = Configuracion::valor('porcentaje_descuento_ulp', 0);
+      // Enviar a procesar en la vista
       return view('admin.configuracion.index', [
-        'dia_limite_descuento' => $dia_limite_descuento->valor,
-        'porcentaje_descuento' => $porcentaje_descuento->valor,
+        'dia_limite_instituto' => $dia_limite_instituto,
+        'porcentaje_instituto' => $porcentaje_instituto,
+        'dia_limite_ulp' => $dia_limite_ulp,
+        'porcentaje_ulp' => $porcentaje_ulp,
         ]);
     }
     /**
@@ -93,12 +99,11 @@ class ConfiguracionController extends Controller
      */
     public function guardarConfiguracionEmpresa(Request $request)
     {
-      $dia_limite = Configuracion::configuracion('dia_limite_descuento');
-      $dia_limite->valor = $request->dia_limite_descuento;
-      $dia_limite->save();
-      $porcentaje_descuento = Configuracion::configuracion('porcentaje_descuento');
-      $porcentaje_descuento->valor = $request->porcentaje_descuento;
-      $porcentaje_descuento->save();
+      Configuracion::actualizar('dia_limite_descuento', $request->dia_limite_instituto);
+      Configuracion::actualizar('porcentaje_descuento', $request->porcentaje_instituto);
+
+      Configuracion::actualizar('dia_limite_descuento_ulp', $request->dia_limite_ulp);
+      Configuracion::actualizar('porcentaje_descuento_ulp', $request->porcentaje_ulp);
 
       return redirect()->back()->with('message', 'Configuracion actualizada.')->withInput();
     }
