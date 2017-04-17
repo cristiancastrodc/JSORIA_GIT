@@ -64,5 +64,14 @@ app.controller('retirosController', function ($scope, $http) {
         }
       })
     })
-  }  
+  }
+  $scope.inicializar = function () {
+    // Tabla de ingresos por cajera
+    $('#form-detalle-retiro').addClass('hidden')
+    $('#tabla-ingresos-cajera > tbody').empty()
+    $('#cobros-no-retirados').html('0.00')
+    $('#cobros-por-retirar').html('0.00')
+    // Form búsqueda de cajera
+    $('#id_cajera').val('').selectpicker('refresh')
+  }
 })

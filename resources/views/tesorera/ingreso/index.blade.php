@@ -32,6 +32,7 @@
                 <label for="id_institucion" class="col-sm-3 control-label">Cajera:</label>
                 <div class="col-sm-9">
                   <select class="selectpicker text-uppercase" name="id_cajera" id="id_cajera" title='Seleccione Cajera'>
+                    <option value="" disabled="">-- Seleccione Cajera --</option>
                     @foreach ($cajeras as $cajera)
                       <option value="{{ $cajera->id }}">{{ $cajera->nombres }} {{ $cajera->apellidos }}</option>
                     @endforeach
@@ -76,7 +77,10 @@
             </div>
             <div class="card-body card-padding">
               <div class="form-group">
-                <div class="col-sm-4 col-sm-offset-8">
+                <div class="col-sm-4 col-sm-offset-4">
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                </div>
+                <div class="col-sm-4">
                   <button class="btn btn-block accent-color waves-effect" id="btn-retirar-ingresos">Retirar</button>
                 </div>
               </div>
