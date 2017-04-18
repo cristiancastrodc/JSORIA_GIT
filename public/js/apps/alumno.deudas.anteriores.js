@@ -9,6 +9,7 @@ app.controller('deudasController', function ($scope, $http, $filter) {
   $scope.buscando = false;
   $scope.matriculando = false;
   $scope.alumno = [];
+  $scope.datosinstitucion = [];
   $scope.label_detalle = '';
   $scope.pensiones = [];
   $scope.cantidad_categorias = 0;
@@ -27,6 +28,7 @@ app.controller('deudasController', function ($scope, $http, $filter) {
     .success(function(response) {
       if (response.resultado == 'true') {
         $scope.alumno = response.alumno;
+        $scope.datosinstitucion = response.datosinstitucion;
         $scope.matriculando = true;
       } else if (response.resultado == 'false') {
         swal({

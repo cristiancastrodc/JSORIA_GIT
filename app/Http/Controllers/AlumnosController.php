@@ -289,10 +289,13 @@ class AlumnosController extends Controller
                                    ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
                                    ->get();
 
-            $alumno = Alumno::where('alumno.nro_documento','=',$documento)
-                            ->select('nombres', 'apellidos','nro_documento')
-                            ->first();
-
+            $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+                        ->join('detalle_institucion','grado.id_detalle','=','detalle_institucion.id' )
+                        ->join('institucion','detalle_institucion.id_institucion','=','institucion.id')
+                        ->where('alumno.nro_documento','=',$documento)
+                        ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'grado.nombre_grado', 'alumno.nro_documento', 'detalle_institucion.nombre_division', 'institucion.nombre')
+                        ->first();
+            
             if ($alumno) {
                 $response = array($alumno, $deudas);
                 return response()->json($response);
@@ -493,6 +496,7 @@ class AlumnosController extends Controller
       $alertar = 'false';
       $mensaje = [];
       $alumno = Alumno::datosAlumno($nro_documento);
+      $datosinstitucion = Alumno::recuperarAlumno($nro_documento);
       if ($alumno) {
         if ($alumno->estado == 1) {
           $alertar = 'true';
@@ -509,7 +513,8 @@ class AlumnosController extends Controller
         'resultado' => $resultado,
         'alertar' => $alertar,
         'mensaje' => $mensaje,
-        'alumno' => $alumno
+        'alumno' => $alumno,
+        'datosinstitucion' => $datosinstitucion,
       );
       return $respuesta;
     }

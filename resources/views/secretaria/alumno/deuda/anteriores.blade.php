@@ -50,6 +50,7 @@
               </div>
               <div ng-show="matriculando">
                 <h3 class="text-uppercase m-t-0">{@ alumno.nombres @} {@ alumno.apellidos @}</h3>
+                <h4 class="text-uppercase m-t-0">{@ datosinstitucion.institucion @} {@ datosinstitucion.division @} {@ datosinstitucion.grado @}</h4>
                 <div class="form-group">
                   <label for="id_institucion" class="control-label col-sm-3">Institución</label>
                   <div class="col-sm-9">
