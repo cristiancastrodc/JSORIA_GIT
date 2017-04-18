@@ -2,20 +2,20 @@
 
 namespace JSoria\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
 use Config;
-use JSoria\Http\Requests;
-use JSoria\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use JSoria\Alumno;
 use JSoria\Categoria;
 use JSoria\Configuracion;
 use JSoria\Comprobante;
 use JSoria\Deuda_Ingreso;
+use JSoria\Http\Requests;
+use JSoria\Http\Controllers\Controller;
+use JSoria\Http\Controllers\HerramientasController;
 use JSoria\Institucion;
 use JSoria\InstitucionDetalle;
 use JSoria\Permiso;
-use JSoria\Http\Controllers\HerramientasController;
 use NumeroALetras;
 
 class CobrosController extends Controller
@@ -35,229 +35,6 @@ class CobrosController extends Controller
       $categorias = Categoria::listaOtrosCobrosCajera();
       return view('cajera.cobros.index', ['categorias' => $categorias]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
-    * Buscar Deudas de Alumno o Pago único
-    **/
-    public function buscarDeudas(Request $request, $nro_documento)
-    {
-        if ($request->ajax()) {
-            $alumno = Alumno::find($nro_documento);
-
-            if ($alumno) {
-              if ($alumno->estado == '1') {
-                $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
-                          ->where('alumno.nro_documento','=', $nro_documento)
-                          ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle')
-                          ->first();
-                $id_institucion = InstitucionDetalle::find($alumno->id_detalle)->id_institucion;
-
-                $permisos = Permiso::where('id_usuario', Auth::user()->id)
-                                   ->where('id_institucion', $id_institucion)
-                                   ->get();
-
-                if (!$permisos->isEmpty()) {
-                  $institucion =  Institucion::find($id_institucion);
-                  $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
-                                         ->where('nombre_division', '=', 'Todo')
-                                         ->first()->id;
-                  $categorias = Categoria::where('tipo', '=', 'sin_factor')
-                                         ->where('estado', '=', 1)
-                                         ->where('id_detalle_institucion','=', $detalle_institucion)
-                                         ->get();
-
-                  $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
-                            ->where('deuda_ingreso.id_alumno','=', $nro_documento)
-                            ->where('deuda_ingreso.estado_pago','=', 0)
-                            ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo', 'deuda_ingreso.descuento', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.estado_descuento', 'deuda_ingreso.estado_fraccionam', 'categoria.destino')
-                            ->get();
-
-                  $hoy = date('Y/m/d');
-                  foreach ($deudas as $deuda) {
-                      if ($deuda->tipo == "pension" && $deuda->estado_descuento == "0" && $deuda->estado_fraccionam == "0") {
-                          $descuento = 0;
-                          $tiempo = strtotime($deuda->fecha_fin);
-                          $fecha_fin = date('Y/m/d', $tiempo);
-                          $descuento = $id_institucion == "3" && $hoy <= $fecha_fin ? floatval($deuda->saldo) * 0.11 : $descuento;
-                          $descuento = $id_institucion == "4" && $hoy <= $fecha_fin ? floatval($deuda->saldo) * 0.15 : $descuento;
-                          $deuda->descuento = $descuento;
-                          //$deuda->save();
-                      }
-                  }
-
-                  $response = array($alumno, $institucion, $deudas, $categorias, 'tipo' => 'alumno_existe');
-
-                  return $response;
-                } else {
-                  return response()->json(['tipo' => 'warning', 'mensaje' => 'Usuario no autorizado a realizar este cobro.']);
-                }
-              } else {
-                return response()->json(['tipo' => 'warning', 'mensaje' => 'El alumno no está matriculado.']);
-              }
-            } else {
-                $deuda = Deuda_Ingreso::where('id', '=', $nro_documento)->first();
-
-                if ($deuda) {
-                  if ($deuda->cliente_extr != null && $deuda->descripcion_extr != null) {
-                    if ($deuda->estado_pago == '0') {
-                      $id_institucion = Categoria::institucionDeCategoria($deuda->id_categoria)->id_institucion;
-                      return response()->json(['mensaje' => 'Existe deuda extraordinaria', 'deuda' => $deuda, 'tipo' => 'hay_deuda_extr', 'id_institucion' => $id_institucion]);
-                    } else {
-                      return response()->json(['mensaje' => 'La deuda ya fue cancelada', 'tipo' => 'warning']);
-                    }
-                  } else {
-                      return response()->json(['mensaje' => 'No se encuentra alumno ni codigo correspondiente al dato ingresado.', 'tipo' => 'warning']);
-                  }
-                } else {
-                  return response()->json(['mensaje' => 'No se encuentra alumno ni codigo correspondiente al dato ingresado.', 'tipo' => 'warning']);
-                }
-            }
-        } else {
-            return response()->json(['mensaje' => 'Esta petición sólo se puede acceder desde AJAX.']);
-        }
-    }
-
-    public function guardarCobro(Request $request)
-    {
-        $mensaje = '';
-        if ($request->ajax()) {
-            $deudas = $request['id_pagos'];
-            $deudas = array_filter(explode(',', $deudas));
-
-            $pagos = array();
-            $monto_total = 0;
-            $fecha_hora_ingresos = date("Y-m-d H:i:s");
-
-            $tipo_comprobante = $request['tipo_comprobante'];
-            $serie_comprobante = $request['serie_comprobante'];
-            $numero_comprobante = $request['numero_comprobante'];
-
-            foreach ($deudas as $deuda) {
-                $pago = Deuda_Ingreso::find($deuda);
-                $pago->estado_pago = 1;
-                $pago->fecha_hora_ingreso = $fecha_hora_ingresos;
-                $pago->id_cajera = Auth::user()->id;
-                $pago->tipo_comprobante = $tipo_comprobante;
-                $pago->serie_comprobante = $serie_comprobante;
-                $pago->numero_comprobante = $numero_comprobante;
-                $pago->save();
-
-                $categoria = Categoria::find($pago->id_categoria);
-                $monto = floatval($pago->saldo) - floatval($pago->descuento);
-                $monto_total += $monto;
-                $concepto = array($categoria->nombre, $monto);
-                array_push($pagos, $concepto);
-            }
-
-            $compras = $request['id_compras'];
-            $compras = array_filter(explode(',', $compras));
-            $nro_compras = intval(count($compras) / 2);
-
-            $nro_documento = $request['nro_documento'];
-            for ($i = 0; $i < $nro_compras; $i++) {
-                $i1 = $i + 1;
-                Deuda_Ingreso::create([
-                    'saldo' => $compras[$i1],
-                    'estado_pago' => 1,
-                    'id_categoria' => $compras[$i],
-                    'id_alumno' => $nro_documento,
-                    'id_cajera' => Auth::user()->id,
-                    'fecha_hora_ingreso' => $fecha_hora_ingresos,
-                    'tipo_comprobante' => $tipo_comprobante,
-                    'serie_comprobante' => $serie_comprobante,
-                    'numero_comprobante' => $numero_comprobante,
-                ]);
-
-                $categoria = Categoria::find($compras[$i]);
-                $monto = $compras[$i1];
-                $monto_total += $monto;
-                $concepto = array($categoria->nombre, $monto);
-                array_push($pagos, $concepto);
-            }
-
-            //$id_razon_social = Institucion::find($request['id_institucion'])->id_razon_social;
-            $comprobante = Comprobante::where('tipo', $tipo_comprobante)
-                                      ->where('serie', $serie_comprobante)
-                                      ->where('id_institucion', $request['id_institucion'])
-                                      //->where('id_razon_social', $id_razon_social)
-                                      ->first();
-            $comprobante->numero_comprobante = intval($numero_comprobante);
-            $comprobante->save();
-
-            $alumno = Alumno::find($nro_documento);
-            $nombre_completo = strtoupper($alumno->nombres . " " . $alumno->apellidos);
-
-            $mensaje = 'Pagos de alumno correctamente actualizados. Puede girar manualmente el comprobante.';
-            return response()->json(['mensaje' => $mensaje]);
-        }
-    }
-
     public function guardarCobroMultiple(Request $request)
     {
       if ($request->ajax()) {
@@ -283,7 +60,6 @@ class CobrosController extends Controller
           $cliente_extr = $ruc;
           $descripcion_extr = $razon_social . ' - ' . $direccion;
         }
-
         $categoria = Categoria::find($id_categoria);
         Deuda_Ingreso::create([
           'saldo' => $categoria->monto,
@@ -299,12 +75,10 @@ class CobrosController extends Controller
         ]);
         // Actualizar el comprobante
         $comprobante = Comprobante::actualizar($id_institucion, $tipo, $serie, $numero);
-
         $mensaje = 'Venta realizada exitosamente.';
         return response()->json(['mensaje' => $mensaje]);
       }
     }
-
     /**
     * Buscar los datos del comprobante y del número correlativo
     **/
@@ -320,7 +94,6 @@ class CobrosController extends Controller
         return response()->json($comprobantes);
       }
     }
-
     /**
     * Buscar el número correspondiente a la serie seleccionada
     **/
@@ -333,7 +106,6 @@ class CobrosController extends Controller
       $numero_comprobante = str_pad(intval($comprobante->numero_comprobante) + 1, $comprobante->pad_izquierda, '0', STR_PAD_LEFT);
       return response()->json(['numero_comprobante' => $numero_comprobante]);
     }
-
     /**
      * Muestra la interfaz para generar ingresos (cobrar)
      */
@@ -346,76 +118,90 @@ class CobrosController extends Controller
      */
     public function buscarDatosParaCobro($codigo)
     {
-      $resultado = '';
-      $deudas = [];
-      $categorias = [];
-      $alumno = [];
-      $matricula_alumno = '';
-      $deuda_extraordinaria = [];
-      $alertar = 'false';
-      $mensaje = [];
-      $id_institucion = '';
-      // Buscar
-      $alumno = Alumno::find($codigo);
-      if ($alumno) {
-        $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
-                        ->where('alumno.nro_documento','=', $codigo)
-                        ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'grado.nombre_grado')
-                        ->first();
-        $detalle_institucion = InstitucionDetalle::find($alumno->id_detalle);
-        $id_institucion = $detalle_institucion->id_institucion;
-        if (Permiso::usuarioEstaAutorizadoInstitucion(Auth::user()->id, $id_institucion)) {
-          $resultado = 'alumno';
-          $institucion = Institucion::find($id_institucion);
-          $matricula_alumno = $institucion->nombre . ' - ' . $detalle_institucion->nombre_division . ' - ' . $alumno->nombre_grado;
-          // Recuperar deudas de alumno
-          $deudas = Deuda_Ingreso::deudasDeAlumno($codigo);
-          // Modificar las pensiones de acuerdo a los descuentos
-          $dia_limite = Configuracion::valor('dia_limite_descuento', 1) . ' days';
-          $porcentaje_descuento = floatval(Configuracion::valor('porcentaje_descuento', 0)) / 100;
-          $fecha_actual = date_create(date('Y-m-d'));
-          foreach ($deudas as $deuda) {
-            if ($deuda->id_institucion == '3' && $deuda->tipo == "pension" && $deuda->estado_descuento == "0") {
-              $fecha_final = date_create($deuda->fecha_fin);
-              date_add($fecha_final, date_interval_create_from_date_string($dia_limite));
-              if ($fecha_actual <= $fecha_final) {
-                $descuento = floatval($deuda->monto) * $porcentaje_descuento;
-                $deuda->descuento = $descuento;
+      try {
+        $resultado = '';
+        $deudas = [];
+        $categorias = [];
+        $alumno = [];
+        $matricula_alumno = '';
+        $deuda_extraordinaria = [];
+        $alertar = 'false';
+        $mensaje = [];
+        $id_institucion = '';
+        // Buscar
+        $alumno = Alumno::find($codigo);
+        if ($alumno) {
+          $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+                          ->where('alumno.nro_documento','=', $codigo)
+                          ->select('alumno.nro_documento', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'grado.nombre_grado')
+                          ->first();
+          $detalle_institucion = InstitucionDetalle::find($alumno->id_detalle);
+          $id_institucion = $detalle_institucion->id_institucion;
+          if (Permiso::usuarioEstaAutorizadoInstitucion(Auth::user()->id, $id_institucion)) {
+            $resultado = 'alumno';
+            $institucion = Institucion::find($id_institucion);
+            $matricula_alumno = $institucion->nombre . ' - ' . $detalle_institucion->nombre_division . ' - ' . $alumno->nombre_grado;
+            // Recuperar deudas de alumno
+            $deudas = Deuda_Ingreso::deudasDeAlumno($codigo);
+            // Modificar las pensiones de acuerdo a los descuentos
+            $dia_limite = Configuracion::valor('dia_limite_descuento', 1);
+            if ($id_institucion == 4) {
+              $dia_limite = Configuracion::valor('dia_limite_descuento_ulp', 1);
+            }
+            $dia_limite = $dia_limite . ' days';
+            $porcentaje_descuento = floatval(Configuracion::valor('porcentaje_descuento', 0)) / 100;
+            if ($id_institucion == 4) {
+              $porcentaje_descuento = floatval(Configuracion::valor('porcentaje_descuento_ulp', 0)) / 100;
+            }
+            $fecha_actual = date_create(date('Y-m-d'));
+            foreach ($deudas as $deuda) {
+              if (($deuda->id_institucion == '3' || $deuda->id_institucion == '4') && $deuda->tipo == "pension" && $deuda->estado_descuento == "0") {
+                $fecha_final = date_create($deuda->fecha_fin);
+                date_add($fecha_final, date_interval_create_from_date_string($dia_limite));
+                if ($fecha_actual <= $fecha_final) {
+                  $descuento = floatval($deuda->monto) * $porcentaje_descuento;
+                  $deuda->descuento = $descuento;
+                }
               }
             }
+            // Recuperar los montos a cancelar de cada deuda
+            foreach ($deudas as $deuda) {
+              $deuda['monto_cancelar'] = floatval($deuda->saldo) - floatval($deuda->descuento);
+              $deuda['monto_pagado'] = floatval($deuda->saldo) - floatval($deuda->descuento);
+            }
+            // Recuperar las categorías ordinarias para el alumno
+            $categorias = Categoria::categoriasParaInstitucion($id_institucion);
+          } else {
+            $resultado = 'no_autorizado';
+            $alertar = 'true';
+            $mensaje['titulo'] = 'ERROR';
+            $mensaje['contenido'] = 'Usuario no autorizado para realizar este cobro.';
           }
-          // Recuperar los montos a cancelar de cada deuda
-          foreach ($deudas as $deuda) {
-            $deuda['monto_cancelar'] = floatval($deuda->saldo) - floatval($deuda->descuento);
-            $deuda['monto_pagado'] = floatval($deuda->saldo) - floatval($deuda->descuento);
-          }
-          // Recuperar las categorías ordinarias para el alumno
-          $categorias = Categoria::categoriasParaInstitucion($id_institucion);
         } else {
-          $resultado = 'no_autorizado';
-          $alertar = 'true';
-          $mensaje['titulo'] = 'ERROR';
-          $mensaje['contenido'] = 'Usuario no autorizado para realizar este cobro.';
-        }
-      } else {
-        $deuda_extraordinaria = Deuda_Ingreso::find($codigo);
-        if ($deuda_extraordinaria) {
-          if ($deuda_extraordinaria->cliente_extr != null && $deuda_extraordinaria->descripcion_extr != null) {
-            if ($deuda_extraordinaria->estado_pago == 0) {
-              $id_institucion = Categoria::institucionDeCategoria($deuda_extraordinaria->id_categoria);
-              if (Permiso::usuarioEstaAutorizadoInstitucion(Auth::user()->id, $id_institucion)) {
-                $resultado = 'extraordinario';
+          $deuda_extraordinaria = Deuda_Ingreso::find($codigo);
+          if ($deuda_extraordinaria) {
+            if ($deuda_extraordinaria->cliente_extr != null && $deuda_extraordinaria->descripcion_extr != null) {
+              if ($deuda_extraordinaria->estado_pago == 0) {
+                $id_institucion = Categoria::institucionDeCategoria($deuda_extraordinaria->id_categoria);
+                if (Permiso::usuarioEstaAutorizadoInstitucion(Auth::user()->id, $id_institucion)) {
+                  $resultado = 'extraordinario';
+                } else {
+                  $resultado = 'no_autorizado';
+                  $alertar = 'true';
+                  $mensaje['titulo'] = 'ERROR';
+                  $mensaje['contenido'] = 'Usuario no autorizado para realizar este cobro.';
+                }
               } else {
-                $resultado = 'no_autorizado';
+                $resultado = 'deuda_cancelada';
                 $alertar = 'true';
                 $mensaje['titulo'] = 'ERROR';
-                $mensaje['contenido'] = 'Usuario no autorizado para realizar este cobro.';
+                $mensaje['contenido'] = 'Deuda ya fue cancelada.';
               }
             } else {
-              $resultado = 'deuda_cancelada';
+              $resultado = 'no_existe';
               $alertar = 'true';
               $mensaje['titulo'] = 'ERROR';
-              $mensaje['contenido'] = 'Deuda ya fue cancelada.';
+              $mensaje['contenido'] = 'No se encuentra el código de pago.';
             }
           } else {
             $resultado = 'no_existe';
@@ -423,26 +209,27 @@ class CobrosController extends Controller
             $mensaje['titulo'] = 'ERROR';
             $mensaje['contenido'] = 'No se encuentra el código de pago.';
           }
-        } else {
-          $resultado = 'no_existe';
-          $alertar = 'true';
-          $mensaje['titulo'] = 'ERROR';
-          $mensaje['contenido'] = 'No se encuentra el código de pago.';
         }
+        // Retornar la respuesta
+        $respuesta = [
+          'resultado' => $resultado,
+          'deudas' => $deudas,
+          'categorias' => $categorias,
+          'alumno' => $alumno,
+          'matricula_alumno' => $matricula_alumno,
+          'deuda_extraordinaria' => $deuda_extraordinaria,
+          'alertar' => $alertar,
+          'mensaje' => $mensaje,
+          'id_institucion' => $id_institucion,
+        ];
+        return $respuesta;
+      } catch (\Exception $e) {
+        return [
+          'resultado' => 'false',
+          'alertar' => 'true',
+          'mensaje' => [ 'titulo' => 'Error.', 'contenido' => $e->getMessage() ]
+        ];
       }
-      // Retornar la respuesta
-      $respuesta = [
-        'resultado' => $resultado,
-        'deudas' => $deudas,
-        'categorias' => $categorias,
-        'alumno' => $alumno,
-        'matricula_alumno' => $matricula_alumno,
-        'deuda_extraordinaria' => $deuda_extraordinaria,
-        'alertar' => $alertar,
-        'mensaje' => $mensaje,
-        'id_institucion' => $id_institucion,
-      ];
-      return $respuesta;
     }
     /**
      * Graba un pago
