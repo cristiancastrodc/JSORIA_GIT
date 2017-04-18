@@ -32,7 +32,7 @@ class EgresosController extends Controller
     public function index()
     {
         $egresos = Egreso::All();
-   
+
         return view('tesorera.egreso.index', compact('egresos'));
     }
 
@@ -235,11 +235,6 @@ class EgresosController extends Controller
     /*** Listar egresos filtrando por fecha ***/
     public function listarEgresosPorFecha(Request $request)
     {
-      /*$fecha_i = $request->fecha_egreso;
-      $fecha_f = date('Y-m-d');
-      $dias = (strtotime($fecha_i)-strtotime($fecha_f))/86400;
-      $dias   = abs($dias); $dias = floor($dias);   
-      return $dias;*/
       $egresos = Egreso::egresosPorFecha($request->fecha_egreso);
       return response()->json($egresos);
     }

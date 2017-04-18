@@ -7,16 +7,20 @@
 @section('content')
 
   @if(Session::has('message'))
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{Session::get('message')}}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{Session::get('message')}}
+      </div>
     </div>
+  </div>
   @endif
 
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2>Modificar Egreso</h2>
@@ -79,7 +83,7 @@
                       <input type="text" class="form-control input-sm" id="razon_social" name="razon_social" placeholder="Razon Social" autocomplete="off" value="{{ $egreso->razon_social }}">
                   </div>
               </div>
-            </div> 
+            </div>
             <div class="form-group">
               <label for="responsable" class="col-sm-3 control-label">Responsable</label>
               <div class="col-sm-9">
@@ -87,7 +91,7 @@
                       <input type="text" class="form-control input-sm" id="responsable" name="responsable" placeholder="Responsable" autocomplete="off" value="{{ $egreso->responsable }}">
                   </div>
               </div>
-            </div> 
+            </div>
             <div class="form-group">
             <div class="table-responsive">
               <table class="table" id="tabla-resumen-egresos">

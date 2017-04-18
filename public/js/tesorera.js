@@ -1,36 +1,26 @@
 /****** Agregar Egreso *******/
 $('#form-registrar-egreso-tesorera #tipo_comprobante').change(function (event){
-	var seleccionado = $('#form-registrar-egreso-tesorera #tipo_comprobante').val();
-
-	/*if (seleccionado == 3) {
-		$('#numero_comprobante').prop('disabled', true);
-    $('#numero_comprobante').val('cp');
-		$('#form-group-nro-comprobante').slideUp();
-	} else {*/
-		$('#numero_comprobante').prop('disabled', false);
-    $('#numero_comprobante').val('');
-		$('#form-group-nro-comprobante').slideDown();
-	//}
+  var seleccionado = $('#form-registrar-egreso-tesorera #tipo_comprobante').val();
+  $('#numero_comprobante').prop('disabled', false);
+  $('#numero_comprobante').val('');
+  $('#form-group-nro-comprobante').slideDown();
 });
-
 $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
   e.preventDefault();
-
   var ruta ='/tesorera/crear/egresos/rubro/crear';
   var dato = $('#nombre').val();
   var token =$('#_token').val();
-
   $.ajax({
-  	url: ruta,
-  	headers: {'X-CSRF-TOKEN': token},
-  	type: 'POST',
-  	dataType: 'json',
-  	data:{nombre: dato},
+    url: ruta,
+    headers: {'X-CSRF-TOKEN': token},
+    type: 'POST',
+    dataType: 'json',
+    data:{nombre: dato},
     beforeSend: function () {
       debug('Antes de enviar');
       $('#ajax-loader').fadeIn('slow');
     },
-  	success : function (response) {
+    success : function (response) {
       $('#ajax-loader').fadeOut('slow', function() {
         swal({
             title: "Éxito",
@@ -41,16 +31,14 @@ $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
           reloadRubros();
         });
       });
-  	},
+    },
   });
 });
-
 function reloadRubros () {
   debug('Recargar rubros.');
   var ruta = '../rubro/listar/';
   var $sel_rubros = $('#rubro_egreso');
   $sel_rubros.empty();
-
   $.get(ruta, function (data) {
     debug('AJAX request completed.');
     debug(data, false);
@@ -61,16 +49,13 @@ function reloadRubros () {
     $sel_rubros.selectpicker('refresh');
   });
 };
-
 $('#btn-detalle-egreso-agregar').click(function(e) {
   e.preventDefault();
   debug('Boton Agregar Egreso presionado');
-
   var $descripcion = $('#egreso #descripcion_egreso').val();
   var $rubro = $('#egreso #rubro_egreso').val();
   var $textoRubro = $('#rubro_egreso option:selected').text();
   var $monto = $('#egreso #monto_egreso').val();
-
   if ($descripcion != "" && $rubro != "" && $monto != "") {
     debug('Agregar Egreso a la tabla');
     var fila = "<tr>";
@@ -80,9 +65,7 @@ $('#btn-detalle-egreso-agregar').click(function(e) {
     fila += "<td class='text-right egreso-monto'>" + parseFloat($monto).toFixed(2) + "</td>";
     fila += "<td><a class='delete-row c-red'><i class='zmdi zmdi-close-circle'></i> Quitar</a></td>";
     fila += "</tr>";
-
     $('#tabla-resumen-egresos tbody').append(fila);
-
     $('#egreso #descripcion_egreso').val('');
     $('#rubro_egreso').selectpicker('deselectAll');
     $('#egreso #monto_egreso').val('');
@@ -91,15 +74,11 @@ $('#btn-detalle-egreso-agregar').click(function(e) {
     sweet_alert('¡Atención!', 'Debe llenar todos los campos de egreso.', 'warning');
   };
 });
-
 $('#tabla-resumen-egresos').on('click', '.delete-row', function() {
   $(this).parents('tr').remove();
 });
-
 $('#btn-guardar-egreso').click(function(e) {
   e.preventDefault();
-  debug('Boton Guardar Egreso presionado.');
-
   var $fecha_registro = $('#fecha_registro').val();
   var $id_institucion = $('#id_institucion').val();
   var $tipo_comprobante = $('#tipo_comprobante').val();
@@ -107,18 +86,12 @@ $('#btn-guardar-egreso').click(function(e) {
   var $fecha_egreso = $('#fecha_egreso').val();
   var $razon_social = $('#razon_social').val();
   var $responsable = $('#responsable').val();
-
   if ($fecha_registro != "" && $id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "" && $responsable != "") {
-    debug('Maestro OK. Comprobar detalle.');
     var $filas_detalle = $('#tabla-resumen-egresos > tbody > tr');
-
     if ($filas_detalle.length > 0) {
-      debug('El egreso maestro y detalle están correctos.');
-
-      var ruta = '../egresos/crear_egreso';
+      var ruta = '/tesorera/egresos/crear_egreso';
       var $token = $('#_token').val();
       var detalle_egreso = [];
-
       $('#tabla-resumen-egresos > tbody > tr').each(function(index, el) {
         var $descripcion = $(this).find('.egreso-descripcion').html();
         var $egreso_rubro = $(this).find('.egreso-rubro-id').html();
@@ -131,7 +104,6 @@ $('#btn-guardar-egreso').click(function(e) {
         detalle_egreso.push(detalle);
       });
       debug(detalle_egreso, false);
-
       $.ajax({
         headers : { 'X-CSRF-TOKEN' : $token },
         url: ruta,
@@ -175,11 +147,10 @@ $('#btn-guardar-egreso').click(function(e) {
     };
   } else{
     debug('Faltan campos en el maestro.');
-    sweet_alert('¡Atención!', 'Debe llenar todos los campos generales.', 'warning');
+    sweet_alert('¡Atención!', 'Debe llenar todos los campos generales obligatorios.', 'warning');
   };
 });
 /*** Fin de Agregar Egreso ***/
-
 /****** Retirar Ingresos *******/
 $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
   e.preventDefault();
@@ -242,7 +213,6 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
     sweet_alert('¡Atención!', 'Debe de seleccionar una cajera.', 'warning');
   }
 });
-
 $('#btn-retirar-ingresos').click(function (e) {
   e.preventDefault();
   var ids_cobros = [];
@@ -291,106 +261,85 @@ $('#btn-retirar-ingresos').click(function (e) {
   })
 })
 /*** Fin de Retirar Ingresos ***/
-
 /*** Inicio de Modificar Egresos ***/
 $('#btn-buscar-egresos').click(function(e) {
   e.preventDefault();
-  debug('Boton Buscar Egresos presionado');
-
   var $fecha_egresos = $('#fecha_egresos').val();
-  if ($fecha_egresos != "") {
-    debug('Fecha de egresos correcta.');
-    var ruta = 'egreso/listar_fecha';
-    $('#tabla-listar-egresos > tbody').empty();
-
-    $.ajax({
-      url: ruta,
-      type: 'GET',
-      dataType: 'json',
-      data: {
-        fecha_egreso : $fecha_egresos
-      },
-      beforeSend : function () {
-        debug('Antes de enviar');
-        $('#ajax-loader').fadeIn('slow');
-      },
-      success : function (data) {
-        $('#ajax-loader').fadeOut('slow', function () {
-          if (data.length > 0) {
-            for (var i = 0; i < data.length; i++) {
-              var fila = "<tr>";
-              fila += "<td class='hidden egreso-id'>" + data[i].id + "</td>";
-              fila += "<td>" + data[i].nombre + "</td>";
-              //fila += "<td>" + data[i].tipo_comprobante + "</td>";
-              switch(data[i].tipo_comprobante) {
-                case 1:
-                  fila += "<td>Boleta</td>";
-                  break;
-                case 2:
-                  fila += "<td>Factura</td>";
-                  break;
-                case 3:
-                  fila += "<td>Comprobante de Pago</td>";
-                  break;
-                case 4:
-                  fila += "<td>Comprobante de Egreso</td>";
-                  break;
-                case 5:
-                  fila += "<td>Recibo por Honorarios</td>";
-                  break;
-              };
-              /*if (data[i].tipo_comprobante == 3) {
-                fila += "<td class='text-right'>" + pad(data[i].numero_comprobante, 6) + "</td>";
-              } else{*/
-                fila += "<td class='text-right'>" + data[i].numero_comprobante + "</td>";
-              //};
-              fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn third-color waves-effect'><i class='zmdi zmdi-edit'></i></a> </td>";
-              //fila += "<a class='btn fourth-color waves-effect eliminar-egreso'><i class='zmdi zmdi-delete'></i></a>
-              
-              fila += "</tr>";
-              $('#tabla-listar-egresos tbody').append(fila);
+  var ruta = '/tesorera/egreso/listar_fecha';
+  $('#tabla-listar-egresos > tbody').empty();
+  var $token = $('#_token').val();
+  $.ajax({
+    headers : { 'X-CSRF-TOKEN' : $token },
+    url: ruta,
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      fecha_egreso : $fecha_egresos
+    },
+    beforeSend : function () {
+      $('#ajax-loader').fadeIn('slow');
+    },
+    success : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+            var fila = "<tr>";
+            fila += "<td class='hidden egreso-id'>" + data[i].id + "</td>";
+            fila += "<td>" + data[i].nombre + "</td>";
+            switch(data[i].tipo_comprobante) {
+              case 1:
+                fila += "<td>Boleta</td>";
+                break;
+              case 2:
+                fila += "<td>Factura</td>";
+                break;
+              case 3:
+                fila += "<td>Comprobante de Pago</td>";
+                break;
+              case 4:
+                fila += "<td>Comprobante de Egreso</td>";
+                break;
+              case 5:
+                fila += "<td>Recibo por Honorarios</td>";
+                break;
             };
-            $('#card-lista-egresos.js-toggle').slideDown('slow');
-          } else {
-            $('#tabla-listar-egresos > tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+            fila += "<td class='text-right'>" + data[i].numero_comprobante + "</td>";
+            fila += "<td><a href='/tesorera/egresos/" + data[i].id + "/edit' class='btn third-color waves-effect'><i class='zmdi zmdi-edit'></i></a></td>";
+            fila += "</tr>";
+            $('#tabla-listar-egresos tbody').append(fila);
           };
-        });
-      },
-      fail : function (data) {
-        $('#ajax-loader').fadeOut('slow', function () {
-          sweet_alert('Ocurrió algo inesperado', 'No se pudo recuperar los egresos. Intente de nuevo más tarde.', 'error');
-        });
-      },
-    });
-  } else {
-    debug('No se ingresó Fecha de egresos.');
-    sweet_alert('¡Atención!', 'Debe de seleccionar la fecha para buscar.', 'warning');
-  };
-});
-
+        } else {
+          $('#tabla-listar-egresos > tbody').append('<tr><td colspan="4">No existen resultados.</td></tr>');
+        }
+        $('#form-lista-egresos').removeClass('hidden');
+      })
+    },
+    fail : function (data) {
+      $('#ajax-loader').fadeOut('slow', function () {
+        sweet_alert('Error.', 'No se pudo recuperar los egresos.', 'error')
+        $('#form-lista-egresos').addClass('hidden');
+      })
+    },
+  })
+})
 $('#btn-modificar-egreso').click(function(e) {
   e.preventDefault();
   debug('Boton Modificar Egreso presionado.');
-
-
   var $id_institucion = $('#id_institucion').val();
   var $tipo_comprobante = $('#tipo_comprobante').val();
   var $numero_comprobante = $('#numero_comprobante').val();
   var $fecha_egreso = $('#fecha_egreso').val();
   var $razon_social = $('#razon_social').val();
   var $responsable = $('#responsable').val();
-
   if ($id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "" && $responsable != "") {
     debug('Maestro OK. Comprobar detalle.');
     var $filas_detalle = $('#tabla-resumen-egresos > tbody > tr');
-
     if ($filas_detalle.length > 0) {
       debug('El egreso maestro y detalle están correctos.');
       var $id_egreso = $('#id_egreso').val();
       var ruta = '../../egresos/actualizar/' + $id_egreso;
       var $token = $('#_token').val();
       var detalle_egreso = [];
-
       $('#tabla-resumen-egresos > tbody > tr').each(function(index, el) {
         var $detalle_id = $(this).find('.detalle-egreso-id').html();
         var $descripcion = $(this).find('.egreso-descripcion').val();
@@ -404,7 +353,6 @@ $('#btn-modificar-egreso').click(function(e) {
         };
         detalle_egreso.push(detalle);
       });
-
       debug(detalle_egreso, false);
       $.ajax({
         headers : { 'X-CSRF-TOKEN' : $token },
@@ -454,11 +402,9 @@ $('#btn-modificar-egreso').click(function(e) {
     sweet_alert('¡Atención!', 'Debe llenar todos los campos generales.', 'warning');
   };
 });
-
 $('#tabla-listar-egresos').on('click', '.eliminar-egreso', function(e) {
   debug('Eliminar egreso');
   var $id_egreso = $(this).parents('tr').find('.egreso-id').html();
-
   swal({
     title: "¿Realmente desea eliminar el egreso?",
     text: "Cualquier dato que elimine no podrá ser recuperado.",
@@ -471,7 +417,6 @@ $('#tabla-listar-egresos').on('click', '.eliminar-egreso', function(e) {
   function(){
     var ruta = '/tesorera/egresos/' + $id_egreso;
     var $token = $('#_token').val();
-
     $.ajax({
       url: ruta,
       headers : { 'X-CSRF-TOKEN' : $token },
@@ -500,7 +445,6 @@ $('#tabla-listar-egresos').on('click', '.eliminar-egreso', function(e) {
             });
           };
         });
-
       },
       fail : function (data) {
         $('#ajax-loader').fadeOut('slow', function () {
@@ -515,14 +459,12 @@ $('#tabla-listar-egresos').on('click', '.eliminar-egreso', function(e) {
     });
   });
 });
-
 function reloadTablaEgresos () {
   var $fecha_egresos = $('#fecha_egresos').val();
   if ($fecha_egresos != "") {
     debug('Fecha de egresos correcta.');
     var ruta = 'egreso/listar_fecha';
     $('#tabla-listar-egresos > tbody').empty();
-
     $.ajax({
       url: ruta,
       type: 'GET',
@@ -579,11 +521,9 @@ function reloadTablaEgresos () {
 /*** Fin de Modificar Egresos ***/
 $('#btn-crear-rubro').click(function(e) {
   e.preventDefault();
-
   var nombre_rubro = $('#nombre_rubro').val();
   var ruta = '../../tesorera/rubro/fixed_guardar';
   var $token = $('#_token').val();
-
   $.ajax({
     url: ruta,
     headers: {'X-CSRF-TOKEN': $token},

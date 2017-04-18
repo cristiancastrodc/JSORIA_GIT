@@ -7,21 +7,25 @@
 @section('content')
 
   @if(Session::has('message'))
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      {{Session::get('message')}}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{ Session::get('message') }}
+      </div>
     </div>
+  </div>
   @endif
 
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2>Nuevo Egreso</h2>
         </div>
-        {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-registrar-egreso-tesorera'])!!}
+        <form class="form-horizontal" id="form-registrar-egreso-tesorera">
           <div class="card-body card-padding">
             <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
             <div class="form-group">
@@ -32,7 +36,7 @@
                     <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
                   @endforeach
                 </select>
-              </div>  
+              </div>
             </div>
             <div class="form-group">
               <label for="tipo_comprobante" class="col-sm-3 control-label">Tipo de comprobante</label>
@@ -53,7 +57,7 @@
                       <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off">
                   </div>
               </div>
-            </div>                       
+            </div>
             <div class="form-group">
               <label for="fecha" class="col-sm-3 control-label">Fecha del Comprobante</label>
               <div class="col-sm-9">
@@ -71,7 +75,7 @@
                       <input type="text" class="form-control input-sm" id="razon_social" name="razon_social" placeholder="Razon Social" autocomplete="off">
                   </div>
               </div>
-            </div> 
+            </div>
             <div class="form-group" id="form-group-razon-social">
               <label for="responsable" class="col-sm-3 control-label">Responsable</label>
               <div class="col-sm-9">
@@ -79,7 +83,7 @@
                       <input type="text" class="form-control input-sm" id="responsable" name="responsable" placeholder="Responsable" autocomplete="off">
                   </div>
               </div>
-            </div> 
+            </div>
             <div class="form-group">
               <div id="egreso">
                 <h4>Añadir detalles de egreso</h4>
@@ -137,28 +141,26 @@
               </div>
             </div>
           </div>
-            <div class="table-responsive">
-              <table class="table" id="tabla-resumen-egresos">
-                <thead>
-                  <tr>
-                    <th class="accent-color c-white">Descripcion</th>
-                    <th class="accent-color c-white">Rubro</th>
-                    <th class="accent-color c-white">Monto (S/)</th>
-                    <th class="accent-color c-white">.</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table class="table" id="tabla-resumen-egresos">
+              <thead>
+                <tr>
+                  <th class="accent-color c-white">Descripcion</th>
+                  <th class="accent-color c-white">Rubro</th>
+                  <th class="accent-color c-white">Monto (S/)</th>
+                  <th class="accent-color c-white">.</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
           <div class="card-body card-padding">
             <div class="form-group">
-              <div class="row m-t-10">
-                <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-guardar-egreso">Guardar Egreso</button></div>
-              </div>
+              <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-guardar-egreso">Guardar</button></div>
             </div>
           </div>
-        {!!Form::close()!!}        
+        </form>
       </div>
     </div>
   </div>

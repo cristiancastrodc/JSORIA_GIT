@@ -23,10 +23,12 @@ class Egreso extends Model
   /*** Recuperar Lista de Egresos por Fecha ***/
   public static function egresosPorFecha($fecha_egreso)
   {
-    return Egreso::join('institucion', 'egreso.id_institucion', '=', 'institucion.id')
-           ->where('fecha', $fecha_egreso)
-           ->where('id_tesorera', Auth::user()->id)
-           ->select('egreso.id', 'institucion.nombre', 'egreso.tipo_comprobante', 'egreso.numero_comprobante')
-           ->get();
+    $q = Egreso::join('institucion', 'egreso.id_institucion', '=', 'institucion.id')
+               ->where('id_tesorera', Auth::user()->id)
+               ->select('egreso.id', 'institucion.nombre', 'egreso.tipo_comprobante', 'egreso.numero_comprobante');
+    if ($fecha_egreso != '') {
+      $q->where('fecha', $fecha_egreso);
+    }
+    return $q->get();
   }
 }

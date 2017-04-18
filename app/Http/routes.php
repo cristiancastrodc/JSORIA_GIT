@@ -116,7 +116,7 @@ Route::get('tesorera/retirar/{id_cajera}', 'RetirosController@retiroTesorera');
 Route::post('tesorera/retirar/actualizar', 'RetirosController@store');
 Route::get('tesorera/rubro/listar', 'RubrosController@listaRubros');
 Route::post('tesorera/egresos/crear_egreso', 'EgresosController@crearEgreso');
-Route::get('tesorera/egreso/listar_fecha', 'EgresosController@listarEgresosPorFecha');
+Route::post('tesorera/egreso/listar_fecha', 'EgresosController@listarEgresosPorFecha');
 Route::post('tesorera/egresos/actualizar/{id_egreso}', 'EgresosController@actualizar');
 Route::resource('tesorera/rubro/fixed_listar','RubrosController@fixed_index');
 Route::post('tesorera/crear/egresos/rubro/crear', 'EgresosController@egresoRubroCrear');
