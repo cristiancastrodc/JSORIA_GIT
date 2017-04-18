@@ -180,36 +180,43 @@ class EgresosController extends Controller
   /*** Actualizar un Egreso ***/
   public function actualizar(Request $request, $id_egreso)
   {
-    if ($request->ajax()) {
-      $id_egreso = $request->id_egreso;
-      $id_institucion = $request->id_institucion;
-      $tipo_comprobante = $request->tipo_comprobante;
-      $numero_comprobante = $request->numero_comprobante;
-      $fecha_egreso = $request->fecha_egreso;
-      $razon_social = $request->razon_social;
-      $responsable = $request->responsable;
+    try {
+      if ($request->ajax()) {
+        DB::beginTransaction();
+        $id_egreso = $request->id_egreso;
+        $id_institucion = $request->id_institucion;
+        $tipo_comprobante = $request->tipo_comprobante;
+        $numero_comprobante = $request->numero_comprobante;
+        $fecha_egreso = $request->fecha_egreso;
+        $razon_social = $request->razon_social;
+        $responsable = $request->responsable;
 
-      $egreso = Egreso::find($id_egreso);
-      $egreso->id_institucion = $id_institucion;
-      //if ($tipo_comprobante != '3') {
+        $egreso = Egreso::find($id_egreso);
+        $egreso->id_institucion = $id_institucion;
         $egreso->numero_comprobante = $numero_comprobante;
-      //}
-      $egreso->fecha = $fecha_egreso;
-      $egreso->save();
+        $egreso->fecha = $fecha_egreso;
+        $egreso->razon_social = $razon_social;
+        $egreso->responsable = $responsable;
+        $egreso->save();
 
-      $detalle_egreso = $request->detalle_egreso;
-
-      foreach ($detalle_egreso as $detalle) {
-        DetalleEgreso::where('id_egreso', $id_egreso)
-        ->where('nro_detalle_egreso', $detalle['nro_detalle_egreso'])
-        ->update([
-          'id_rubro' => $detalle['id_rubro'],
-          'descripcion' => $detalle['descripcion'],
-          'monto' => $detalle['monto']
-        ]);
+        $detalle_egreso = $request->detalle_egreso;
+        foreach ($detalle_egreso as $detalle) {
+          DetalleEgreso::where('id_egreso', $id_egreso)
+                       ->where('nro_detalle_egreso', $detalle['nro_detalle_egreso'])
+                       ->update([
+                        'id_rubro' => $detalle['id_rubro'],
+                        'descripcion' => $detalle['descripcion'],
+                        'monto' => $detalle['monto'],
+                        ]);
+        }
+        DB::commit();
+        return response()->json(['resultado' => 'true', 'id_egreso' => $id_egreso]);
+      } else {
+        return response()->json([ 'resultado' => 'false', 'mensaje' => 'Invalid Request.' ]);
       }
-
-      return response()->json(['mensaje' => 'Egreso actualizado exitosamente.']);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json([ 'resultado' => 'false', 'mensaje' => $e->getMessage() ]);
     }
   }
   public function egresoRubroCrear(Request $request){
@@ -225,10 +232,10 @@ class EgresosController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
+  public function show($id, $proceso = 'crear')
   {
     $egreso = Egreso::resumenEgreso($id);
     $detalle_egreso = DetalleEgreso::detalleDeEgreso($id);
-    return view('tesorera.egreso.resumen', [ 'egreso' => $egreso, 'detalle_egreso' => $detalle_egreso ]);
+    return view('tesorera.egreso.resumen', [ 'egreso' => $egreso, 'detalle_egreso' => $detalle_egreso, 'proceso' => $proceso ]);
   }
 }

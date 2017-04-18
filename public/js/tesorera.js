@@ -344,7 +344,6 @@ $('#btn-buscar-egresos').click(function(e) {
 })
 $('#btn-modificar-egreso').click(function(e) {
   e.preventDefault();
-  debug('Boton Modificar Egreso presionado.');
   var $id_institucion = $('#id_institucion').val();
   var $tipo_comprobante = $('#tipo_comprobante').val();
   var $numero_comprobante = $('#numero_comprobante').val();
@@ -357,7 +356,7 @@ $('#btn-modificar-egreso').click(function(e) {
     if ($filas_detalle.length > 0) {
       debug('El egreso maestro y detalle están correctos.');
       var $id_egreso = $('#id_egreso').val();
-      var ruta = '../../egresos/actualizar/' + $id_egreso;
+      var ruta = '/tesorera/egresos/actualizar/' + $id_egreso;
       var $token = $('#_token').val();
       var detalle_egreso = [];
       $('#tabla-resumen-egresos > tbody > tr').each(function(index, el) {
@@ -385,6 +384,8 @@ $('#btn-modificar-egreso').click(function(e) {
           tipo_comprobante : $tipo_comprobante,
           numero_comprobante : $numero_comprobante,
           fecha_egreso : $fecha_egreso,
+          razon_social : $razon_social,
+          responsable : $responsable,
           detalle_egreso : detalle_egreso,
         },
         beforeSend : function () {
@@ -392,24 +393,27 @@ $('#btn-modificar-egreso').click(function(e) {
           $('#ajax-loader').fadeIn('slow');
         },
         success : function (data) {
-          $('#ajax-loader').fadeOut('slow', function () {
-            debug(data, false);
-            debug(data.mensaje);
+          if (data.resultado == 'true') {
+            var ruta = '/tesorera/egreso/' + data.id_egreso + '/resumen/editar'
+            window.location = ruta;
+          } else {
             swal({
-              title : '¡Éxito!',
-              text : data.mensaje,
-              type : 'success',
+              title: 'Error.',
+              text: 'No se pudo editar el Egreso. Mensaje: ' + data.mensaje,
+              type: 'error'
             }, function () {
-              var ruta = '/tesorera/egresos';
-              window.location = ruta;
-            });
-          });
+              window.location.reload();
+            })
+          }
         },
-        fail : function (data) {
+        error : function (data) {
           $('#ajax-loader').fadeOut('slow', function () {
-            debug('Error en la modificación del egreso.');
             debug(data, false);
-            sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la creación del egreso, inténtelo de nuevo más tarde.', 'warning');
+            swal({
+              title: 'Error.',
+              text: 'No se pudo editar el Egreso.',
+              type: 'error',
+            })
           });
         },
       });

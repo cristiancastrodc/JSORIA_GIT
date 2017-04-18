@@ -26,7 +26,7 @@
           <h2>Modificar Egreso</h2>
         </div>
         <div class="card-body card-padding">
-          {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-modificar-egreso-tesorera'])!!}
+          <form class="form-horizontal" id="form-modificar-egreso-tesorera">
             <input type="hidden" name="_token" value="{{csrf_token()}}" id="_token">
             <input type="hidden" name="id_egreso" value="{{ $egreso->id }}" id="id_egreso">
             <div class="form-group">
@@ -58,11 +58,7 @@
               <label for="numero_comprobante" class="col-sm-3 control-label">Número</label>
               <div class="col-sm-9">
                   <div class="fg-line">
-                    <!--@if ($egreso->tipo_comprobante == '3')
-                      <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" disabled value="{{ str_pad($egreso->numero_comprobante, 6, '0', STR_PAD_LEFT) }}">
-                    @else-->
-                      <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off" value="{{ $egreso->numero_comprobante }}">
-                    <!--@endif-->
+                    <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off" value="{{ $egreso->numero_comprobante }}">
                   </div>
               </div>
             </div>
@@ -133,11 +129,11 @@
             </div>
             </div>
             <div class="form-group">
-              <div class="row m-t-10">
-                <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-modificar-egreso">Modificar Egreso</button></div>
+              <div class="row">
+                <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-modificar-egreso">Guardar</button></div>
               </div>
             </div>
-          {!!Form::close()!!}
+          </form>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-  Resumen de Creación del Egreso
+  Resumen de @if($proceso == 'crear') Creación @else Edición @endif del Egreso
 @endsection
 
 @section('content')
@@ -25,11 +25,11 @@
     <div class="col-md-12">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
-          <h2>Resumen de Creación del Egreso</h2>
+          <h2>Resumen de @if($proceso == 'crear') Creación @else Edición @endif del Egreso</h2>
         </div>
         <div class="card-body card-padding">
           <div class="alert alert-success" role="alert">
-            Egreso creado correctamente.
+            Egreso @if($proceso == 'crear') creado @else editado @endif correctamente.
           </div>
           <form class="form-horizontal">
             <div class="form-group">
@@ -99,7 +99,7 @@
         <div class="card-body card-padding">
           <div class="row">
             <div class="col-sm-3">
-              <a href="{{ url('/tesorera/egresos/create') }}" class="btn btn-block main-color waves-effect"><i class="zmdi zmdi-long-arrow-left"></i> Volver</a>
+              <a @if($proceso == 'crear') href="{{ url('/tesorera/egresos/create') }}" @else href="{{ url('/tesorera/egresos') }}" @endif class="btn btn-block main-color waves-effect"><i class="zmdi zmdi-long-arrow-left"></i> Volver</a>
             </div>
           </div>
         </div>
