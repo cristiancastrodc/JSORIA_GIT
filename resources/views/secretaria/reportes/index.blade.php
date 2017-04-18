@@ -59,6 +59,7 @@
                         <select name="periodo" id="id_categoria" class="form-control" ng-options="periodo.periodo for periodo in periodos" ng-model="categoria">
                           <option value="">Seleccione Período</option>
                         </select>
+                        <input type="hidden" value="{@ categoria.periodo @}" name="periodo">
                       </div>
                     </div>
                   </div>

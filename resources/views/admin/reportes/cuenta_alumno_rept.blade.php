@@ -18,6 +18,10 @@
         <td>Alumno:</td>
         <td colspan="5">{{ $alumno->nombres }} {{ $alumno->apellidos }}</td>
       </tr>
+      <tr>
+        <td>Periodo:</td>
+        <td colspan="5">{{ $periodo }}</td>
+      </tr>
     </table>
     <hr>
   </div>
