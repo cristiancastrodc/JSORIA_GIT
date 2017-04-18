@@ -113,7 +113,7 @@ class Alumno extends Model
     return Deuda_Ingreso::where('id_alumno', $nro_documento)
                         ->join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
                         ->where('deuda_ingreso.estado_pago', '=', 0)
-                        ->select('categoria.nombre', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento')
+                        ->select('categoria.nombre', 'categoria.tipo', 'categoria.fecha_fin', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento', 'categoria.periodo')
                         ->get();
   }
   /**

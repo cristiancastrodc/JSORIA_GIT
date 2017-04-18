@@ -30,6 +30,7 @@
       <tr class="text-center">
         <td>Concepto</td>
         <td>Fecha Vcto.</td>
+        <td>Periodo</td>
         <td>Monto</td>
       </tr>
     </thead>
@@ -42,6 +43,9 @@
             {{ $deuda->fecha_fin }}
             @endif
           </td>
+          <td class="text-right">
+            {{ $deuda->periodo }}
+          </td
           <td class="text-right">
             {{ number_format($deuda->saldo - $deuda->descuento, 2) }}
           </td>

@@ -57,7 +57,8 @@ class AlumnosController extends Controller
     public function store(AlumnoCreateRequest $request)
     {
         try {
-            $nro_documento = $request['nro_documento'];
+            //$nro_documentos = $request['nro_documento']
+            $nro_documento = trim ($request['nro_documento'],  " " );
             $tipo_documento = $request['tipo_documento'];
 
             Alumno::create([
