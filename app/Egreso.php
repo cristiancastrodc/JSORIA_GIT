@@ -31,4 +31,17 @@ class Egreso extends Model
     }
     return $q->get();
   }
+  /**
+   * Retornar el resumen de un egreso.
+   *
+   * @var id
+   */
+  public static function resumenEgreso($id)
+  {
+    return Egreso::join('tipo_comprobante', 'egreso.tipo_comprobante', '=', 'tipo_comprobante.id')
+                 ->join('institucion', 'egreso.id_institucion', '=', 'institucion.id')
+                 ->select('tipo_comprobante.denominacion as tipo_comprobante', 'egreso.numero_comprobante', 'egreso.fecha as fecha_egreso', 'institucion.nombre as institucion', 'egreso.fecha_registro', 'egreso.razon_social', 'egreso.responsable')
+                 ->where('egreso.id', $id)
+                 ->first();
+  }
 }

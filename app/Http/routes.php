@@ -128,6 +128,7 @@ Route::post('tesorera/saldo_inicial/crear', 'ConfiguracionController@registrarSa
 Route::get('tesorera/registrar/ingresos', 'IngresosController@ingresosAdicionales');
 Route::post('tesorera/registrar/ingresos/guardar', 'IngresosController@registrarIngresosAdicionales');
 Route::get('tesorera/retiro/resumen/{id_retiro}', 'RetirosController@show');
+Route::get('tesorera/egreso/{id_egreso}/resumen', 'EgresosController@show');
 # Reportes
 Route::get('tesorera/reporte/balance_ingresos_egresos', 'ReportesTesoreraController@mostrarBalanceIngresosEgresos');
 Route::post('tesorera/reporte/balance_ingresos_egresos/procesar', 'ReportesTesoreraController@balanceIngresosEgresos');

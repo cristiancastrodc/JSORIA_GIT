@@ -120,24 +120,30 @@ $('#btn-guardar-egreso').click(function(e) {
           detalle_egreso : detalle_egreso,
         },
         beforeSend : function () {
-          debug('Antes de enviar');
           $('#ajax-loader').fadeIn('slow');
         },
         success : function (data) {
-          $('#ajax-loader').fadeOut('slow', function () {
-            debug(data.mensaje);
-            var mensaje = data.mensaje;
-            if (data.nro_resultado != "") {
-              mensaje += " El Número de Comprobante creado es el: " + pad(data.nro_resultado, 6);
-            };
-            sweet_alert('¡Éxito!', mensaje, 'success', 'reload');
-          });
+          if (data.resultado == 'true') {
+            var ruta = '/tesorera/egreso/' + data.id_egreso + '/resumen'
+            window.location = ruta;
+          } else {
+            swal({
+              title: 'Error.',
+              text: 'No se pudo crear el Egreso. Mensaje: ' + data.mensaje,
+              type: 'error'
+            }, function () {
+              window.location.reload();
+            })
+          }
         },
         error : function (data) {
           $('#ajax-loader').fadeOut('slow', function () {
-            debug('Error en la creación del egreso.');
             debug(data, false);
-            sweet_alert('Ocurrió algo inesperado', 'Hubo un error en la creación del egreso, inténtelo de nuevo más tarde.', 'warning', 'reload');
+            swal({
+              title: 'Error.',
+              text: 'No se pudo crear el Egreso.',
+              type: 'error',
+            })
           });
         }
       });
@@ -533,33 +539,3 @@ function reloadTablaEgresos () {
   };
 }
 /*** Fin de Modificar Egresos ***/
-$('#btn-crear-rubro').click(function(e) {
-  e.preventDefault();
-  var nombre_rubro = $('#nombre_rubro').val();
-  var ruta = '../../tesorera/rubro/fixed_guardar';
-  var $token = $('#_token').val();
-  $.ajax({
-    url: ruta,
-    headers: {'X-CSRF-TOKEN': $token},
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      nombre: nombre_rubro
-    },
-    beforeSend : function () {
-      debug('Antes de enviar');
-      $('#ajax-loader').fadeIn('slow');
-    },
-    success : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        swal({
-          title : '¡Éxito!',
-          text : data.mensaje,
-          type : 'success'
-        }, function () {
-          document.location.reload();
-        });
-      });
-    }
-  });
-});
