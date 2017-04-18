@@ -214,5 +214,10 @@ Route::get('secretaria/reportes/deudas_alumno', 'ReportesAdminController@deudasD
 Route::get('secretaria/reportes/deudas_por_grado', 'AdminReporteAlumnosDeudores@index');
 Route::get('secretaria/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
 Route::get('secretaria/grados/{id_detalle_institucion}','GradosController@gradosDivision');
-// Rutas temporales (inhabilitar luego de utilizar)
-# Route::get('temp', function () { return view('temp.one'); });
+# Ruta para obtener el archivo CSS para el reporte
+Route::get('css/reporte/{mt?}', function ($mt = '100') {
+  $contents = View::make('css.reporte', [ 'mt' => $mt ]);
+  $response = Response::make($contents, 200);
+  $response->header('Content-Type', 'text/css');
+  return $response;
+});

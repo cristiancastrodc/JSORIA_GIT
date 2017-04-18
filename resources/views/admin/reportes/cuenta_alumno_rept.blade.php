@@ -3,10 +3,10 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Cuenta de Alumno - {{ $alumno->nro_documento }}</title>
-  <link rel="stylesheet" href="{{ asset('css/reportes.css') }}">
+  <link rel="stylesheet" href="{{ url('css/reporte/150') }}">
 </head>
 <body>
-  <div class="header header-90">
+  <div class="header">
     <table>
       <tr>
         <td colspan="6" class="text-center"><h1>REPORTE DE CUENTA DE ALUMNO</h1></td>
@@ -28,7 +28,6 @@
   <div class="footer">
     Página <span class="pagenum"></span>
   </div>
-  <div class="space-50"></div>
   <table class="bordered">
     <thead>
       <tr class="text-center">
