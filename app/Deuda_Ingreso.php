@@ -25,7 +25,7 @@ class Deuda_Ingreso extends Model
                         ->where('deuda_ingreso.estado_pago', '1')
                         ->where('deuda_ingreso.id_cajera', $id_cajera)
                         ->where('deuda_ingreso.estado_retiro', '<>', '2')
-                        ->select('deuda_ingreso.id', 'deuda_ingreso.fecha_hora_ingreso', 'categoria.nombre', 'deuda_ingreso.estado_retiro', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento', DB::raw("CONCAT(jsoria_deuda_ingreso.tipo_comprobante, ' ', jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as documento"))
+                        ->select('deuda_ingreso.id', 'deuda_ingreso.fecha_hora_ingreso', DB::raw("IF(jsoria_categoria.tipo = 'cobro_extraordinario', jsoria_deuda_ingreso.descripcion_extr, jsoria_categoria.nombre) as nombre"), 'deuda_ingreso.estado_retiro', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento', DB::raw("CONCAT(jsoria_deuda_ingreso.tipo_comprobante, ' ', jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as documento"))
                         ->get();
   }
   public static function retiroTesorera($id_cajera, $id_tesorera)
@@ -46,7 +46,7 @@ class Deuda_Ingreso extends Model
                           $query->where('retiro.id_usuario', $id_tesorera)
                                 ->orWhereNull('retiro.id');
                               })
-                        ->select('deuda_ingreso.id', 'deuda_ingreso.fecha_hora_ingreso', 'categoria.nombre', 'deuda_ingreso.estado_retiro', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento', DB::raw("CONCAT(jsoria_deuda_ingreso.tipo_comprobante, ' ', jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as documento"))
+                        ->select('deuda_ingreso.id', 'deuda_ingreso.fecha_hora_ingreso', DB::raw("IF(jsoria_categoria.tipo = 'cobro_extraordinario', jsoria_deuda_ingreso.descripcion_extr, jsoria_categoria.nombre) as nombre"), 'deuda_ingreso.estado_retiro', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento', DB::raw("CONCAT(jsoria_deuda_ingreso.tipo_comprobante, ' ', jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as documento"))
                         ->get();
   }
   /**
