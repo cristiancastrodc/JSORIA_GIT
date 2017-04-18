@@ -262,7 +262,6 @@ $('#btn-retirar-ingresos').click(function (e) {
       id_cajera : $id_cajera_retirar
     },
     beforeSend : function () {
-      debug('Antes de enviar');
       $('#ajax-loader').fadeIn('slow');
     },
     success : function (data) {

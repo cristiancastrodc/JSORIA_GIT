@@ -64,13 +64,10 @@ $('#form-ingresos-cajera #btn-ingresos-cajera').click(function(e) {
 
 $('#btn-retirar-ingresos').click(function (e) {
   e.preventDefault();
-  debug('Boton Retirar Ingresos presionado.');
-
   var ids_cobros = [];
   $('#tabla-ingresos-cajera tbody > tr').each(function(index, el) {
     ids_cobros.push($(this).find('.id_cobro').html());
   });
-
   var ruta = '/admin/retirar/actualizar';
   var $token = $('#_token').val();
   var $id_cajera_retirar = $('#id_cajera_retirar').val();
@@ -84,30 +81,31 @@ $('#btn-retirar-ingresos').click(function (e) {
       id_cajera : $id_cajera_retirar
     },
     beforeSend : function () {
-          debug('Antes de enviar');
-          $('#ajax-loader').fadeIn('slow');
-        },
+      $('#ajax-loader').fadeIn('slow');
+    },
     success : function (data) {
-      $('#ajax-loader').fadeOut('slow', function () {
-        if (data.tipo == 'creado') {
-          debug("Retiro creado con éxito.");
-          sweet_alert('¡Éxito!', data.mensaje, 'success', 'reload');
-        } else if (data.tipo == 'sin_cambios') {
-          debug("No se realizó cambios.");
-          swal({
-            title: data.mensaje
-          }, function () {
-            document.location.reload();
-          });
-        };
-      });
+      if (data.resultado == 'true') {
+        var ruta = '/admin/retiro/resumen/' + data.id_retiro
+        window.location = ruta;
+      } else {
+        swal({
+          title: 'Error.',
+          text: 'No se pudo crear el Retiro. Mensaje: ' + data.mensaje,
+          type: 'error'
+        }, function () {
+          window.location.reload();
+        })
+      }
     },
     fail : function (data) {
       $('#ajax-loader').fadeOut('slow', function () {
-        debug("Error del servidor.");
         debug(data, false);
-        sweet_alert('Ocurrió algo inesperado', 'No se pudo procesar la petición.', 'warning', 'reload');
-      });
+        swal({
+          title: 'Error.',
+          text: 'No se pudo crear el Retiro.',
+          type: 'error',
+        })
+      })
     }
   })
 });

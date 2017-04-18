@@ -63,6 +63,7 @@ Route::post('admin/matricula/editar/guardar', 'MatriculasController@guardarEdici
 Route::get('admin/matricula/resumen/{batch}', 'MatriculasController@mostrarResumenMatricula');
 Route::get('admin/matricula/temp/resumen/{batch}', 'MatriculasController@mostrarResumenMatriculaTemp');
 Route::get('admin/comprobante/listar', 'ConfiguracionController@listarComprobantes');
+Route::get('admin/retiro/resumen/{id_retiro}', 'RetirosController@show');
 # Reportes
 Route::get('admin/reporte/balance_ingresos_egresos',
   ['as' => 'admin.reporte.balance_ingresos_egresos', 'uses' => 'ReportesAdminController@balanceIngresosEgresos']);
