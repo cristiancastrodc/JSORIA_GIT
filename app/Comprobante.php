@@ -57,6 +57,8 @@ class Comprobante extends Model
   {
     return Comprobante::join('institucion', 'comprobante.id_institucion', '=', 'institucion.id')
                       ->select('comprobante.id', 'comprobante.tipo', 'comprobante.serie', DB::raw("LPAD(jsoria_comprobante.numero_comprobante, jsoria_comprobante.pad_izquierda, '0') as numero_comprobante"), 'comprobante.id_institucion', 'institucion.nombre as institucion')
+                      ->orderBy('institucion.nombre')
+                      ->orderBy('comprobante.tipo')
                       ->get();
   }
 }

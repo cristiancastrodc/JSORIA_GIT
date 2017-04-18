@@ -59,7 +59,7 @@ class AdminReporteAlumnosDeudores extends Controller
 
         $nombre_nivel= InstitucionDetalle::where('id','=',$id_detalle_institucion)
                             ->select('nombre_division')
-                            ->first();        
+                            ->first();
 
         switch ($id_institucion) {
             case 1:
@@ -85,8 +85,8 @@ class AdminReporteAlumnosDeudores extends Controller
         $view =  \View::make('pdf.AdminAlumnosDeudores', compact('id_institucion','id_grado','datas','fecha_inicio','fecha_fin','nombre_nivel'))->render();
 
         $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);        
-        return $pdf->stream('AdminAlumnosDeudores');             
+        $pdf->loadHTML($view);
+        return $pdf->stream('AdminAlumnosDeudores');
     }
 
     /**

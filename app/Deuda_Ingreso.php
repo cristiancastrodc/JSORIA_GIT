@@ -115,4 +115,14 @@ where estado_pago = '0'
                     'saldo' => $monto
                   ]);
   }
+  /**
+   * Devuelve la lista de cobros asociados a un retiro.
+   */
+  public static function cobrosDeRetiro($id_retiro)
+  {
+    return Deuda_Ingreso::join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
+                        ->where('deuda_ingreso.id_retiro', $id_retiro)
+                        ->select('deuda_ingreso.fecha_hora_ingreso', 'categoria.nombre', DB::raw('jsoria_deuda_ingreso.saldo - jsoria_deuda_ingreso.descuento as monto'), DB::raw("CONCAT(jsoria_deuda_ingreso.tipo_comprobante, ' ', jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as documento"))
+                        ->get();
+  }
 }

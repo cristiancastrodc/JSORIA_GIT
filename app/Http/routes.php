@@ -126,6 +126,7 @@ Route::get('tesorera/administrar/rubros/eliminar/{id_rubro}', 'RubrosController@
 Route::post('tesorera/saldo_inicial/crear', 'ConfiguracionController@registrarSaldoInicial');
 Route::get('tesorera/registrar/ingresos', 'IngresosController@ingresosAdicionales');
 Route::post('tesorera/registrar/ingresos/guardar', 'IngresosController@registrarIngresosAdicionales');
+Route::get('tesorera/retiro/resumen/{id_retiro}', 'RetirosController@show');
 # Reportes
 Route::get('tesorera/reporte/balance_ingresos_egresos', 'ReportesTesoreraController@mostrarBalanceIngresosEgresos');
 Route::post('tesorera/reporte/balance_ingresos_egresos/procesar', 'ReportesTesoreraController@balanceIngresosEgresos');
@@ -214,6 +215,13 @@ Route::get('secretaria/reportes/deudas_alumno', 'ReportesAdminController@deudasD
 Route::get('secretaria/reportes/deudas_por_grado', 'AdminReporteAlumnosDeudores@index');
 Route::get('secretaria/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
 Route::get('secretaria/grados/{id_detalle_institucion}','GradosController@gradosDivision');
+# Rutas cómunes (compartidas)
+Route::get('ingresos', function () {
+  $tipo = strtolower(Auth::user()->tipo) == 'tesorera' ? 'tesorera' : 'admin';
+  $ruta = $tipo . '/ingresos';
+  return redirect($ruta);
+});
+Route::get('retiro/resumen/{id_retiro}/reporte', 'RetirosController@procesarReporteResumen');
 # Ruta para obtener el archivo CSS para el reporte
 Route::get('css/reporte/{mt?}', function ($mt = '100') {
   $contents = View::make('css.reporte', [ 'mt' => $mt ]);
