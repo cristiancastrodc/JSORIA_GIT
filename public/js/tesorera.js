@@ -8,7 +8,7 @@ $('#form-registrar-egreso-tesorera #tipo_comprobante').change(function (event){
 $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
   e.preventDefault();
   var ruta ='/tesorera/crear/egresos/rubro/crear';
-  var dato = $('#nombre').val();
+  var dato = $('#nombre-rubro').val();
   var token =$('#_token').val();
   $.ajax({
     url: ruta,
@@ -27,7 +27,7 @@ $('#form-registrar-egreso-tesorera #btn_nuevo_rubro').click(function (e) {
             text: response.mensaje,
             type: "success",
         }, function () {
-          $('#nombre').val("");
+          $('#nombre-rubro').val("");
           reloadRubros();
         });
       });
@@ -149,6 +149,20 @@ $('#btn-guardar-egreso').click(function(e) {
     debug('Faltan campos en el maestro.');
     sweet_alert('¡Atención!', 'Debe llenar todos los campos generales obligatorios.', 'warning');
   };
+})
+$('#btn-inicializar-crear-egreso').click(function(e) {
+  $('#id_institucion').val('')
+  $('#tipo_comprobante').val('')
+  $('#numero_comprobante').val('')
+  $('#fecha_egreso').val('')
+  $('#razon_social').val('')
+  $('#responsable').val('')
+  $('#descripcion_egreso').val('')
+  $('#rubro_egreso').val('')
+  $('#monto_egreso').val('')
+  $('#tabla-resumen-egresos > tbody').empty()
+  $('#nombre-rubro').val('')
+  $('.selectpicker').selectpicker('refresh')
 });
 /*** Fin de Agregar Egreso ***/
 /****** Retirar Ingresos *******/
