@@ -246,8 +246,10 @@ class AlumnosController extends Controller
       if ($request->ajax()) {
         //$estado = Alumno::where('nro_documento','=',$documento)->first();
         $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+                        ->join('detalle_institucion','grado.id_detalle','=','detalle_institucion.id' )
+                        ->join('institucion','detalle_institucion.id_institucion','=','institucion.id')
                         ->where('alumno.nro_documento','=',$documento)
-                        ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'alumno.nro_documento')
+                        ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'grado.nombre_grado', 'alumno.nro_documento', 'detalle_institucion.nombre_division', 'institucion.nombre')
                         ->first();
 
         if ($alumno) {
@@ -256,7 +258,8 @@ class AlumnosController extends Controller
 
             $detalle_institucion = InstitucionDetalle::where('id_institucion', '=', $id_institucion)
                                                      ->where('nombre_division', '=', 'Todo')
-                                                     ->first()->id;
+                                                     ->first()->id;                                                      
+
             $categorias = Categoria::whereIn('tipo', ['con_factor', 'sin_factor'])
                                    ->where('estado', '=', 1)
                                    ->where('id_detalle_institucion','=', $detalle_institucion)
@@ -305,7 +308,13 @@ class AlumnosController extends Controller
     {
         if ($request->ajax()) {
 
-            $alumno = Alumno::where('nro_documento','=',$documento)->first();
+            $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
+                        ->join('detalle_institucion','grado.id_detalle','=','detalle_institucion.id' )
+                        ->join('institucion','detalle_institucion.id_institucion','=','institucion.id')
+                        ->where('alumno.nro_documento','=',$documento)
+                        ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'grado.nombre_grado', 'alumno.nro_documento', 'detalle_institucion.nombre_division', 'institucion.nombre')
+                        ->first();
+            //$alumno = Alumno::where('nro_documento','=',$documento)->first();
             $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
                                    ->where('deuda_ingreso.id_alumno','=',$documento)
                                    ->where('deuda_ingreso.estado_pago','=',0)

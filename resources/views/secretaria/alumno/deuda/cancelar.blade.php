@@ -41,6 +41,7 @@
       <div class="card js-toggle">
         <div class="card-header">
           <h3><span id="nombre-alumno" class="text-uppercase"></span></h3>
+          <h4 class="text-uppercase"><span id="institucion-alumno"></span></h4>
         </div>
         {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-lista-deudas-alumno'])!!}
           <div class="card-body card-padding">

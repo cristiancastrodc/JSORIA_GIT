@@ -44,6 +44,7 @@
             {!!Form::open(['class' => 'form-horizontal', 'id' => 'form-agregar-deuda-alumno'])!!}
               <div class="card-body card-padding">
                 <h3 class="text-uppercase"><span id="nombre-alumno"></span></h3>
+                <h4 class="text-uppercase"><span id="institucion-alumno"></span></h4>
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
                 <input type="hidden" name="nro_documento" id="nro_documento">
               </div>

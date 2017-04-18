@@ -142,6 +142,9 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
   var documento_alumno = "";
   var nombres_alumno = "";
   var apellidos_alumno = "";
+  var institucion_alumno = "";
+  var nivel_alumno = "";
+  var grado_alumno = "";
   $('#tabla-categorias-alumno tbody').empty();
   $('#ajax-loader').fadeIn('fast', function () {
     $.get(ruta, function (response, state) {
@@ -162,8 +165,12 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
             documento_alumno = response[0].nro_documento;
             nombres_alumno = response[0].nombres;
             apellidos_alumno = response[0].apellidos;
+            institucion_alumno = response[0].nombre;
+            nivel_alumno = response[0].nombre_division;
+            grado_alumno = response[0].nombre_grado;
 
             $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+            $('#institucion-alumno').text(institucion_alumno + ' - ' + nivel_alumno + ' - ' + grado_alumno);
             $('#form-agregar-deuda-alumno #nro_documento').val(documento_alumno);
 
             for (var i = 0; i < response[1].length; i++) {
@@ -275,6 +282,9 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
   var documento_alumno = "";
   var nombres_alumno = "";
   var apellidos_alumno = "";
+  var institucion_alumno = "";
+  var nivel_alumno = "";
+  var grado_alumno = "";
 
   $('#tabla-actividades-listar-alumno tbody').empty();
   $('#ajax-loader').fadeIn('fast', function () {
@@ -292,8 +302,12 @@ $('#form-buscar-actividades-alumno #btn-buscar-alumno').click(function (e) {
         documento_alumno = response[0].nro_documento;
         nombres_alumno = response[0].nombres;
         apellidos_alumno = response[0].apellidos;
+            institucion_alumno = response[0].nombre;
+            nivel_alumno = response[0].nombre_division;
+            grado_alumno = response[0].nombre_grado;
 
         $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+        $('#institucion-alumno').text(institucion_alumno + ' - ' + nivel_alumno + ' - ' + grado_alumno);
         $('#tabla-actividades-listar-alumno #nro_documento').val(documento_alumno);
 
         for (var i = 0; i < response[1].length; i++) {
