@@ -253,6 +253,7 @@ class CobrosController extends Controller
         // Guardar los pagos
         if (isset($deudas_seleccionadas)) {
           foreach ($deudas_seleccionadas as $pago) {
+            // En caso haya amortización
             if (floatval($pago['monto_pagado']) < floatval($pago['monto_cancelar'])) {
               // Se crea la amortización
               Deuda_Ingreso::create([
@@ -268,12 +269,14 @@ class CobrosController extends Controller
               ]);
               // Se actualiza la deuda
               $deuda = Deuda_Ingreso::find($pago['id']);
-              //$deuda->saldo = floatval($pago['monto_cancelar']) - $pago['monto_pagado'];
               $deuda->saldo = $pago['saldo'] - $pago['monto_pagado'];
               $deuda->save();
-            } else {
+            }
+            // En caso se pague el total restante de la deuda
+            else {
               // Se actualiza la deuda
               $deuda = Deuda_Ingreso::find($pago['id']);
+              $deuda->descuento = $pago['descuento'];
               $deuda->estado_pago = 1;
               $deuda->fecha_hora_ingreso = $fecha_hora_ingreso;
               $deuda->id_cajera = Auth::user()->id;
@@ -331,14 +334,20 @@ class CobrosController extends Controller
       $comprobante = json_decode($request->input('comprobante'));
       // Recuperar el total
       $total = 0;
+      $descuento = 0;
       foreach ($deudas_seleccionadas as $deuda) {
         $total += floatval($deuda->monto_pagado);
+        if (floatval($deuda->monto_pagado) >= floatval($deuda->monto_cancelar)) {
+          $descuento += $deuda->descuento;
+        }
       }
       foreach ($conceptos_adicionales as $concepto) {
         $total += floatval($concepto->total);
       }
+      $subtotal = number_format($total + $descuento, 2);
       $total = number_format($total, 2);
       $letras = NumeroALetras::convertir($total, 'soles', 'centimos');
+      $descuento = number_format($descuento, 2);
       // Direccionar a la vista
       return view('cajera.ingresos.comprobante', [
         'fecha_hora' => $fecha_hora,
@@ -346,6 +355,8 @@ class CobrosController extends Controller
         'alumno' => $alumno,
         'pagos' => $deudas_seleccionadas,
         'conceptos' => $conceptos_adicionales,
+        'subtotal' => $subtotal,
+        'descuento' => $descuento,
         'total' => $total,
         'letras' => $letras,
         'comprobante' => $comprobante,

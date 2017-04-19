@@ -163,6 +163,7 @@ Route::post('cajera/generar/ingreso/imprimir', 'CobrosController@imprimirComprob
 Route::post('cajera/generar/ingreso/grabar_extraordinario', 'CobrosController@grabarIngresoExtraordinario');
 Route::post('cajera/generar/ingreso/imprimir_extraordinario', 'CobrosController@imprimirComprobanteExtraordinario');
 Route::post('cajera/generar/ingreso/imprimir_multiple', 'CobrosController@imprimirComprobanteMultiple');
+Route::get('cajera/retiro/detalle/{id_retiro}', 'RetirosController@detalleRetiro');
 # Reportes
 Route::get('cajera/reporte/procesar','CajeraReporteCobros@index');
 /*

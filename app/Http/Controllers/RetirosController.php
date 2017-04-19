@@ -205,4 +205,13 @@ class RetirosController extends Controller
     $pdf->loadHTML($view);
     return $pdf->stream($archivo);
   }
+  /**
+   * Retornar el detalle de un Retiro.
+   *
+   * @param  int  $id_retiro
+   */
+  public function detalleRetiro($id_retiro)
+  {
+    return Deuda_Ingreso::cobrosDeRetiro($id_retiro);
+  }
 }

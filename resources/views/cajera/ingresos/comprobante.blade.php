@@ -37,7 +37,7 @@
 
   @if(Session::has('message'))
     <div class="row">
-      <div class="col-sm-10">
+      <div class="col-sm-12">
         <div class="alert alert-success alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           {{Session::get('message')}}
@@ -49,7 +49,7 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2 class="hidden-print">Comprobante de Pago</h2>
@@ -97,7 +97,7 @@
                 @foreach($pagos as $pago)
                   <tr>
                     <td class="p-0">{{ $pago->nombre }}</td>
-                    <td class="p-0 text-right">{{ number_format($pago->monto_pagado, 2) }}</td>
+                    <td class="p-0 text-right">{{ number_format($pago->monto_pagado + $pago->descuento, 2) }}</td>
                   </tr>
                 @endforeach
                 @foreach($conceptos as $concepto)
@@ -109,7 +109,15 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td class="p-0 text-right"><b>Total (S/)</b></td>
+                    <td class="p-0 text-right"><b>Subtotal (S/)</b></td>
+                    <td class="p-0 text-right">{{ $subtotal }}</td>
+                  </tr>
+                  <tr>
+                    <td class="p-0 text-right"><b>Descuento</b></td>
+                    <td class="p-0 text-right">{{ $descuento }}</td>
+                  </tr>
+                  <tr>
+                    <td class="p-0 text-right"><b>Total</b></td>
                     <td class="p-0 text-right">{{ $total }}</td>
                   </tr>
                 </tfoot>
@@ -158,7 +166,7 @@
                 @foreach($pagos as $pago)
                   <tr>
                     <td class="p-0">{{ $pago->nombre }}</td>
-                    <td class="p-0 text-right">{{ number_format($pago->monto_pagado, 2) }}</td>
+                    <td class="p-0 text-right">{{ number_format($pago->monto_pagado + $pago->descuento, 2) }}</td>
                   </tr>
                 @endforeach
                 @foreach($conceptos as $concepto)
@@ -170,7 +178,15 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td class="p-0 text-right"><b>Total (S/)</b></td>
+                    <td class="p-0 text-right"><b>Subtotal (S/)</b></td>
+                    <td class="p-0 text-right">{{ $subtotal }}</td>
+                  </tr>
+                  <tr>
+                    <td class="p-0 text-right"><b>Descuento</b></td>
+                    <td class="p-0 text-right">{{ $descuento }}</td>
+                  </tr>
+                  <tr>
+                    <td class="p-0 text-right"><b>Total</b></td>
                     <td class="p-0 text-right">{{ $total }}</td>
                   </tr>
                 </tfoot>

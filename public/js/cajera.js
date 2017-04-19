@@ -228,12 +228,11 @@ $('#factura.btn-cobro-multiple').click(function(e) {
 
 /*** Inicio de autorización de retiro ***/
 $('#modal-confirmar-autorizacion').on('shown.bs.modal', function (e) {
-  var $boton = $(e.relatedTarget);
-  var id = $boton.data('id');
-
-  var $modal = $(this);
-  $modal.find('#modal-id').val(id);
-});
+  var $boton = $(e.relatedTarget)
+  var id = $boton.data('id')
+  var $modal = $(this)
+  $modal.find('#modal-id').val(id)
+})
 
 $('#modal-confirmar-autorizacion #modal-guardar').click(function () {
   var $modal = $('#modal-confirmar-autorizacion');

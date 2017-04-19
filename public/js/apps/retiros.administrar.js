@@ -3,7 +3,7 @@ var app = angular.module('retirarIngresos', [], function($interpolateProvider) {
                           $interpolateProvider.startSymbol('{@')
                           $interpolateProvider.endSymbol('@}')
                        })
-// Definir el controlador
+// Definir el controlador (Tesorera)
 app.controller('retirosController', function ($scope, $http) {
   // Procesos iniciales
   $scope.listarRetiros = function () {
@@ -73,5 +73,21 @@ app.controller('retirosController', function ($scope, $http) {
     $('#cobros-por-retirar').html('0.00')
     // Form búsqueda de cajera
     $('#id_cajera').val('').selectpicker('refresh')
+  }
+})
+// Definir el controlador (Cajera)
+app.controller('retirosCajeraController', function($scope, $http){
+  $scope.retiro = {
+    id : '',
+    detalle : [],
+  }
+  $scope.mostrarDetalleRetiro = function (item) {
+    $scope.retiro.id = angular.element(item.target).data('id')
+    var ruta = '/cajera/retiro/detalle/' + $scope.retiro.id
+    $http.get(ruta)
+    .then(function (response) {
+      $scope.retiro.detalle = response.data
+    })
+    $('#modal-detalle-retiro').modal('show')
   }
 })
