@@ -26,61 +26,63 @@
           <div class="card-header main-color ch-alt">
             <h2>Cobros</h2>
           </div>
-          <div class="card-body card-padding">
-            <form class="form-horizontal">
+          <form class="form-horizontal">
+            <div class="card-body card-padding">
               <input type="hidden" value="{{ csrf_token() }}" id="_token">
               <!-- Cobranza de alumno -->
               <div ng-hide="cobranzaAlumno || cobranzaExtraordinaria" class="animate-hide">
-                  <div class="form-group">
-                    <label for="codigo_cobro" class="control-label col-sm-3">Ingrese código:</label>
-                    <div class="col-sm-9">
-                      <div class="fg-line">
-                        <input type="text" class="form-control" id="codigo_cobro" name="codigo_cobro" placeholder="DNI de alumno o Código de pago" ng-model="cobro.codigo">
-                      </div>
+                <div class="form-group">
+                  <label for="codigo_cobro" class="control-label col-sm-3">Ingrese código:</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <input type="text" class="form-control" id="codigo_cobro" name="codigo_cobro" placeholder="DNI de alumno o Código de pago" ng-model="cobro.codigo">
                     </div>
                   </div>
-                  <div class="form-group">
-                    <div class="col-sm-3 col-sm-offset-9">
-                      <button class="btn btn-block accent-color waves-effect" type="button" ng-click="buscar()" ng-disabled="buscando || !cobro.codigo">
-                        <span ng-hide="buscando">Buscar</span>
-                        <span ng-show="buscando">
-                          <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Buscando...
-                        </span>
-                      </button>
-                    </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-3 col-sm-offset-9">
+                    <button class="btn btn-block accent-color waves-effect" type="button" ng-click="buscar()" ng-disabled="buscando || !cobro.codigo">
+                      <span ng-hide="buscando">Buscar</span>
+                      <span ng-show="buscando">
+                        <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Buscando...
+                      </span>
+                    </button>
                   </div>
+                </div>
               </div>
-              <div ng-show="cobranzaAlumno && !finalizando" class="animate-hide">
+              <div ng-show="cobranzaAlumno && !finalizando">
                 <h3 class="text-uppercase m-t-0">{@ alumno.nombres @} {@ alumno.apellidos @}</h3>
                 <h4>{@ matricula_alumno @}</h4>
-                <table class="table table-striped m-b-15">
-                  <thead>
-                    <tr class="accent-color">
-                      <td colspan="3" class="text-uppercase text-center">Pagos Pendientes</td>
-                    </tr>
-                    <tr class="accent-color">
-                      <td></td>
-                      <td>Concepto</td>
-                      <td>Monto</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="deuda in deudas">
-                      <td>
-                        <div class="checkbox table-checkbox">
-                          <label>
-                            <input type="checkbox" ng-model="deuda.seleccionada" value="{@ deuda.seleccionada @}">
-                            <i class="input-helper"></i>Seleccionar
-                          </label>
-                        </div>
-                      </td>
-                      <td>{@ deuda.nombre @}</td>
-                      <td>
-                        <input type="text"  class="form-control table-input text-right" ng-disabled="!deuda.seleccionada" ng-model="deuda.monto_pagado">
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="table-responsive">
+                  <table class="table table-striped m-b-15">
+                    <thead>
+                      <tr class="accent-color">
+                        <td colspan="3" class="text-uppercase text-center">Pagos Pendientes</td>
+                      </tr>
+                      <tr class="accent-color">
+                        <td></td>
+                        <td>Concepto</td>
+                        <td>Monto</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="deuda in deudas">
+                        <td>
+                          <div class="checkbox table-checkbox">
+                            <label>
+                              <input type="checkbox" ng-model="deuda.seleccionada" value="{@ deuda.seleccionada @}">
+                              <i class="input-helper"></i>Seleccionar
+                            </label>
+                          </div>
+                        </td>
+                        <td>{@ deuda.nombre @}</td>
+                        <td>
+                          <input type="text"  class="form-control table-input text-right" ng-disabled="!deuda.seleccionada" ng-model="deuda.monto_pagado">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <div class="panel-group" role="tablist" aria-multiselectable="true" data-collapse-color="amber">
                   <div class="panel panel-collapse">
                     <div class="panel-heading" role="tab" id="headingOne">
@@ -115,10 +117,10 @@
                                 </td>
                                 <td>{@ concepto.nombre @}</td>
                                 <td>
-                                  <input type="text" class="form-control table-input text-right" ng-model="concepto.cantidad" ng-change="calcularTotal(concepto)" ng-disabled="!concepto.seleccionada">
+                                  <input type="number" class="form-control table-input text-right" ng-model="concepto.cantidad" ng-change="calcularTotal(concepto)" ng-disabled="!concepto.seleccionada" placeholder="Cantidad">
                                 </td>
                                 <td class="text-right">{@ concepto.monto @}</td>
-                                <td class="text-right">{@ concepto.total @}</td>
+                                <td class="text-right">{@ concepto.total | number:2 @}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -132,7 +134,7 @@
                     <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
                   </div>
                   <div class="col-sm-3">
-                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="finalizarCobro()">Finalizar</button>
+                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="finalizarCobro()" ng-disabled="!esValidoCobro()">Finalizar</button>
                   </div>
                 </div>
               </div>
@@ -159,7 +161,7 @@
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td class="text-right"><b>Total:</b></td>
+                      <td class="text-right"><strong>Total:</strong></td>
                       <td class="text-right">{@ totalPago() | number:2 @}</td>
                     </tr>
                   </tfoot>
@@ -176,27 +178,31 @@
               <!--/ Cobranza de alumno -->
               <!-- Cobranza extraordinaria -->
               <div ng-show="cobranzaExtraordinaria">
-                <table class="table table-striped">
-                  <tr>
-                    <td>Cliente:</td>
-                    <td>{@ deuda_extraordinaria.cliente_extr @}</td>
-                  </tr>
-                  <tr>
-                    <td>Concepto:</td>
-                    <td>{@ deuda_extraordinaria.descripcion_extr @}</td>
-                  </tr>
-                  <tr>
-                    <td>Monto:</td>
-                    <td>S/ {@ deuda_extraordinaria.saldo | number:2 @}</td>
-                  </tr>
-                </table>
+                <div class="form-group">
+                  <label for="" class="control-label col-md-4">Cliente:</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{@ deuda_extraordinaria.cliente_extr @}</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="" class="control-label col-md-4">Concepto:</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{@ deuda_extraordinaria.descripcion_extr @}</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="" class="control-label col-md-4">Monto:</label>
+                  <div class="col-md-8">
+                    <p class="form-control-static">{@ deuda_extraordinaria.saldo | number:2 @}</p>
+                  </div>
+                </div>
                 <div class="form-group">
                   <label for="tipo_comprobante" class="control-label col-sm-4">Tipo de Comprobante</label>
                   <div class="col-sm-8">
                     <div class="fg-line">
                       <div class="select">
-                        <select name="tipo_comprobante" id="tipo_comprobante" class="form-control" ng-model="tipo_comprobante" ng-change="cargarSeries()">
-                          <option value="">Seleccione Tipo de Comprobante</option>
+                        <select name="tipo_comprobante" id="tipo_comprobante" class="form-control" ng-model="comprobante.tipo" ng-change="cargarSeries()">
+                          <option value="" disabled="">-- Seleccione Tipo de Comprobante --</option>
                           <option value="comprobante">Comprobante</option>
                           <option value="boleta" ng-disabled="destino_externo">Boleta</option>
                           <option value="factura" ng-disabled="destino_externo">Factura</option>
@@ -210,8 +216,8 @@
                   <div class="col-sm-8">
                     <div class="fg-line">
                       <div class="select">
-                        <select name="serie_comprobante" id="serie_comprobante" class="form-control" ng-options="comp.serie for comp in comprobantes" ng-model="comprobante"  ng-change="cargarNumeros()">
-                          <option value="">Seleccione Serie</option>
+                        <select name="serie_comprobante" id="serie_comprobante" class="form-control" ng-options="comprobante_aux.serie as comprobante_aux.serie for comprobante_aux in comprobantes" ng-model="comprobante.serie" ng-change="cargarNumero()">
+                          <option value="" disabled="">-- Seleccione Serie --</option>
                         </select>
                       </div>
                     </div>
@@ -221,12 +227,12 @@
                   <label for="numero_comprobante" class="control-label col-sm-4">Número de Comprobante</label>
                   <div class="col-sm-8">
                     <div class="fg-line">
-                      <input type="text" ng-model="comprobante.numero_comprobante" class="form-control">
+                      <input type="text" ng-model="comprobante.numero" class="form-control">
                     </div>
                   </div>
                 </div>
                 <hr>
-                <div ng-show="tipo_comprobante == 'factura'">
+                <div ng-show="comprobante.tipo == 'factura'">
                   <div class="form-group">
                     <label for="ruc" class="control-label col-sm-4">RUC</label>
                     <div class="col-sm-8">
@@ -257,7 +263,7 @@
                   <label class="control-label col-sm-4">Pagó con</label>
                   <div class="col-sm-8">
                     <div class="fg-line">
-                      <input type="text" class="form-control text-right f-20" ng-model="efectivo" ng-change="calcularVueltoExtraordinario()">
+                      <input type="number" class="form-control text-right f-20" ng-model="efectivo" ng-change="calcularVueltoExtraordinario()">
                     </div>
                   </div>
                 </div>
@@ -274,13 +280,13 @@
                     <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
                   </div>
                   <div class="col-sm-3">
-                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="finalizarCobroExtraordinario()">Finalizar Cobro</button>
+                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="finalizarCobroExtraordinario()" ng-disabled="!esValidoDatosComprobante()">Finalizar Cobro</button>
                   </div>
                 </div>
               </div>
               <!--/ Cobranza extraordinaria -->
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -298,8 +304,8 @@
                   <div class="col-sm-8">
                     <div class="fg-line">
                       <div class="select">
-                        <select name="tipo_comprobante" id="tipo_comprobante" class="form-control" ng-model="tipo_comprobante" ng-change="cargarSeries()">
-                          <option value="">Seleccione Tipo de Comprobante</option>
+                        <select name="tipo_comprobante" id="tipo_comprobante" class="form-control" ng-model="comprobante.tipo" ng-change="cargarSeries()">
+                          <option value="" disabled="">-- Seleccione Tipo de Comprobante --</option>
                           <option value="comprobante">Comprobante</option>
                           <option value="boleta" ng-disabled="destino_externo">Boleta</option>
                           <option value="factura" ng-disabled="destino_externo">Factura</option>
@@ -313,8 +319,8 @@
                   <div class="col-sm-8">
                     <div class="fg-line">
                       <div class="select">
-                        <select name="serie_comprobante" id="serie_comprobante" class="form-control" ng-options="comp.serie for comp in comprobantes" ng-model="comprobante"  ng-change="cargarNumeros()">
-                          <option value="">Seleccione Serie</option>
+                        <select name="serie_comprobante" id="serie_comprobante" class="form-control" ng-options="comprobante_aux.serie as comprobante_aux.serie for comprobante_aux in comprobantes" ng-model="comprobante.serie" ng-change="cargarNumero()">
+                          <option value="" disabled="">-- Seleccione Serie --</option>
                         </select>
                       </div>
                     </div>
@@ -324,12 +330,12 @@
                   <label for="numero_comprobante" class="control-label col-sm-4">Número de Comprobante</label>
                   <div class="col-sm-8">
                     <div class="fg-line">
-                      <input type="text" ng-model="comprobante.numero_comprobante" class="form-control">
+                      <input type="text" ng-model="comprobante.numero" class="form-control">
                     </div>
                   </div>
                 </div>
                 <hr>
-                <div ng-show="tipo_comprobante == 'factura'">
+                <div ng-show="comprobante.tipo == 'factura'">
                   <div class="form-group">
                     <label for="ruc" class="control-label col-sm-4">RUC</label>
                     <div class="col-sm-8">
@@ -368,7 +374,7 @@
                   <label class="control-label col-sm-4">Pagó con</label>
                   <div class="col-sm-8">
                     <div class="fg-line">
-                      <input type="text" class="form-control text-right f-20" ng-model="efectivo" ng-change="calcularVuelto()">
+                      <input type="number" class="form-control text-right f-20" ng-model="efectivo" ng-change="calcularVuelto()">
                     </div>
                   </div>
                 </div>
@@ -385,7 +391,7 @@
                     <a class="btn btn-link btn-block waves-effect" data-dismiss="modal">Cerrar</a>
                   </div>
                   <div class="col-sm-4">
-                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="grabarPago()">Finalizar Cobro</button>
+                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="grabarPago()" ng-disabled="!esValidoDatosComprobante()">Finalizar Cobro</button>
                   </div>
                 </div>
               </div>

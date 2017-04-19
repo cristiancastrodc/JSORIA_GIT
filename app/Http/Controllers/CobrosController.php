@@ -3,6 +3,7 @@
 namespace JSoria\Http\Controllers;
 
 use Auth;
+use DB;
 use Config;
 use Illuminate\Http\Request;
 use JSoria\Alumno;
@@ -243,11 +244,12 @@ class CobrosController extends Controller
         $nro_documento = $request->input('nro_documento');
         $deudas_seleccionadas = $request->input('deudas_seleccionadas');
         $conceptos_adicionales = $request->input('conceptos_adicionales');
-        $tipo_comprobante = $request->input('tipo_comprobante');
         $comprobante = $request->input('comprobante');
         $id_institucion = $request->input('id_institucion');
         // Recuperar la fecha - hora
         $fecha_hora_ingreso = date('Y-m-d H:i:s');
+        // Iniciar transacción
+        DB::beginTransaction();
         // Guardar los pagos
         if (isset($deudas_seleccionadas)) {
           foreach ($deudas_seleccionadas as $pago) {
@@ -260,9 +262,9 @@ class CobrosController extends Controller
                 'id_categoria' => $pago['id_categoria'],
                 'id_alumno' => $nro_documento,
                 'id_cajera' => Auth::user()->id,
-                'tipo_comprobante' => $tipo_comprobante,
+                'tipo_comprobante' => $comprobante['tipo'],
                 'serie_comprobante' => $comprobante['serie'],
-                'numero_comprobante' => $comprobante['numero_comprobante'],
+                'numero_comprobante' => $comprobante['numero'],
               ]);
               // Se actualiza la deuda
               $deuda = Deuda_Ingreso::find($pago['id']);
@@ -275,9 +277,9 @@ class CobrosController extends Controller
               $deuda->estado_pago = 1;
               $deuda->fecha_hora_ingreso = $fecha_hora_ingreso;
               $deuda->id_cajera = Auth::user()->id;
-              $deuda->tipo_comprobante = $tipo_comprobante;
+              $deuda->tipo_comprobante = $comprobante['tipo'];
               $deuda->serie_comprobante = $comprobante['serie'];
-              $deuda->numero_comprobante = $comprobante['numero_comprobante'];
+              $deuda->numero_comprobante = $comprobante['numero'];
               $deuda->save();
             }
           }
@@ -293,18 +295,20 @@ class CobrosController extends Controller
               'id_alumno' => $nro_documento,
               'id_cajera' => Auth::user()->id,
               'fecha_hora_ingreso' => $fecha_hora_ingreso,
-              'tipo_comprobante' => $tipo_comprobante,
+              'tipo_comprobante' => $comprobante['tipo'],
               'serie_comprobante' => $comprobante['serie'],
-              'numero_comprobante' => $comprobante['numero_comprobante'],
+              'numero_comprobante' => $comprobante['numero'],
               'id_matricula' => $id_matricula,
             ]);
           }
         }
         // Actualizar el comprobante
-        $comprobante = Comprobante::actualizar($id_institucion, $tipo_comprobante, $comprobante['serie'], $comprobante['numero_comprobante']);
+        $comprobante = Comprobante::actualizar($id_institucion, $comprobante['tipo'], $comprobante['serie'], $comprobante['numero']);
+        DB::commit();
       } catch (\Exception $e) {
+        DB::rollback();
         $resultado = 'false';
-        $mensaje['titulo'] = 'ERROR';
+        $mensaje['titulo'] = 'Error.';
         $mensaje['contenido'] = $e->getMessage();
       }
       $respuesta = array(
@@ -324,7 +328,6 @@ class CobrosController extends Controller
       $alumno = Alumno::datosAlumno($nro_documento);
       $deudas_seleccionadas = json_decode($request->input('deudas_seleccionadas'));
       $conceptos_adicionales = json_decode($request->input('conceptos_adicionales'));
-      $tipo_comprobante = $request->input('tipo_comprobante');
       $comprobante = json_decode($request->input('comprobante'));
       // Recuperar el total
       $total = 0;
@@ -345,7 +348,6 @@ class CobrosController extends Controller
         'conceptos' => $conceptos_adicionales,
         'total' => $total,
         'letras' => $letras,
-        'tipo_comprobante' => $tipo_comprobante,
         'comprobante' => $comprobante,
         ]);
     }
@@ -356,7 +358,6 @@ class CobrosController extends Controller
     {
       $resultado = 'true';
       $id_institucion = $request->input('id_institucion');
-      $tipo_comprobante = $request->input('tipo_comprobante');
       $comprobante = $request->input('comprobante');
       // Actualizar el cobro
       $deuda_extraordinaria = $request->input('deuda_extraordinaria');
@@ -364,12 +365,12 @@ class CobrosController extends Controller
       $deuda->estado_pago = 1;
       $deuda->fecha_hora_ingreso = date('Y-m-d H:i:s');
       $deuda->id_cajera = Auth::user()->id;
-      $deuda->tipo_comprobante = $tipo_comprobante;
+      $deuda->tipo_comprobante = $comprobante['tipo'];
       $deuda->serie_comprobante = $comprobante['serie'];
-      $deuda->numero_comprobante = $comprobante['numero_comprobante'];
+      $deuda->numero_comprobante = $comprobante['numero'];
       $deuda->save();
       // Actualizar el comprobante
-      $comprobante = Comprobante::actualizar($id_institucion, $tipo_comprobante, $comprobante['serie'], $comprobante['numero_comprobante']);
+      $comprobante = Comprobante::actualizar($id_institucion, $comprobante['tipo'], $comprobante['serie'], $comprobante['numero']);
       // Retornar la respuesta
       $respuesta = [
         'resultado' => $resultado
@@ -384,7 +385,6 @@ class CobrosController extends Controller
       // Recuperar los valores enviados
       $fecha_hora = date('Y-m-d H:i:s');
       $deuda = json_decode($request->input('deuda_extraordinaria'));
-      $tipo_comprobante = $request->input('tipo_comprobante');
       $comprobante = json_decode($request->input('comprobante'));
       // Recuperar el total
       $total = number_format($deuda->saldo, 2);
@@ -395,7 +395,6 @@ class CobrosController extends Controller
         'pago' => $deuda,
         'total' => $total,
         'letras' => $letras,
-        'tipo_comprobante' => $tipo_comprobante,
         'comprobante' => $comprobante,
         ]);
     }

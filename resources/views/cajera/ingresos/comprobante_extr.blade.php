@@ -66,7 +66,7 @@
                   <td class="p-0">Cliente:</td>
                   <td class="p-0">{{ $pago->cliente_extr }}</td>
                 </tr>
-                @if($tipo_comprobante == 'factura')
+                @if($comprobante->tipo == 'factura')
                   <tr>
                     <td class="p-0">RUC:</td>
                     <td class="p-0">{{ $comprobante->ruc }}</td>
@@ -115,7 +115,7 @@
                   <td class="p-0">Cliente:</td>
                   <td class="p-0">{{ $pago->cliente_extr }}</td>
                 </tr>
-                @if($tipo_comprobante == 'factura')
+                @if($comprobante->tipo == 'factura')
                   <tr>
                     <td class="p-0">RUC:</td>
                     <td class="p-0">{{ $comprobante->ruc }}</td>

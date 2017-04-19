@@ -70,7 +70,7 @@
                   <td class="p-0">Alumno:</td>
                   <td class="p-0">{{ $alumno->nombres }} {{ $alumno->apellidos }}</td>
                 </tr>
-                @if($tipo_comprobante == 'factura')
+                @if($comprobante->tipo == 'factura')
                   <tr>
                     <td class="p-0">RUC:</td>
                     <td class="p-0">{{ $comprobante->ruc }}</td>
@@ -131,7 +131,7 @@
                   <td class="p-0">Alumno:</td>
                   <td class="p-0">{{ $alumno->nombres }} {{ $alumno->apellidos }}</td>
                 </tr>
-                @if($tipo_comprobante == 'factura')
+                @if($comprobante->tipo == 'factura')
                   <tr>
                     <td class="p-0">RUC:</td>
                     <td class="p-0">{{ $comprobante->ruc }}</td>

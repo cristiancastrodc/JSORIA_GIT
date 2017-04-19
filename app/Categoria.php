@@ -144,7 +144,6 @@ class Categoria extends Model
     return Categoria::where('tipo', '=', 'sin_factor')
                     ->where('estado', '=', 1)
                     ->where('id_detalle_institucion','=', $detalle_institucion)
-                    ->select('categoria.*', DB::raw('0 as cantidad'))
                     ->get();
   }
   /**

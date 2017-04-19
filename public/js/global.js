@@ -35,3 +35,30 @@ function pad(num, size) {
   while (s.length < size) s = "0" + s;
   return s;
 }
+
+// Post to the provided URL with the specified parameters.
+function post(path, parameters) {
+  var form = $('<form></form>');
+
+  form.attr("method", "post");
+  form.attr("action", path);
+
+  $.each(parameters, function(key, value) {
+      var field = $('<input></input>');
+      field.attr("type", "hidden");
+      field.attr("name", key);
+      field.attr("value", value);
+      form.append(field);
+  });
+
+  var _token = $('#_token').val();
+  var field = $('<input></input>');
+  field.attr("type", "hidden");
+  field.attr("name", "_token");
+  field.attr("value", _token);
+  form.append(field);
+  // The form needs to be a part of the document in
+  // order for us to be able to submit it.
+  $(document.body).append(form);
+  form.submit();
+}

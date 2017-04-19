@@ -73,7 +73,7 @@
                   <td>{@ matricula.periodo @}</td>
                 </tr>
               </table>
-            <div class="card-body card-padding">              
+            <div class="card-body card-padding">
               <div class="form-group m-t-15">
                 <div class="col-sm-3 col-sm-offset-6">
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
@@ -88,7 +88,7 @@
                 </div>
               </div>
             </div>
-          </form>          
+          </form>
         </div>
       </div>
     </div>
