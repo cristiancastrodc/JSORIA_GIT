@@ -101,14 +101,15 @@ class Balance extends Model {
    */
   public static function actualizarBalances($id_usuario, $fecha_inicial, $incremento)
   {
-    $dia_siguiente = date('Y-m-d', strtotime('+1 day', strtotime($fecha_inicial)));
     // Encontrar el siguiente balance
-    $balance = Balance::where('fecha', $dia_siguiente)
+    $balance = Balance::where('fecha', '>', $fecha_inicial)
                       ->where('id_tesorera', $id_usuario)
+                      ->orderBy('fecha')
                       ->first();
     if ($balance) {
       $balance->ingresos += $incremento;
       $balance->save();
+      $dia_siguiente = $balance->fecha;
       Balance::actualizarBalances($id_usuario, $dia_siguiente, $incremento);
     }
   }
