@@ -64,7 +64,7 @@ class Balance extends Model {
     return $balance;
   }
 
-    /*** Recuperar el balance detallado de una tesorera en una fecha específica ***/
+  /*** Recuperar el balance detallado de una tesorera en una fecha específica ***/
   public static function getBalanceDetalladoTesorera($id_tesorera, $fecha)
   {
     $egresos = Egreso::join('detalle_egreso', 'egreso.id', '=', 'detalle_egreso.id_egreso')
@@ -86,5 +86,30 @@ class Balance extends Model {
                       ->orderBy('fecha_item')
                       ->get();
     return $ingresos;
+  }
+  /*
+   * Devolver el balance actual de la tesorera.
+   */
+  public static function recuperarBalance($id_usuario, $fecha)
+  {
+    return Balance::where('fecha', date('Y-m-d', strtotime($fecha)))
+                  ->where('id_tesorera', $id_usuario)
+                  ->first();
+  }
+  /*
+   * Actualizar recursivamente los balances.
+   */
+  public static function actualizarBalances($id_usuario, $fecha_inicial, $incremento)
+  {
+    $dia_siguiente = date('Y-m-d', strtotime('+1 day', strtotime($fecha_inicial)));
+    // Encontrar el siguiente balance
+    $balance = Balance::where('fecha', $dia_siguiente)
+                      ->where('id_tesorera', $id_usuario)
+                      ->first();
+    if ($balance) {
+      $balance->ingresos += $incremento;
+      $balance->save();
+      Balance::actualizarBalances($id_usuario, $dia_siguiente, $incremento);
+    }
   }
 }

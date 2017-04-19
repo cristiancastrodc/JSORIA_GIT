@@ -199,16 +199,30 @@ class EgresosController extends Controller
         $egreso->responsable = $responsable;
         $egreso->save();
 
+
         $detalle_egreso = $request->detalle_egreso;
+        $total_anterior = 0;
+        $total_nuevo = 0;
         foreach ($detalle_egreso as $detalle) {
+          $total_anterior = DetalleEgreso::where('id_egreso', $id_egreso)
+                                         ->where('nro_detalle_egreso', $detalle['nro_detalle_egreso'])
+                                         ->first()->monto;
+          $total_nuevo += floatval($detalle['monto']);
           DetalleEgreso::where('id_egreso', $id_egreso)
                        ->where('nro_detalle_egreso', $detalle['nro_detalle_egreso'])
                        ->update([
-                        'id_rubro' => $detalle['id_rubro'],
-                        'descripcion' => $detalle['descripcion'],
-                        'monto' => $detalle['monto'],
+                          'id_rubro' => $detalle['id_rubro'],
+                          'descripcion' => $detalle['descripcion'],
+                          'monto' => $detalle['monto'],
                         ]);
         }
+        // Actualizar la tabla de Balance
+        $balance = Balance::recuperarBalance(Auth::user()->id, $egreso->fecha_registro);
+        $balance->egresos += $total_nuevo - $total_anterior;
+        $balance->save();
+        $incremento = $total_anterior - $total_nuevo;
+        Balance::actualizarBalances(Auth::user()->id, $egreso->fecha_registro, $incremento);
+        // Finalizar transacción
         DB::commit();
         return response()->json(['resultado' => 'true', 'id_egreso' => $id_egreso]);
       } else {
