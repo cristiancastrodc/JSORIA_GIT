@@ -153,4 +153,16 @@ class Alumno extends Model
                  ->select('alumno.nombres', 'alumno.apellidos', 'institucion.nombre as institucion', 'detalle_institucion.nombre_division as division', 'institucion.id as id_institucion', 'grado.nombre_grado as grado')
                  ->first();
   }
+  /**
+   * Retornar los datos de un alumno.
+   */
+  public static function recuperarDatosAlumno($nro_documento)
+  {
+    return Alumno::leftJoin('grado', 'alumno.id_grado', '=', 'grado.id')
+                 ->leftJoin('detalle_institucion', 'grado.id_detalle', '=', 'detalle_institucion.id')
+                 ->leftJoin('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
+                 ->where('alumno.nro_documento', $nro_documento)
+                 ->select('nro_documento', DB::raw("CONCAT(jsoria_alumno.apellidos, ' ', jsoria_alumno.nombres) as nombre"), DB::raw("CONCAT(jsoria_institucion.nombre, ' - ', jsoria_detalle_institucion.nombre_division, ' - ', jsoria_grado.nombre_grado) as institucion"))
+                 ->first();
+  }
 }

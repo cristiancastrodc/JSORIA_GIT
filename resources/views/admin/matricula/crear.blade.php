@@ -28,7 +28,7 @@
             <h2>Crear Matrícula</h2>
           </div>
           <form action="" class="form-horizontal">
-            <div class="card-body card-padding">            
+            <div class="card-body card-padding">
               <div class="form-group">
                 <label for="id_institucion" class="control-label col-sm-3">Institución</label>
                 <div class="col-sm-9">
@@ -166,7 +166,7 @@
                   </td>
                 </tr>
               </table>
-            <div class="card-body card-padding">      
+            <div class="card-body card-padding">
               <div class="form-group m-t-15">
                 <div class="col-md-4 col-md-offset-4">
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
@@ -181,7 +181,7 @@
                 </div>
               </div>
             </div>
-          </form>          
+          </form>
         </div>
       </div>
     </div>

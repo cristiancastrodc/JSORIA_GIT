@@ -1,11 +1,9 @@
 $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
   e.preventDefault();
-
   var ruta = $('#form-buscar-alumno #nro_documento').val();
   var documento_alumno = "";
   var nombres_alumno = "";
   var apellidos_alumno = "";
-
   $('#ajax-loader').fadeIn('fast', function () {
     $.get(ruta, function (response, state) {
 
@@ -32,17 +30,12 @@ $('#form-buscar-alumno #btn-buscar-alumno').click(function (e) {
       $('#ajax-loader').fadeOut('slow');
     });
   });
-
-
 });
 
 $('#form-matricular #id_institucion').change(function (event) {
-
   var $detalle_institucion = $('#form-matricular #id_detalle_institucion');
   $detalle_institucion.empty();
-
   var route = 'divisiones/' + $(this).val() + "";
-
   $.get(route, function (response, state) {
     for (var i = 0; i < response.length; i++) {
       if (response[i].nombre_division != 'Todo') {
@@ -57,13 +50,11 @@ $('#form-matricular #id_institucion').change(function (event) {
 $('#form-matricular #btn-matricular').click(function (e) {
   e.preventDefault();
   $(this).html('Cargando...');
-
   var ruta = '../alumnos/' + $('#form-matricular #nro_documento').val();
   var $token = $('#form-matricular #token').val();
   var $detalle_institucion = $('#form-matricular #id_detalle_institucion').val();
   var $grado = $('#form-matricular #id_grado').val();
   var $matricula = $('#form-matricular #id_tipo_matricula').val();
-
   $.ajax({
     url: ruta,
     headers : { 'X-CSRF-TOKEN' : $token },
@@ -101,7 +92,6 @@ $('#form-matricular #btn-matricular').click(function (e) {
             document.location.reload();
           });
       });
-
     }
   })
 });
@@ -109,9 +99,7 @@ $('#form-matricular #btn-matricular').click(function (e) {
 $('#form-matricular #id_detalle_institucion').change(function (event) {
   var $detalle_grado = $('#form-matricular #id_grado');
   $detalle_grado.empty();
-
   var route = 'grados/' + $(this).val() + "";
-
   $.get(route, function (response, state) {
     for (var i = 0; i < response.length; i++) {
         var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre_grado + "</option>"
@@ -119,12 +107,9 @@ $('#form-matricular #id_detalle_institucion').change(function (event) {
     };
     $detalle_grado.selectpicker('refresh');
   });
-
   var $matricula = $('#form-matricular #id_tipo_matricula');
   $matricula.empty();
-
   var route = 'matriculas/' + $(this).val() + "";
-
   $.get(route, function (response, state) {
     for (var i = 0; i < response.length; i++) {
         var opcion = "<option value='" + response[i].id + "'>" + response[i].nombre + "</option>"
@@ -137,7 +122,6 @@ $('#form-matricular #id_detalle_institucion').change(function (event) {
 /*** Agregar deudas de alumno ***/
 $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
   e.preventDefault();
-
   var ruta = '/secretaria/alumno/categorias/' + $('#form-categorias-alumno #nro_documento').val();
   var documento_alumno = "";
   var nombres_alumno = "";
@@ -150,46 +134,42 @@ $('#form-categorias-alumno #btn-buscar-alumno').click(function (e) {
     $.get(ruta, function (response, state) {
       if (response['mensajeno']) {
         swal({
-              title: "Error",
-              text: "El Alumno NO EXISTE. Primero debe crear y matricular al alumno.",
-              type: "warning"
-          });
+          title: "Error",
+          text: "El Alumno NO EXISTE. Primero debe crear y matricular al alumno.",
+          type: "warning"
+        });
       } else {
         if (response['mensaje']) {
           swal({
-                title: "Error",
-                text: "El Alumno NO esta matriculado.",
-                type: "warning"
-            });
+            title: "Error",
+            text: "El Alumno NO esta matriculado.",
+            type: "warning"
+          });
         } else {
-            documento_alumno = response[0].nro_documento;
-            nombres_alumno = response[0].nombres;
-            apellidos_alumno = response[0].apellidos;
-            institucion_alumno = response[0].nombre;
-            nivel_alumno = response[0].nombre_division;
-            grado_alumno = response[0].nombre_grado;
+          documento_alumno = response[0].nro_documento;
+          nombres_alumno = response[0].nombres;
+          apellidos_alumno = response[0].apellidos;
+          institucion_alumno = response[0].nombre;
+          nivel_alumno = response[0].nombre_division;
+          grado_alumno = response[0].nombre_grado;
+          $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
+          $('#institucion-alumno').text(institucion_alumno + ' - ' + nivel_alumno + ' - ' + grado_alumno);
+          $('#form-agregar-deuda-alumno #nro_documento').val(documento_alumno);
+          for (var i = 0; i < response[1].length; i++) {
+            var $id = response[1][i].id;
+            var $monto = response[1][i].monto;
+            var $nombre = response[1][i].nombre;
+            var fila = "<tr class=" + $id + ">";
+            fila += "<td class='hidden id-categoria'>" + $id + "</td>";
+            fila += "<td>" + $nombre + "</td>";
+            fila += "<td class='text-right monto'>" + $monto + "</td>";
+            fila += "<td><div class='fg-line'><input type='number' class='form-control input-sm text-right deuda-factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
+            fila += "<td><p class='text-right total'></p></td>";
+            fila += "</tr>";
 
-            $('#nombre-alumno').text(nombres_alumno + ' ' + apellidos_alumno);
-            $('#institucion-alumno').text(institucion_alumno + ' - ' + nivel_alumno + ' - ' + grado_alumno);
-            $('#form-agregar-deuda-alumno #nro_documento').val(documento_alumno);
-
-            for (var i = 0; i < response[1].length; i++) {
-              var $id = response[1][i].id;
-              var $monto = response[1][i].monto;
-              var $nombre = response[1][i].nombre;
-
-              var fila = "<tr class=" + $id + ">";
-              fila += "<td class='hidden id-categoria'>" + $id + "</td>";
-              fila += "<td>" + $nombre + "</td>";
-              fila += "<td class='text-right monto'>" + $monto + "</td>";
-              fila += "<td><div class='fg-line'><input type='number' class='form-control input-sm text-right deuda-factor' value='0' onkeyup='calcularImporte(" + $id + ", this.value)'></div></td>";
-              fila += "<td><p class='text-right total'></p></td>";
-              fila += "</tr>";
-
-              $('#tabla-categorias-alumno tbody').append(fila);
-            }
-
-            $('.js-toggle').slideDown('fast');
+            $('#tabla-categorias-alumno tbody').append(fila);
+          }
+          $('.js-toggle').slideDown('fast');
         }
       }
     })
@@ -653,48 +633,4 @@ $('#modal-crear-amortizacion #modal-guardar').click(function () {
     },
   });
 
-  /*$.ajax({
-    url: ruta,
-    headers : { 'X-CSRF-TOKEN' : $token },
-    type : 'POST',
-    dataType : 'json',
-    data : {
-      id: $id,
-      nombre : $nombre,
-      saldo : $saldo,
-      monto : $monto,
-    },
-    success : function (data) {
-      swal({
-          title: "Éxito",
-          text: "Se creó la amortizacion.",
-          type: "success",
-          closeOnConfirm : true
-      },
-      });
-    },
-    fail : function (data) {
-      swal({
-          title: "ERROR",
-          text: "Ocurrió un error inesperado. Por favor, intente nuevamente en unos minutos.",
-          type: "error",
-          closeOnConfirm: true
-      }, function(){
-        console.log('fail');
-      });
-    },
-    error : function (msg) {
-      var err_list = '<ul>';
-      $.each( msg.responseJSON, function( i, val ) {
-        err_list += '<li>' + val[0] + '</li>';
-      });
-      err_list += '</ul>';
-
-      $('#modal-error #message').html(err_list);
-      $('#modal-error').fadeIn();
-    }
-  });*/
 });
-
-
-

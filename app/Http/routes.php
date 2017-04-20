@@ -71,7 +71,6 @@ Route::post('admin/reporte/balance_ingresos_egresos/procesar',
   ['as' => 'admin.reporte.balance_ingresos_egresos.procesar', 'uses' => 'ReportesAdminController@balanceIngresosEgresosProcesar']);
 Route::get('admin/reportes/ListaIngresos','AdminReporteListarIngresos@index');
 Route::resource('admin/reportes/ListaIngresos/procesar','AdminReporteListarIngresos');
-Route::get('admin/categorias/{id_detalle_institucion}', 'CategoriasController@categoriasDivision');
 Route::get('admin/reportes/IngresosCategoria','AdminReporteIngresosCategoria@index');
 Route::post('admin/reportes/IngresosCategoria/procesar','AdminReporteIngresosCategoria@procesar');
 Route::get('admin/reportes/IngresosTotales','AdminReporteIngresosTotales@index');
@@ -186,7 +185,6 @@ Route::get('secretaria/alumno/matriculas/{id_detalle_institucion}', 'Institucion
 Route::get('secretaria/alumno/lista_deudas/{dni}', 'AlumnosController@listaDeudasAlumno');
 Route::get('secretaria/alumno/lista_actividades/{dni}', 'AlumnosController@listaDeudasActividadesAlumno');
 Route::get('secretaria/alumno/amortizar_deudas/{dni}', 'AlumnosController@amortizarDeudaAlumno');
-Route::post('secretaria/alumno/deudas/crear','AlumnosController@agregarDeudasAlumno');
 Route::post('secretaria/alumno/deudas/eliminar_actividad','AlumnosController@EliminarDeudaActividad');
 Route::post('secretaria/alumno/deudas/eliminar_descontar_deuda','AlumnosController@EliminarDescontarDeuda');
 Route::post('secretaria/alumno/amortizarDeuda','AlumnosController@CrearAmortizacion');
@@ -218,7 +216,10 @@ Route::get('secretaria/reportes/deudas_alumno', 'ReportesAdminController@deudasD
 Route::get('secretaria/reportes/deudas_por_grado', 'AdminReporteAlumnosDeudores@index');
 Route::get('secretaria/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
 Route::get('secretaria/grados/{id_detalle_institucion}','GradosController@gradosDivision');
-# Rutas cómunes (compartidas)
+# Rutas (nuevo formato, quitando dependencias del tipo de usuario)
+Route::get('alumno/{nro_documento}/datos', 'AlumnosController@recuperarDatosAlumno');
+Route::post('alumno/deudas/agregar/procesar','AlumnosController@agregarDeudasAlumno');
+Route::get('categoria/{tipo}/listar', 'CategoriasController@listarCategorias');
 Route::get('ingresos', function () {
   $tipo = strtolower(Auth::user()->tipo) == 'tesorera' ? 'tesorera' : 'admin';
   $ruta = $tipo . '/ingresos';

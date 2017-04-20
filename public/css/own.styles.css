@@ -145,9 +145,12 @@ form .form-group:last-child {
 }
 .table-input {
   border-bottom: 0;
+  height: 30px;
 }
 .table-checkbox {
   margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: 1;
 }
 .collection {
   border: 1px solid #E0E0E0;
@@ -178,4 +181,23 @@ th.x2 {
 .table.table-condensed > tbody > tr > td:last-child,
 .table.table-condensed > tfoot > tr > td:last-child {
   padding-right: 15px;
+}
+.card-padding > h3 {
+  margin-top: 0;
+}
+.table > thead > tr.search-row {
+  border-bottom: 2px solid #091b43;
+}
+.table > thead > tr.search-row > th,
+.table > thead > tr.search-row > td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.table > thead > tr.v-m > th,
+.table > tbody > tr.v-m > th,
+.table > tfoot > tr.v-m > th,
+.table > thead > tr.v-m > td,
+.table > tbody > tr.v-m > td,
+.table > tfoot > tr.v-m > td {
+  vertical-align: middle;
 }

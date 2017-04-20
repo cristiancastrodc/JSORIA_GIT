@@ -228,4 +228,23 @@ class Categoria extends Model
     }
     return $q->get();
   }
+  /**
+   * Retorna la lista de categorías del tipo especificado, filtrando de acuerdo a los permisos del usuario.
+   */
+  public static function listarCategorias($tipo)
+  {
+    return Categoria::join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                    ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
+                    ->where('categoria.tipo', $tipo)
+                    ->where('categoria.estado', 1)
+                    ->whereIn('detalle_institucion.id_institucion', function ($query) {
+                      $query->select('id_institucion')
+                            ->from('permisos')
+                            ->where('id_usuario', Auth::user()->id);
+                    })
+                    ->orderBy('institucion.id')
+                    ->orderBy('categoria.nombre')
+                    ->select('categoria.id', 'categoria.nombre', 'categoria.monto', 'institucion.nombre as institucion')
+                    ->get();
+  }
 }
