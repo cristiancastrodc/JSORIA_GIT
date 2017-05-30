@@ -225,6 +225,12 @@ class Categoria extends Model
               ->from('detalle_institucion')
               ->where('id_institucion', $id_institucion);
       });
+    } else {
+      $q->whereIn('detalle_institucion.id_institucion', function ($query) {
+        $query->select('id_institucion')
+              ->from('permisos')
+              ->where('id_usuario', Auth::user()->id);
+      });
     }
     return $q->get();
   }

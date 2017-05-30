@@ -70,7 +70,7 @@ app.controller('modulosController', function ($scope, $http, $filter) {
     }
   }
    $scope.inicializar = function () {
-    $scope.usuarios = [];
+    $scope.usuario = null
     $scope.modulos = [];
   }
 });

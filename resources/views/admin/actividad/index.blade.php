@@ -158,7 +158,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="actividad in actividades">
-                  <td>{@ actividad.nombre @}</td>
+                  <td>{@ actividad.nombre @} <br> {@ actividad.institucion @} </td>
                   <td>{@ actividad.monto @}</td>
                   <td>
                     <a class='btn third-color' ng-click="editarActividad(actividad)"><i class='zmdi zmdi-edit'></i></a>
