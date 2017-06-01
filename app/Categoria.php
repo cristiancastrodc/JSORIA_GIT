@@ -153,8 +153,10 @@ class Categoria extends Model
   {
     $q = Deuda_Ingreso::join('categoria', 'deuda_ingreso.id_categoria', '=', 'categoria.id')
                       ->join('detalle_institucion', 'categoria.id_detalle_institucion', '=', 'detalle_institucion.id')
+                      ->join('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
                       ->where('categoria.tipo', 'cobro_extraordinario')
-                      ->select('deuda_ingreso.id', 'deuda_ingreso.descripcion_extr', 'deuda_ingreso.estado_pago', 'deuda_ingreso.saldo');
+                      ->select('deuda_ingreso.id', 'deuda_ingreso.descripcion_extr', 'deuda_ingreso.estado_pago', 'deuda_ingreso.saldo', 'institucion.nombre as institucion', 'deuda_ingreso.cliente_extr')
+                      ->orderBy('deuda_ingreso.id');
     if ($id_institucion != '') {
       $q->where('detalle_institucion.id_institucion', $id_institucion);
     }
