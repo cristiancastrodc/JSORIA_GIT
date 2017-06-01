@@ -152,7 +152,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="cobro in cobros">
-                <td>{@ cobro.nombre @}</td>
+                <td>{@ cobro.nombre @} <br> {@ cobro.institucion @}</td>
                 <td>{@ cobro.monto @}</td>
                 <td>{@ cobro.estado == 0 ? 'Inhabilitado' : 'Habilitado' @}</td>
                 <td><a class='btn third-color' ng-click="editarCobro(cobro)"><i class='zmdi zmdi-edit'></i></a></td>
