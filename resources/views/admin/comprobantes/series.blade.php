@@ -32,9 +32,13 @@
               <div class="form-group">
                 <label for="tipo_comprobante" class="control-label col-sm-3">Tipo:</label>
                 <div class="col-sm-9">
-                  <select class="selectpicker" id="tipo_comprobante" ng-model="comprobante.tipo" ng-options="tipo as tipo.label for tipo in tipos_comprobante">
-                    <option value="" disabled="">-- Seleccione Tipo de Comprobante --</option>
-                  </select>
+                  <div class="fg-line">
+                    <div class="select">
+                      <select class="form-control" id="tipo_comprobante" ng-model="comprobante.tipo" ng-options="tipo as tipo.label for tipo in tipos_comprobante">
+                        <option value="" disabled="">-- SELECCIONE TIPO DE COMPROBANTE --</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -70,7 +74,7 @@
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
                 </div>
                 <div class="col-sm-4">
-                  <button type="button" class="btn btn-block waves-effect accent-color" ng-click="guardarComprobante()" ng-disabled="procesando">
+                  <button type="button" class="btn btn-block waves-effect accent-color" ng-click="guardarComprobante()" ng-disabled="procesando || !esValidoFormCreacion()">
                     <span ng-hide="procesando">Grabar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
@@ -163,7 +167,7 @@
                   <a class="btn btn-link btn-block waves-effect" data-dismiss="modal">Cerrar</a>
                 </div>
                 <div class="col-md-4">
-                  <button class="btn btn-block accent-color waves-effect" type="button" ng-click="actualizarComprobante()" ng-disabled="modal.procesando">
+                  <button class="btn btn-block accent-color waves-effect" type="button" ng-click="actualizarComprobante()" ng-disabled="modal.procesando || !esValidoFormEdicion()">
                     <span ng-hide="modal.procesando">Grabar</span>
                     <span ng-show="modal.procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...

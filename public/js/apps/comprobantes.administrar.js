@@ -17,7 +17,7 @@ app.controller('comprobantesController', function ($scope, $http) {
     tipo : '',
     serie : '',
     numero : '',
-    institucion : [],
+    institucion : null,
   }
   $scope.procesando = false
   $scope.modal = {
@@ -100,7 +100,7 @@ app.controller('comprobantesController', function ($scope, $http) {
       tipo : '',
       serie : '',
       numero : '',
-      institucion : [],
+      institucion : null,
     }
     $scope.procesando = false
   }
@@ -181,5 +181,15 @@ app.controller('comprobantesController', function ($scope, $http) {
         }
       })
     })
+  }
+  $scope.esValidoFormEdicion = function () {
+    return $scope.modal.serie != ''
+           && $scope.modal.numero != ''
+  }
+  $scope.esValidoFormCreacion = function () {
+    return $scope.comprobante.tipo != ''
+           && $scope.comprobante.serie != ''
+           && $scope.comprobante.numero != ''
+           && $scope.comprobante.institucion != null
   }
 })
