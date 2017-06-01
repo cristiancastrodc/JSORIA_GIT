@@ -130,7 +130,7 @@
               <tbody>
                 <tr ng-repeat="autorizacion in autorizaciones">
                   <td>{@ autorizacion.rd @}</td>
-                  <td>{@ autorizacion.id_alumno @}</td>
+                  <td>{@ autorizacion.id_alumno @} <br> {@ autorizacion.apellidos @} {@ autorizacion.nombres @}</td>
                   <td><a class='btn third-color m-r-20' ng-click="mostrarDetalle(autorizacion)" ><i class='zmdi zmdi-more'></i></a></td>
                 </tr>
               </tbody>
