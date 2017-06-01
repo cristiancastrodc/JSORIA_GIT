@@ -50,7 +50,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="monto" class="col-sm-3 control-label">Monto</label>
+                <label for="monto" class="col-sm-3 control-label">Monto:</label>
                 <div class="col-sm-9">
                   <div class="fg-line">
                     <input type="number" class="form-control input-sm" id="monto" name="monto" placeholder="Monto" ng-model="monto">
@@ -82,7 +82,7 @@
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
                 </div>
                 <div class="col-sm-5">
-                  <button type="button" class="btn btn-block waves-effect accent-color" ng-click="guardarCobroExtraordinario()" ng-disabled="procesando">
+                  <button type="button" class="btn btn-block waves-effect accent-color" ng-click="guardarCobroExtraordinario()" ng-disabled="procesando || !esValidoFormCreacion()">
                     <span ng-hide="procesando">Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
@@ -142,7 +142,7 @@
               <tbody>
                 <tr ng-repeat="cobro in cobros">
                   <td>{@ cobro.id @}</td>
-                  <td>{@ cobro.descripcion_extr @}</td>
+                  <td>{@ cobro.descripcion_extr @} <br> {@ cobro.institucion @} </td>
                   <td class="text-right">{@ cobro.saldo | number:2 @}</td>
                   <td>{@ cobro.estado_pago == 0 ? 'Pendiente' : 'Cancelado' @}</td>
                   <td>

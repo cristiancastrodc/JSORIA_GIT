@@ -207,6 +207,13 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
       }
     })
   }
+  $scope.esValidoFormCreacion = function () {
+    return $scope.institucion != null
+           && $scope.descripcion_extr != ''
+           && $scope.monto != ''
+           && $scope.monto != null
+           && $scope.cliente_extr != ''
+  }
 })
 .directive('tooltip', function() {
   var linker = function (scope, element, attr) {

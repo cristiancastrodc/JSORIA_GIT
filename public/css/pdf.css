@@ -16,13 +16,13 @@ a {
 
 body {
   position: relative;
-  width: 21cm;  
-  height: 29.7cm; 
-  margin: 0 auto; 
+  width: 21cm;
+  height: 29.7cm;
+  margin: 0 auto;
   color: #001028;
-  background: #FFFFFF; 
-  font-family: Arial, sans-serif; 
-  font-size: 12px; 
+  background: #FFFFFF;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
   font-family: Arial;
 }
 
@@ -72,7 +72,7 @@ h1 {
 
 #project div,
 #company div {
-  white-space: nowrap;        
+  white-space: nowrap;
 }
 
 table {
@@ -96,7 +96,7 @@ table th {
   padding: 5px 20px;
   color: #5D6975;
   border-bottom: 1px solid #C1CED9;
-  white-space: nowrap;        
+  white-space: nowrap;
   font-weight: normal;
 }
 
