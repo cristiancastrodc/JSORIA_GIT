@@ -5,6 +5,7 @@ namespace JSoria\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use JSoria\Categoria;
+use JSoria\Deuda_Ingreso;
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\CobroOrdinarioCreateRequest;
 use JSoria\Http\Requests\CobroOrdinarioUpdateRequest;
@@ -104,5 +105,29 @@ class CobrosOrdinariosController extends Controller
   */
   public function listaCobros($id_institucion = '') {
     return Categoria::cobrosOrdinariosInstitucion($id_institucion);
+  }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy($id)
+  {
+    $respuesta = [];
+    try {
+      $deudas = Deuda_Ingreso::where('id_categoria', $id)->count() > 0;
+      if ($deudas) {
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = 'Este Cobro está asociado a una o más deudas.';
+      } else {
+        Categoria::destroy($id);
+        $respuesta['resultado'] = 'true';
+      }
+    } catch (\Exception $e) {
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
+    }
+    return $respuesta;
   }
 }
