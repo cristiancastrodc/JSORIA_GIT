@@ -83,7 +83,7 @@
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
                 </div>
                 <div class="col-sm-5">
-                  <button type="button" class="btn btn-block waves-effect  accent-color" ng-click="guardarOtroCobro()" ng-disabled="procesando">
+                  <button type="button" class="btn btn-block waves-effect  accent-color" ng-click="guardarOtroCobro()" ng-disabled="procesando || !esValidoFormCreacion()">
                     <span ng-hide="procesando">Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
@@ -144,7 +144,12 @@
                   <td>{@ cobro.nombre @} <br> {@ cobro.institucion @}</td>
                   <td>{@ cobro.monto @}</td>
                   <td>{@ cobro.estado == 0 ? 'Inhabilitado' : 'Habilitado' @}</td>
-                  <td><a class='btn third-color' ng-click="editarCobro(cobro)"><i class='zmdi zmdi-edit'></i></a></td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <a class="btn third-color" data-toggle="tooltip" data-placement="top" data-original-title="Modificar" tooltip ng-click="editarCobro(cobro)"><i class="zmdi zmdi-edit"></i></a>
+                      <a class='btn fourth-color waves-effect' ng-click="eliminarCobro(cobro.id)" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar" tooltip><i class='zmdi zmdi-delete'></i></a>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>

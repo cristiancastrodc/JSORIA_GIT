@@ -166,4 +166,55 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
       }
     })
   }
+  $scope.eliminarCobro = function (id) {
+    swal({
+      title: '¿Realmente desea eliminar el cobro?',
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Aceptar',
+      confirmButtonClass: 'btn-danger',
+    }, function () {
+      var ruta = '/admin/cobros/otros/' + id
+      $http.delete(ruta)
+      .then(function successCallback(response) {
+        var data = response.data
+        if (data.resultado == 'true') {
+          swal({
+            title : 'Cobro eliminado correctamente.',
+            type : 'success',
+          })
+          $scope.listarOtrosCobros()
+        } else {
+          swal({
+            title: 'Error.',
+            text: 'No se pudo eliminar el cobro. Mensaje: ' + data.mensaje,
+            type: 'error',
+          })
+        }
+      }, function errorCallback(response) {
+        debug(response, false)
+        swal({
+          title: 'Error.',
+          text: 'No se pudo eliminar el cobro.',
+          type: 'error',
+        })
+      })
+    })
+  }
+  $scope.esValidoFormCreacion = function () {
+    return $scope.institucion != ''
+           && $scope.nombre != ''
+           && $scope.monto != ''
+           && $scope.monto != null
+  }
+})
+.directive('tooltip', function() {
+  var linker = function (scope, element, attr) {
+    element.tooltip()
+  }
+  return {
+    restrict: 'A',
+    link: linker,
+  }
 })
