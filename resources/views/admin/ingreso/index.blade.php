@@ -113,6 +113,7 @@
               <thead>
                 <tr>
                   <th class="accent-color c-white">Fecha Creación</th>
+                  <th class="accent-color c-white">Cajera</th>
                   <th class="accent-color c-white">Monto</th>
                   <th class="accent-color c-white">Acciones</th>
                 </tr>
@@ -120,6 +121,7 @@
               <tbody>
                 <tr ng-repeat="retiro in retiros | filter : filtrarRetiros ">
                   <td>{@ retiro.fecha_hora_creacion @}</td>
+                  <td>{@ retiro.apellidos @} {@ retiro.nombres @}</td>
                   <td class="text-right">{@ retiro.monto | number : 2 @}</td>
                   <td><a class='btn third-color m-r-20' ng-click="mostrarDetalle(retiro)" ><i class='zmdi zmdi-more'></i></a></td>
                 </tr>
