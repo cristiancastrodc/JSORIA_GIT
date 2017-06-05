@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
-                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-buscar-alumno">Buscar</button>
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-buscar-alumno"><i class="zmdi zmdi-search"></i> Buscar</button>
               </div>
             </div>
           {!!Form::close()!!}
@@ -82,7 +82,7 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-3 col-sm-offset-9">
-                  <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-autorizar-descuento">Guardar</button>
+                  <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-autorizar-descuento"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
                 </div>              
               </div>
             {!!Form::close()!!}

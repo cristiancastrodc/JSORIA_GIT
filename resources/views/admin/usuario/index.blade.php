@@ -90,11 +90,11 @@
               </div>
               <div class="form-group">
                 <div class="col-md-5 col-md-offset-2">
-                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                 </div>
                 <div class="col-sm-5">
                   <button class="btn btn-block accent-color waves-effect" ng-click="guardarUsuario()" ng-disabled="procesando">
-                    <span ng-hide="procesando">Grabar</span>
+                    <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Grabar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
                     </span>

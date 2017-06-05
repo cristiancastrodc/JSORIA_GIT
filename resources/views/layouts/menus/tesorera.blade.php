@@ -1,19 +1,19 @@
 <!-- Tesorera -->
 <li class="sub-menu">
-  <a href="#"><i class="zmdi zmdi-money-off"></i> Egresos</a>
+  <a href="#"><i class="zmdi zmdi-receipt"></i> Egresos</a>
   <ul>
     <li><a href="{!!URL::to('/tesorera/egresos/create')!!}" class="hidden" id="link_registrar_egreso">Registrar</a></li>
     <li><a href="{!!URL::to('/tesorera/egresos')!!}" class="hidden" id="link_modificar_egreso">Modificar</a></li>
   </ul>
 </li>
 <li><a href="{{ url('/tesorera/administrar/rubros/') }}" class="hidden" id="link_rubros">
-  <i class="zmdi zmdi-tag"></i> Rubros</a>
+  <i class="zmdi zmdi-apps"></i> Rubros</a>
 </li>
 <li><a href="{!!URL::to('/tesorera/ingresos')!!}" class="hidden" id="link_retiro">
-  <i class="zmdi zmdi-money"></i> Retirar Ingresos</a>
+  <i class="zmdi zmdi-assignment"></i> Retirar Ingresos</a>
 </li>
 <li><a href="{{ url('/tesorera/registrar/ingresos')}}" class="hidden" id="link_ingresos_adicionales">
-  <i class="zmdi zmdi-money"></i> Registrar Ingresos Adicionales</a>
+  <i class="zmdi zmdi-money-box"></i> Registrar Ingresos Adicionales</a>
 </li>
 <li class="sub-menu">
   <a href="#"><i class="zmdi zmdi-chart"></i> Reportes</a>

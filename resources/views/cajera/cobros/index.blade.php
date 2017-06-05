@@ -140,10 +140,10 @@
             </div>
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-6">
-                <button class="btn btn-block btn-link waves-effect" type="button" id="btn-inicializar">Cancelar</button>
+                <button class="btn btn-block btn-link waves-effect" type="button" id="btn-inicializar"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
               </div>
               <div class="col-sm-3">
-                <button class="btn main-color btn-block" id="btn-cobro-multiple">Guardar</button>
+                <button class="btn main-color btn-block" id="btn-cobro-multiple"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
               </div>
             </div>
           </form>

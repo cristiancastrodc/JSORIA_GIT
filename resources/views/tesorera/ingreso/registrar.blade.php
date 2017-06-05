@@ -52,10 +52,10 @@
               </div>
               <div class="form-group">
                 <div class="col-md-5 col-md-offset-2">
-                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                 </div>
                 <div class="col-sm-5">
-                  <button type="submit" class="btn btn-block main-color waves-effect">Guardar</button>
+                  <button type="submit" class="btn btn-block main-color waves-effect"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
                 </div>
               </div>
             </form>

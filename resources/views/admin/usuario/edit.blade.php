@@ -80,10 +80,10 @@
             </div>
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-6">
-                <a href="{{ url('/admin/usuarios') }}" class="btn btn-link btn-block waves-effect">Cancelar</a>
+                <a href="{{ url('/admin/usuarios') }}" class="btn btn-link btn-block waves-effect"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</a>
               </div>
               <div class="col-sm-3">
-                <button type="button" class="btn btn-block accent-color waves-effect" id="btn-actualizar-usuario">Guardar</button>
+                <button type="button" class="btn btn-block accent-color waves-effect" id="btn-actualizar-usuario"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
               </div>
             </div>
           {!!Form::close()!!}

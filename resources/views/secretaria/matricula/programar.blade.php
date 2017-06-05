@@ -124,7 +124,7 @@
               <div class="form-group">
                 <div class="col-sm-3 col-sm-offset-9">
                   <button type="button" class="btn btn-block waves-effect m-t-15 accent-color" ng-click="crearMatriculaPensiones()" ng-disabled="procesando || cantidad_matriculas < 1">
-                    <span ng-hide="procesando">Guardar</span>
+                    <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
                     </span>

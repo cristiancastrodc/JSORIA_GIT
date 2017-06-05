@@ -169,11 +169,11 @@
             <div class="card-body card-padding">
               <div class="form-group m-t-15">
                 <div class="col-md-4 col-md-offset-4">
-                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                 </div>
                 <div class="col-sm-4">
                   <button type="button" class="btn btn-block waves-effect accent-color" ng-click="crearMatriculaPensiones()" ng-disabled="procesando">
-                    <span ng-hide="procesando">Guardar</span>
+                    <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
                     </span>

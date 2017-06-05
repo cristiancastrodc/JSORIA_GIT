@@ -69,7 +69,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
-                <button type="submit" class="btn btn-block waves-effect accent-color">Guardar</button>
+                <button type="submit" class="btn btn-block waves-effect accent-color"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
               </div>
             </div>
           </form>

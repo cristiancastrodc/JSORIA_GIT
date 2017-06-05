@@ -42,7 +42,7 @@
                 <div class="form-group">
                   <div class="col-sm-3 col-sm-offset-9">
                     <button class="btn btn-block accent-color waves-effect" type="button" ng-click="buscar()" ng-disabled="buscando || !cobro.codigo">
-                      <span ng-hide="buscando">Buscar</span>
+                      <span ng-hide="buscando"><i class="zmdi zmdi-search"></i> Buscar</span>
                       <span ng-show="buscando">
                         <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Buscando...
                       </span>
@@ -131,10 +131,10 @@
                 </div>
                 <div class="form-group">
                   <div class="col-sm-3 col-sm-offset-6">
-                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
+                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                   </div>
                   <div class="col-sm-3">
-                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="finalizarCobro()" ng-disabled="!esValidoCobro()">Finalizar</button>
+                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="finalizarCobro()" ng-disabled="!esValidoCobro()"><i class="zmdi zmdi-assignment-check"></i> Finalizar</button>
                   </div>
                 </div>
               </div>
@@ -168,10 +168,10 @@
                 </table>
                 <div class="form-group">
                   <div class="col-sm-3 col-sm-offset-6">
-                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
+                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                   </div>
                   <div class="col-sm-3">
-                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="datosComprobante()">Confirmar</button>
+                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="datosComprobante()"><i class="zmdi zmdi-assignment-check"></i> Confirmar</button>
                   </div>
                 </div>
               </div>
@@ -277,10 +277,10 @@
                 </div>
                 <div class="form-group m-t-15">
                   <div class="col-sm-3 col-sm-offset-6">
-                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
+                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                   </div>
                   <div class="col-sm-3">
-                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="finalizarCobroExtraordinario()" ng-disabled="!esValidoDatosComprobante()">Finalizar Cobro</button>
+                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="finalizarCobroExtraordinario()" ng-disabled="!esValidoDatosComprobante()"><i class="zmdi zmdi-assignment-check"></i> Finalizar Cobro</button>
                   </div>
                 </div>
               </div>
@@ -388,10 +388,10 @@
                 </div>
                 <div class="form-group">
                   <div class="col-sm-4 col-sm-offset-4">
-                    <a class="btn btn-link btn-block waves-effect" data-dismiss="modal">Cerrar</a>
+                    <a class="btn btn-link btn-block waves-effect" data-dismiss="modal"><i class="zmdi zmdi-close-circle-o"></i> Cerrar</a>
                   </div>
                   <div class="col-sm-4">
-                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="grabarPago()" ng-disabled="!esValidoDatosComprobante()">Finalizar Cobro</button>
+                    <button class="btn btn-block main-color waves-effect" type="button" ng-click="grabarPago()" ng-disabled="!esValidoDatosComprobante()"><i class="zmdi zmdi-assignment-check"></i> Finalizar Cobro</button>
                   </div>
                 </div>
               </div>

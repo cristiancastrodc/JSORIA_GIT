@@ -38,7 +38,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <button class="btn accent-color waves_effect btn-block" id="btn-buscar-egresos">Buscar</button>
+                <button class="btn accent-color waves_effect btn-block" id="btn-buscar-egresos"><i class="zmdi zmdi-search"></i> Buscar</button>
               </div>
             </div>
           </form>

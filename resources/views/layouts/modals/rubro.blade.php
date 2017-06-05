@@ -24,8 +24,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-link" data-dismiss="modal">Cerrar</a>
-          <button type="button" class="btn accent-color waves-effect" id="btn-guardar-rubro">Guardar</button>
+          <a class="btn btn-link" data-dismiss="modal"><i class="zmdi zmdi-close-circle-o"></i> Cerrar</a>
+          <button type="button" class="btn accent-color waves-effect" id="btn-guardar-rubro"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
         </div>
       </form>
     </div>

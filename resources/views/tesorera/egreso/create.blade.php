@@ -110,7 +110,7 @@
                   </div>
                 </div>
                 <div class="col-sm-3">
-                  <button class="btn accent-color btn-block" id="btn-detalle-egreso-agregar">Agregar</button>
+                  <button class="btn accent-color btn-block" id="btn-detalle-egreso-agregar"><i class="zmdi zmdi-plus"></i> Agregar</button>
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@
                             </div>
                           </div>
                           <div class="col-sm-4">
-                            <button class="btn accent-color waves-effect btn-block" id="btn_nuevo_rubro">Agregar</button>
+                            <button class="btn accent-color waves-effect btn-block" id="btn_nuevo_rubro"><i class="zmdi zmdi-plus"></i> Agregar</button>
                           </div>
                         </div>
                       </div>
@@ -161,10 +161,10 @@
           <div class="card-body card-padding">
             <div class="form-group">
               <div class="col-md-4 col-md-offset-4">
-                <button class="btn btn-block btn-link waves-effect" type="button" id="btn-inicializar-crear-egreso">Cancelar</button>
+                <button class="btn btn-block btn-link waves-effect" type="button" id="btn-inicializar-crear-egreso"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
               </div>
               <div class="col-md-4">
-                <button class="btn accent-color waves-effect btn-block" id="btn-guardar-egreso">Guardar</button>
+                <button class="btn accent-color waves-effect btn-block" id="btn-guardar-egreso"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
               </div>
             </div>
           </div>

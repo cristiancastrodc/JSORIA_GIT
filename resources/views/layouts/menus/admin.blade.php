@@ -1,6 +1,6 @@
 <!-- Administrador -->
 <li><a href="{!!URL::to('/admin/actividades')!!}" class="hidden" id="link_actividades">
-  <i class="zmdi zmdi-assignment"></i> Actividades</a>
+  <i class="zmdi zmdi-assignment-o"></i> Actividades</a>
 </li>
 <li class="sub-menu">
   <a href="#"><i class="zmdi zmdi-assignment"></i> Matrículas</a>
@@ -18,7 +18,7 @@
   </ul>
 </li>
 <li class="sub-menu">
-  <a href="#"><i class="zmdi zmdi-money-box"></i> Definir</a>
+  <a href="#"><i class="zmdi zmdi-dialpad"></i> Definir</a>
   <ul>
     <li><a href="{{ url('/admin/comprobante/crear') }}" class="hidden" id="link_crear_comprobante">Comprobantes</a></li>
     <li><a href="{{ url('admin/configuracion') }}" class="hidden" id="link_configuracion">Descuentos</a></li>

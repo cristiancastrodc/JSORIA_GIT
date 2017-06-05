@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
-                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-buscar-alumno">Buscar</button>
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-buscar-alumno"><i class="zmdi zmdi-search"></i> Buscar</button>
               </div>
             </div>
           {!!Form::close()!!}
@@ -65,7 +65,7 @@
           <div class="card-body card-padding">            
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
-                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-cancelar-deuda-actividad">Cancelar Deudas</button>
+                <button class="btn btn-block accent-color waves-effect m-t-10" id="btn-cancelar-deuda-actividad"><i class="zmdi zmdi-assignment-check"></i> Cancelar Deudas</button>
               </div>
             </div>
           </div>

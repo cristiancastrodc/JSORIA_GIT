@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-9">
-                <button class="btn btn-block accent-color waves-effect m-t-10">Guardar</button>
+                <button class="btn btn-block accent-color waves-effect m-t-10"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
               </div>              
             </div>
           {!!Form::close()!!}

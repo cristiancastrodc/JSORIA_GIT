@@ -91,11 +91,11 @@
             </div>
             <div class="form-group m-t-15">
               <div class="col-md-5 col-md-offset-2">
-                <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
               </div>
               <div class="col-sm-5">
                 <button type="button" class="btn btn-block waves-effect  accent-color" ng-click="guardarCobroOrdinario()" ng-disabled="procesando">
-                  <span ng-hide="procesando">Guardar</span>
+                  <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Guardar</span>
                   <span ng-show="procesando">
                     <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
                   </span>
@@ -127,11 +127,11 @@
             </div>
             <div class="form-group">
               <div class="col-sm-4 col-sm-offset-4">
-                <button class="btn btn-link btn-block" ng-click="inicializarFormBusqueda()">Cancelar</button>
+                <button class="btn btn-link btn-block" ng-click="inicializarFormBusqueda()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
               </div>
               <div class="col-sm-4">
                 <button class="btn btn-block accent-color waves-effect" ng-click="listarCobrosOrdinarios()" ng-disabled="form_busqueda.procesando">
-                  <span ng-hide="form_busqueda.procesando">Buscar</span>
+                  <span ng-hide="form_busqueda.procesando"><i class="zmdi zmdi-search"></i> Buscar</span>
                   <span ng-show="form_busqueda.procesando">
                     <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Buscando...
                   </span>
@@ -227,11 +227,11 @@
           </div>
           <div class="modal-footer">
             <div class="col-sm-4 col-sm-offset-4">
-              <a class="btn btn-link btn-block waves-effect" data-dismiss="modal">Cerrar</a>
+              <a class="btn btn-link btn-block waves-effect" data-dismiss="modal"><i class="zmdi zmdi-close-circle-o"></i> Cerrar</a>
             </div>
             <div class="col-sm-4">
               <button class="btn btn-block accent-color waves-effect" ng-click="actualizarCobro()" ng-disabled="modal.procesando || !esValidoFormEdicion()">
-                <span ng-hide="modal.procesando">Guardar</span>
+                <span ng-hide="modal.procesando"><i class="zmdi zmdi-assignment-check"></i> Guardar</span>
                 <span ng-show="modal.procesando">
                   <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
                 </span>

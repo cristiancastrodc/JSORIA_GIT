@@ -41,7 +41,7 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-8">
-                  <button class="btn btn-block accent-color waves-effect" id="btn-ingresos-cajera">Buscar</button>
+                  <button class="btn btn-block accent-color waves-effect" id="btn-ingresos-cajera"><i class="zmdi zmdi-search"></i>  Buscar</button>
                 </div>
               </div>
             </form>
@@ -78,10 +78,10 @@
             <div class="card-body card-padding">
               <div class="form-group">
                 <div class="col-sm-4 col-sm-offset-4">
-                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                 </div>
                 <div class="col-sm-4">
-                  <button class="btn btn-block accent-color waves-effect" id="btn-retirar-ingresos">Retirar</button>
+                  <button class="btn btn-block accent-color waves-effect" id="btn-retirar-ingresos"><i class="zmdi zmdi-assignment-check"></i> Retirar</button>
                 </div>
               </div>
             </div>
@@ -180,7 +180,7 @@
               </div>
               <div class="form-group">
                 <div class="col-md-4 col-md-offset-4">
-                  <a class="btn btn-link" data-dismiss="modal">Cerrar</a>
+                  <a class="btn btn-link" data-dismiss="modal"><i class="zmdi zmdi-close-circle-o"></i> Cerrar</a>
                 </div>
                 <div class="col-md-4">
                   <button class="btn btn-block fourth-color waves-effect" type="button" ng-disabled="!modal.puede_eliminar" ng-click="eliminarRetiro(modal.id_retiro)"><i class="zmdi zmdi-delete"></i> Eliminar</button>

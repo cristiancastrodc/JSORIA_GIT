@@ -40,7 +40,7 @@
                 <div class="form-group">
                   <div class="col-sm-3 col-sm-offset-9">
                     <button class="btn btn-block accent-color waves-effect" type="button" ng-click="buscar()" ng-disabled="buscando">
-                      <span ng-hide="buscando">Buscar</span>
+                      <span ng-hide="buscando"><i class="zmdi zmdi-search"></i> Buscar</span>
                       <span ng-show="buscando">
                         <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Buscando...
                       </span>
@@ -112,11 +112,11 @@
                 </table>
                 <div class="form-group m-t-15">
                   <div class="col-sm-3 col-sm-offset-6">
-                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()">Cancelar</button>
+                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                   </div>
                   <div class="col-sm-3">
                     <button type="button" class="btn btn-block waves-effect accent-color" ng-click="crearMatricula()" ng-disabled="procesando || cantidad_categorias == 0">
-                      <span ng-hide="procesando">Agregar Deudas</span>
+                      <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Agregar Deudas</span>
                       <span ng-show="procesando">
                         <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
                       </span>

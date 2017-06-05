@@ -130,7 +130,7 @@
             </div>
             <div class="form-group">
               <div class="row">
-                <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-modificar-egreso">Guardar</button></div>
+                <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-modificar-egreso"><i class="zmdi zmdi-assignment-check"></i> Guardar</button></div>
               </div>
             </div>
           </form>

@@ -90,7 +90,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <a class="btn btn-link" data-dismiss="modal">Cerrar</a>
+            <a class="btn btn-link" data-dismiss="modal"><i class="zmdi zmdi-close-circle-o"></i> Cerrar</a>
           </div>
         </div>
       </div>

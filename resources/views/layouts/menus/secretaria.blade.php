@@ -11,13 +11,13 @@
   </ul>
 </li>
 <li><a href="{{ url('/secretaria/periodo/programar') }}" class="hidden" id="link_programar_periodos">
-  <i class="zmdi zmdi-close-circle-o"></i> Programar Períodos</a>
+  <i class="zmdi zmdi-view-toc"></i> Programar Períodos</a>
 </li>
 <li><a href="{!!URL::to('/secretaria/ciclo/cerrar')!!}" class="hidden" id="link_cerrar_ciclo">
-  <i class="zmdi zmdi-close-circle-o"></i> Cerrar Ciclo</a>
+  <i class="zmdi zmdi-graduation-cap"></i> Cerrar Ciclo</a>
 </li>
 <li class="sub-menu">
-  <a href=""><i class="zmdi zmdi-pin-account"></i> Reportes</a>
+  <a href=""><i class="zmdi zmdi-chart"></i> Reportes</a>
   <ul>
     <li><a href="{!!URL::to('/secretaria/reportes/cuenta_alumno')!!}">Cuenta de Alumno</a></li>
     <li><a href="{{ url('/secretaria/reportes/deudas_alumno') }}">Deudas de Alumno</a></li>

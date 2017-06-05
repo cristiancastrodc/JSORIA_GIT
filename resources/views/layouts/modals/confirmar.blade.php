@@ -25,8 +25,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <a class="btn btn-link" data-dismiss="modal">Cerrar</a>
-        <a class="btn accent-color" id="modal-guardar">Autorizar</a>
+        <a class="btn btn-link" data-dismiss="modal"><i class="zmdi zmdi-close-circle-o"></i> Cerrar</a>
+        <a class="btn accent-color" id="modal-guardar"><i class="zmdi zmdi-assignment-check"></i> Autorizar</a>
       </div>
     </div>
   </div>

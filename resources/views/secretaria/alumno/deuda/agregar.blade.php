@@ -38,7 +38,7 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-3 col-sm-offset-9">
-                  <button class="btn btn-block accent-color waves-effect" ng-click="buscarAlumno()" ng-disabled="!alumno.nro_documento">Buscar</button>
+                  <button class="btn btn-block accent-color waves-effect" ng-click="buscarAlumno()" ng-disabled="!alumno.nro_documento"><i class="zmdi zmdi-search"></i> Buscar</button>
                 </div>
               </div>
             </form>
@@ -93,11 +93,11 @@
               <form class="form-horizontal">
                 <div class="form-group">
                   <div class="col-sm-3 col-sm-offset-6">
-                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()">Cancelar</button>
+                    <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                   </div>
                   <div class="col-sm-3">
                     <button class="btn btn-block accent-color waves-effect" ng-click="agregarDeuda()" ng-disabled="procesando || !esValidoConceptos()">
-                      <span ng-hide="procesando">Grabar</span>
+                      <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Grabar</span>
                       <span ng-show="procesando">
                         <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
                       </span>
