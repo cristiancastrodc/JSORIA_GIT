@@ -102,7 +102,7 @@ class RetirosController extends Controller
       $tesorera = User::find($user);
       $contra = $tesorera->password;
 
-      if(\Hash::check($pass , $contra)){
+      if(\Hash::check($pass, $contra)){
         /** Actualizar el estado del retiro **/
         $fecha_hora_retiro = date('Y-m-d H:i:s');
         Retiro::where('id', '=', $retiro)

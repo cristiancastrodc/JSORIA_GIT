@@ -26,6 +26,7 @@ class Deuda_Ingreso extends Model
                         ->where('deuda_ingreso.id_cajera', $id_cajera)
                         ->where('deuda_ingreso.estado_retiro', '<>', '2')
                         ->select('deuda_ingreso.id', 'deuda_ingreso.fecha_hora_ingreso', DB::raw("IF(jsoria_categoria.tipo = 'cobro_extraordinario', jsoria_deuda_ingreso.descripcion_extr, jsoria_categoria.nombre) as nombre"), 'deuda_ingreso.estado_retiro', 'deuda_ingreso.saldo', 'deuda_ingreso.descuento', DB::raw("CONCAT(jsoria_deuda_ingreso.tipo_comprobante, ' ', jsoria_deuda_ingreso.serie_comprobante, '-', jsoria_deuda_ingreso.numero_comprobante) as documento"))
+                        ->orderBy('deuda_ingreso.fecha_hora_ingreso')
                         ->get();
   }
   public static function retiroTesorera($id_cajera, $id_tesorera)
