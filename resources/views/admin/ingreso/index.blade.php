@@ -123,7 +123,12 @@
                   <td>{@ retiro.fecha_hora_creacion @}</td>
                   <td>{@ retiro.apellidos @} {@ retiro.nombres @}</td>
                   <td class="text-right">{@ retiro.monto | number : 2 @}</td>
-                  <td><a class='btn third-color m-r-20' ng-click="mostrarDetalle(retiro)" ><i class='zmdi zmdi-more'></i></a></td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group">
+                      <a class="btn third-color waves-effect" ng-click="mostrarDetalle(retiro)" data-toggle="tooltip" data-placement="top" data-original-title="Ver Detalle" tooltip><i class='zmdi zmdi-more'></i></a>
+                      <a class="btn fourth-color waves-effect" ng-click="eliminarRetiro(retiro.id)" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar" tooltip ng-show="retiro.estado == 0"><i class='zmdi zmdi-delete'></i></a>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -181,11 +186,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-md-4 col-md-offset-4">
-                  <a class="btn btn-link" data-dismiss="modal"><i class="zmdi zmdi-close-circle-o"></i> Cerrar</a>
-                </div>
-                <div class="col-md-4">
-                  <button class="btn btn-block fourth-color waves-effect" type="button" ng-disabled="!modal.puede_eliminar" ng-click="eliminarRetiro(modal.id_retiro)"><i class="zmdi zmdi-delete"></i> Eliminar</button>
+                <div class="col-md-4 col-md-offset-8">
+                  <a class="btn btn-link btn-block" data-dismiss="modal"><i class="zmdi zmdi-close-circle-o"></i> Cerrar</a>
                 </div>
               </div>
             </form>

@@ -27,7 +27,15 @@ app.controller('usuariosController', function ($scope, $http) {
     { value : 'Secretaria', label : 'Secretaria' },
     { value : 'Tesorera', label : 'Tesorera' },
   ]
-  $scope.usuario = []
+  $scope.usuario = {
+    dni : '',
+    nombres : '',
+    apellidos : '',
+    login : '',
+    password : '',
+    tipo : null,
+    permisos : null,
+  }
   $scope.procesando = false
   // Funciones
   $scope.guardarUsuario = function () {
@@ -84,7 +92,15 @@ app.controller('usuariosController', function ($scope, $http) {
     })
   }
   $scope.inicializar = function () {
-    $scope.usuario = []
+    $scope.usuario = {
+      dni : '',
+      nombres : '',
+      apellidos : '',
+      login : '',
+      password : '',
+      tipo : null,
+      permisos : '',
+    }
     $scope.procesando = false
   }
   $scope.eliminarUsuario = function (id_usuario) {
@@ -115,6 +131,16 @@ app.controller('usuariosController', function ($scope, $http) {
       })
     })
   }
+  $scope.esValidoFormCreacion = function () {
+    return $scope.usuario.dni != ''
+           && $scope.usuario.nombres != ''
+           && $scope.usuario.apellidos != ''
+           && $scope.usuario.tipo != null
+           && $scope.usuario.permisos != ''
+           && $scope.usuario.permisos != null
+           && $scope.usuario.login != ''
+           && $scope.usuario.password != ''
+  }
 })
 .directive('chosen', function() {
   var linker = function (scope, element, attr) {
@@ -136,4 +162,14 @@ app.controller('usuariosController', function ($scope, $http) {
     restrict: 'A',
     link: linker,
   }
+})
+.directive('chosenUpdater', function () {
+  return {
+    restrict: 'A',
+    link : function (scope, element) {
+      element.bind('click', function () {
+        $('.chosen').trigger('chosen:updated')
+      });
+    },
+  };
 })

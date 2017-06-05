@@ -23,13 +23,11 @@ app.controller('retirosController', function ($scope, $http) {
   }
   $scope.mostrarDetalle = function (retiro) {
     $scope.modal = {
-      id_retiro  : retiro.id,
       cajera  : retiro.nombres + ' ' + retiro.apellidos,
       estado  : retiro.estado == 0 ? 'Pendiente' : 'Retirado',
       fecha_hora_creacion  : retiro.fecha_hora_creacion,
       fecha_hora_retiro  : retiro.fecha_hora_retiro,
       monto  : retiro.monto,
-      puede_eliminar  : retiro.estado == 0,
     }
     $('#modal-detalle-retiro').modal('show')
   }
@@ -42,26 +40,31 @@ app.controller('retirosController', function ($scope, $http) {
       cancelButtonText : 'Cancelar',
       confirmButtonText : 'Aceptar',
       confirmButtonClass : 'btn-danger',
-    },
-    function () {
+    }, function () {
       var ruta = '/admin/retiro/eliminar/' + id_retiro
       $http.get(ruta)
-      .success(function(response) {
-        if (response.resultado == 'true') {
+      .then(function successCallback(response) {
+        if (response.data.resultado == 'true') {
           swal({
             title : 'Retiro eliminado correctamente.',
             type : 'success',
+          }, function () {
+            window.location.reload()
           })
-          $('#modal-detalle-retiro').modal('hide')
-          $scope.listarRetiros()
         } else {
-          debug(response.mensaje)
           swal({
             title: 'Error.',
-            text: 'Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos. Mensaje: ' + response.mensaje,
+            text: 'No se pudo eliminar el retiro. Mensaje: ' + response.mensaje,
             type: 'error',
           })
         }
+      }, function errorCallback(response) {
+        debug(response, false)
+        swal({
+          title: 'Error.',
+          text: 'No se pudo eliminar el retiro.',
+          type: 'error',
+        })
       })
     })
   }
@@ -89,5 +92,14 @@ app.controller('retirosCajeraController', function($scope, $http){
       $scope.retiro.detalle = response.data
     })
     $('#modal-detalle-retiro').modal('show')
+  }
+})
+.directive('tooltip', function() {
+  var linker = function (scope, element, attr) {
+    element.tooltip()
+  }
+  return {
+    restrict: 'A',
+    link: linker,
   }
 })

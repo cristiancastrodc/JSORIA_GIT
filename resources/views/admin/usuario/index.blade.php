@@ -55,9 +55,13 @@
               <div class="form-group">
                 <label for="tipo" class="col-sm-3 control-label">Tipo</label>
                 <div class="col-sm-9">
-                  <select class="selectpicker" id="tipo" ng-model="usuario.tipo" ng-options="tipo.value as tipo.label for tipo in tipos_usuario">
-                    <option value="" disabled="">-- Seleccione Tipo de Usuario --</option>
-                  </select>
+                   <div class="fg-line">
+                    <div class="select">
+                      <select class="form-control" id="tipo" ng-model="usuario.tipo" ng-options="tipo.value as tipo.label for tipo in tipos_usuario">
+                        <option value="" disabled="">-- SELECCIONE TIPO DE USUARIO --</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -65,8 +69,8 @@
                 <div class="col-sm-9">
                   <div class="fg-line">
                     <div class="select">
-                      <select class="chosen" multiple="" id="permisos" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="usuario.permisos" chosen data-placeholder="-- Seleccione Instituciones --">
-                        <option value="" disabled="">-- Seleccione Instituciones --</option>
+                      <select class="chosen" multiple="" id="permisos" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="usuario.permisos" chosen data-placeholder="-- SELECCIONE INSTITUCIONES --">
+                        <option value="" disabled="">-- SELECCIONE INSTITUCIONES --</option>
                       </select>
                     </div>
                   </div>
@@ -88,12 +92,13 @@
                   </div>
                 </div>
               </div>
+              <input type="password" class="fake_pass" id="fake_pass" name="fake_pass">
               <div class="form-group">
                 <div class="col-md-5 col-md-offset-2">
-                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()" id="btn-inicializar" chosen-updater><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                 </div>
                 <div class="col-sm-5">
-                  <button class="btn btn-block accent-color waves-effect" ng-click="guardarUsuario()" ng-disabled="procesando">
+                  <button class="btn btn-block accent-color waves-effect" ng-click="guardarUsuario()" ng-disabled="procesando || !esValidoFormCreacion()">
                     <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Grabar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
