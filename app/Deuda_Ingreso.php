@@ -112,6 +112,8 @@ where estado_pago = '0'
   {
     Deuda_Ingreso::where('id_categoria', $id_categoria)
                  ->where('estado_pago', 0)
+                 ->where('estado_descuento', 0)
+                 ->where('estado_fraccionam', 0)
                  ->update([
                     'saldo' => $monto
                   ]);

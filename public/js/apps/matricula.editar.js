@@ -1,5 +1,5 @@
 // Definir la aplicación
-var app = angular.module('editarMatricula', [], function($interpolateProvider) {
+var app = angular.module('editarMatricula', ['directives'], function($interpolateProvider) {
                           $interpolateProvider.startSymbol('{@');
                           $interpolateProvider.endSymbol('@}');
                        });
@@ -98,25 +98,27 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
     .then(function successCallback(response) {
       if (response.data.resultado == 'true') {
         swal({
-          title : "Éxito!",
-          text : "Datos actualizados correctamente.",
+          title : "Datos de matrícula y pensiones actualizados correctamente.",
           type : "success",
           confirmButtonText: "Aceptar",
           closeOnConfirm: false,
-        }, function (isConfirm) {
+        }, function () {
           document.location.reload();
         });
       } else {
         swal({
-          title: response.data.mensaje.titulo,
-          text: "Sucedió algo inesperado. Por favor, intente nuevamente en unos minutos. Excepción: " + response.data.mensaje.contenido,
-          type: "warning"
-        }, function () {
-          document.location.reload();
+          title: 'Error.',
+          text: 'No se pudo actualizar los datos de matrícula y pensiones. Mensaje: ' + response.data.mensaje,
+          type: 'error',
         });
       }
     }, function errorCallback(response) {
-      console.log('Internal Error');
+      debug(response, false)
+      swal({
+        title: 'Error.',
+        text: 'No se pudo actualizar los datos de matrícula y pensiones.',
+        type: 'error',
+      });
     })
   }
   $scope.contarCategorias = function () {
@@ -131,18 +133,17 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
   })
 })
 .directive('datepicker', function() {
-  var linker = function (scope, element, attr) {
-    scope.$watch('matricula', function () {
-      if (element[0].id == 'fecha_inicio_matricula' && scope.matricula.fecha_inicio != null) {
-        element.data('DateTimePicker').date(scope.matricula.fecha_inicio)
-      }
-      if (element[0].id == 'fecha_fin_matricula' && scope.matricula.fecha_fin != null) {
-        element.data('DateTimePicker').date(scope.matricula.fecha_fin)
-      }
-    })
-  }
   return {
     restrict: 'A',
-    link: linker,
+    link: function (scope, element, attr) {
+      scope.$watch('matricula', function () {
+        if (element[0].id == 'fecha_inicio_matricula' && scope.matricula.fecha_inicio != null) {
+          element.data('DateTimePicker').date(scope.matricula.fecha_inicio)
+        }
+        if (element[0].id == 'fecha_fin_matricula' && scope.matricula.fecha_fin != null) {
+          element.data('DateTimePicker').date(scope.matricula.fecha_fin)
+        }
+      })
+    },
   }
 })

@@ -107,7 +107,7 @@
                   <input type="text" value="{@ pension.nombre @}" ng-model="pension.nombre" class="form-control table-input" ng-disabled="!pension.seleccionada">
                 </td>
                 <td class="text-right">
-                  <input type="number" value="{@ pension.monto @}" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada">
+                  <input type="number" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada" step="0.01" string-to-number>
                 </td>
               </tr>
             </table>
@@ -136,4 +136,5 @@
 @section('scripts')
   <script src="{{ asset('js/angular.min.js') }}"></script>
   <script src="{{ asset('js/apps/matricula.editar.js') }}"></script>
+  <script src="{{ asset('js/apps/directives.js') }}"></script>
 @endsection

@@ -2,14 +2,15 @@
 
 namespace JSoria\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
+use JSoria\Categoria;
+use JSoria\CategoriaTemp;
+use JSoria\Deuda_Ingreso;
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\MatriculaCreateRequest;
 use JSoria\Http\Requests\MatriculaUpdateRequest;
 use JSoria\Http\Controllers\Controller;
-use JSoria\Categoria;
-use JSoria\CategoriaTemp;
-use JSoria\Deuda_Ingreso;
 
 class MatriculasController extends Controller
 {
@@ -371,22 +372,30 @@ class MatriculasController extends Controller
    */
   public function guardarEdicionMatricula(Request $request)
   {
-    $resultado = 'true';
-    $matricula = $request->input('matricula');
-    $categorias = $request->input('pensiones');
-    foreach ($categorias as $categoria) {
-      $categoria_aux = Categoria::find($categoria['id']);
-      if ($categoria['id'] == $matricula['id']) {
-        $categoria_aux->fecha_inicio = $matricula['fecha_inicio'];
-        $categoria_aux->fecha_fin = $matricula['fecha_fin'];
+    try {
+      $matricula = $request->input('matricula');
+      $categorias = $request->input('pensiones');
+      DB::beginTransaction();
+      // Actualizar las categorías y sus deudas asociadas
+      foreach ($categorias as $categoria) {
+        $categoria_aux = Categoria::find($categoria['id']);
+        if ($categoria['id'] == $matricula['id']) {
+          $categoria_aux->fecha_inicio = $matricula['fecha_inicio'];
+          $categoria_aux->fecha_fin = $matricula['fecha_fin'];
+        }
+        $categoria_aux->nombre = $categoria['nombre'];
+        $categoria_aux->monto = $categoria['monto'];
+        $categoria_aux->save();
+        // Actualizar las deudas asociadas
+        Deuda_Ingreso::actualizarDeudas($categoria['id'], $categoria['monto']);
       }
-      $categoria_aux->nombre = $categoria['nombre'];
-      $categoria_aux->monto = $categoria['monto'];
-      $categoria_aux->save();
+      DB::commit();
+      $respuesta['resultado'] = 'true';
+    } catch (\Exception $e) {
+      DB::rollback();
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
     }
-    $respuesta = [
-      'resultado' => $resultado,
-    ];
     return $respuesta;
   }
   /**
