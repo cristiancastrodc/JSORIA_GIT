@@ -67,16 +67,16 @@
                   <table class="table table-bordered table-condensed">
                     <thead>
                       <tr class="text-center">
-                        <td></td>
-                        <td>
+                        <td class="accent-color c-white"></td>
+                        <td class="accent-color c-white">
                           <div ng-hide="institucion.id_institucion == 3">Nivel</div>
                           <div ng-show="institucion.id_institucion == 3">Carrera</div>
                         </td>
-                        <td>Concepto Matrícula</td>
-                        <td>Fecha Inicial</td>
-                        <td>Fecha Final</td>
-                        <td>Mes Inicial Pensión</td>
-                        <td>Mes Final Pensión</td>
+                        <td class="accent-color c-white">Concepto Matrícula</td>
+                        <td class="accent-color c-white">Fecha Inicial</td>
+                        <td class="accent-color c-white">Fecha Final</td>
+                        <td class="accent-color c-white">Mes Inicial Pensión</td>
+                        <td class="accent-color c-white">Mes Final Pensión</td>
                       </tr>
                     </thead>
                     <tbody>
@@ -121,9 +121,12 @@
                   </table>
                 </div>
               </div>
-              <div class="form-group">
-                <div class="col-sm-3 col-sm-offset-9">
-                  <button type="button" class="btn btn-block waves-effect m-t-15 accent-color" ng-click="crearMatriculaPensiones()" ng-disabled="procesando || cantidad_matriculas < 1">
+              <div class="form-group m-t-15">
+                <div class="col-sm-3 col-sm-offset-6">
+                  <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
+                </div>
+                <div class="col-sm-3">
+                  <button type="button" class="btn btn-block waves-effect  accent-color" ng-click="crearMatriculaPensiones()" ng-disabled="procesando || cantidad_matriculas < 1">
                     <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...

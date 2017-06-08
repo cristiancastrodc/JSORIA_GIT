@@ -93,6 +93,10 @@ app.controller('periodosController', function ($scope, $http) {
       console.log('error');
     });
   };
+  $scope.cancelar = function () {
+    $scope.matriculas_temp = [];
+    $scope.matriculas_programar = [];
+  }
 });
 
 app.directive('myFullDate', function(dateFilter) {
