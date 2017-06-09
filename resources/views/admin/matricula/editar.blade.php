@@ -7,11 +7,9 @@
 @section('content')
   @if(Session::has('message'))
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-12">
       <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{ Session::get('message') }}
       </div>
     </div>
@@ -27,14 +25,14 @@
           <div class="card-header main-color ch-alt">
             <h2>Editar Matrícula</h2>
           </div>
-          <form action="" class="form-horizontal">
+          <form class="form-horizontal">
             <div class="card-body card-padding">
               <div class="form-group">
                 <label for="institucion" class="control-label col-sm-3">Institución</label>
                 <div class="col-sm-9">
                   <div class="fg-line">
                     <div class="select">
-                      <select name="institucion" id="institucion" class="form-control" ng-options="institucion.nombre for institucion in instituciones" ng-model="institucion" ng-change="cargarDetalleInstitucion()">
+                      <select name="institucion" id="institucion" class="form-control" ng-options="institucion.id_institucion as institucion.nombre for institucion in instituciones" ng-model="id_institucion" ng-change="cargarDetalleInstitucion()">
                         <option value="">Seleccione Institución</option>
                       </select>
                     </div>
@@ -46,7 +44,7 @@
                 <div class="col-sm-9">
                   <div class="fg-line">
                     <div class="select">
-                      <select name="detalle_institucion" id="detalle_institucion" class="form-control" ng-options="division.nombre_division for division in detalle" ng-model="detalle_institucion" ng-change="cargarMatriculas()">
+                      <select name="detalle_institucion" id="detalle_institucion" class="form-control" ng-options="division.id as division.nombre_division for division in detalle" ng-model="id_detalle_institucion" ng-change="cargarMatriculas()">
                         <option value="">Seleccione {@ label_detalle @}</option>
                       </select>
                     </div>
@@ -86,6 +84,14 @@
                     </div>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="periodo" class="control-label col-sm-3">Período:</label>
+                  <div class="col-sm-9">
+                    <div class="fg-line">
+                      <input type="text" id="periodo" name="periodo" class="form-control" placeholder="Ingrese el período. Ejemplo: 2016 - I." ng-model="matricula.periodo">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <table class="table table-bordered">
@@ -98,7 +104,7 @@
                 <td>
                   <div class="checkbox table-checkbox">
                     <label>
-                      <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}" ng-change="contarCategorias()">
+                      <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}">
                       <i class="input-helper"></i>
                     </label>
                   </div>
@@ -117,7 +123,7 @@
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                 </div>
                 <div class="col-sm-3">
-                  <button type="button" class="btn btn-block waves-effect accent-color" ng-click="guardarCambios()" ng-disabled="procesando || cantidad_categorias == 0">
+                  <button type="button" class="btn btn-block waves-effect accent-color" ng-click="guardarCambios()" ng-disabled="procesando">
                     <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Guardar</span>
                     <span ng-show="procesando">
                       <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
@@ -135,6 +141,6 @@
 
 @section('scripts')
   <script src="{{ asset('js/angular.min.js') }}"></script>
-  <script src="{{ asset('js/apps/matricula.editar.js') }}"></script>
   <script src="{{ asset('js/apps/directives.js') }}"></script>
+  <script src="{{ asset('js/apps/matricula.editar.js') }}"></script>
 @endsection

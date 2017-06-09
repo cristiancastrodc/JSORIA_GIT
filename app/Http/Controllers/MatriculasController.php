@@ -376,16 +376,20 @@ class MatriculasController extends Controller
       $matricula = $request->input('matricula');
       $categorias = $request->input('pensiones');
       DB::beginTransaction();
+      // Actualizar la matrícula
+      Categoria::where('id', $matricula['id'])
+               ->update([
+                  'fecha_inicio' => $matricula['fecha_inicio'],
+                  'fecha_fin' => $matricula['fecha_fin'],
+                  'periodo' => $matricula['periodo'],
+                ]);
       // Actualizar las categorías y sus deudas asociadas
       foreach ($categorias as $categoria) {
-        $categoria_aux = Categoria::find($categoria['id']);
-        if ($categoria['id'] == $matricula['id']) {
-          $categoria_aux->fecha_inicio = $matricula['fecha_inicio'];
-          $categoria_aux->fecha_fin = $matricula['fecha_fin'];
-        }
-        $categoria_aux->nombre = $categoria['nombre'];
-        $categoria_aux->monto = $categoria['monto'];
-        $categoria_aux->save();
+        Categoria::where('id', $categoria['id'])
+                 ->update([
+                    'nombre' => $categoria['nombre'],
+                    'monto' => $categoria['monto'],
+                  ]);
         // Actualizar las deudas asociadas
         Deuda_Ingreso::actualizarDeudas($categoria['id'], $categoria['monto']);
       }
