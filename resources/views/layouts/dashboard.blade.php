@@ -50,7 +50,7 @@
           </li>
           <li>
             <!-- Cerrar sesión -->
-            <a href="{!!URL::to('/logout')!!}"><i class="tm-icon zmdi zmdi-close"></i></a>
+            <a href="{!!URL::to('/logout')!!}"><i class="tm-icon zmdi zmdi-power"></i></a>
           </li>
         </ul>
       </li>
