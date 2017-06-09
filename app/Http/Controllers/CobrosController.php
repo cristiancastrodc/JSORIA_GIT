@@ -270,6 +270,7 @@ class CobrosController extends Controller
               // Se actualiza la deuda
               $deuda = Deuda_Ingreso::find($pago['id']);
               $deuda->saldo = $pago['saldo'] - $pago['monto_pagado'];
+              $deuda->estado_fraccionam = true;
               $deuda->save();
             }
             // En caso se pague el total restante de la deuda

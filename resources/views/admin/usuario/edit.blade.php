@@ -78,6 +78,7 @@
                 <small class="help-block">Si no desea cambiar la contraseña, deje este campo en blanco.</small>
               </div>
             </div>
+            <input type="password" class="fake_pass" id="fake_pass" name="fake_pass">
             <div class="form-group">
               <div class="col-sm-3 col-sm-offset-6">
                 <a href="{{ url('/admin/usuarios') }}" class="btn btn-link btn-block waves-effect"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</a>
