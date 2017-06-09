@@ -25,9 +25,9 @@
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Crear Matricula de Alumno</h2>
-          </div>
-          <div class="card-body card-padding">
-            <form class="form-horizontal">
+          </div>          
+          <form class="form-horizontal">
+            <div class="card-body card-padding">
               <div ng-hide="matriculando">
                 <div class="form-group">
                   <label for="codigo_alumno" class="control-label col-sm-3">Alumno</label>
@@ -48,7 +48,9 @@
                   </div>
                 </div>
               </div>
-              <div ng-show="matriculando">
+            </div>
+            <div ng-show="matriculando">
+              <div class="card-body card-padding">
                 <h3 class="text-uppercase m-t-0">{@ alumno.nombres @} {@ alumno.apellidos @}</h3>
                 <div class="form-group">
                   <label for="id_institucion" class="control-label col-sm-3">Institución</label>
@@ -98,27 +100,29 @@
                     </div>
                   </div>
                 </div>
-                <table class="table table-bordered">
-                  <tr class="accent-color">
-                    <td></td>
-                    <td>Concepto</td>
-                    <td>Período</td>
-                    <td>Monto</td>
-                  </tr>
-                  <tr ng-repeat="pension in pensiones">
-                    <td>
-                      <div class="checkbox table-checkbox">
-                        <label>
-                          <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}">
-                          <i class="input-helper"></i>
-                        </label>
-                      </div>
-                    </td>
-                    <td>{@ pension.nombre @}</td>
-                    <td>{@ pension.periodo @}</td>
-                    <td class="text-right">{@ pension.monto @}</td>
-                  </tr>
-                </table>
+              </div>
+              <table class="table table-bordered">
+                <tr class="accent-color">
+                  <td></td>
+                  <td>Concepto</td>
+                  <td>Período</td>
+                  <td>Monto</td>
+                </tr>
+                <tr ng-repeat="pension in pensiones">
+                  <td>
+                    <div class="checkbox table-checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}">
+                        <i class="input-helper"></i>
+                      </label>
+                    </div>
+                  </td>
+                  <td>{@ pension.nombre @}</td>
+                  <td>{@ pension.periodo @}</td>
+                  <td class="text-right">{@ pension.monto @}</td>
+                </tr>
+              </table>
+              <div class="card-body card-padding">
                 <div class="form-group m-t-15">
                   <div class="col-sm-3 col-sm-offset-6">
                     <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
@@ -133,7 +137,8 @@
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
+          </form>
           </div>
         </div>
       </div>
