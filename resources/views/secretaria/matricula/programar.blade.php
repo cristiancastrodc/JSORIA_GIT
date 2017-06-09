@@ -26,9 +26,9 @@
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Programar Períodos</h2>
-          </div>
-          <div class="card-body card-padding">
-            <form action="" class="form-horizontal">
+          </div>          
+          <form action="" class="form-horizontal">
+            <div class="card-body card-padding">
               <div class="form-group">
                 <label for="id_institucion" class="control-label col-sm-3">Institución</label>
                 <div class="col-sm-9">
@@ -40,10 +40,12 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>           
               <div class="card-hr"></div>
-              <div class="row" ng-show="institucion">
-                <div class="col-sm-12">
+            </div>
+            <div class="row" ng-show="institucion">
+              <div class="col-sm-12">
+                <div class="card-body card-padding">
                   <div class="panel-group" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-collapse">
                       <div class="panel-heading" role="tab" id="headingOne">
@@ -64,63 +66,65 @@
                       </div>
                     </div>
                   </div>
-                  <table class="table table-bordered table-condensed">
-                    <thead>
-                      <tr class="text-center">
-                        <td class="accent-color c-white"></td>
-                        <td class="accent-color c-white">
-                          <div ng-hide="institucion.id_institucion == 3">Nivel</div>
-                          <div ng-show="institucion.id_institucion == 3">Carrera</div>
-                        </td>
-                        <td class="accent-color c-white">Concepto Matrícula</td>
-                        <td class="accent-color c-white">Fecha Inicial</td>
-                        <td class="accent-color c-white">Fecha Final</td>
-                        <td class="accent-color c-white">Mes Inicial Pensión</td>
-                        <td class="accent-color c-white">Mes Final Pensión</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="matricula in matriculas_programar">
-                        <td><button class="btn btn-danger btn-xs btn-ob-cancel" ng-click="quitar(matricula, $index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-                        <td>{@ matricula.nombre_division @}</td>
-                        <td>{@ matricula.concepto_matricula @}</td>
-                        <td>
-                          <p class="input-group">
-                            <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="matricula.fecha_inicial" is-open="matricula.opened1" datepicker-options="dateOptions1" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" show-button-bar="false" my-full-date/>
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default" ng-click="open($event,matricula,1)"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
-                          </p>
-                        </td>
-                        <td>
-                          <p class="input-group">
-                            <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="matricula.fecha_final" is-open="matricula.opened2" datepicker-options="dateOptions1" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" show-button-bar="false" my-full-date/>
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default" ng-click="open($event,matricula,2)"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
-                          </p>
-                        </td>
-                        <td>
-                          <p class="input-group">
-                            <input type="text" class="form-control" datepicker-popup="MM/yyyy" ng-model="matricula.mes_inicial_pension" is-open="matricula.opened3" datepicker-options="dateOptions2" datepicker-mode="'month'" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" show-button-bar="false" my-month-date/>
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default" ng-click="open($event,matricula,3)"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
-                          </p>
-                        </td>
-                        <td>
-                          <p class="input-group">
-                            <input type="text" class="form-control" datepicker-popup="MM/yyyy" ng-model="matricula.mes_final_pension" is-open="matricula.opened4" datepicker-options="dateOptions2" datepicker-mode="'month'" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" show-button-bar="false" my-month-date/>
-                            <span class="input-group-btn">
-                              <button type="button" class="btn btn-default" ng-click="open($event,matricula,4)"><i class="glyphicon glyphicon-calendar"></i></button>
-                            </span>
-                          </p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
                 </div>
+                <table class="table table-bordered table-condensed">
+                  <thead>
+                    <tr class="text-center">
+                      <td class="accent-color c-white"></td>
+                      <td class="accent-color c-white">
+                        <div ng-hide="institucion.id_institucion == 3">Nivel</div>
+                        <div ng-show="institucion.id_institucion == 3">Carrera</div>
+                      </td>
+                      <td class="accent-color c-white">Concepto Matrícula</td>
+                      <td class="accent-color c-white">Fecha Inicial</td>
+                      <td class="accent-color c-white">Fecha Final</td>
+                      <td class="accent-color c-white">Mes Inicial Pensión</td>
+                      <td class="accent-color c-white">Mes Final Pensión</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="matricula in matriculas_programar">
+                      <td><button class="btn btn-danger btn-xs btn-ob-cancel" ng-click="quitar(matricula, $index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+                      <td>{@ matricula.nombre_division @}</td>
+                      <td>{@ matricula.concepto_matricula @}</td>
+                      <td>
+                        <p class="input-group">
+                          <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="matricula.fecha_inicial" is-open="matricula.opened1" datepicker-options="dateOptions1" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" show-button-bar="false" my-full-date/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event,matricula,1)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                      </td>
+                      <td>
+                        <p class="input-group">
+                          <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="matricula.fecha_final" is-open="matricula.opened2" datepicker-options="dateOptions1" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" show-button-bar="false" my-full-date/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event,matricula,2)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                      </td>
+                      <td>
+                        <p class="input-group">
+                          <input type="text" class="form-control" datepicker-popup="MM/yyyy" ng-model="matricula.mes_inicial_pension" is-open="matricula.opened3" datepicker-options="dateOptions2" datepicker-mode="'month'" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" show-button-bar="false" my-month-date/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event,matricula,3)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                      </td>
+                      <td>
+                        <p class="input-group">
+                          <input type="text" class="form-control" datepicker-popup="MM/yyyy" ng-model="matricula.mes_final_pension" is-open="matricula.opened4" datepicker-options="dateOptions2" datepicker-mode="'month'" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" show-button-bar="false" my-month-date/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event,matricula,4)"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+            </div>
+            <div class="card-body card-padding">
               <div class="form-group m-t-15">
                 <div class="col-sm-3 col-sm-offset-6">
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
@@ -134,8 +138,8 @@
                   </button>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

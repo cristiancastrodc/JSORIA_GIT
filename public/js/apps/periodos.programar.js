@@ -96,6 +96,8 @@ app.controller('periodosController', function ($scope, $http) {
   $scope.cancelar = function () {
     $scope.matriculas_temp = [];
     $scope.matriculas_programar = [];
+    $scope.institucion = [];
+
   }
 });
 
