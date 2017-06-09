@@ -82,7 +82,7 @@
           </li>
           <li>
             <!-- Cerrar sesión -->
-            <a href="{!!URL::to('/logout')!!}"><i class="zmdi zmdi-close"></i> Cerrar Sesión</a>
+            <a href="{!!URL::to('/logout')!!}"><i class="zmdi zmdi-power"></i> Cerrar Sesión</a>
           </li>
         </ul>
       </div>
