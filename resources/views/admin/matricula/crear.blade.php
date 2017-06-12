@@ -143,7 +143,7 @@
                   <td>
                     <div class="checkbox table-checkbox">
                       <label>
-                        <input type="checkbox" ng-model="detalle.seleccionar" value="{@ detalle.seleccionar @}">
+                        <input type="checkbox" ng-model="detalle.seleccionar">
                         <i class="input-helper"></i>
                       </label>
                     </div>
@@ -158,7 +158,7 @@
                   <td ng-show="institucion.id_institucion == 3 && !definir_fechas">
                     <div class="checkbox table-checkbox">
                       <label>
-                        <input type="checkbox" ng-model="detalle.crear_ingresantes" value="{@ detalle.crear_ingresantes @}" ng-disabled="!detalle.seleccionar">
+                        <input type="checkbox" ng-model="detalle.crear_ingresantes" ng-disabled="!detalle.seleccionar">
                         <i class="input-helper"></i>
                         Crear conceptos para 1er Semestre.
                       </label>
