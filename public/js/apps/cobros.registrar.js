@@ -246,10 +246,22 @@ app.controller('cobrosController', function ($scope, $http, $filter) {
     $scope.cobranzaAlumno = false;
     $scope.finalizando = false;
     $scope.cobro.codigo = '';
-  };
+  }
   $scope.esValidoCobro = function () {
-    return $filter('filter')($scope.deudas, { seleccionada : true }).length > 0
-           || $filter('filter')($scope.categorias, { seleccionada : true }).length > 0;
+    return $filter('filter')($scope.deudas, $scope.filtroDeudasValidas).length > 0
+           || $filter('filter')($scope.categorias, $scope.filtroCobrosValidos).length > 0
+  }
+  $scope.filtroDeudasValidas = function (value, index, array) {
+    return (typeof value.seleccionada !== 'undefined'
+            && value.seleccionada == true
+            && typeof value.monto_pagado !== 'undefined'
+            && parseFloat(value.monto_pagado) > 0)
+  }
+  $scope.filtroCobrosValidos = function (value, index, array) {
+    return (typeof value.seleccionada !== 'undefined'
+            && value.seleccionada == true
+            && typeof value.cantidad !== 'undefined'
+            && parseFloat(value.cantidad) > 0)
   }
   $scope.esValidoDatosComprobante = function () {
     return ($scope.comprobante.tipo == 'factura' ?
@@ -257,5 +269,8 @@ app.controller('cobrosController', function ($scope, $http, $filter) {
               $scope.comprobante.tipo != '')
            && $scope.comprobante.serie != ''
            && $scope.comprobante.numero != ''
+  }
+  $scope.regresarAConceptos = function () {
+    $scope.finalizando = false
   }
 });

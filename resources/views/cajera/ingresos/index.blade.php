@@ -51,7 +51,7 @@
                 </div>
               </div>
               <div ng-show="cobranzaAlumno && !finalizando">
-                <h3 class="text-uppercase m-t-0">{@ alumno.nombres @} {@ alumno.apellidos @}</h3>
+                <h3 class="text-uppercase m-t-0">{@ alumno.apellidos @}, {@ alumno.nombres @}</h3>
                 <h4>{@ matricula_alumno @}</h4>
                 <div class="table-responsive">
                   <table class="table table-striped m-b-15">
@@ -77,7 +77,7 @@
                         </td>
                         <td>{@ deuda.nombre @}</td>
                         <td>
-                          <input type="text"  class="form-control table-input text-right" ng-disabled="!deuda.seleccionada" ng-model="deuda.monto_pagado">
+                          <input type="number"  class="form-control table-input text-right" ng-disabled="!deuda.seleccionada" ng-model="deuda.monto_pagado" placeholder="Monto">
                         </td>
                       </tr>
                     </tbody>
@@ -167,8 +167,11 @@
                   </tfoot>
                 </table>
                 <div class="form-group">
-                  <div class="col-sm-3 col-sm-offset-6">
+                  <div class="col-sm-3 col-sm-offset-3">
                     <button class="btn btn-block btn-link waves-effect" type="button" ng-click="cancelar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-block accent-color waves-effect" type="button" ng-click="regresarAConceptos()"><i class="zmdi zmdi-chevron-left"></i> Regresar</button>
                   </div>
                   <div class="col-sm-3">
                     <button class="btn btn-block main-color waves-effect" type="button" ng-click="datosComprobante()"><i class="zmdi zmdi-assignment-check"></i> Confirmar</button>

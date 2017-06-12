@@ -56,7 +56,7 @@
         </div>
         <div class="card-body card-padding">
           <div class="row">
-            <div class="col-sm-6 p-col-sm-6">
+            <div class="col-sm-12 p-col-sm-6">
               <table class="table">
                 <tr>
                   <td class="p-0">Fecha Hora:</td>
@@ -125,7 +125,7 @@
               <p>Son: {{ $letras }}</p>
               <div class="linea-firma text-right">__________________________________</div>
             </div>
-            <div class="col-sm-6 p-col-sm-6">
+            <div class="visible-print-inline-block p-col-sm-6">
               <table class="table">
                 <tr>
                   <td class="p-0">Fecha Hora:</td>
@@ -193,6 +193,11 @@
               </table>
               <p>Son: {{ $letras }}</p>
               <div class="linea-firma text-right">__________________________________</div>
+            </div>
+          </div>
+          <div class="row m-t-15">
+            <div class="col-sm-4 col-sm-offset-8">
+              <button class="btn btn-block waves-effect main-color hidden-print" onclick="window.print()">Volver a imprimir</button>
             </div>
           </div>
         </div>
