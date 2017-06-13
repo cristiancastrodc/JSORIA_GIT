@@ -5,8 +5,13 @@ var app = angular.module('administrarRubro', [], function($interpolateProvider) 
                        });
 // Definir el controlador
 app.controller('rubroController', function ($scope, $http) {
+	// Atributos
+	$scope.rubro = ''
 	// Funciones
 	$scope.inicializar = function () {
 		$scope.rubro = ''
 	}
+	$scope.esValidoFormCreacion = function () {
+    	return $scope.rubro != ''
+  	}
 })

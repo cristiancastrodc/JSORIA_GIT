@@ -43,7 +43,7 @@
                     <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                   </div>
                 <div class="col-sm-4">
-                  <button type="submit" class="btn btn-block waves-effect accent-color"><i class="zmdi zmdi-assignment-check"></i> Crear</button>
+                  <button type="submit" class="btn btn-block waves-effect accent-color" ng-disabled="!esValidoFormCreacion()"><i class="zmdi zmdi-assignment-check"></i> Crear</button>
                 </div>
               </div>
             </form>
