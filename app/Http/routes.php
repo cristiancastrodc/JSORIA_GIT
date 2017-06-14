@@ -220,6 +220,7 @@ Route::get('secretaria/grados/{id_detalle_institucion}','GradosController@grados
 Route::get('alumno/{nro_documento}/datos', 'AlumnosController@recuperarDatosAlumno');
 Route::post('alumno/deudas/agregar/procesar','AlumnosController@agregarDeudasAlumno');
 Route::get('categoria/{tipo}/listar', 'CategoriasController@listarCategorias');
+Route::resource('deuda_ingreso', 'DeudaIngresoController');
 Route::get('ingresos', function () {
   $tipo = strtolower(Auth::user()->tipo) == 'tesorera' ? 'tesorera' : 'admin';
   $ruta = $tipo . '/ingresos';

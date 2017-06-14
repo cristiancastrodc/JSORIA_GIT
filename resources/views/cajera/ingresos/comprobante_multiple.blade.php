@@ -37,10 +37,10 @@
 
   @if(Session::has('message'))
     <div class="row">
-      <div class="col-sm-10">
+      <div class="col-sm-12">
         <div class="alert alert-success alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          {{Session::get('message')}}
+          {{ Session::get('message') }}
         </div>
       </div>
     </div>
@@ -96,8 +96,8 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="p-0">{{ $pago->nombre }}</td>
-                    <td class="p-0 text-right">{{ number_format($pago->monto, 2) }}</td>
+                    <td class="p-0">{{ $nombre_categoria }}</td>
+                    <td class="p-0 text-right">{{ number_format($monto, 2) }}</td>
                   </tr>
                 </tbody>
                 <tfoot>
@@ -150,8 +150,8 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="p-0">{{ $pago->nombre }}</td>
-                    <td class="p-0 text-right">{{ number_format($pago->monto, 2) }}</td>
+                    <td class="p-0">{{ $nombre_categoria }}</td>
+                    <td class="p-0 text-right">{{ number_format($monto, 2) }}</td>
                   </tr>
                 </tbody>
                 <tfoot>

@@ -252,7 +252,7 @@ class Categoria extends Model
                     })
                     ->orderBy('institucion.id')
                     ->orderBy('categoria.nombre')
-                    ->select('categoria.id', 'categoria.nombre', 'categoria.monto', 'institucion.nombre as institucion')
+                    ->select('categoria.id', 'categoria.nombre', 'categoria.monto', 'institucion.nombre as institucion', 'institucion.id as id_institucion', 'categoria.destino')
                     ->get();
   }
 }

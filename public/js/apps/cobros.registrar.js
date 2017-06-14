@@ -2,8 +2,9 @@
 var app = angular.module('registrarCobros', [], function($interpolateProvider) {
                           $interpolateProvider.startSymbol('{@');
                           $interpolateProvider.endSymbol('@}');
-                       });
-// Definir el controlador
+                       })
+                 .constant('API_URL', '/deuda_ingreso')
+// Definir el controlador para Cobros y Cobros Extraordinarios
 app.controller('cobrosController', function ($scope, $http, $filter) {
   // Atributos
   $scope.buscando = false;
@@ -116,7 +117,7 @@ app.controller('cobrosController', function ($scope, $http, $filter) {
       $scope.comprobante.direccion = ''
     })
   }
-  $scope.cargarNumero = function (numero) {
+  $scope.cargarNumero = function () {
     $scope.comprobante.numero = $filter('filter')($scope.comprobantes, { serie : $scope.comprobante.serie })[0].numero_comprobante
   }
   $scope.calcularVuelto = function () {
@@ -273,4 +274,148 @@ app.controller('cobrosController', function ($scope, $http, $filter) {
   $scope.regresarAConceptos = function () {
     $scope.finalizando = false
   }
-});
+})
+// Definir el controlador para Otros Cobros
+app.controller('ingresosMultiplesController', function($scope, $http, $filter, API_URL) {
+  // Atributos
+  $scope.busqueda = {
+    nombre : '',
+    institucion : '',
+  }
+  $scope.categorias = []
+  $scope.categoria = null
+  $scope.cliente = null
+  $scope.comprobante = null
+  $scope.comprobantes = null
+  $scope.procesando = false
+  $scope.efectivo = null
+  $scope.vuelto = null
+  // Procesos Iniciales
+  $scope.listarCategorias = function () {
+    $http.get('/categoria/multiple/listar')
+    .then(function (response) {
+      $scope.categorias = response.data
+    })
+  }
+  $scope.listarCategorias()
+  // Funciones
+  $scope.filtroNombre = function (nombre, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(nombre)
+  }
+  $scope.filtroInstitucion = function (institucion, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(institucion)
+  }
+  $scope.cargarSeries = function () {
+    if ($scope.comprobante != null) {
+      var ruta = '/cajera/comprobante/' + $scope.categoria.id_institucion + '/' + $scope.comprobante.tipo
+      $http.get(ruta)
+      .then(function(response) {
+        $scope.comprobantes = response.data
+        $scope.comprobante.serie = ''
+        $scope.comprobante.numero = ''
+        $scope.comprobante.ruc = ''
+        $scope.comprobante.razon_social = ''
+        $scope.comprobante.direccion = ''
+      })
+    }
+  }
+  $scope.cargarNumero = function () {
+    $scope.comprobante.numero = $filter('filter')($scope.comprobantes, { serie : $scope.comprobante.serie })[0].numero_comprobante
+  }
+  $scope.calcularVuelto = function () {
+    var vuelto = parseFloat($scope.efectivo, 10) - parseFloat($scope.categoria.monto, 10)
+    if (isNaN(vuelto)) {
+      $scope.vuelto = '';
+    } else {
+      if (vuelto < 0) {
+        $scope.vuelto = '';
+      } else {
+        $scope.vuelto = vuelto.toFixed(2);
+      }
+    }
+  }
+  $scope.inicializar = function () {
+    $scope.busqueda = {
+      nombre : '',
+      institucion : '',
+    }
+    $scope.categoria = null
+    $scope.cliente = null
+    $scope.comprobante = null
+  }
+  $scope.esValidoFormCreacion = function () {
+    return $scope.categoria != null
+            && $scope.cliente != null
+            && $scope.cliente.dni != null
+            && $scope.cliente.dni != ''
+            && $scope.cliente.nombre != null
+            && $scope.cliente.nombre != ''
+            && $scope.comprobante != null
+            && $scope.comprobante.tipo != ''
+            && $scope.comprobante.tipo != null
+            && $scope.comprobante.serie != ''
+            && $scope.comprobante.serie != null
+            && $scope.comprobante.numero != ''
+            && $scope.comprobante.numero != null
+            && ($scope.comprobante.tipo != 'factura' ? true :
+                $scope.cliente.ruc != ''
+                && $scope.cliente.ruc != null
+                && $scope.cliente.razon_social != null
+                && $scope.cliente.razon_social != ''
+                && $scope.cliente.direccion != null
+                && $scope.cliente.direccion != '')
+  }
+  $scope.grabarIngreso = function () {
+    $scope.procesando = true
+    $http.post(API_URL, {
+      tipo_ingreso : 'multiple',
+      categoria : $scope.categoria,
+      cliente : $scope.cliente,
+      comprobante : $scope.comprobante,
+    })
+    .then(function successCallback(response) {
+      if (response.data.resultado == 'true') {
+        swal({
+          title : 'Éxito.',
+          text : 'Cobro creado correctamente.',
+          type : 'success',
+          confirmButtonText: 'Aceptar',
+          confirmButtonClass : 'main-color',
+          closeOnConfirm : false,
+        }, function () {
+          post('/cajera/generar/ingreso/imprimir_multiple', {
+            nombre_categoria : $scope.categoria.nombre,
+            monto : $scope.categoria.monto,
+            dni : $scope.cliente.dni,
+            nombre : $scope.cliente.nombre,
+            ruc: $scope.cliente.ruc,
+            razon_social: $scope.cliente.razon_social,
+            direccion: $scope.cliente.direccion,
+            tipo: $scope.comprobante.tipo,
+          });
+        });
+      } else {
+        swal({
+          title: 'Error.',
+          text: 'No se pudo guardar el Cobro. Mensaje: ' + response.data.mensaje,
+          type: 'error',
+        }, function () {
+          $scope.procesando = false
+        })
+      }
+    }, function errorCallback(response) {
+      debug(response, false)
+      swal({
+        title: 'Error.',
+        text: 'No se pudo guardar el Cobro.',
+        type: 'error',
+      }, function () {
+        $scope.procesando = false
+      })
+    })
+  }
+})

@@ -36,50 +36,6 @@ class CobrosController extends Controller
       $categorias = Categoria::listaOtrosCobrosCajera();
       return view('cajera.cobros.index', ['categorias' => $categorias]);
     }
-    public function guardarCobroMultiple(Request $request)
-    {
-      if ($request->ajax()) {
-        $tipo = $request->tipo;
-        $mensaje = '';
-        $id_categoria = $request->id_categoria;
-        $dni = $request->dni;
-        $nombre = $request->nombre;
-        $ruc = $request->ruc_cliente;
-        $razon_social = $request->razon_social;
-        $direccion = $request->direccion;
-        $tipo = $request->tipo;
-        $serie = $request->serie;
-        $numero = $request->numero;
-        $id_institucion = $request->id_institucion;
-
-        $cliente_extr = '';
-        $descripcion_extr = '';
-        if ($tipo == 'boleta' || $tipo == 'comprobante') {
-          $cliente_extr = $dni;
-          $descripcion_extr = $nombre;
-        } else {
-          $cliente_extr = $ruc;
-          $descripcion_extr = $razon_social . ' - ' . $direccion;
-        }
-        $categoria = Categoria::find($id_categoria);
-        Deuda_Ingreso::create([
-          'saldo' => $categoria->monto,
-          'estado_pago' => 1,
-          'cliente_extr' => $cliente_extr,
-          'descripcion_extr' => $descripcion_extr,
-          'fecha_hora_ingreso' => date('Y-m-d H:i:s'),
-          'id_categoria' => $id_categoria,
-          'id_cajera' => Auth::user()->id,
-          'tipo_comprobante' => $tipo,
-          'serie_comprobante' => $serie,
-          'numero_comprobante' => $numero,
-        ]);
-        // Actualizar el comprobante
-        $comprobante = Comprobante::actualizar($id_institucion, $tipo, $serie, $numero);
-        $mensaje = 'Venta realizada exitosamente.';
-        return response()->json(['mensaje' => $mensaje]);
-      }
-    }
     /**
     * Buscar los datos del comprobante y del número correlativo
     **/
@@ -307,7 +263,7 @@ class CobrosController extends Controller
           }
         }
         // Actualizar el comprobante
-        $comprobante = Comprobante::actualizar($id_institucion, $comprobante['tipo'], $comprobante['serie'], $comprobante['numero']);
+        Comprobante::actualizar($id_institucion, $comprobante['tipo'], $comprobante['serie'], $comprobante['numero']);
         DB::commit();
       } catch (\Exception $e) {
         DB::rollback();
@@ -382,7 +338,7 @@ class CobrosController extends Controller
       $deuda->numero_comprobante = $comprobante['numero'];
       $deuda->save();
       // Actualizar el comprobante
-      $comprobante = Comprobante::actualizar($id_institucion, $comprobante['tipo'], $comprobante['serie'], $comprobante['numero']);
+      Comprobante::actualizar($id_institucion, $comprobante['tipo'], $comprobante['serie'], $comprobante['numero']);
       // Retornar la respuesta
       $respuesta = [
         'resultado' => $resultado
@@ -417,8 +373,8 @@ class CobrosController extends Controller
     {
       // Recuperar los valores enviados
       $fecha_hora = date('Y-m-d H:i:s');
-      $id_categoria = $request->input('id_categoria');
-      $categoria = Categoria::find($id_categoria);
+      $nombre_categoria = $request->input('nombre_categoria');
+      $monto = $request->input('monto');
       $dni = $request->input('dni');
       $nombre = $request->input('nombre');
       $ruc = $request->input('ruc');
@@ -426,12 +382,13 @@ class CobrosController extends Controller
       $direccion = $request->input('direccion');
       $tipo_comprobante = $request->input('tipo');
       // Recuperar el total
-      $total = number_format($categoria->monto, 2);
+      $total = number_format($monto, 2);
       $letras = NumeroALetras::convertir($total, 'soles', 'centimos');
       // Direccionar a la vista
       return view('cajera.ingresos.comprobante_multiple', [
         'fecha_hora' => $fecha_hora,
-        'pago' => $categoria,
+        'nombre_categoria' => $nombre_categoria,
+        'monto' => $monto,
         'total' => $total,
         'letras' => $letras,
         'tipo_comprobante' => $tipo_comprobante,

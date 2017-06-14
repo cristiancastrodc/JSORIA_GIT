@@ -43,12 +43,10 @@ class Comprobante extends Model
    */
   public static function actualizar($id_institucion, $tipo, $serie, $nuevo_numero)
   {
-    $comprobante = Comprobante::where('tipo', $tipo)
-                              ->where('serie', $serie)
-                              ->where('id_institucion', $id_institucion)
-                              ->first();
-    $comprobante->numero_comprobante = intval($nuevo_numero);
-    $comprobante->save();
+    Comprobante::where('tipo', $tipo)
+               ->where('serie', $serie)
+               ->where('id_institucion', $id_institucion)
+               ->update([ 'numero_comprobante' => intval($nuevo_numero) ]);
   }
   /**
    * Retorna la lista de comprobantes
