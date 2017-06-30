@@ -249,20 +249,30 @@ app.controller('cobrosController', function ($scope, $http, $filter) {
     $scope.cobro.codigo = '';
   }
   $scope.esValidoCobro = function () {
-    return $filter('filter')($scope.deudas, $scope.filtroDeudasValidas).length > 0
-           || $filter('filter')($scope.categorias, $scope.filtroCobrosValidos).length > 0
+    var nro_deudas = $filter('filter')($scope.deudas, { seleccionada : true }).length
+    var deudas_validas = true
+    if (nro_deudas > 0) {
+      deudas_validas = $filter('filter')($scope.deudas, $scope.filtroDeudaNoValida).length <= 0
+    }
+    var nro_cobros = $filter('filter')($scope.categorias, { seleccionada : true }).length
+    var cobros_validos = true
+    if (nro_cobros > 0) {
+      cobros_validos = $filter('filter')($scope.categorias, $scope.filtroCobroNoValido).length <= 0
+    }
+    return (nro_deudas > 0 || nro_cobros > 0)
+            && deudas_validas && cobros_validos
   }
-  $scope.filtroDeudasValidas = function (value, index, array) {
-    return (typeof value.seleccionada !== 'undefined'
-            && value.seleccionada == true
-            && typeof value.monto_pagado !== 'undefined'
-            && parseFloat(value.monto_pagado) > 0)
+  $scope.filtroDeudaNoValida = function (value, index, array) {
+    return typeof value.seleccionada !== 'undefined'
+            && value.seleccionada
+            && (typeof value.monto_pagado === 'undefined'
+                || value.monto_pagado <= 0)
   }
-  $scope.filtroCobrosValidos = function (value, index, array) {
-    return (typeof value.seleccionada !== 'undefined'
-            && value.seleccionada == true
-            && typeof value.cantidad !== 'undefined'
-            && parseFloat(value.cantidad) > 0)
+  $scope.filtroCobroNoValido = function (value, index, array) {
+    return typeof value.seleccionada !== 'undefined'
+            && value.seleccionada
+            && (typeof value.cantidad === 'undefined'
+                || value.cantidad <= 0)
   }
   $scope.esValidoDatosComprobante = function () {
     return ($scope.comprobante.tipo == 'factura' ?

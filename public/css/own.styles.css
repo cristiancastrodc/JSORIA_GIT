@@ -147,6 +147,10 @@ form .form-group:last-child {
   border-bottom: 0;
   height: 30px;
 }
+.has-error .table-input {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
 .table-checkbox {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
@@ -212,4 +216,10 @@ th.x2 {
   padding: 0;
   z-index: -9999;
   visibility: hidden;
+}
+.help-block {
+  display: none;
+}
+.has-error > .help-block.invalid {
+  display: block;
 }

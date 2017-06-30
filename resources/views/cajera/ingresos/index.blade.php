@@ -70,14 +70,17 @@
                         <td>
                           <div class="checkbox table-checkbox">
                             <label>
-                              <input type="checkbox" ng-model="deuda.seleccionada" value="{@ deuda.seleccionada @}">
+                              <input type="checkbox" ng-model="deuda.seleccionada">
                               <i class="input-helper"></i>Seleccionar
                             </label>
                           </div>
                         </td>
                         <td>{@ deuda.nombre @}</td>
                         <td>
-                          <input type="number"  class="form-control table-input text-right" ng-disabled="!deuda.seleccionada" ng-model="deuda.monto_pagado" placeholder="Monto">
+                          <div ng-class="!deuda.monto_pagado?'has-error':''">
+                            <input type="number" class="form-control table-input text-right" ng-disabled="!deuda.seleccionada" ng-model="deuda.monto_pagado" placeholder="Monto" max="{@ deuda.monto_cancelar @}" min="0">
+                            <small class="help-block invalid">El monto debe ser mayor a 0 y menor o igual a {@ deuda.monto_cancelar @}.</small>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -117,7 +120,10 @@
                                 </td>
                                 <td>{@ concepto.nombre @}</td>
                                 <td>
-                                  <input type="number" class="form-control table-input text-right" ng-model="concepto.cantidad" ng-change="calcularTotal(concepto)" ng-disabled="!concepto.seleccionada" placeholder="Cantidad">
+                                  <div ng-class="concepto.seleccionada && !concepto.cantidad?'has-error':''">
+                                    <input type="number" class="form-control table-input text-right" ng-model="concepto.cantidad" ng-change="calcularTotal(concepto)" ng-disabled="!concepto.seleccionada" placeholder="Cantidad" min="0">
+                                    <small class="help-block invalid">La cantidad debe ser mayor a 0.</small>
+                                  </div>
                                 </td>
                                 <td class="text-right">{@ concepto.monto @}</td>
                                 <td class="text-right">{@ concepto.total | number:2 @}</td>

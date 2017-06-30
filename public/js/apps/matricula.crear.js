@@ -38,7 +38,7 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
 
 
   $scope.crearMatriculaPensiones = function (argument) {
-    if ($scope.esValidoFormEdicion() ){     
+    if ($scope.esValidoFormEdicion() ){
       $scope.procesando = true;
       var url = '/admin/matricula/guardar';
       $http({
@@ -90,9 +90,9 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
                        && $scope.matricula.fecha_fin != null
                        && $scope.matricula.fecha_fin != ''
                        && $scope.pensiones.mes_inicio != ''
-                       && $scope.pensiones.mes_inicio != null 
+                       && $scope.pensiones.mes_inicio != null
                        && $scope.pensiones.mes_fin != ''
-                       && $scope.pensiones.mes_fin != null   
+                       && $scope.pensiones.mes_fin != null
     }
     return $scope.periodo != null
            && $scope.periodo != ''

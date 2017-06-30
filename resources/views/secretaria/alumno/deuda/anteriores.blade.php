@@ -25,7 +25,7 @@
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Agregar Deudas Anteriores de Alumno</h2>
-          </div>          
+          </div>
           <form class="form-horizontal">
             <div class="card-body card-padding">
               <div ng-hide="matriculando">
