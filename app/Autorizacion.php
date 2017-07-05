@@ -22,4 +22,10 @@ class Autorizacion extends Model
     }
     return $autorizaciones->get();
   }
+  public static function recuperar($nro_documento, $resolucion)
+  {
+      return Autorizacion::where('id_alumno', $nro_documento)
+                         ->where('rd', $resolucion)
+                         ->first();
+  }
 }

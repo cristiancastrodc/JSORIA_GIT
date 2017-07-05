@@ -182,11 +182,10 @@ Route::get('secretaria/alumno/deudas/amortizacion','AlumnosController@amortizaci
 Route::get('secretaria/alumno/divisiones/{id_institucion}', 'InstitucionDetalleController@divisionesInstitucion');
 Route::get('secretaria/alumno/grados/{id_detalle_institucion}', 'InstitucionDetalleController@gradosDetalle');
 Route::get('secretaria/alumno/matriculas/{id_detalle_institucion}', 'InstitucionDetalleController@matriculas');
-Route::get('secretaria/alumno/lista_deudas/{dni}', 'AlumnosController@listaDeudasAlumno');
+Route::get('secretaria/alumno/lista_deudas/{nro_documento}', 'AlumnosController@listaDeudasAlumno');
 Route::get('secretaria/alumno/lista_actividades/{dni}', 'AlumnosController@listaDeudasActividadesAlumno');
 Route::get('secretaria/alumno/amortizar_deudas/{dni}', 'AlumnosController@amortizarDeudaAlumno');
 Route::post('secretaria/alumno/deudas/eliminar_actividad','AlumnosController@EliminarDeudaActividad');
-Route::post('secretaria/alumno/deudas/eliminar_descontar_deuda','AlumnosController@EliminarDescontarDeuda');
 Route::post('secretaria/alumno/amortizarDeuda','AlumnosController@CrearAmortizacion');
 Route::get('secretaria/matricular/alumno/{nro_documento}/datos', 'AlumnosController@datosAlumnoParaMatricula');
 Route::get('secretaria/matricular/institucion/{id_institucion}/detalle', 'InstitucionDetalleController@detalleInstitucion');
@@ -219,6 +218,7 @@ Route::get('secretaria/grados/{id_detalle_institucion}','GradosController@grados
 # Rutas (nuevo formato, quitando dependencias del tipo de usuario)
 Route::get('alumno/{nro_documento}/datos', 'AlumnosController@recuperarDatosAlumno');
 Route::post('alumno/deudas/agregar/procesar','AlumnosController@agregarDeudasAlumno');
+Route::post('alumno/deudas/modificar/procesar','AlumnosController@modificarDeudasAlumno');
 Route::get('categoria/{tipo}/listar', 'CategoriasController@listarCategorias');
 Route::resource('deuda_ingreso', 'DeudaIngresoController');
 Route::get('ingresos', function () {

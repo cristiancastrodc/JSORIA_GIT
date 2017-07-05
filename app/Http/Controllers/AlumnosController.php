@@ -208,32 +208,24 @@ class AlumnosController extends Controller
     }
   }
 
-  public function listaDeudasAlumno(Request $request, $documento)
+  public function listaDeudasAlumno(Request $request, $nro_documento)
   {
-    if ($request->ajax()) {
-      $deudas = Deuda_Ingreso::join('categoria','deuda_ingreso.id_categoria','=','categoria.id')
-                   ->where('deuda_ingreso.id_alumno','=',$documento)
-                   ->where('deuda_ingreso.estado_pago','=',0)
-                   ->where('deuda_ingreso.estado_descuento','=',0)
-                   ->select('deuda_ingreso.id','categoria.nombre','deuda_ingreso.saldo')
-                   ->get();
-
-      $alumno = Alumno::join('grado','alumno.id_grado','=','grado.id')
-            ->join('detalle_institucion','grado.id_detalle','=','detalle_institucion.id' )
-            ->join('institucion','detalle_institucion.id_institucion','=','institucion.id')
-            ->where('alumno.nro_documento','=',$documento)
-            ->select('alumno.estado', 'alumno.nombres', 'alumno.apellidos', 'grado.id_detalle', 'grado.nombre_grado', 'alumno.nro_documento', 'detalle_institucion.nombre_division', 'institucion.nombre')
-            ->first();
-
+    $respuesta = [];
+    try {
+      $alumno = Alumno::recuperarAlumno($nro_documento);
       if ($alumno) {
-        $response = array($alumno, $deudas);
-        return response()->json($response);
+        $respuesta['alumno'] = $alumno;
+        $respuesta['deudas'] = Deuda_Ingreso::deudasDeAlumnoPorUsuario($nro_documento);
+        $respuesta['resultado'] = 'true';
       } else {
-        return response()->json([
-          'mensaje' => 'El alumno no existe.'
-        ]);
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = 'No se encuentra registrado el documento del alumno.';
       }
+    } catch (\Exception $e) {
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
     }
+    return $respuesta;
   }
 
   public function listaDeudasActividadesAlumno(Request $request, $documento)
@@ -348,82 +340,6 @@ class AlumnosController extends Controller
     }
   }
 
-  /*** Eliminar deuda del alumno ***/
-  public function EliminarDescontarDeuda(Request $request)
-  {
-    if ($request->ajax()) {
-      $deudas = $request->deudas;
-      $resolucion = $request->resolucion;
-      $nro_documento = $request->nro_documento;
-
-      $Autorizado = Autorizacion::where('id_alumno','=',$nro_documento)
-                  ->where('rd','=',$resolucion)
-                  ->first();
-
-      if ($Autorizado) {
-
-        if ($Autorizado->estado == 0 && $Autorizado->fecha_limite >= date('Y-m-d')) {
-          $id_autorizacion = $Autorizado->id;
-          foreach ($deudas as $deuda) {
-            $id_deuda = $deuda['id_deuda'];
-            $descuento = $deuda['monto'];
-            $operacion =$deuda['operacion'];
-            if($operacion == 'eliminar'){
-              Deuda_Ingreso::where('id','=',$id_deuda)
-                    ->delete();
-              Autorizacion::where('id','=',$id_autorizacion)
-                    ->update(['estado'=>'1']);
-            }elseif ($operacion == 'descontar') {
-              Deuda_Ingreso::where('id','=',$id_deuda)
-                    ->update(['descuento'=>$descuento,'estado_descuento'=>'1']);
-
-              Autorizacion::where('id','=',$id_autorizacion)
-                    ->update(['estado'=>'1']);
-            }
-          }
-          return response()->json(['mensaje' => 'Deuda del alumno procesada correctamente.', 'tipo' => 'sus']);
-        }else{
-          return response()->json(['mensaje' => 'La autorizacion ya vencio o ya fue utilizada.', 'tipo' => 'error']);
-        }
-
-      } else {
-        return response()->json(['mensaje' => 'No Existe ninguna autorizacion para el alumno.', 'tipo' => 'error']);
-      }
-
-    }
-  }
-
-  /*** Crear Amortizacion***/
-  public function CrearAmortizacion(Request $request)
-  {
-
-    if ($request->ajax()) {
-
-    $id=$request->id_deuda;
-    $Deuda = Deuda_Ingreso::find($id);
-    $nro_documento = $Deuda->id_alumno;
-    $id_categoria = $Deuda->id_categoria;
-    $monto = $request->monto;
-    $saldo = $Deuda->saldo-$monto;
-
-
-    /* Actualizar saldo del id */
-      Deuda_Ingreso::where('id', '=', $id)
-            ->update(['saldo' => $saldo,'estado_fraccionam'=>'1']);
-
-    /* Crear nueva deuda con el monto*/
-      Deuda_Ingreso::create([
-          'saldo' => $monto,
-          'id_categoria' => $id_categoria,
-          'id_alumno' => $nro_documento
-        ]);
-
-    return response()->json([
-      'mensaje' => 'Creado'
-    ]);
-      //return response()->json($request->all());
-    }
-  }
   /**
    * Retorna los datos del alumno para la creación de la matrícula.
    */
@@ -626,5 +542,75 @@ class AlumnosController extends Controller
       $respuesta['mensaje'] = 'Código de alumno no registrado.';
     }
     return $respuesta;
+  }
+  /*** Eliminar deuda del alumno ***/
+  public function modificarDeudasAlumno(Request $request)
+  {
+    $respuesta = [];
+    try {
+      $nro_documento = $request['nro_documento'];
+      $resolucion = $request['resolucion'];
+      $deudas = $request['deudas'];
+      // Recuperar autorización
+      $autorizacion = Autorizacion::recuperar($nro_documento, $resolucion);
+      if ($autorizacion) {
+        $hoy = date('Y-m-d');
+        if ($autorizacion->estado == '0' && $autorizacion->fecha_limite >= $hoy) {
+          $deudas_anuladas = [];
+          DB::beginTransaction();
+          foreach ($deudas as $deuda) {
+            $anular = filter_var(array_key_exists('anulada', $deuda) ? $deuda['anulada'] : 'false', FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+            if ($anular) {
+              array_push($deudas_anuladas, $deuda['id']);
+            } else {
+              $deuda_aux = Deuda_Ingreso::find($deuda['id']);
+              $deuda_aux->descuento += $deuda['descuento'];
+              $deuda_aux->estado_descuento = '1';
+              $deuda_aux->save();
+            }
+          }
+          // Anular deudas seleccionadas
+          Deuda_Ingreso::whereIn('id', $deudas_anuladas)
+                       ->update(['estado_anulada' => true]);
+          // Cambiar estado de la Autorización
+          $autorizacion->estado = '1';
+          $autorizacion->save();
+          DB::commit();
+          $respuesta['resultado'] = 'true';
+        } else {
+          $respuesta['resultado'] = 'false';
+          $respuesta['mensaje'] = 'Resolución vencida o ya fue utilizada.';
+        }
+       } else {
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = 'Resolución no válida.';
+       }
+    } catch (\Exception $e) {
+      DB::rollback();
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
+    }
+    return $respuesta;
+    /*
+          $id_autorizacion = $Autorizado->id;
+          foreach ($deudas as $deuda) {
+            $id_deuda = $deuda['id_deuda'];
+            $descuento = $deuda['monto'];
+            $operacion =$deuda['operacion'];
+            if($operacion == 'eliminar'){
+              Deuda_Ingreso::where('id','=',$id_deuda)
+                    ->delete();
+              Autorizacion::where('id','=',$id_autorizacion)
+                    ->update(['estado'=>'1']);
+            }elseif ($operacion == 'descontar') {
+              Deuda_Ingreso::where('id','=',$id_deuda)
+                    ->update(['descuento'=>$descuento,'estado_descuento'=>'1']);
+
+              Autorizacion::where('id','=',$id_autorizacion)
+                    ->update(['estado'=>'1']);
+            }
+          }
+          return response()->json(['mensaje' => 'Deuda del alumno procesada correctamente.', 'tipo' => 'sus']);
+    */
   }
 }
