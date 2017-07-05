@@ -9,23 +9,36 @@ app.controller('reporteCuentaAlumnoController', function ($scope, $http) {
   $scope.buscando = false;
   $scope.hayAlumno = false;
   $scope.alumno = [];
-  $scope.periodos = [];
+  $scope.categorias = [];
+  $scope.categoria = {
+    id : '',
+    periodo : '',
+  }
   // Funciones
   $scope.buscar = function () {
     $scope.buscando = true;
     // Recuperar el detalle del alumno
     var ruta = '/secretaria/reportes/cuenta_alumno/' + $scope.alumno.nro_documento + '/periodos';
     $http.get(ruta)
-    .success(function(response) {
-        $scope.periodos = response.periodos;
-        $scope.alumno = response.alumno;
+    .then(function(response) {
+      if (response.data.resultado == 'true') {
+        $scope.categorias = response.data.periodos;
+        $scope.alumno = response.data.alumno;
         $scope.hayAlumno = true;
+      } else {
+        swal({
+          title : 'Error.',
+          text  : response.data.mensaje,
+          type  : 'error',
+          confirmButtonText : 'Aceptar',
+        })
+      }
+      $scope.buscando = false;
     });
-    $scope.buscando = false;
   };
   $scope.cancelar = function () {
     $scope.buscando = false;
     $scope.hayAlumno = false;
-    $scope.periodos = [];
+    $scope.categorias = [];
   }
 });
