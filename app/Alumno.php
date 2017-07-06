@@ -163,7 +163,7 @@ class Alumno extends Model
                  ->leftJoin('detalle_institucion', 'grado.id_detalle', '=', 'detalle_institucion.id')
                  ->leftJoin('institucion', 'detalle_institucion.id_institucion', '=', 'institucion.id')
                  ->where('alumno.nro_documento', $nro_documento)
-                 ->select('nro_documento', DB::raw("CONCAT(jsoria_alumno.apellidos, ' ', jsoria_alumno.nombres) as nombre"), DB::raw("CONCAT(jsoria_institucion.nombre, ' - ', jsoria_detalle_institucion.nombre_division, ' - ', jsoria_grado.nombre_grado) as institucion"))
+                 ->select('nro_documento', DB::raw("CONCAT(jsoria_alumno.apellidos, ', ', jsoria_alumno.nombres) as nombre"), DB::raw("CONCAT(jsoria_institucion.nombre, ' - ', jsoria_detalle_institucion.nombre_division, ' - ', jsoria_grado.nombre_grado) as institucion"))
                  ->first();
   }
 }

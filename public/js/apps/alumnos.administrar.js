@@ -76,8 +76,16 @@ app.controller('agregarDeudasController', function ($scope, $http, $filter) {
     var regex = new RegExp("\\b" + texto, "i")
     return regex.test(concepto)
   }
-  $scope.esValidoConceptos = function () {
+  $scope.esValidoFormCreacion = function () {
     return $filter('filter')($scope.conceptos, { seleccionado : true }).length > 0
+            && $filter('filter')($scope.conceptos, $scope.filtroConceptoNoValido).length <= 0
+  }
+  $scope.filtroConceptoNoValido = function (value, index, array) {
+    return typeof value.seleccionado !== 'undefined'
+            && value.seleccionado
+            && (typeof value.factor === 'undefined'
+                || value.factor == null
+                || value.factor <= 0)
   }
   $scope.agregarDeuda = function () {
     $scope.procesando = true

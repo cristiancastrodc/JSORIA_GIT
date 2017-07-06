@@ -315,7 +315,7 @@ class AlumnosController extends Controller
         DB::commit();
       } else {
         $respuesta['resultado'] = 'false';
-        $respuesta['mensaje'] = 'Alumno no registrado.';
+        $respuesta['mensaje'] = 'Código de alumno no registrado.';
       }
     } catch (\Exception $e) {
       DB::rollback();

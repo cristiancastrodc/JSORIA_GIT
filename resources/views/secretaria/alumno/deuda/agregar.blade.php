@@ -73,7 +73,7 @@
                     <td>
                       <div class="checkbox table-checkbox">
                         <label>
-                          <input type="checkbox" ng-model="concepto.seleccionado" ng-change="actualizarConcepto(concepto)">
+                          <input type="checkbox" ng-model="concepto.seleccionado" ng-change="actualizarConcepto(concepto)" min="0">
                           <i class="input-helper"></i>
                         </label>
                       </div>
@@ -96,7 +96,7 @@
                     <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>
                   </div>
                   <div class="col-sm-3">
-                    <button class="btn btn-block accent-color waves-effect" ng-click="agregarDeuda()" ng-disabled="procesando || !esValidoConceptos()">
+                    <button class="btn btn-block accent-color waves-effect" ng-click="agregarDeuda()" ng-disabled="procesando || !esValidoFormCreacion()">
                       <span ng-hide="procesando"><i class="zmdi zmdi-assignment-check"></i> Grabar</span>
                       <span ng-show="procesando">
                         <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Procesando...
