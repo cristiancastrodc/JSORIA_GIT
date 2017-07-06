@@ -227,6 +227,8 @@ Route::get('ingresos', function () {
   return redirect($ruta);
 });
 Route::get('retiro/resumen/{id_retiro}/reporte', 'RetirosController@procesarReporteResumen');
+Route::get('alumno/{nro_documento}/deudas/{tipo?}', 'AlumnosController@recuperarDeudasAlumno');
+Route::post('alumno/deudas/cancelar', 'AlumnosController@cancelarDeudasAlumno');
 # Ruta para obtener el archivo CSS para el reporte
 Route::get('css/reporte/{mt?}', function ($mt = '100') {
   $contents = View::make('css.reporte', [ 'mt' => $mt ]);

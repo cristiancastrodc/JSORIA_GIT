@@ -73,7 +73,7 @@
                     <td>
                       <div class="checkbox table-checkbox">
                         <label>
-                          <input type="checkbox" ng-model="concepto.seleccionado" ng-change="actualizarConcepto(concepto)" min="0">
+                          <input type="checkbox" ng-model="concepto.seleccionado" ng-change="actualizarConcepto(concepto)">
                           <i class="input-helper"></i>
                         </label>
                       </div>

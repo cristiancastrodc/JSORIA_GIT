@@ -591,26 +591,51 @@ class AlumnosController extends Controller
       $respuesta['mensaje'] = $e->getMessage();
     }
     return $respuesta;
-    /*
-          $id_autorizacion = $Autorizado->id;
-          foreach ($deudas as $deuda) {
-            $id_deuda = $deuda['id_deuda'];
-            $descuento = $deuda['monto'];
-            $operacion =$deuda['operacion'];
-            if($operacion == 'eliminar'){
-              Deuda_Ingreso::where('id','=',$id_deuda)
-                    ->delete();
-              Autorizacion::where('id','=',$id_autorizacion)
-                    ->update(['estado'=>'1']);
-            }elseif ($operacion == 'descontar') {
-              Deuda_Ingreso::where('id','=',$id_deuda)
-                    ->update(['descuento'=>$descuento,'estado_descuento'=>'1']);
-
-              Autorizacion::where('id','=',$id_autorizacion)
-                    ->update(['estado'=>'1']);
-            }
-          }
-          return response()->json(['mensaje' => 'Deuda del alumno procesada correctamente.', 'tipo' => 'sus']);
-    */
+  }
+  /*
+   * Devolver los datos del alumno conjuntamente con sus deudas
+   */
+  public function recuperarDeudasAlumno($nro_documento, $tipo = '')
+  {
+    $respuesta = [];
+    try {
+      $alumno = Alumno::recuperarAlumno($nro_documento);
+      if ($alumno) {
+        $respuesta['alumno'] = $alumno;
+        $respuesta['deudas'] = Deuda_Ingreso::deudasDeAlumnoPorUsuario($nro_documento, $tipo);
+        $respuesta['resultado'] = 'true';
+      } else {
+        $respuesta['resultado'] = 'false';
+        $respuesta['mensaje'] = 'Código de alumno no registrado.';
+      }
+    } catch (\Exception $e) {
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
+    }
+    return $respuesta;
+  }
+  /*
+   * Cancelar (eliminar) Deudas de alumno
+   */
+  public function cancelarDeudasAlumno(Request $request)
+  {
+    $respuesta = [];
+    try {
+      // Recuperar las deuda enviadas
+      $deudas = $request->input('deudas');
+      // Extraer solo los ids de las deudas enviadas
+      $ids = array_map(function($deuda) { return $deuda['id']; }, $deudas);
+      // Eliminar las deudas
+      DB::beginTransaction();
+      Deuda_Ingreso::whereIn('id', $ids)
+                   ->delete();
+      DB::commit();
+      $respuesta['resultado'] = 'true';
+    } catch (\Exception $e) {
+      DB::rollback();
+      $respuesta['resultado'] = 'false';
+      $respuesta['mensaje'] = $e->getMessage();
+    }
+    return $respuesta;
   }
 }
