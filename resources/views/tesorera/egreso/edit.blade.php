@@ -1,20 +1,18 @@
 @extends('layouts.dashboard')
 
-@section('title')
-  Modificar Egreso
-@endsection
+@section('title', 'Modificar Egreso')
 
 @section('content')
 
   @if(Session::has('message'))
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        {{Session::get('message')}}
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          {{ Session::get('message') }}
+        </div>
       </div>
     </div>
-  </div>
   @endif
 
   @include('messages.errors')
@@ -35,11 +33,8 @@
                 <select class="selectpicker" name="id_institucion" id="id_institucion">
                   @foreach($permisos as $permiso)
                     @if ($permiso->id == $egreso->id_institucion)
-                      <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
-                    @endif
-                  @endforeach
-                  @foreach($permisos as $permiso)
-                    @if ($permiso->id != $egreso->id_institucion)
+                      <option value="{{ $permiso->id }}" selected="">{{ $permiso->nombre }}</option>
+                    @else
                       <option value="{{ $permiso->id }}">{{ $permiso->nombre }}</option>
                     @endif
                   @endforeach
@@ -49,17 +44,15 @@
             <div class="form-group">
               <label for="tipo_comprobante" class="col-sm-3 control-label">Tipo de comprobante</label>
               <div class="col-sm-9">
-                <select class="selectpicker" name="tipo_comprobante" id="tipo_comprobante" disabled>
-                  <option value="{{ $egreso->tipo_comprobante }}">{{ $comprobante }}</option>
-                </select>
+                <p class="form-control-static">{{ $comprobante }}</p>
               </div>
             </div>
-            <div class="form-group" id="form-group-nro-comprobante">
+            <div class="form-group">
               <label for="numero_comprobante" class="col-sm-3 control-label">Número</label>
               <div class="col-sm-9">
-                  <div class="fg-line">
-                    <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off" value="{{ $egreso->numero_comprobante }}">
-                  </div>
+                <div class="fg-line">
+                  <input type="text" class="form-control input-sm" id="numero_comprobante" name="numero_comprobante" placeholder="Número" autocomplete="off" value="{{ $egreso->numero_comprobante }}">
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -75,17 +68,17 @@
             <div class="form-group">
               <label for="razon_social" class="col-sm-3 control-label">Razon Social</label>
               <div class="col-sm-9">
-                  <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="razon_social" name="razon_social" placeholder="Razon Social" autocomplete="off" value="{{ $egreso->razon_social }}">
-                  </div>
+                <div class="fg-line">
+                  <input type="text" class="form-control input-sm" id="razon_social" name="razon_social" placeholder="Razon Social" autocomplete="off" value="{{ $egreso->razon_social }}">
+                </div>
               </div>
             </div>
             <div class="form-group">
               <label for="responsable" class="col-sm-3 control-label">Responsable</label>
               <div class="col-sm-9">
-                  <div class="fg-line">
-                      <input type="text" class="form-control input-sm" id="responsable" name="responsable" placeholder="Responsable" autocomplete="off" value="{{ $egreso->responsable }}">
-                  </div>
+                <div class="fg-line">
+                  <input type="text" class="form-control input-sm" id="responsable" name="responsable" placeholder="Responsable" autocomplete="off" value="{{ $egreso->responsable }}">
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -130,7 +123,9 @@
             </div>
             <div class="form-group">
               <div class="row">
-                <div class="col-sm-offset-9 col-sm-3"><button class="btn accent-color waves-effect btn-block" id="btn-modificar-egreso"><i class="zmdi zmdi-assignment-check"></i> Guardar</button></div>
+                <div class="col-sm-offset-9 col-sm-3">
+                  <button class="btn accent-color waves-effect btn-block" id="btn-modificar-egreso"><i class="zmdi zmdi-assignment-check"></i> Guardar</button>
+                </div>
               </div>
             </div>
           </form>

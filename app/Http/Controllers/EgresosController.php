@@ -185,7 +185,6 @@ class EgresosController extends Controller
         DB::beginTransaction();
         $id_egreso = $request->id_egreso;
         $id_institucion = $request->id_institucion;
-        $tipo_comprobante = $request->tipo_comprobante;
         $numero_comprobante = $request->numero_comprobante;
         $fecha_egreso = $request->fecha_egreso;
         $razon_social = $request->razon_social;

@@ -345,34 +345,32 @@ $('#btn-buscar-egresos').click(function(e) {
 $('#btn-modificar-egreso').click(function(e) {
   e.preventDefault();
   var $id_institucion = $('#id_institucion').val();
-  var $tipo_comprobante = $('#tipo_comprobante').val();
   var $numero_comprobante = $('#numero_comprobante').val();
   var $fecha_egreso = $('#fecha_egreso').val();
   var $razon_social = $('#razon_social').val();
   var $responsable = $('#responsable').val();
-  if ($id_institucion != "" && $tipo_comprobante != "" && $fecha_egreso != "" && $numero_comprobante != "" && $responsable != "") {
+  if ($id_institucion != "" && $fecha_egreso != "" && $numero_comprobante != "" && $responsable != "") {
     debug('Maestro OK. Comprobar detalle.');
-    var $filas_detalle = $('#tabla-resumen-egresos > tbody > tr');
-    if ($filas_detalle.length > 0) {
-      debug('El egreso maestro y detalle están correctos.');
+    var detalle_egreso = [];
+    var esDetalleCorrecto = true
+    $('#tabla-resumen-egresos > tbody > tr').each(function(index, el) {
+      var $detalle_id = $(this).find('.detalle-egreso-id').html();
+      var $descripcion = $(this).find('.egreso-descripcion').val();
+      var $egreso_rubro = $(this).find('.egreso-rubro-id').val();
+      var $monto = $(this).find('.egreso-monto').val();
+      esDetalleCorrecto = $descripcion != null && $descripcion != '' && $monto != null && $monto > 0
+      var detalle = {
+        "nro_detalle_egreso" : $detalle_id,
+        "descripcion" : $descripcion,
+        "id_rubro" : $egreso_rubro,
+        "monto" : $monto,
+      };
+      detalle_egreso.push(detalle);
+    });
+    if (esDetalleCorrecto) {
       var $id_egreso = $('#id_egreso').val();
       var ruta = '/tesorera/egresos/actualizar/' + $id_egreso;
       var $token = $('#_token').val();
-      var detalle_egreso = [];
-      $('#tabla-resumen-egresos > tbody > tr').each(function(index, el) {
-        var $detalle_id = $(this).find('.detalle-egreso-id').html();
-        var $descripcion = $(this).find('.egreso-descripcion').val();
-        var $egreso_rubro = $(this).find('.egreso-rubro-id').val();
-        var $monto = $(this).find('.egreso-monto').val();
-        var detalle = {
-          "nro_detalle_egreso" : $detalle_id,
-          "descripcion" : $descripcion,
-          "id_rubro" : $egreso_rubro,
-          "monto" : $monto,
-        };
-        detalle_egreso.push(detalle);
-      });
-      debug(detalle_egreso, false);
       $.ajax({
         headers : { 'X-CSRF-TOKEN' : $token },
         url: ruta,
@@ -381,7 +379,6 @@ $('#btn-modificar-egreso').click(function(e) {
         data : {
           id_egreso : $id_egreso,
           id_institucion : $id_institucion,
-          tipo_comprobante : $tipo_comprobante,
           numero_comprobante : $numero_comprobante,
           fecha_egreso : $fecha_egreso,
           razon_social : $razon_social,
@@ -417,10 +414,15 @@ $('#btn-modificar-egreso').click(function(e) {
           });
         },
       });
-    } else{
-      debug('Falta ingresar el detalle.');
-      sweet_alert('¡Atención!', 'Debe ingresar por lo menos un egreso', 'warning');
-    };
+    } else {
+      swal({
+        title : 'Error.',
+        text : 'Debe ingresar valores válidos para cada detalle del Egreso.',
+        type : 'error',
+        confirmButtonText : 'Aceptar',
+        confirmButtonClass : 'main-color',
+      })
+    }
   } else{
     debug('Faltan campos en el maestro.');
     sweet_alert('¡Atención!', 'Debe llenar todos los campos generales.', 'warning');
