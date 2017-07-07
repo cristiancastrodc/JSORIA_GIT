@@ -8,6 +8,9 @@ app.controller('modulosController', function ($scope, $http, $filter) {
   // Atributos
   $scope.usuarios = [];
   $scope.modulos = [];
+  $scope.busqueda = {
+    modulo : '',
+  }
   // Métodos que se ejecutan al iniciar el módulo
   // -- Recuperar la lista de usuarios
   $http.get('/admin/usuario/lista/modulosUsuario')
@@ -69,8 +72,16 @@ app.controller('modulosController', function ($scope, $http, $filter) {
         })
     }
   }
-   $scope.inicializar = function () {
+  $scope.inicializar = function () {
     $scope.usuario = null
     $scope.modulos = [];
+    $scope.busqueda = {
+      modulo : '',
+    }
+  }
+  $scope.filtroModulo = function (modulo, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(modulo)
   }
 });

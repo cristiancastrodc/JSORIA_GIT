@@ -26,6 +26,10 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
     errores : null,
     procesando : false,
   }
+  $scope.busqueda = {
+    codigo : '',
+    concepto : '',
+  }
   // Procesos iniciales
   $scope.listarInstituciones = function () {
     $http.get('/usuario/instituciones')
@@ -102,6 +106,10 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
   $scope.inicializarFormBusqueda = function () {
     $scope.form_busqueda.id_institucion = ''
     $scope.cobros = []
+    $scope.busqueda = {
+      codigo : '',
+      concepto : '',
+    }
   }
   $scope.listarCobrosExtraordinarios = function () {
     $scope.form_busqueda.procesando = true
@@ -213,6 +221,16 @@ app.controller('crearCobroExtraordinarioController', function ($scope, $http) {
            && $scope.monto != ''
            && $scope.monto != null
            && $scope.cliente_extr != ''
+  }
+  $scope.filtroConcepto = function (concepto, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(concepto)
+  }
+  $scope.filtroCodigo = function (codigo, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(codigo)
   }
 })
 .directive('tooltip', function() {

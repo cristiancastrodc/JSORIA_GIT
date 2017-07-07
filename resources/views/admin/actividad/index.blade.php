@@ -155,9 +155,14 @@
                   <th class="c-white accent-color">Monto</th>
                   <th class="c-white accent-color">Acciones</th>
                 </tr>
+                <tr class="search-row">
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.actividad"></th>
+                  <th></th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="actividad in actividades">
+                <tr ng-repeat="actividad in actividades | filter : { nombre : busqueda.actividad } : filtroActividad">
                   <td>{@ actividad.nombre @} <br> {@ actividad.institucion @} </td>
                   <td>{@ actividad.monto @}</td>
                   <td>

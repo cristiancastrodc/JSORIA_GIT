@@ -37,6 +37,11 @@ app.controller('usuariosController', function ($scope, $http) {
     permisos : null,
   }
   $scope.procesando = false
+  $scope.busqueda = {
+    nombre : '',
+    apellidos : '',
+    tipo : '',
+  }
   // Funciones
   $scope.guardarUsuario = function () {
     $scope.procesando = true
@@ -102,6 +107,11 @@ app.controller('usuariosController', function ($scope, $http) {
       permisos : '',
     }
     $scope.procesando = false
+    $scope.busqueda = {
+      nombre : '',
+      apellidos : '',
+      tipo : '',
+    }
   }
   $scope.eliminarUsuario = function (id_usuario) {
     swal({
@@ -140,6 +150,21 @@ app.controller('usuariosController', function ($scope, $http) {
            && $scope.usuario.permisos != null
            && $scope.usuario.login != ''
            && $scope.usuario.password != ''
+  }
+  $scope.filtroNombre = function (nombre, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(nombre)
+  }
+  $scope.filtroApellidos = function (apellidos, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(apellidos)
+  }
+  $scope.filtroTipo = function (tipo, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(tipo)
   }
 })
 .directive('chosen', function() {

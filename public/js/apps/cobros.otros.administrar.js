@@ -25,6 +25,9 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
     errores : null,
     procesando : false,
   }
+  $scope.busqueda = {
+    concepto : '',
+  }
   // Procesos iniciales
   $scope.listarInstituciones = function () {
     $http.get('/usuario/instituciones')
@@ -98,6 +101,9 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
       id_institucion : '',
     }
     $scope.cobros = []
+    $scope.busqueda = {
+      concepto : '',
+    }
   }
   $scope.listarOtrosCobros = function () {
     $scope.form_busqueda.procesando = true
@@ -207,6 +213,11 @@ app.controller('crearOtroCobroController', function ($scope, $http) {
            && $scope.nombre != ''
            && $scope.monto != ''
            && $scope.monto != null
+  }
+  $scope.filtroConcepto = function (concepto, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(concepto)
   }
 })
 .directive('tooltip', function() {

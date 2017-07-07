@@ -138,9 +138,15 @@
                   <th class="accent-color c-white">Estado</th>
                   <th class="accent-color c-white">Acciones</th>
                 </tr>
+                <tr class="search-row">
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.concepto"></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="cobro in cobros">
+                <tr ng-repeat="cobro in cobros | filter : { nombre : busqueda.concepto } : filtroConcepto">
                   <td>{@ cobro.nombre @} <br> {@ cobro.institucion @}</td>
                   <td>{@ cobro.monto @}</td>
                   <td>{@ cobro.estado == 0 ? 'Inhabilitado' : 'Habilitado' @}</td>

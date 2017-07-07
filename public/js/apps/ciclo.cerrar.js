@@ -9,6 +9,9 @@ app.controller('cicloController', function ($scope, $http, $filter) {
   $scope.label_detalle = '';
   $scope.detalle = [];
   $scope.cantidad_matriculas = 0;
+  $scope.busqueda = {
+    concepto : '',
+  }
   // Recuperar las instituciones del usuario
   $http.get('/usuario/instituciones')
   .success(function(response) {
@@ -95,5 +98,13 @@ app.controller('cicloController', function ($scope, $http, $filter) {
     $scope.detalle = [];
     $scope.matriculas = [];
     $scope.label_detalle = ''
+    $scope.busqueda = {
+      matricula : '',
+    }
+  }
+  $scope.filtroMatricula = function (matricula, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(matricula)
   }
 });

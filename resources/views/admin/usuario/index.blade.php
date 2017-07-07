@@ -124,9 +124,15 @@
                   <th class="accent-color c-white">Tipo</th>
                   <th class="accent-color c-white">Acciones</th>
                 </tr>
+                <tr class="search-row">
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.nombre"></th>
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.apellidos"></th>
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.tipo"></th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="usuario in usuarios">
+                <tr ng-repeat="usuario in usuarios | filter : { nombres : busqueda.nombre } : filtroNombre | filter : { apellidos : busqueda.apellidos } : filtroApellidos | filter : { tipo : busqueda.tipo } : filtroTipo">
                   <td>{@ usuario.nombres @}</td>
                   <td>{@ usuario.apellidos @}</td>
                   <td>{@ usuario.tipo @}</td>

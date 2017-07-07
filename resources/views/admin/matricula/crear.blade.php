@@ -132,39 +132,50 @@
               <div class="card-hr"></div>
             </div>
               <table class="table table-bordered">
-                <tr class="accent-color">
-                  <td></td>
-                  <td>Nivel / Carrera</td>
-                  <td>Monto Matrícula</td>
-                  <td>Monto Pensiones</td>
-                  <td ng-show="id_institucion == 3 && !definir_fechas"></td>
-                </tr>
-                <tr ng-repeat="detalle in divisiones">
-                  <td>
-                    <div class="checkbox table-checkbox">
-                      <label>
-                        <input type="checkbox" ng-model="detalle.seleccionar">
-                        <i class="input-helper"></i>
-                      </label>
-                    </div>
-                  </td>
-                  <td>{@ detalle.nombre_division @}</td>
-                  <td>
-                    <input type="number" class="form-control table-input text-right" ng-model="detalle.monto_matricula" ng-disabled="!detalle.seleccionar" placeholder="Monto">
-                  </td>
-                  <td class="text-right">
-                    <input type="number" class="form-control table-input text-right" ng-model="detalle.monto_pensiones" ng-disabled="!detalle.seleccionar" placeholder="Monto">
-                  </td>
-                  <td ng-show="institucion.id_institucion == 3 && !definir_fechas">
-                    <div class="checkbox table-checkbox">
-                      <label>
-                        <input type="checkbox" ng-model="detalle.crear_ingresantes" ng-disabled="!detalle.seleccionar">
-                        <i class="input-helper"></i>
-                        Crear conceptos para 1er Semestre.
-                      </label>
-                    </div>
-                  </td>
-                </tr>
+                <thead>
+                  <tr class="accent-color">
+                    <td></td>
+                    <td>Nivel / Carrera</td>
+                    <td>Monto Matrícula</td>
+                    <td>Monto Pensiones</td>
+                    <td ng-show="institucion.id_institucion == 3 && !definir_fechas"></td>
+                  </tr>
+                  <tr class="search-row">
+                    <th></th>
+                    <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.nivel"></th>
+                    <th></th>
+                    <th></th>
+                    <th ng-show="institucion.id_institucion == 3 && !definir_fechas"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="detalle in divisiones | filter : { nombre_division : busqueda.nivel } : filtroNivel">
+                    <td>
+                      <div class="checkbox table-checkbox">
+                        <label>
+                          <input type="checkbox" ng-model="detalle.seleccionar">
+                          <i class="input-helper"></i>
+                        </label>
+                      </div>
+                    </td>
+                    <td>{@ detalle.nombre_division @}</td>
+                    <td>
+                      <input type="number" class="form-control table-input text-right" ng-model="detalle.monto_matricula" ng-disabled="!detalle.seleccionar" placeholder="Monto">
+                    </td>
+                    <td class="text-right">
+                      <input type="number" class="form-control table-input text-right" ng-model="detalle.monto_pensiones" ng-disabled="!detalle.seleccionar" placeholder="Monto">
+                    </td>
+                    <td ng-show="institucion.id_institucion == 3 && !definir_fechas">
+                      <div class="checkbox table-checkbox">
+                        <label>
+                          <input type="checkbox" ng-model="detalle.crear_ingresantes" ng-disabled="!detalle.seleccionar">
+                          <i class="input-helper"></i>
+                          Crear conceptos para 1er Semestre.
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             <div class="card-body card-padding">
               <div class="form-group m-t-15">

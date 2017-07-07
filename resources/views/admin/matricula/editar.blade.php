@@ -95,27 +95,36 @@
               </div>
             </div>
             <table class="table table-bordered">
-              <tr class="accent-color">
-                <td></td>
-                <td>Concepto</td>
-                <td>Monto</td>
-              </tr>
-              <tr ng-repeat="pension in pensiones">
-                <td>
-                  <div class="checkbox table-checkbox">
-                    <label>
-                      <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}">
-                      <i class="input-helper"></i>
-                    </label>
-                  </div>
-                </td>
-                <td>
-                  <input type="text" value="{@ pension.nombre @}" ng-model="pension.nombre" class="form-control table-input" ng-disabled="!pension.seleccionada">
-                </td>
-                <td class="text-right">
-                  <input type="number" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada" step="0.01" string-to-number>
-                </td>
-              </tr>
+              <thead>
+                <tr class="accent-color">
+                  <td></td>
+                  <td>Concepto</td>
+                  <td>Monto</td>
+                </tr>
+                <tr class="search-row">
+                  <th></th>
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.concepto"></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="pension in pensiones | filter : { nombre : busqueda.concepto } : filtroConcepto">
+                  <td>
+                    <div class="checkbox table-checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}">
+                        <i class="input-helper"></i>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="text" value="{@ pension.nombre @}" ng-model="pension.nombre" class="form-control table-input" ng-disabled="!pension.seleccionada">
+                  </td>
+                  <td class="text-right">
+                    <input type="number" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada" step="0.01" string-to-number>
+                  </td>
+                </tr>
+              </tbody>
             </table>
             <div class="card-body card-padding">
               <div class="form-group">

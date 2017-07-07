@@ -17,6 +17,9 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
     'fecha_fin' : null,
     'periodo' : null,
   }
+  $scope.busqueda = {
+    concepto : '',
+  }
   // Métodos que se ejecutan al iniciar el módulo
   // -- Recuperar las instituciones del usuario
   $scope.listarInstituciones = function () {
@@ -38,6 +41,9 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
       'fecha_inicio' : null,
       'fecha_fin' : null,
       'periodo' : null,
+    }
+    $scope.busqueda = {
+      concepto : '',
     }
   }
   $scope.cargarDetalleInstitucion = function () {
@@ -150,6 +156,11 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
            && $scope.matricula.periodo != null
            && $filter('filter')($scope.pensiones, { seleccionada : true, nombre : '' }, true).length <= 0
            && $filter('filter')($scope.pensiones, { seleccionada : true, monto : 'null' }, true).length <= 0
+  }
+  $scope.filtroConcepto = function (concepto, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(concepto)
   }
   // Eventos
   $("#fecha_inicio_matricula").on("dp.change", function() {

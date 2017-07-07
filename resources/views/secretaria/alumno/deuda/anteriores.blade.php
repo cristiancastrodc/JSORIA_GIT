@@ -21,7 +21,7 @@
 
   <div class="row" ng-app="agregarDeudasAlumno">
     <div ng-controller="deudasController">
-      <div class="col-md-10">
+      <div class="col-md-12">
         <div class="card hoverable">
           <div class="card-header main-color ch-alt">
             <h2>Agregar Deudas Anteriores de Alumno</h2>
@@ -92,27 +92,37 @@
               </div>
               <div class="table-responsive">
                 <table class="table table-bordered">
-                  <tr class="accent-color">
-                    <td></td>
-                    <td>Concepto</td>
-                    <td>Período</td>
-                    <td>Deuda</td>
-                  </tr>
-                  <tr ng-repeat="pension in pensiones">
-                    <td>
-                      <div class="checkbox table-checkbox">
-                        <label>
-                          <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}" ng-change="contarCategorias()">
-                          <i class="input-helper"></i>
-                        </label>
-                      </div>
-                    </td>
-                    <td>{@ pension.nombre @}</td>
-                    <td>{@ pension.periodo @}</td>
-                    <td class="text-right">
-                      <input type="number" value="{@ pension.monto @}" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada">
-                    </td>
-                  </tr>
+                  <thead>
+                    <tr class="accent-color">
+                      <td></td>
+                      <td>Concepto</td>
+                      <td>Período</td>
+                      <td>Deuda</td>
+                    </tr>
+                    <tr class="search-row">
+                      <th></th>
+                      <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.concepto"></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="pension in pensiones | filter : { nombre : busqueda.concepto } : filtroConcepto">
+                      <td>
+                        <div class="checkbox table-checkbox">
+                          <label>
+                            <input type="checkbox" ng-model="pension.seleccionada" value="{@ pension.seleccionada @}" ng-change="contarCategorias()">
+                            <i class="input-helper"></i>
+                          </label>
+                        </div>
+                      </td>
+                      <td>{@ pension.nombre @}</td>
+                      <td>{@ pension.periodo @}</td>
+                      <td class="text-right">
+                        <input type="number" value="{@ pension.monto @}" ng-model="pension.monto" class="form-control table-input text-right" ng-disabled="!pension.seleccionada">
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <div class="card-body card-padding">

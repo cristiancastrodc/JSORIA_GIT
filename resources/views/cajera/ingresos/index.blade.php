@@ -64,9 +64,15 @@
                         <td>Concepto</td>
                         <td>Monto</td>
                       </tr>
+                      <tr class="search-row">
+                        <th></th>
+                        <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.concepto"></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="deuda in deudas">
+                      <tr ng-repeat="deuda in deudas | filter : { nombre : busqueda.concepto } : filtroConcepto">
                         <td>
                           <div class="checkbox table-checkbox">
                             <label>
@@ -107,9 +113,16 @@
                                 <td>Monto Unit. (S/)</td>
                                 <td>Total</td>
                               </tr>
+                              <tr class="search-row">
+                                <th></th>
+                                <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.categoria"></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                              </tr>
                             </thead>
                             <tbody>
-                              <tr ng-repeat="concepto in categorias">
+                              <tr ng-repeat="concepto in categorias | filter : { nombre : busqueda.categoria } : filtroCategoria">
                                 <td>
                                   <div class="checkbox table-checkbox">
                                     <label>

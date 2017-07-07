@@ -31,6 +31,9 @@ app.controller('crearCobroOrdinarioController', function ($scope, $http) {
     errores : null,
     procesando : false,
   }
+  $scope.busqueda = {
+    concepto : '',
+  }
   // Procesos iniciales
   $scope.listarInstituciones = function () {
     $http.get('/usuario/instituciones')
@@ -106,6 +109,9 @@ app.controller('crearCobroOrdinarioController', function ($scope, $http) {
       id_institucion : '',
     }
     $scope.cobros = []
+    $scope.busqueda = {
+      concepto : '',
+    }
   }
   $scope.listarCobrosOrdinarios = function () {
     $scope.form_busqueda.procesando = true
@@ -217,6 +223,11 @@ app.controller('crearCobroOrdinarioController', function ($scope, $http) {
            && $scope.cobroOrdinario.nombre != ''
            && $scope.cobroOrdinario.monto != ''
            && $scope.cobroOrdinario.monto != null
+  }
+  $scope.filtroConcepto = function (concepto, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(concepto)
   }
 })
 .directive('tooltip', function() {

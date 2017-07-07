@@ -101,9 +101,16 @@
                   <th class="c-white accent-color">Número</th>
                   <th class="c-white accent-color">Acciones</th>
                 </tr>
+                <tr class="search-row">
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.institucion"></th>
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.tipo"></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="comprobante in comprobantes">
+                <tr ng-repeat="comprobante in comprobantes | filter : { institucion : busqueda.institucion } : filtroInstitucion | filter : { tipo : busqueda.tipo } : filtroTipo">
                   <td>{@ comprobante.institucion @}</td>
                   <td class="text-capitalize">{@ comprobante.tipo @}</td>
                   <td>{@ comprobante.serie @}</td>

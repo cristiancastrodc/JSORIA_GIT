@@ -55,12 +55,19 @@
               </div>
             </div>
               <table class="table table-bordered">
+              <thead>
                 <tr class="accent-color">
                   <td></td>
                   <td>Matrícula</td>
                   <td>Período</td>
                 </tr>
-                <tr ng-repeat="matricula in matriculas">
+                <tr class="search-row">
+                  <th></th>
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.matricula"></th>
+                  <th></th>
+                </tr>
+              </thead>
+                <tr ng-repeat="matricula in matriculas | filter : { nombre : busqueda.matricula } : filtroMatricula">
                   <td>
                     <div class="checkbox table-checkbox">
                       <label>

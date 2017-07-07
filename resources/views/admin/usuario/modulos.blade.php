@@ -21,7 +21,7 @@
   @include('messages.errors')
 
   <div class="row" ng-app="definirModulosUsuario" ng-controller="modulosController">
-    <div class="col-sm-10">
+    <div class="col-sm-12">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2>Definir Módulos de Usuario</h2>
@@ -43,32 +43,40 @@
             <div class="card-hr"></div>
           </div>
             <table class="table table-bordered">
-              <tr class="accent-color">
-                <td>Módulo</td>
-                <td>
-                  <div class="checkbox table-checkbox">
-                    <label>
-                      <input type="checkbox" ng-change="seleccionarTodo()" ng-model="todoSeleccionado">
-                      <i class="input-helper"></i>
-                      Seleccionar Todo
-                    </label>
-                  </div>
-                </td>
-              </tr>
-              <tr ng-repeat="modulo in modulos">
-                <td>{@ modulo.descripcion @}</td>
-                <td>
-                  <div class="checkbox table-checkbox">
-                    <label>
-                      <input type="checkbox" ng-model="modulo.seleccionado">
-                      <i class="input-helper"></i>
-                      Seleccionar
-                    </label>
-                  </div>
-                </td>
-              </tr>
+              <thead>
+                <tr class="accent-color">
+                  <td>Módulo</td>
+                  <td>
+                    <div class="checkbox table-checkbox">
+                      <label>
+                        <input type="checkbox" ng-change="seleccionarTodo()" ng-model="todoSeleccionado">
+                        <i class="input-helper"></i>
+                        Seleccionar Todo
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="search-row">
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.modulo"></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="modulo in modulos | filter : { descripcion : busqueda.modulo } : filtroModulo">
+                  <td>{@ modulo.descripcion @}</td>
+                  <td>
+                    <div class="checkbox table-checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="modulo.seleccionado">
+                        <i class="input-helper"></i>
+                        Seleccionar
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
             </table>
-          <div class="card-body card-padding">          
+          <div class="card-body card-padding">
             <div class="form-group m-t-15">
               <div class="col-md-4 col-md-offset-4">
                   <button class="btn btn-block btn-link waves-effect" type="button" ng-click="inicializar()"><i class="zmdi zmdi-close-circle-o"></i> Cancelar</button>

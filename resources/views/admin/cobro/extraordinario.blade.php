@@ -138,9 +138,16 @@
                   <th class="accent-color c-white">Estado</th>
                   <th class="accent-color c-white">Acciones</th>
                 </tr>
+                <tr class="search-row">
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.codigo"></th>
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.concepto"></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="cobro in cobros">
+                <tr ng-repeat="cobro in cobros | filter : { id : busqueda.codigo } : filtroCodigo| filter : { descripcion_extr : busqueda.concepto } : filtroConcepto">
                   <td>{@ cobro.id @}</td>
                   <td>{@ cobro.descripcion_extr @} <br> {@ cobro.institucion @} </td>
                   <td class="text-right">{@ cobro.saldo | number:2 @}</td>

@@ -42,6 +42,9 @@ app.controller('actividadesController', function ($scope, $http) {
     procesando : true,
     errores : null,
   }
+  $scope.busqueda = {
+    actividad : '',
+  }
   // Funciones
   $scope.cargarDetalle = function () {
     var id = $scope.actividad.institucion.id_institucion
@@ -117,6 +120,9 @@ app.controller('actividadesController', function ($scope, $http) {
       todas_divisiones  : false,
       nombre  : '',
       monto  : '',
+    }
+    $scope.busqueda = {
+      actividad : '',
     }
     $scope.divisiones = []
     $scope.labels = {
@@ -221,5 +227,10 @@ app.controller('actividadesController', function ($scope, $http) {
   $scope.esValidoFormEdicion = function () {
     return $scope.modal.nombre != ''
            && $scope.modal.monto != ''
+  }
+  $scope.filtroActividad = function (actividad, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(actividad)
   }
 })

@@ -26,6 +26,9 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
   $scope.divisiones = [];
   $scope.periodo = '';
   $scope.definir_fechas = false;
+  $scope.busqueda = {
+    nivel : '',
+  }
   // Funciones
   $scope.recuperarDetalle = function () {
     // Recuperar el detalle de la Institucion
@@ -35,7 +38,6 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
     });
   };
   $scope.procesando = false;
-
 
   $scope.crearMatriculaPensiones = function (argument) {
     if ($scope.esValidoFormEdicion() ){
@@ -122,6 +124,14 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
     $scope.pensiones.mes_inicio = '';
     $scope.pensiones.mes_fin = '';
     $scope.divisiones = [];
+    $scope.busqueda = {
+    nivel : '',
+  }
+  }
+  $scope.filtroNivel = function (nivel, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(nivel)
   }
 
   $("#fecha_inicio_matricula").on("dp.change", function() {

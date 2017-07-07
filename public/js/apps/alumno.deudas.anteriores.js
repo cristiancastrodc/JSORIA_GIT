@@ -13,6 +13,9 @@ app.controller('deudasController', function ($scope, $http, $filter) {
   $scope.label_detalle = '';
   $scope.pensiones = [];
   $scope.cantidad_categorias = 0;
+  $scope.busqueda = {
+    concepto : '',
+  }
   // Métodos que se ejecutan al iniciar el módulo
   // -- Recuperar las instituciones del usuario
   $http.get('/usuario/instituciones')
@@ -47,6 +50,9 @@ app.controller('deudasController', function ($scope, $http, $filter) {
     $scope.detalle_institucion = [];
     $scope.matriculas = [];
     $scope.pensiones = [];
+    $scope.busqueda = {
+      concepto : '',
+    }
   }
   $scope.cargarDetalle = function () {
     if ($scope.institucion != null) {
@@ -143,5 +149,10 @@ app.controller('deudasController', function ($scope, $http, $filter) {
   }
   $scope.contarCategorias = function () {
     $scope.cantidad_categorias = $filter('filter')($scope.pensiones, { seleccionada : true }).length;
+  }
+  $scope.filtroConcepto = function (concepto, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(concepto)
   }
 });

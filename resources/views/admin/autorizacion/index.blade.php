@@ -126,9 +126,14 @@
                   <th class="accent-color c-white">Alumno</th>
                   <th class="accent-color c-white">Acciones</th>
                 </tr>
+                <tr class="search-row">
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.rd"></th>
+                  <th><input type="text" class="form-control table-input" placeholder="Buscar..." ng-model="busqueda.nombres"></th>
+                  <th></th>
+                </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="autorizacion in autorizaciones">
+                <tr ng-repeat="autorizacion in autorizaciones | filter : { rd : busqueda.rd } : filtroRd | filter : { nombres : busqueda.nombres } : filtroNombre">
                   <td>{@ autorizacion.rd @}</td>
                   <td>{@ autorizacion.id_alumno @} <br> {@ autorizacion.apellidos @} {@ autorizacion.nombres @}</td>
                   <td><a class='btn third-color m-r-20' ng-click="mostrarDetalle(autorizacion)" ><i class='zmdi zmdi-more'></i></a></td>

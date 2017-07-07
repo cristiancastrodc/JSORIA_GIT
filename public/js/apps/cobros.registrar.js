@@ -32,6 +32,10 @@ app.controller('cobrosController', function ($scope, $http, $filter) {
   $scope.efectivo = '';
   $scope.destino_externo = false;
   $scope.deuda_extraordinaria = [];
+  $scope.busqueda = {
+    concepto : '',
+    categoria : '',
+  }
   // Funciones
   $scope.buscar = function () {
     $scope.buscando = true;
@@ -247,6 +251,10 @@ app.controller('cobrosController', function ($scope, $http, $filter) {
     $scope.cobranzaAlumno = false;
     $scope.finalizando = false;
     $scope.cobro.codigo = '';
+    $scope.busqueda = {
+      concepto : '',
+      categoria : '',
+    }
   }
   $scope.esValidoCobro = function () {
     var nro_deudas = $filter('filter')($scope.deudas, { seleccionada : true }).length
@@ -283,6 +291,16 @@ app.controller('cobrosController', function ($scope, $http, $filter) {
   }
   $scope.regresarAConceptos = function () {
     $scope.finalizando = false
+  }  
+  $scope.filtroConcepto = function (concepto, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(concepto)
+  }
+  $scope.filtroCategoria = function (categoria, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(categoria)
   }
 })
 // Definir el controlador para Otros Cobros

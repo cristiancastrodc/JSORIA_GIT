@@ -27,6 +27,10 @@ app.controller('comprobantesController', function ($scope, $http) {
     serie : '',
     numero : '',
   }
+  $scope.busqueda = {
+    institucion : '',
+    tipo : '',
+  }
   // Métodos que se ejecutan al iniciar el módulo
   // -- Recuperar instituciones del usuario
   $scope.listarInstituciones = function () {
@@ -103,6 +107,10 @@ app.controller('comprobantesController', function ($scope, $http) {
       institucion : null,
     }
     $scope.procesando = false
+    $scope.busqueda = {
+      institucion : '',
+      tipo : '',
+    }
   }
   $scope.editarComprobante = function (comprobante) {
     $scope.modal = {
@@ -191,5 +199,15 @@ app.controller('comprobantesController', function ($scope, $http) {
            && $scope.comprobante.serie != ''
            && $scope.comprobante.numero != ''
            && $scope.comprobante.institucion != null
+  }
+  $scope.filtroInstitucion = function (institucion, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(institucion)
+  }
+  $scope.filtroTipo = function (tipo, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(tipo)
   }
 })
