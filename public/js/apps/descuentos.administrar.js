@@ -27,6 +27,10 @@ app.controller('descuentosController', function ($scope, $http) {
     estado  : '',
     puede_eliminar  : false,
   }
+  $scope.busqueda = {
+    rd : '',
+    nombres : '',
+  }
   // Funciones
   $scope.buscarAlumno = function () {
     if ($scope.nro_documento != '') {
@@ -147,11 +151,29 @@ app.controller('descuentosController', function ($scope, $http) {
     $scope.nro_documento = ''
     $scope.fecha_limite = ''
     $scope.resolucion = ''
+    $scope.busqueda = {
+      rd : '',
+      nombres : '',
+    }
   }
   $scope.cancelar = function () {
     $scope.form_busqueda.nro_documento = ''
     $scope.form_busqueda.fecha_creacion = ''
     $scope.autorizaciones = []
+    $scope.busqueda = {
+      rd : '',
+      nombres : '',
+    }
+  }
+  $scope.filtroRd = function (rd, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(rd)
+  }
+  $scope.filtroNombre = function (nombres, texto) {
+    if (texto === '' || texto === null) return true
+    var regex = new RegExp("\\b" + texto, "i")
+    return regex.test(nombres)
   }
   // Eventos
   $("#fecha_limite").on("dp.change", function() {
