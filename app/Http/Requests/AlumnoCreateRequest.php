@@ -25,7 +25,7 @@ class AlumnoCreateRequest extends Request
     {
         return [
             'tipo_documento' => 'required',
-            'nro_documento' => 'required',
+            //'nro_documento' => 'required',
             'nombres' => 'required',
             'apellidos' => 'required',
             ];

@@ -5,25 +5,26 @@ var app = angular.module('nuevoAlumno', [], function($interpolateProvider) {
                        });
 // Definir el controlador
 app.controller('alumnoNuevoController', function ($scope, $http) {
-	// Atributos
-	$scope.tipo_documento = ''
-	$scope.nro_documento = ''
-	$scope.nombres = ''
-	$scope.apellidos = ''
-	$scope.nro_documento = ''
-	// Funciones
-	$scope.inicializar = function () {
-		$scope.tipo_documento = ''
-		$scope.nro_documento = ''
-		$scope.nombres = ''
-		$scope.apellidos = ''
-		$scope.nro_documento = ''
-	}
-	$scope.esValidoFormCreacion = function () {
-    	return $scope.tipo_documento != ''
-    	&& $scope.nro_documento != ''
-		&& $scope.nombres != ''
-		&& $scope.apellidos != ''
-		&& $scope.nro_documento != ''
-  	}
+  // Atributos
+  $scope.tipo_documento = null
+  $scope.nro_documento_dni = null
+  $scope.nro_documento_otro = null
+  $scope.nombres = null
+  $scope.apellidos = null
+  // Funciones
+  $scope.inicializar = function () {
+    $scope.tipo_documento = null
+    $scope.nro_documento_dni = null
+    $scope.nro_documento_otro = null
+    $scope.nombres = null
+    $scope.apellidos = null
+  }
+  $scope.esValidoFormCreacion = function () {
+    return $scope.tipo_documento != null
+            && ($scope.tipo_documento == 'dni' ?
+                  ($scope.nro_documento_dni != null && !isNaN($scope.nro_documento_dni)) :
+                  $scope.nro_documento_otro != null)
+            && $scope.nombres != null
+            && $scope.apellidos != null
+  }
 })

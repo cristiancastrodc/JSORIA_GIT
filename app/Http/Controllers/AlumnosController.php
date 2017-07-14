@@ -47,21 +47,33 @@ class AlumnosController extends Controller
   public function store(AlumnoCreateRequest $request)
   {
     try {
-      $nro_documento = trim ($request['nro_documento']);
       $tipo_documento = $request['tipo_documento'];
-
-      Alumno::create([
-        'tipo_documento' =>$tipo_documento,
-        'nro_documento' => $nro_documento,
-        'nombres' => $request['nombres'],
-        'apellidos' => $request['apellidos'],
+      $nro_documento = $tipo_documento == 'dni' ? trim($request['nro_documento_dni']) : trim($request['nro_documento_otro']);
+      if (!Alumno::find($nro_documento)) {
+        Alumno::create([
+          'tipo_documento' =>$tipo_documento,
+          'nro_documento' => $nro_documento,
+          'nombres' => $request['nombres'],
+          'apellidos' => $request['apellidos'],
         ]);
-
-      Session::flash('message', 'Alumno creado exitosamente. Ahora, si desea puede crear su cuenta.');
-      return redirect('/secretaria/alumno/matricular')->with('nro_documento', $nro_documento);
-    } catch (\Illuminate\Database\QueryException $e) {
-      Session::flash('message', 'El número de documento ingresado ya existe.');
-      return redirect('/secretaria/alumnos/create');
+        $matricular = filter_var($request['matricular'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+        if ($matricular) {
+          Session::flash('message', 'Alumno creado exitosamente. Puede crear su cuenta.');
+          return redirect('/secretaria/alumno/matricular')->with('nro_documento', $nro_documento);
+        } else {
+          Session::flash('message', 'Alumno registrado correctamente.');
+          Session::flash('message-class', 'success');
+          return redirect()->back();
+        }
+      } else {
+        Session::flash('message', 'El número de documento ingresado ya existe.');
+        Session::flash('message-class', 'danger');
+        return redirect()->back();
+      }
+    } catch (\Exception $e) {
+      Session::flash('message', $e->getMessage());
+      Session::flash('message-class', 'danger');
+      return redirect()->back();
     }
   }
   /**
