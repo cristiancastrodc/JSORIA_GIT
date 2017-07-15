@@ -126,7 +126,7 @@
                   <div class="fg-line">
                     <div class="select">
                       <select class="form-control" id="form_busqueda_division" ng-options="division.id as division.nombre_division for division in form_busqueda.divisiones" ng-model="form_busqueda.division">
-                        <option value="">-- Seleccione {@ labels.form_busqueda_division @} --</option>
+                        <option value="" disabled="">-- Seleccione {@ labels.form_busqueda_division @} --</option>
                       </select>
                     </div>
                   </div>

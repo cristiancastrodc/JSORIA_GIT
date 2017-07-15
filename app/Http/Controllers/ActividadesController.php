@@ -119,9 +119,7 @@ class ActividadesController extends Controller
     * Listar actividades
     */
     public function listaActividades(Request $request) {
-      $id_institucion = $request->input('id_institucion');
-      $id_division = $request->input('id_division');
-      return Categoria::listarActividades($id_institucion, $id_division);
+      return Categoria::listarActividades($request->input('id_institucion'), $request->input('id_division'));
     }
 
     /**

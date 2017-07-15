@@ -227,7 +227,7 @@ class Categoria extends Model
                   ->select('categoria.id', 'categoria.nombre', 'monto', DB::raw("CONCAT(jsoria_institucion.nombre, ' - ', jsoria_detalle_institucion.nombre_division) as institucion"))
                   ->where('tipo', 'actividad')
                   ->where('estado', '1')
-                  ->orderBy('id');
+                  ->orderBy('id', 'DESC');
     if ($id_division != '') {
       $q->where('id_detalle_institucion', $id_division);
     } else if ($id_institucion != '') {

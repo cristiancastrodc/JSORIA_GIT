@@ -171,9 +171,9 @@ app.controller('actividadesController', function ($scope, $http) {
     var id_division = $scope.form_busqueda.division
     var ruta = '/admin/actividad/listar'
     $http.post(ruta, { id_institucion: id_institucion, id_division : id_division})
-    .success(function(response) {
+    .then(function(response) {
       $scope.form_busqueda.procesando = false
-      $scope.actividades = response
+      $scope.actividades = response.data
     })
   }
   $scope.editarActividad = function (actividad) {
