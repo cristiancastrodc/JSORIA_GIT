@@ -1,8 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title')
-  Editar Matrícula
-@endsection
+@section('title', 'Editar Matrícula')
 
 @section('content')
   @if(Session::has('message'))
@@ -89,6 +87,18 @@
                   <div class="col-sm-9">
                     <div class="fg-line">
                       <input type="text" id="periodo" name="periodo" class="form-control" placeholder="Ingrese el período. Ejemplo: 2016 - I." ng-model="matricula.periodo">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="estado" class="control-label col-sm-3">Habilitar:</label>
+                  <div class="col-sm-9">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" id="estado" name="estado" ng-model="matricula.estado">
+                        <i class="input-helper"></i>
+                        Marque esta opción si desea habilitar la matrícula.
+                      </label>
                     </div>
                   </div>
                 </div>

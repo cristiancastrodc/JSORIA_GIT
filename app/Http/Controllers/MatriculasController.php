@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use JSoria\Categoria;
 use JSoria\CategoriaTemp;
 use JSoria\Deuda_Ingreso;
+use JSoria\Http\Controllers\Controller;
+use JSoria\Http\Controllers\HerramientasController;
 use JSoria\Http\Requests;
 use JSoria\Http\Requests\MatriculaCreateRequest;
 use JSoria\Http\Requests\MatriculaUpdateRequest;
-use JSoria\Http\Controllers\Controller;
 
 class MatriculasController extends Controller
 {
@@ -374,7 +375,7 @@ class MatriculasController extends Controller
   {
     try {
       $matricula = $request->input('matricula');
-      $categorias = $request->input('pensiones');
+      $categorias = HerramientasController::iteradorValido($request->input('pensiones'));
       DB::beginTransaction();
       // Actualizar la matrícula
       Categoria::where('id', $matricula['id'])
@@ -382,6 +383,7 @@ class MatriculasController extends Controller
                   'fecha_inicio' => $matricula['fecha_inicio'],
                   'fecha_fin' => $matricula['fecha_fin'],
                   'periodo' => $matricula['periodo'],
+                  'estado' => $matricula['estado'],
                 ]);
       // Actualizar las categorías y sus deudas asociadas
       foreach ($categorias as $categoria) {

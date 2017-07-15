@@ -14,6 +14,15 @@ class Categoria extends Model
 
   protected $fillable = ['nombre', 'monto', 'tipo', 'estado', 'fecha_inicio', 'fecha_fin', 'destino', 'id_detalle_institucion', 'id_matricula', 'periodo', 'batch'];
 
+  /**
+   * The attributes that should be casted to native types.
+   *
+   * @var array
+   */
+  protected $casts = [
+    'estado' => 'boolean',
+  ];
+
   /*** Custom ***/
   public $timestamps = false;
 

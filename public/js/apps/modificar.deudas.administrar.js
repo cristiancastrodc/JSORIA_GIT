@@ -54,6 +54,7 @@ app.controller('modificarDeudaController', function ($scope, $http, $filter) {
     $scope.alumno = null
     $scope.deudas = null
     $scope.busqueda = null
+    $scope.finalizando = false
   }
   $scope.esValidoFormEdicion = function () {
     return $scope.resolucion != ''
@@ -92,9 +93,10 @@ app.controller('modificarDeudaController', function ($scope, $http, $filter) {
           type : 'success',
           confirmButtonText: 'Aceptar',
           confirmButtonClass : 'main-color',
-          closeOnConfirm : false,
         }, function () {
-          document.location.reload()
+          $scope.$apply(function () {
+            $scope.inicializar()
+          })
         });
       } else {
         swal({

@@ -16,6 +16,7 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
     'fecha_inicio' : null,
     'fecha_fin' : null,
     'periodo' : null,
+    'estado' : false,
   }
   $scope.busqueda = {
     concepto : '',
@@ -41,10 +42,12 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
       'fecha_inicio' : null,
       'fecha_fin' : null,
       'periodo' : null,
+      'estado' : false,
     }
     $scope.busqueda = {
       concepto : '',
     }
+    $scope.procesando = false
   }
   $scope.cargarDetalleInstitucion = function () {
     if ($scope.id_institucion != null && $scope.id_institucion != '') {
@@ -120,9 +123,10 @@ app.controller('matriculaController', function ($scope, $http, $filter) {
             title : "Datos de matrícula y pensiones actualizados correctamente.",
             type : "success",
             confirmButtonText: "Aceptar",
-            closeOnConfirm: false,
           }, function () {
-            document.location.reload();
+            $scope.$apply(function () {
+              $scope.cancelar()
+            })
           });
         } else {
           swal({

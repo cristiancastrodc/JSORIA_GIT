@@ -531,4 +531,12 @@ class HerramientasController extends Controller
       return "Couldn't print to this printer: " . $e -> getMessage() . "\n";
     }
   }
+
+  /*
+   * Método para devolver un array vacío en caso el parámetro sea null o no iterable.
+   */
+  public static function iteradorValido($obj)
+  {
+    return $obj === null ? array() : $obj;
+  }
 }
