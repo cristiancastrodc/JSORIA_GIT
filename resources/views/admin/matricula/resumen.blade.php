@@ -1,14 +1,12 @@
 @extends('layouts.dashboard')
 
-@section('title')
-  Resumen de Creación de Matrícula
-@endsection
+@section('title', 'Resumen de Creación de Matrícula')
 
 @section('content')
 
   @if(Session::has('message'))
   <div class="row">
-    <div class="col-sm-10">
+    <div class="col-sm-12">
       <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -22,7 +20,7 @@
   @include('messages.errors')
 
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
       <div class="card hoverable">
         <div class="card-header main-color ch-alt">
           <h2>Resumen de Creación de Matrícula</h2>
@@ -48,9 +46,9 @@
                 <tr>
                   <td>{{ $categoria->nombre_division }}</td>
                   <td>{{ $categoria->nombre }}</td>
-                  <td>{{ $categoria->monto }}</td>
-                  <td>{{ $categoria->fecha_inicio }}</td>
-                  <td>{{ $categoria->fecha_fin }}</td>
+                  <td class="text-right">{{ $categoria->monto }}</td>
+                  <td class="text-right">{{ $categoria->fecha_inicio }}</td>
+                  <td class="text-right">{{ $categoria->fecha_fin }}</td>
                 </tr>
               @endforeach
             </tbody>

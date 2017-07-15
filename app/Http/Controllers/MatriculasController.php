@@ -145,6 +145,7 @@ class MatriculasController extends Controller
         $mes_fin = $tokens[0];
         $anio_fin = $tokens[1];
         $fin = intval($anio_fin) * 100 + intval($mes_fin);
+        $fecha_hoy = date('Y-m-d');
         // Crear matrícula y pensiones
         $cuenta = 0;
         foreach ($divisiones as $division) {
@@ -152,10 +153,10 @@ class MatriculasController extends Controller
             $inicio = intval($anio_inicio) * 100 + intval($mes_inicio);
             // Crear la matrícula
             $id_matricula = Categoria::create([
-                                'nombre' => $matricula_concepto,
+                                'nombre' => strtoupper($matricula_concepto),
                                 'monto' => $division['monto_matricula'],
                                 'tipo' => 'matricula',
-                                'estado' => '1',
+                                'estado' => $matricula_fecha_fin >= $fecha_hoy,
                                 'fecha_inicio' => $matricula_fecha_inicio,
                                 'fecha_fin' => $matricula_fecha_fin,
                                 'destino' => '0',
@@ -172,7 +173,7 @@ class MatriculasController extends Controller
               $cat_fecha_inicio = $anio . '-' . $mes . '-01';
               $cat_fecha_fin = date('Y-m-t', strtotime($cat_fecha_inicio));
               Categoria::create([
-                  'nombre' => $cat_concepto,
+                  'nombre' => strtoupper($cat_concepto),
                   'monto' => $division['monto_pensiones'],
                   'tipo' => 'pension',
                   'estado' => '1',
